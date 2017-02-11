@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.15.2",
+    "babel-preset-react": "^6.22.0",
     "history": "^4.5.1",
     "laravel-mix": "^0.6.0",
     "lodash": "^4.16.2",

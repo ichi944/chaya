@@ -76,7 +76,10 @@ module.exports.module = {
         {
             test: /\.jsx?$/,
             exclude: /(node_modules|bower_components)/,
-            loader: 'babel-loader' + Mix.babelConfig()
+            loader: 'babel-loader' + Mix.babelConfig(),
+            query: {
+              presets: ['react', 'es2015']
+            }
         }
     ]
 };
