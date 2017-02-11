@@ -6,20 +6,17 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 class Login extends Component {
   render() {
-    // const {
-    //   email,
-    //   password,
-    //   authErrorMessage,
-    // } = this.props.login;
-    // const {
-    //   handleChange,
-    //   handleAuthenticate,
-    // } = this.props;
-    const email = 'test';
-    const password = 'test';
-    const authErrorMessage = 'test';
-    const handleChange = () => 'test';
-    const handleAuthenticate = () => 'test';
+    console.log('render start at Login component');
+    console.log(this.props);
+    const {
+      email,
+      password,
+      authErrorMessage,
+    } = this.props;
+    const {
+      handleChange,
+      handleAuthenticate,
+    } = this.props;
 
     return (
       <div>

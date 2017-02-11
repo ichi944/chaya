@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+import rootReducer from './rootReducer';
 import Header from './application/Header';
-import Login from './auth/Login';
+import LoginContainer from './auth/LoginContainer';
 
 injectTapEventPlugin();
+
+const store = createStore(rootReducer);
 
 class NotFound extends Component {
   render() {
@@ -23,15 +28,19 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div>
-          <Header />
-          <BrowserRouter>
-            <Switch>
-              <Route path="/app/login" component={Login} />
-              <Route component={NotFound} />
-            </Switch>
-          </BrowserRouter>
-        </div>
+        <Provider
+          store={store}
+        >
+          <div>
+            <Header />
+            <BrowserRouter>
+              <Switch>
+                <Route path="/app/login" component={LoginContainer} />
+                <Route component={NotFound} />
+              </Switch>
+            </BrowserRouter>
+          </div>
+        </Provider>
       </MuiThemeProvider>
     );
   }
