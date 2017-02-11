@@ -74,48 +74,9 @@ module.exports.output = Mix.output();
 module.exports.module = {
     rules: [
         {
-            test: /\.vue$/,
-            loader: 'vue-loader',
-            options: {
-                loaders: {
-                    js: 'babel-loader' + Mix.babelConfig(),
-                    scss: 'vue-style-loader!css-loader!sass-loader',
-                    sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-                },
-
-                postcss: [
-                    require('autoprefixer')
-                ]
-            }
-        },
-
-        {
             test: /\.jsx?$/,
             exclude: /(node_modules|bower_components)/,
             loader: 'babel-loader' + Mix.babelConfig()
-        },
-
-        {
-            test: /\.css$/,
-            loaders: ['style-loader', 'css-loader']
-        },
-
-        {
-            test: /\.(png|jpg|gif)$/,
-            loader: 'file-loader',
-            options: {
-                name: 'images/[name].[ext]?[hash]',
-                publicPath: '/'
-            }
-        },
-
-        {
-            test: /\.(woff2?|ttf|eot|svg|otf)$/,
-            loader: 'file-loader',
-            options: {
-                name: 'fonts/[name].[ext]?[hash]',
-                publicPath: '/'
-            }
         }
     ]
 };
@@ -159,28 +120,6 @@ if (Mix.preprocessors) {
         module.exports.plugins = (module.exports.plugins || []).concat(extractPlugin);
     });
 }
-
-
-
-/*
- |--------------------------------------------------------------------------
- | Resolve
- |--------------------------------------------------------------------------
- |
- | Here, we may set any options/aliases that affect Webpack's resolving
- | of modules. To begin, we will provide the necessary Vue alias to
- | load the Vue common library. You may delete this, if needed.
- |
- */
-
-module.exports.resolve = {
-    extensions: ['*', '.js', '.jsx', '.vue'],
-
-    alias: {
-        'vue$': 'vue/dist/vue.common.js'
-    }
-};
-
 
 
 /*
