@@ -14,3 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/app/{param1?}/{param2?}/{param3?}', 'AppController@root');
+
+Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
+    Route::group(['prefix' => 'v1.0.0'], function () {
+        Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function () {
+            Route::post('login', 'LoginController@authenticate');
+            Route::get('hello', 'LoginController@hello');
+        });
+        Route::resource('articles', 'ArticleController');
+        Route::get('profiles/me', 'UserController@profile');
+    });
+});
