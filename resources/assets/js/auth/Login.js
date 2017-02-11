@@ -44,7 +44,7 @@ class Login extends Component {
               <RaisedButton
                 primary
                 label="Login"
-                onClick={handleAuthenticate}
+                onClick={() => handleAuthenticate(email, password)}
               />
             </div>
             <div className="login-error_message">
