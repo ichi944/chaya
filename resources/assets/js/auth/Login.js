@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
@@ -12,12 +13,18 @@ class Login extends Component {
       email,
       password,
       authErrorMessage,
+      isAuthenticated,
     } = this.props;
     const {
       handleChange,
       handleAuthenticate,
     } = this.props;
 
+    if (isAuthenticated) {
+      return (
+        <Redirect to="/app/home" />
+      );
+    }
     return (
       <div>
         <Paper className="login-form" zDepth={1}>

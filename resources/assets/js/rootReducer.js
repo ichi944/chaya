@@ -1,9 +1,11 @@
 const LOGIN_START = 'LOGIN_START';
 const LOGIN_CHANGE = 'LOGIN_CHANGE';
+const AUTHENTICATED = 'AUTHENTICATED';
 
 const initialState = {
   email: 'initial',
   password: '',
+  isAuthenticated: false,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -14,10 +16,15 @@ export default function rootReducer(state = initialState, action) {
     }
     case LOGIN_START: {
       console.log('LOGIN_START', state.email, state.password);
-      return {
+      const updates = {
         email: 'checking',
         password: 'checking',
       };
+      return Object.assign({}, state, updates);
+    }
+    case AUTHENTICATED: {
+      console.log('in reduser authenticated');
+      return Object.assign({}, state, { isAuthenticated: true });
     }
     default: {
       return state;

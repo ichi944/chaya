@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
   return {
     email: state.email,
     password: state.password,
+    isAuthenticated: state.isAuthenticated,
   };
 };
 
@@ -41,6 +42,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       .then((res) => {
         console.log(res.data);
         if (_.has(res.data, 'error')) {
+          console.log('error');
           dispatch({
             type: 'AUTHENTICATE_FAILED',
             authErrorMessage: res.data.error,
@@ -48,6 +50,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           return;
         } // endif: when error
         if (_.has(res.data, 'token')) {
+          console.log('authenticated');
+
           dispatch({
             type: 'AUTHENTICATED',
             token: res.data.token,
