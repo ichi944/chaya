@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -11,12 +12,12 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import PrivateRoute from './util_components/PrivateRoute';
 
 import rootReducer from './rootReducer';
-import Header from './application/Header';
+import HeaderContainer from './application/HeaderContainer';
 import LoginContainer from './auth/LoginContainer';
 
 injectTapEventPlugin();
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 class Home extends Component {
   render() {
@@ -42,7 +43,7 @@ class App extends Component {
           store={store}
         >
           <div>
-            <Header />
+            <HeaderContainer />
             <BrowserRouter>
               <div>
                 <Link to="/app/home">home</Link>

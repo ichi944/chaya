@@ -12,7 +12,8 @@ class Login extends Component {
     const {
       email,
       password,
-      authErrorMessage,
+      showErrorMessage,
+      errorMessage,
       isAuthenticated,
     } = this.props;
     const {
@@ -55,7 +56,12 @@ class Login extends Component {
               />
             </div>
             <div className="login-error_message">
-              <p>{authErrorMessage}</p>
+              { showErrorMessage ? (
+                <p>{errorMessage}</p>
+                ) : (
+                  <p>-</p>
+                )
+              }
             </div>
           </div>
         </Paper>

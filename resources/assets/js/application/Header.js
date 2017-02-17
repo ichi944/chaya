@@ -6,12 +6,20 @@ import {
 
 class Header extends Component {
   render() {
-    const logoutEl = <FlatButton label="logout" />;
+    const {
+      isAuthenticated,
+      handleSignOut,
+    } = this.props;
+    console.log('in Header');
+    console.log(this.props);
+
+    const logoutEl = isAuthenticated ? <FlatButton label="logout" /> : null;
     return (
       <div>
         <AppBar
           title="hello laravel"
           iconElementRight={logoutEl}
+          onTouchTap={handleSignOut}
         />
       </div>
     );

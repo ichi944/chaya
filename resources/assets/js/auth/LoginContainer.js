@@ -5,12 +5,14 @@ import _ from 'lodash';
 import Api from '../utils/Api';
 import Login from './Login';
 
-const mapStateToProps = (state) => {
-  console.log('on mapStateToProps', state);
+const mapStateToProps = ({ login, auth }) => {
+  console.log('on mapStateToProps', login, auth);
   return {
-    email: state.email,
-    password: state.password,
-    isAuthenticated: state.isAuthenticated,
+    email: login.email,
+    password: login.password,
+    showErrorMessage: login.showErrorMessage,
+    errorMessage: login.errorMessage,
+    isAuthenticated: auth.isAuthenticated,
   };
 };
 
@@ -27,7 +29,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         value,
       });
     },
-    handleAuthenticate: (email, password) => {
+    handleAuthenticate(email, password) {
       console.log('on handleAuthenticate');
       console.log(email, password);
 
@@ -45,13 +47,18 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           console.log('error');
           dispatch({
             type: 'AUTHENTICATE_FAILED',
-            authErrorMessage: res.data.error,
+          });
+          dispatch({
+            type: 'LOGIN_FAILED',
+            errorMessage: res.data.error,
           });
           return;
         } // endif: when error
         if (_.has(res.data, 'token')) {
           console.log('authenticated');
-
+          dispatch({
+            type: 'LOGIN_SUCCESS',
+          });
           dispatch({
             type: 'AUTHENTICATED',
             token: res.data.token,
