@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 
 import _ from 'lodash';
 
+import * as types from './actionTypes';
+
 import Api from '../utils/Api';
 import Login from './Login';
 
@@ -24,7 +26,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const name = e.target.name;
       const value = e.target.value;
       dispatch({
-        type: 'LOGIN_CHANGE',
+        type: types.LOGIN_CHANGE,
         name,
         value,
       });
@@ -34,7 +36,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       console.log(email, password);
 
       dispatch({
-        type: 'LOGIN_START',
+        type: types.LOGIN_START,
       });
 
       Api.client.post('/auth/login', {
@@ -46,10 +48,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         if (_.has(res.data, 'error')) {
           console.log('error');
           dispatch({
-            type: 'AUTHENTICATE_FAILED',
+            type: types.AUTHENTICATE_FAILED,
           });
           dispatch({
-            type: 'LOGIN_FAILED',
+            type: types.LOGIN_FAILED,
             errorMessage: res.data.error,
           });
           return;
@@ -58,10 +60,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           console.log('authenticated');
           localStorage.setItem('authToken', res.data.token);
           dispatch({
-            type: 'LOGIN_SUCCESS',
+            type: types.LOGIN_SUCCESS,
           });
           dispatch({
-            type: 'AUTHENTICATED',
+            type: types.AUTHENTICATED,
           });
         }
       });
@@ -69,7 +71,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     handleCheckAuthStatus() {
       console.log('start check auth status');
       dispatch({
-        type: 'START_CHECK_AUTH_STATUS',
+        type: types.START_CHECK_AUTH_STATUS,
       });
       const token = localStorage.getItem('authToken');
       if (token) {
@@ -81,21 +83,21 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             if (_.has(res.data, 'user')) {
               console.log('already authenticated');
               dispatch({
-                type: 'AUTHENTICATED',
+                type: types.AUTHENTICATED,
               });
             } else {
               console.log('not authenticated');
               dispatch({
-                type: 'FAILED_AHTENTICATION',
+                type: types.FAILED_AHTENTICATION,
               });
               dispatch({
-                type: 'END_CHECK_AUTH_STATUS',
+                type: types.END_CHECK_AUTH_STATUS,
               });
             }
           });
       } else {
         dispatch({
-          type: 'END_CHECK_AUTH_STATUS',
+          type: types.END_CHECK_AUTH_STATUS,
         });
       }
     },
