@@ -66,6 +66,39 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         }
       });
     },
+    handleCheckAuthStatus() {
+      console.log('start check auth status');
+      dispatch({
+        type: 'START_CHECK_AUTH_STATUS',
+      });
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        console.log('token exists: ', token);
+        Api.setAuthorizationToken(token);
+        Api.client.get('/auth/hello')
+          .then((res) => {
+            console.log('response of hello: ', res.data);
+            if (_.has(res.data, 'user')) {
+              console.log('already authenticated');
+              dispatch({
+                type: 'AUTHENTICATED',
+              });
+            } else {
+              console.log('not authenticated');
+              dispatch({
+                type: 'FAILED_AHTENTICATION',
+              });
+              dispatch({
+                type: 'END_CHECK_AUTH_STATUS',
+              });
+            }
+          });
+      } else {
+        dispatch({
+          type: 'END_CHECK_AUTH_STATUS',
+        });
+      }
+    },
   };
 };
 

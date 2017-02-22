@@ -16,6 +16,7 @@ const mapStateToProps = ({ auth }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     handleSignOut() {
+      localStorage.removeItem('authToken');
       dispatch({
         type: 'SIGN_OUT',
       });
