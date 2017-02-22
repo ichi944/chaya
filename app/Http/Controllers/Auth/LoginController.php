@@ -62,4 +62,8 @@ class LoginController extends Controller
         return response()->json(compact('token'));
     }
 
+    public function hello(Request $request) {
+        $user = JWTAuth::parseToken()->authenticate();
+        return response()->json(compact('user'));
+    }
 }
