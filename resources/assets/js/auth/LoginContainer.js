@@ -56,12 +56,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         } // endif: when error
         if (_.has(res.data, 'token')) {
           console.log('authenticated');
+          localStorage.setItem('authToken', res.data.token);
           dispatch({
             type: 'LOGIN_SUCCESS',
           });
           dispatch({
             type: 'AUTHENTICATED',
-            token: res.data.token,
           });
         }
       });
