@@ -1,0 +1,9 @@
+export const AUTHENTICATED = 'auth/AUTHENTICATED';
+export const SIGN_OUT = 'auth/SIGN_OUT';
+export const START_CHECK_AUTH_STATUS = 'auth/START_CHECK_AUTH_STATUS';
+export const END_CHECK_AUTH_STATUS = 'auth/END_CHECK_AUTH_STATUS';
+export const FAILED_AHTENTICATION = 'auth/FAILED_AHTENTICATION';
+export const LOGIN_START = 'auth/LOGIN_START';
+export const LOGIN_CHANGE = 'auth/LOGIN_CHANGE';
+export const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
+export const LOGIN_FAILED = 'auth/LOGIN_FAILED';

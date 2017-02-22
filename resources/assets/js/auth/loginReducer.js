@@ -1,7 +1,4 @@
-const LOGIN_START = 'LOGIN_START';
-const LOGIN_CHANGE = 'LOGIN_CHANGE';
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-const LOGIN_FAILED = 'LOGIN_FAILED';
+import * as types from './actionTypes';
 
 const initialState = {
   email: '',
@@ -12,7 +9,7 @@ const initialState = {
 
 export default function loginReducer(state = initialState, action) {
   switch (action.type) {
-    case LOGIN_CHANGE: {
+    case types.LOGIN_CHANGE: {
       console.log('LOGIN_CHANGE', action);
       return {
         ...state,
@@ -21,7 +18,7 @@ export default function loginReducer(state = initialState, action) {
         errorMessage: '',
       };
     }
-    case LOGIN_START: {
+    case types.LOGIN_START: {
       console.log('LOGIN_START', state.email, state.password);
       return {
         ...state,
@@ -29,7 +26,7 @@ export default function loginReducer(state = initialState, action) {
         password: 'checking',
       };
     }
-    case LOGIN_SUCCESS: {
+    case types.LOGIN_SUCCESS: {
       return {
         ...state,
         email: '',
@@ -38,7 +35,7 @@ export default function loginReducer(state = initialState, action) {
         errorMessage: '',
       };
     }
-    case LOGIN_FAILED: {
+    case types.LOGIN_FAILED: {
       return {
         ...state,
         password: '',
