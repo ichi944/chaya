@@ -1,11 +1,18 @@
 import * as types from './actionTypes';
 
 const initialState = {
+  isDoneCheckingStatusAtInitialize: false,
   isAuthenticated: false,
 };
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
+    case types.END_INITIAL_CHECK_STATUS: {
+      return {
+        ...state,
+        isDoneCheckingStatusAtInitialize: true,
+      };
+    }
     case types.AUTHENTICATED: {
       console.log('in reduser authenticated');
       return {

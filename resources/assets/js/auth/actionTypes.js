@@ -1,3 +1,4 @@
+export const END_INITIAL_CHECK_STATUS = 'auth/END_INITIAL_CHECK_STATUS';
 export const AUTHENTICATED = 'auth/AUTHENTICATED';
 export const SIGN_OUT = 'auth/SIGN_OUT';
 export const START_CHECK_AUTH_STATUS = 'auth/START_CHECK_AUTH_STATUS';
