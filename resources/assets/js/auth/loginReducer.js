@@ -19,12 +19,8 @@ export default function loginReducer(state = initialState, action) {
       };
     }
     case types.LOGIN_START: {
-      console.log('LOGIN_START', state.email, state.password);
-      return {
-        ...state,
-        email: 'checking',
-        password: 'checking',
-      };
+      console.log('try to login: ', state.email);
+      return state;
     }
     case types.LOGIN_SUCCESS: {
       return {

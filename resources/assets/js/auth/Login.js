@@ -7,8 +7,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 class Login extends Component {
   render() {
-    console.log('render start at Login component');
-    console.log(this.props);
     const {
       email,
       password,
@@ -59,7 +57,7 @@ class Login extends Component {
               { showErrorMessage ? (
                 <p>{errorMessage}</p>
                 ) : (
-                  <p>-</p>
+                  <p>&nbsp;</p>
                 )
               }
             </div>
