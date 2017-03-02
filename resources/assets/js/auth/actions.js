@@ -54,3 +54,47 @@ export function handleCheckAuthStatus() {
     }
   };
 }
+
+export function authenticate(email, password) {
+  return function (dispatch) {
+    console.log('on handleAuthenticate');
+    console.log(email, password);
+
+    dispatch({
+      type: types.LOGIN_START,
+    });
+
+    Api.client.post('/auth/login', {
+      email,
+      password,
+    })
+    .then((res) => {
+      console.log(res.data);
+      if (_.has(res.data, 'error')) {
+        console.log('error');
+        dispatch({
+          type: types.FAILED_AUTHENTICATION,
+        });
+        dispatch({
+          type: types.LOGIN_FAILED,
+          errorMessage: res.data.error,
+        });
+        return;
+      } // endif: when error
+      if (_.has(res.data, 'token')) {
+        console.log('authenticated');
+        localStorage.setItem('authToken', res.data.token);
+        dispatch({
+          type: types.LOGIN_SUCCESS,
+        });
+        dispatch({
+          type: types.AUTHENTICATED,
+        });
+        dispatch({
+          type: applicationTypes.LORDED_PROFILE,
+          profile: res.data,
+        });
+      }
+    });
+  };
+}

@@ -17,6 +17,7 @@ class Login extends Component {
     const {
       handleChange,
       handleAuthenticate,
+      handlePressEnter,
     } = this.props;
 
     if (isAuthenticated) {
@@ -35,6 +36,7 @@ class Login extends Component {
               name="email"
               value={email}
               onChange={handleChange}
+              onKeyPress={e => handlePressEnter(e, email, password)}
             />
             <br />
             <TextField
@@ -44,6 +46,7 @@ class Login extends Component {
               name="password"
               value={password}
               onChange={handleChange}
+              onKeyPress={e => handlePressEnter(e, email, password)}
             />
             <br />
             <div className="login-buttons">

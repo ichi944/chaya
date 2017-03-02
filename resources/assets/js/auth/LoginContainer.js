@@ -1,11 +1,8 @@
 import { connect } from 'react-redux';
 
-import _ from 'lodash';
-
 import * as types from './actionTypes';
-import * as profileTypes from '../application/actionTypes';
+import { authenticate } from './actions';
 
-import Api from '../utils/Api';
 import Login from './Login';
 
 const mapStateToProps = ({ login, auth }) => {
@@ -33,45 +30,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       });
     },
     handleAuthenticate(email, password) {
-      console.log('on handleAuthenticate');
-      console.log(email, password);
-
-      dispatch({
-        type: types.LOGIN_START,
-      });
-
-      Api.client.post('/auth/login', {
-        email,
-        password,
-      })
-      .then((res) => {
-        console.log(res.data);
-        if (_.has(res.data, 'error')) {
-          console.log('error');
-          dispatch({
-            type: types.FAILED_AHTENTICATION ,
-          });
-          dispatch({
-            type: types.LOGIN_FAILED,
-            errorMessage: res.data.error,
-          });
-          return;
-        } // endif: when error
-        if (_.has(res.data, 'token')) {
-          console.log('authenticated');
-          localStorage.setItem('authToken', res.data.token);
-          dispatch({
-            type: types.LOGIN_SUCCESS,
-          });
-          dispatch({
-            type: types.AUTHENTICATED,
-          });
-          dispatch({
-            type: profileTypes.LORDED_PROFILE,
-            profile: res.data,
-          });
-        }
-      });
+      dispatch(authenticate(email, password));
+    },
+    handlePressEnter(e, email, password) {
+      if (e.key === 'Enter') {
+        dispatch(authenticate(email, password));
+      }
     },
   };
 };
