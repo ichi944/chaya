@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import * as types from './actionTypes';
+import * as profileTypes from '../application/actionTypes';
 
 import Api from '../utils/Api';
 import Login from './Login';
@@ -65,41 +66,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           dispatch({
             type: types.AUTHENTICATED,
           });
+          dispatch({
+            type: profileTypes.LORDED_PROFILE,
+            profile: res.data,
+          });
         }
       });
-    },
-    handleCheckAuthStatus() {
-      console.log('start check auth status');
-      dispatch({
-        type: types.START_CHECK_AUTH_STATUS,
-      });
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        console.log('token exists: ', token);
-        Api.setAuthorizationToken(token);
-        Api.client.get('/auth/hello')
-          .then((res) => {
-            console.log('response of hello: ', res.data);
-            if (_.has(res.data, 'user')) {
-              console.log('already authenticated');
-              dispatch({
-                type: types.AUTHENTICATED,
-              });
-            } else {
-              console.log('not authenticated');
-              dispatch({
-                type: types.FAILED_AHTENTICATION,
-              });
-              dispatch({
-                type: types.END_CHECK_AUTH_STATUS,
-              });
-            }
-          });
-      } else {
-        dispatch({
-          type: types.END_CHECK_AUTH_STATUS,
-        });
-      }
     },
   };
 };

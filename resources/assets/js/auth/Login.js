@@ -6,10 +6,6 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 class Login extends Component {
-  componentDidMount() {
-    const { handleCheckAuthStatus } = this.props;
-    handleCheckAuthStatus();
-  }
   render() {
     console.log('render start at Login component');
     console.log(this.props);
