@@ -49,7 +49,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         if (_.has(res.data, 'error')) {
           console.log('error');
           dispatch({
-            type: types.AUTHENTICATE_FAILED,
+            type: types.FAILED_AHTENTICATION ,
           });
           dispatch({
             type: types.LOGIN_FAILED,
