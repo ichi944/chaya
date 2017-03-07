@@ -2,7 +2,10 @@ import * as types from './actionTypes';
 
 const initialState = {
   isLoaded: false,
+  id: null,
   name: '',
+  email: '',
+  created_at: '',
 };
 
 export default function profileReducer(state = initialState, action) {
@@ -13,10 +16,19 @@ export default function profileReducer(state = initialState, action) {
     }
     case types.LORDED_PROFILE: {
       console.log('LORDED_PROFILE', action.profile);
+      const {
+        id,
+        name,
+        email,
+        created_at,
+      } = action.profile;
       return {
         ...state,
         isLoaded: true,
-        name: action.profile.name,
+        id,
+        name,
+        email,
+        created_at,
       };
     }
     default: {
