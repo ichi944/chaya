@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import PrivateRoute from './util_components/PrivateRoute';
 
 import InitialCheckStatus from './auth/InitialCheckStatus';
+import LoadProfile from './application/LoadProfile';
 import HeaderContainer from './application/HeaderContainer';
 import SideBarContainer from './application/SideBarContainer';
 import LoginContainer from './auth/LoginContainer';
@@ -40,7 +41,10 @@ class RedirectToLogin extends Component {
 
 class Initializer extends Component {
   render() {
-    const { auth } = this.props;
+    const {
+      auth,
+      profile,
+    } = this.props;
     // check the user status when user comes into the app at first.
     // try to login with the token in localstorage if it's exists.
     if (!auth.isDoneCheckingStatusAtInitialize) {
@@ -61,6 +65,10 @@ class Initializer extends Component {
             </div>
           </BrowserRouter>
         </div>
+      );
+    } else if (auth.isAuthenticated && !profile.isLoaded) {
+      return (
+        <LoadProfile />
       );
     }
     return (

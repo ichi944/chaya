@@ -2,9 +2,10 @@ import { connect } from 'react-redux';
 
 import Initializer from './Initializer';
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, profile }) => {
   return {
     auth,
+    profile,
   };
 }
 
