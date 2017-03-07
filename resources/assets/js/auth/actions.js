@@ -86,10 +86,6 @@ export function authenticate(email, password) {
         dispatch({
           type: types.AUTHENTICATED,
         });
-        dispatch({
-          type: applicationTypes.LORDED_PROFILE,
-          profile: res.data,
-        });
       }
     });
   };
