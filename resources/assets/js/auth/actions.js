@@ -34,7 +34,7 @@ export function handleCheckAuthStatus() {
           } else {
             console.log('not authenticated');
             dispatch({
-              type: types.FAILED_AHTENTICATION,
+              type: types.FAILED_AUTHENTICATION,
             });
             dispatch({
               type: types.END_CHECK_AUTH_STATUS,

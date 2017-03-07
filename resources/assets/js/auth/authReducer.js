@@ -27,7 +27,7 @@ export default function authReducer(state = initialState, action) {
         isAuthenticated: false,
       };
     }
-    case types.FAILED_AHTENTICATION: {
+    case types.FAILED_AUTHENTICATION: {
       return {
         ...state,
         isAuthenticated: false,
