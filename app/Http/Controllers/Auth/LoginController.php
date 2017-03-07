@@ -77,6 +77,6 @@ class LoginController extends Controller
             return response()->json(['token_absent'], $e->getStatusCode());
         }
         // TODO: return token valid or not insted of the user.
-        return response()->json(compact('user'));
+        return response()->json(['status' => true]);
     }
 }
