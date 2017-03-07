@@ -19,14 +19,10 @@ export function handleCheckAuthStatus() {
       Api.client.get('/auth/hello')
         .then((res) => {
           console.log('response of hello: ', res.data);
-          if (_.has(res.data, 'user')) {
+          if (_.has(res.data, 'status') && res.data.status === true) {
             console.log('already authenticated');
             dispatch({
               type: types.AUTHENTICATED,
-            });
-            dispatch({
-              type: applicationTypes.LORDED_PROFILE,
-              profile: res.data,
             });
             dispatch({
               type: types.END_INITIAL_CHECK_STATUS,
