@@ -9,6 +9,7 @@ import HeaderContainer from './application/HeaderContainer';
 import SideBarContainer from './application/SideBarContainer';
 import LoginContainer from './auth/LoginContainer';
 import HomeContainer from './home/HomeContainer';
+import ArticleIndexContainer from './articles/ArticleIndexContainer';
 
 class NotFound extends Component {
   render() {
@@ -73,6 +74,7 @@ class Initializer extends Component {
               <Switch>
                 <Route path="/app/login" component={LoginContainer} />
                 <PrivateRoute path="/app/home" component={HomeContainer} />
+                <PrivateRoute path="/app/articles" component={ArticleIndexContainer} />
                 <Route component={NotFound} />
               </Switch>
             </div>

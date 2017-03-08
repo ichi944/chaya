@@ -3,6 +3,7 @@
   - general
   - login
   - home
+  - article_index
  */
 
 /* $general */
@@ -59,3 +60,45 @@ li {
   padding: 3rem 0;
   text-align: center;
 }
+
+/* $article_index */
+.article_index-container {
+  margin: 1rem;
+}
+.article_index-feed_label {
+  text-indent: 1rem;
+}
+.article_index-wrapper {
+  display: flex;
+  padding: .8rem;
+  line-height: 1rem;
+}
+.article_index-avatar {
+  margin-right: 1.6rem;
+}
+.article_index-header {
+  width: 10rem;
+}
+.article_index-name {
+  line-height: 1.4rem;
+}
+.article_index-date {
+  margin-top: .2rem;
+  line-height: 1.4rem;
+  font-size: .7rem;
+}
+.article_index-body {
+  flex-grow: 4;
+}
+.article_index-article_title {
+  line-height: 1.4rem;
+}
+.article_index-description {
+  margin-top: .4rem;
+  color: #9E9E9E;
+}
+.article_index-page_navi {
+  text-align: right;
+  margin: 1rem;
+}
+
