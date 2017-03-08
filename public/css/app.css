@@ -2,6 +2,7 @@
   table of contents
   - general
   - login
+  - home
  */
 
 /* $general */
@@ -48,4 +49,13 @@ li {
   display: flex;
   justify-content: flex-end;
   margin: 1rem 0;
+}
+
+/* $home */
+
+.home-welcome_message_box {
+  width: 30rem;
+  margin: 2rem auto 0;
+  padding: 3rem 0;
+  text-align: center;
 }

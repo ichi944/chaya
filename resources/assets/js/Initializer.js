@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import PrivateRoute from './util_components/PrivateRoute';
 
@@ -8,15 +8,7 @@ import LoadProfile from './application/LoadProfile';
 import HeaderContainer from './application/HeaderContainer';
 import SideBarContainer from './application/SideBarContainer';
 import LoginContainer from './auth/LoginContainer';
-
-
-class Home extends Component {
-  render() {
-    return (
-      <div>home screen</div>
-    );
-  }
-}
+import HomeContainer from './home/HomeContainer';
 
 class NotFound extends Component {
   render() {
@@ -76,11 +68,10 @@ class Initializer extends Component {
         <HeaderContainer />
         <SideBarContainer />
         <BrowserRouter>
-          <div>
-            <Link to="/app/home">home</Link>
+          <div style={{ marginLeft: '220px' }}>
             <Switch>
               <Route path="/app/login" component={LoginContainer} />
-              <PrivateRoute path="/app/home" component={Home} />
+              <PrivateRoute path="/app/home" component={HomeContainer} />
               <Route component={NotFound} />
             </Switch>
           </div>
