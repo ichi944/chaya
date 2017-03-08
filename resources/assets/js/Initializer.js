@@ -65,15 +65,17 @@ class Initializer extends Component {
     }
     return (
       <div>
-        <HeaderContainer />
-        <SideBarContainer />
         <BrowserRouter>
-          <div style={{ marginLeft: '220px' }}>
-            <Switch>
-              <Route path="/app/login" component={LoginContainer} />
-              <PrivateRoute path="/app/home" component={HomeContainer} />
-              <Route component={NotFound} />
-            </Switch>
+          <div>
+            <HeaderContainer />
+            <SideBarContainer />
+            <div style={{ marginLeft: '220px' }}>
+              <Switch>
+                <Route path="/app/login" component={LoginContainer} />
+                <PrivateRoute path="/app/home" component={HomeContainer} />
+                <Route component={NotFound} />
+              </Switch>
+            </div>
           </div>
         </BrowserRouter>
       </div>

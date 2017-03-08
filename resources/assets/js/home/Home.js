@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Paper,
 } from 'material-ui';
@@ -10,7 +11,10 @@ class Home extends Component {
     } = this.props.profile;
     return (
       <Paper className="home-welcome_message_box">
-        Hello! {name}.
+        <h3>Welcome! {name}.</h3>
+        Here is Home Screen.<br />
+        <br />
+        <Link to="/app/articles">記事一覧</Link>
       </Paper>
     );
   }
