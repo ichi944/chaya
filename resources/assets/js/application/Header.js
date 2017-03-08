@@ -17,9 +17,10 @@ class Header extends Component {
     return (
       <div>
         <AppBar
-          title="hello laravel"
+          title=""
+          showMenuIconButton={false}
           iconElementRight={logoutEl}
-          onTouchTap={handleSignOut}
+          onRightIconButtonTouchTap={handleSignOut}
         />
       </div>
     );
