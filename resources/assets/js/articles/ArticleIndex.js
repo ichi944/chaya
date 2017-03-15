@@ -8,21 +8,22 @@ import {
 } from 'material-ui';
 
 class ArticleIndex extends Component {
+  componentDidMount() {
+    const { initialize } = this.props;
+    initialize();
+  }
   render() {
-    const user = {
-      name: 'foo bar',
-    };
-    const article = {
-      id: 1,
-      user: user,
-      created_at: '2016/3/8',
-      heading: 'テスト見出し',
-      body: 'Lorem Ipsam',
-    };
-    return (
-      <Paper className="article_index-container">
-        <Subheader>記事一覧</Subheader>
-        <Divider />
+    const {
+      articles,
+    } = this.props;
+
+    if (articles.data.length === 0) {
+      return (
+        <div>no articles</div>
+      );
+    }
+    const articlesEl = articles.data.map((article) => {
+      return (
         <Paper key={article.id}>
           <div className="article_index-wrapper">
             <div className="article_index-avatar">
@@ -40,6 +41,14 @@ class ArticleIndex extends Component {
             </div>
           </div>
         </Paper>
+      );
+    });
+
+    return (
+      <Paper className="article_index-container">
+        <Subheader>記事一覧</Subheader>
+        <Divider />
+          { articlesEl }
       </Paper>
     );
   }

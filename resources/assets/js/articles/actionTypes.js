@@ -1,0 +1,2 @@
+export const START_FETCH_ARTICLES = 'articles/START_FETCH_ARTICLES';
+export const END_FETCH_ARTICLES = 'articles/END_FETCH_ARTICLES';

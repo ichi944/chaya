@@ -1,11 +1,20 @@
 import { connect } from 'react-redux';
 
 import ArticleIndex from './ArticleIndex';
+import { fetchArticles } from './actions';
 
-const mapStateToProps = () => {
+const mapStateToProps = ({ articles }) => {
   return {
-
+    articles,
   };
 };
 
-export default connect(mapStateToProps)(ArticleIndex);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    initialize() {
+      dispatch(fetchArticles());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleIndex);
