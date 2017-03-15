@@ -21,6 +21,7 @@ class Login extends Component {
     } = this.props;
 
     if (isAuthenticated) {
+      console.log('you are alredy authenticated, redirect to home.');
       return (
         <Redirect to="/app/home" />
       );

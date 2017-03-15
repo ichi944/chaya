@@ -73,8 +73,8 @@ class Initializer extends Component {
             <div style={{ marginLeft: '220px' }}>
               <Switch>
                 <Route path="/app/login" component={LoginContainer} />
-                <PrivateRoute path="/app/home" component={HomeContainer} />
-                <PrivateRoute path="/app/articles" component={ArticleIndexContainer} />
+                <Route path="/app/home" component={HomeContainer} />
+                <Route path="/app/articles" component={ArticleIndexContainer} />
                 <Route component={NotFound} />
               </Switch>
             </div>

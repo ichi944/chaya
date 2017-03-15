@@ -13,7 +13,7 @@ class SideBar extends Component {
     this.handleClickTitle = this.handleClickTitle.bind(this);
   }
   handleClickTitle() {
-    const { push } = this.props;
+    const { push } = this.props.history;
     push('home');
   }
   render() {
