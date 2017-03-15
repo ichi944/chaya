@@ -1,26 +1,15 @@
-import * as types from './actionTypes';
-
 const initialState = {
-  isFetching: false,
-  data: [],
+  id: 1,
+  heading: 'aaa',
+  body: 'asdf',
+  created_at: '2017-03-14',
+  user: {
+    name: 'no name',
+  },
 };
 
-export default function articleReducer(state = initialState, action) {
+export default function articleDetailReducer(state = initialState, action) {
   switch (action.type) {
-    case types.START_FETCH_ARTICLES: {
-      return {
-        ...state,
-        isFetching: true,
-      };
-    }
-    case types.END_FETCH_ARTICLES: {
-      const data = action.data.data;
-      return {
-        ...state,
-        isFetching: false,
-        data,
-      };
-    }
     default: {
       return state;
     }
