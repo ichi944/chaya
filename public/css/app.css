@@ -4,6 +4,7 @@
   - login
   - home
   - article_index
+  - article
  */
 
 /* $general */
@@ -100,5 +101,37 @@ li {
 .article_index-page_navi {
   text-align: right;
   margin: 1rem;
+}
+
+/* $article */
+
+.article-wrapper {
+  margin :1rem;
+  padding: 1rem;
+}
+.article-edit_button {
+  position: absolute;
+  right: 2rem;
+  top: -2.7rem;
+}
+.article-tags {
+  margin: .4rem 0;
+  font-size: .6rem;
+}
+.article-tag_list_item {
+  display: inline;
+  margin-right: 1rem;
+}
+.article-meta {
+  margin: 1rem 0;
+  position: relative;
+}
+.article-date {
+  font-size: .8rem;
+}
+.article-actions {
+  margin: 1rem 0 0;
+  padding: 0 1rem;
+  text-align: right;
 }
 

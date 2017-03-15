@@ -10,6 +10,7 @@ import SideBarContainer from './application/SideBarContainer';
 import LoginContainer from './auth/LoginContainer';
 import HomeContainer from './home/HomeContainer';
 import ArticleIndexContainer from './articles/ArticleIndexContainer';
+import ArticleDetailContainer from './articles/ArticleDetailContainer';
 
 class NotFound extends Component {
   render() {
@@ -72,9 +73,10 @@ class Initializer extends Component {
             <SideBarContainer />
             <div style={{ marginLeft: '220px' }}>
               <Switch>
-                <Route path="/app/login" component={LoginContainer} />
-                <Route path="/app/home" component={HomeContainer} />
-                <Route path="/app/articles" component={ArticleIndexContainer} />
+                <Route exact path="/app/login" component={LoginContainer} />
+                <Route exact path="/app/home" component={HomeContainer} />
+                <Route exact path="/app/articles" component={ArticleIndexContainer} />
+                <Route path="/app/articles/:id" component={ArticleDetailContainer} />
                 <Route component={NotFound} />
               </Switch>
             </div>
