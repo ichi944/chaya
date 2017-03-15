@@ -6,7 +6,16 @@ import {
   Divider,
 } from 'material-ui';
 
+
 class SideBar extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClickTitle = this.handleClickTitle.bind(this);
+  }
+  handleClickTitle() {
+    const { push } = this.props;
+    push('home');
+  }
   render() {
     const {
       profile,
@@ -18,6 +27,7 @@ class SideBar extends Component {
       >
         <AppBar
           title="CHAYA"
+          onTitleTouchTap={this.handleClickTitle}
           showMenuIconButton={false}
         />
         <Subheader>{ profile.name }</Subheader>
