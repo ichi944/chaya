@@ -1,7 +1,7 @@
 const initialState = {
   id: 1,
   heading: 'aaa',
-  body: 'asdf',
+  body: '# asdf\n\nthis is test',
   created_at: '2017-03-14',
   user: {
     name: 'no name',

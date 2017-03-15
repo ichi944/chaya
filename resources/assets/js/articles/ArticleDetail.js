@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import marked from 'marked';
 import {
   Paper,
   Divider,
@@ -13,8 +14,12 @@ import EditerModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 import { grey400 } from 'material-ui/styles/colors';
 
 class ArticleDetail extends Component {
+  getMarkdown(rawBody) {
+    return marked(rawBody, {
+      gfm: true,
+    });
+  }
   render() {
-
     const {
       id,
       heading,
@@ -62,8 +67,7 @@ class ArticleDetail extends Component {
           </div>
           <div
             className="markdown-body article-body"
-            children={body}
-            // dangerouslySetInnerHTML={{ __html: this.getMd(body) }}
+            dangerouslySetInnerHTML={{ __html: this.getMarkdown(body) }}
           />
           <div className="article-actions">
             <FlatButton
