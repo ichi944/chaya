@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Article;
 
+use Illuminate\Support\Facades\Log;
+
 class ArticleController extends Controller
 {
     public function __construct(Article $article)
@@ -55,7 +57,8 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = $this->article->with('user')->find($id);
+        return response()->json($data);
     }
 
     /**
