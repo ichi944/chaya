@@ -79,6 +79,7 @@ export function authenticate(email, password) {
       } // endif: when error
       if (_.has(res.data, 'token')) {
         console.log('authenticated');
+        Api.setAuthorizationToken(res.data.token);
         localStorage.setItem('authToken', res.data.token);
         dispatch({
           type: types.LOGIN_SUCCESS,

@@ -20,14 +20,9 @@ export function receiveProfile(profile) {
  */
 export function fetchProfile() {
   return function (dispatch) {
+
     dispatch(requestProfile());
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-      return dispatch({
-        type: authTypes.FAILED_AHTENTICATION,
-      });
-    }
-    Api.setAuthorizationToken(token);
+
     return Api.client.get('/profiles/me')
       .then((res) => {
         console.log('in fetchProfile');
