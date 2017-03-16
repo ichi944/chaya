@@ -14,6 +14,10 @@ import EditerModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 import { grey400 } from 'material-ui/styles/colors';
 
 class ArticleDetail extends Component {
+  componentDidMount() {
+    const { initialize, match } = this.props;
+    initialize(match.params.id);
+  }
   getMarkdown(rawBody) {
     return marked(rawBody, {
       gfm: true,

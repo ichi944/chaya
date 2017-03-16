@@ -5,7 +5,7 @@ const initialState = {
   data: [],
 };
 
-export default function articleReducer(state = initialState, action) {
+export default function articlesReducer(state = initialState, action) {
   switch (action.type) {
     case types.START_FETCH_ARTICLES: {
       return {

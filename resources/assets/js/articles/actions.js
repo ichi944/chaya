@@ -7,17 +7,29 @@ export function fetchArticles() {
       type: types.START_FETCH_ARTICLES,
     });
 
-    const token = localStorage.getItem('authToken');
+    Api.client.get('/articles')
+      .then((res) => {
+        dispatch({
+          type: types.END_FETCH_ARTICLES,
+          data: res.data,
+        });
+      }); // Api
+  };
+}
 
-    if (token) {
-      Api.setAuthorizationToken(token);
-      Api.client.get('/articles')
-        .then((res) => {
-          dispatch({
-            type: types.END_FETCH_ARTICLES,
-            data: res.data,
-          });
-        }); // Api
-    } // if (token)
+export function fetchArticleById(id) {
+  return function (dispatch) {
+    dispatch({
+      type: types.START_FETCH_ARTICLE,
+    });
+
+    Api.client.get(`/articles/${id}`)
+      .then((res) => {
+        console.log('got article');
+        dispatch({
+          type: types.END_FETCH_ARTICLE,
+          data: res.data,
+        });
+      }); // Api
   };
 }

@@ -1,3 +1,5 @@
+import * as types from './actionTypes';
+
 const initialState = {
   id: 1,
   heading: 'aaa',
@@ -8,8 +10,15 @@ const initialState = {
   },
 };
 
-export default function articleDetailReducer(state = initialState, action) {
+export default function articleReducer(state = initialState, action) {
   switch (action.type) {
+    case types.END_FETCH_ARTICLE: {
+      const data = action.data;
+      return {
+        ...state,
+        ...data,
+      };
+    }
     default: {
       return state;
     }
