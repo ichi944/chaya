@@ -5,17 +5,33 @@ import {
   Paper,
   Divider,
   Subheader,
+  FloatingActionButton,
 } from 'material-ui';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+
 
 class ArticleIndex extends Component {
   componentDidMount() {
     const { initialize } = this.props;
     initialize();
+
+    this.handleCreateNewArticle = this.handleCreateNewArticle.bind(this);
+  }
+  handleCreateNewArticle() {
+    console.log('tap create new artcle');
   }
   render() {
     const {
       articles,
     } = this.props;
+
+    const styles = {
+      button: {
+        position: 'absolute',
+        right: '2rem',
+        top: '1.2rem',
+      },
+    };
 
     if (articles.data.length === 0) {
       return (
@@ -47,6 +63,13 @@ class ArticleIndex extends Component {
     return (
       <Paper className="article_index-container">
         <Subheader>記事一覧</Subheader>
+        <FloatingActionButton
+          style={styles.button}
+          zDepth={2}
+          onTouchTap={this.handleCreateNewArticle}
+        >
+          <ContentAdd />
+        </FloatingActionButton>
         <Divider />
           { articlesEl }
       </Paper>

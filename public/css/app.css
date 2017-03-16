@@ -64,6 +64,7 @@ li {
 
 /* $article_index */
 .article_index-container {
+  position: relative;
   margin: 1rem;
 }
 .article_index-feed_label {
