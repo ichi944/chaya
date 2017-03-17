@@ -18,7 +18,8 @@ class ArticleIndex extends Component {
     this.handleCreateNewArticle = this.handleCreateNewArticle.bind(this);
   }
   handleCreateNewArticle() {
-    console.log('tap create new artcle');
+    const { push } = this.props.history;
+    push('articles/add');
   }
   render() {
     const {
@@ -62,7 +63,7 @@ class ArticleIndex extends Component {
 
     return (
       <Paper className="article_index-container">
-        <Subheader>記事一覧</Subheader>
+        <Subheader>Feed</Subheader>
         <FloatingActionButton
           style={styles.button}
           zDepth={2}
@@ -71,7 +72,7 @@ class ArticleIndex extends Component {
           <ContentAdd />
         </FloatingActionButton>
         <Divider />
-          { articlesEl }
+        { articlesEl }
       </Paper>
     );
   }
