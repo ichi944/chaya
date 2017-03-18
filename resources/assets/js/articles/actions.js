@@ -33,3 +33,11 @@ export function fetchArticleById(id) {
       }); // Api
   };
 }
+
+export function updateArticleAddForm(name, value) {
+  return {
+    type: types.UPDATE_ARTICLE_ADD_FORM,
+    name,
+    value,
+  };
+}
