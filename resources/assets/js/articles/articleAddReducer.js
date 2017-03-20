@@ -14,6 +14,12 @@ export default function articleAddReducer(state = initialState, action) {
         [action.name]: action.value,
       };
     }
+    case types.TOGGLE_PREVIEW_MODE: {
+      return {
+        ...state,
+        onPreview: !state.onPreview,
+      };
+    }
     default: {
       return state;
     }

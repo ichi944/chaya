@@ -2,7 +2,10 @@ import { connect } from 'react-redux';
 
 import ArticleAdd from './ArticleAdd';
 
-import { updateArticleAddForm } from './actions';
+import {
+  updateArticleAddForm,
+  togglePreviewMode,
+} from './actions';
 
 const mapStateToProps = ({ articleAdd }) => {
   return {
@@ -16,7 +19,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(updateArticleAddForm(e.target.name, e.target.value));
     },
     handleCancel() {},
-    handleTogglePreview() {},
+    handleTogglePreview() {
+      dispatch(togglePreviewMode());
+    },
     handleSubmit() {},
   };
 };

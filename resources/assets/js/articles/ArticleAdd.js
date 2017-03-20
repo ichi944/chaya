@@ -12,6 +12,11 @@ import {
 } from 'material-ui';
 
 class ArticleAdd extends Component {
+  getMarkdown(rawBody) {
+    return marked(rawBody, {
+      gfm: true,
+    });
+  }
   render() {
     const {
       heading,
@@ -46,7 +51,7 @@ class ArticleAdd extends Component {
                   <h2 className="editor-previewer_heading">{heading}</h2>
                   <div
                     className="markdown-body"
-                    dangerouslySetInnerHTML={{ __html: this.getMd(body) }}
+                    dangerouslySetInnerHTML={{ __html: this.getMarkdown(body) }}
                   />
                 </div>
               ) : (

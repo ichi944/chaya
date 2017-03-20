@@ -23,7 +23,8 @@ a {
   text-decoration: none;
 }
 li {
-  list-style: none;
+  /* TODO: need to aplly following style except markdown.; */
+  /*list-style: none;*/
 }
 
 /* $login */

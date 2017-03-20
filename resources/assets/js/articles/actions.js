@@ -41,3 +41,9 @@ export function updateArticleAddForm(name, value) {
     value,
   };
 }
+
+export function togglePreviewMode() {
+  return {
+    type: types.TOGGLE_PREVIEW_MODE,
+  };
+}
