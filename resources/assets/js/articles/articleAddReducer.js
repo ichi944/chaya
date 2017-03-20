@@ -20,6 +20,14 @@ export default function articleAddReducer(state = initialState, action) {
         onPreview: !state.onPreview,
       };
     }
+    case types.CLEAR_ARTICLE_ADD: {
+      return {
+        ...state,
+        heading: '',
+        body: '',
+        onPreview: false,
+      };
+    }
     default: {
       return state;
     }

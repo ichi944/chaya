@@ -5,6 +5,7 @@ import ArticleAdd from './ArticleAdd';
 import {
   updateArticleAddForm,
   togglePreviewMode,
+  clearArticleAdd,
 } from './actions';
 
 const mapStateToProps = ({ articleAdd }) => {
@@ -18,7 +19,9 @@ const mapDispatchToProps = (dispatch) => {
     handleChange(e) {
       dispatch(updateArticleAddForm(e.target.name, e.target.value));
     },
-    handleCancel() {},
+    clearEditorContent() {
+      dispatch(clearArticleAdd());
+    },
     handleTogglePreview() {
       dispatch(togglePreviewMode());
     },

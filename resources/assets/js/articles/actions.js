@@ -47,3 +47,9 @@ export function togglePreviewMode() {
     type: types.TOGGLE_PREVIEW_MODE,
   };
 }
+
+export function clearArticleAdd() {
+  return {
+    type: types.CLEAR_ARTICLE_ADD,
+  };
+}

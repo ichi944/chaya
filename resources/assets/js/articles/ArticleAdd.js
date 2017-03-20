@@ -12,10 +12,22 @@ import {
 } from 'material-ui';
 
 class ArticleAdd extends Component {
+  constructor(props) {
+    super(props);
+    this.handleCancel = this.handleCancel.bind(this);
+  }
   getMarkdown(rawBody) {
     return marked(rawBody, {
       gfm: true,
     });
+  }
+  handleCancel() {
+    const {
+      history,
+      clearEditorContent,
+    } = this.props;
+    clearEditorContent();
+    history.goBack();
   }
   render() {
     const {
@@ -83,7 +95,7 @@ class ArticleAdd extends Component {
               <div className="editor-actions">
                 <FlatButton
                   label="やめる"
-                  onTouchTap={handleCancel}
+                  onTouchTap={this.handleCancel}
                   style={{ marginRight: '1rem' }}
                 />
                 {mode === 'new' ? (
