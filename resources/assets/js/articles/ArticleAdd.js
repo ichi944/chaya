@@ -49,8 +49,9 @@ class ArticleAdd extends Component {
               {onPreview ? (
                 <div className="editor-previewer_wrapper">
                   <h2 className="editor-previewer_heading">{heading}</h2>
+                  <Divider />
                   <div
-                    className="markdown-body"
+                    className="markdown-body editor-previewer_body"
                     dangerouslySetInnerHTML={{ __html: this.getMarkdown(body) }}
                   />
                 </div>
