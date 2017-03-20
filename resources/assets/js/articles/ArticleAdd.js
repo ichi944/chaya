@@ -30,14 +30,13 @@ class ArticleAdd extends Component {
         backgroundColor: '#FAFAFA',
       },
       headerText: {
-        color: 'white',
       },
     };
     return (
       <div style={{ position: 'relative' }}>
         <Paper className="editor-wrapper" style={styles.paper}>
           <div>
-            <Subheader style={styles.headerText}>書く...</Subheader>
+            <Subheader style={styles.headerText}>新しく書く...</Subheader>
           </div>
 
           <div className="editor-main">

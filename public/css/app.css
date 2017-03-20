@@ -5,6 +5,7 @@
   - home
   - article_index
   - article
+  - editor
  */
 
 /* $general */
@@ -135,4 +136,43 @@ li {
   padding: 0 1rem;
   text-align: right;
 }
+
+/* $editor */
+
+
+.editor-wrapper {
+  margin: 1rem;
+}
+.editor-main {
+  display: flex;
+}
+.editor-forms {
+  flex: 1;
+  background-color: white;
+  border: 1px solid #eee;
+  padding: 0 0 1rem;
+}
+.editor-forms_inputs {
+  padding: 0 1rem 1rem;
+}
+.editor-tools {
+  width: 300px;
+  padding: 1rem;
+}
+.editor-previewer_wrapper {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  min-height: 25rem;
+  background-color: #F9FBE7;
+  border-bottom: 1px solid #eee;
+}
+.editor-previewer_heading {
+  margin-bottom: 1rem;
+}
+.editor-actions {
+  margin: 1rem 0 0;
+  padding: 0 1rem;
+  text-align: right;
+}
+
 
