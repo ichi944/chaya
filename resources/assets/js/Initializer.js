@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 
+import appHistory from './utils/appHistory';
 import PrivateRoute from './util_components/PrivateRoute';
 
 import InitialCheckStatus from './auth/InitialCheckStatus';
@@ -51,14 +53,16 @@ class Initializer extends Component {
       return (
         <div>
           <HeaderContainer />
-          <BrowserRouter>
+          <ConnectedRouter
+            history={appHistory}
+          >
             <div>
               <Switch>
                 <Route path="/app/login" component={LoginContainer} />
                 <Route component={RedirectToLogin} />
               </Switch>
             </div>
-          </BrowserRouter>
+          </ConnectedRouter>
         </div>
       );
     } else if (auth.isAuthenticated && !profile.isLoaded) {
@@ -68,7 +72,9 @@ class Initializer extends Component {
     }
     return (
       <div>
-        <BrowserRouter>
+        <ConnectedRouter
+          history={appHistory}
+        >
           <div>
             <HeaderContainer />
             <SideBarContainer />
@@ -83,7 +89,7 @@ class Initializer extends Component {
               </Switch>
             </div>
           </div>
-        </BrowserRouter>
+        </ConnectedRouter>
       </div>
     );
   }

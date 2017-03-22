@@ -5,6 +5,7 @@ const initialState = {
   body: '',
   onPreview: false,
   mode: 'new',
+  confirmSuccessDialogOpen: false,
 };
 
 export default function articleAddReducer(state = initialState, action) {
@@ -30,8 +31,16 @@ export default function articleAddReducer(state = initialState, action) {
       };
     }
     case types.SUCCESS_CREATE_ARTICLE: {
-      console.log('successCreateArticle in reducer');
-      return state;
+      return {
+        ...state,
+        confirmSuccessDialogOpen: true,
+      };
+    }
+    case types.CLOSE_CONFIRM_SUCCESS_DIALOG: {
+      return {
+        ...state,
+        confirmSuccessDialogOpen: false,
+      };
     }
     default: {
       return state;

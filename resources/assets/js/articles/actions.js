@@ -1,3 +1,5 @@
+import { push } from 'react-router-redux';
+
 import * as types from './actionTypes';
 import Api from '../utils/Api';
 
@@ -64,7 +66,23 @@ export function createNewArticle(data) {
     Api.client.post('/articles/', data)
       .then((res) => {
         console.log(res.data);
+
         dispatch(successCreateArticle());
       });
   };
 }
+
+export function closeConfirmSuccessDialog() {
+  return {
+    type: types.CLOSE_CONFIRM_SUCCESS_DIALOG,
+  };
+}
+
+export function confirmedSuccessCreating() {
+  return function (dispatch) {
+    dispatch(clearArticleAdd());
+    dispatch(closeConfirmSuccessDialog());
+    dispatch(push('/app/articles'));
+  };
+}
+
