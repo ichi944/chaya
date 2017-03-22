@@ -66,7 +66,7 @@ export function createNewArticle(data) {
     Api.client.post('/articles/', data)
       .then((res) => {
         console.log(res.data);
-        dispatch(push('/app/home'));
+        dispatch(push('/app/articles'));
 
         dispatch(successCreateArticle());
       });

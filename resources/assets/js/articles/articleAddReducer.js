@@ -30,8 +30,12 @@ export default function articleAddReducer(state = initialState, action) {
       };
     }
     case types.SUCCESS_CREATE_ARTICLE: {
-      console.log('successCreateArticle in reducer');
-      return state;
+      return {
+        ...state,
+        heading: '',
+        body: '',
+        onPreview: false,
+      };
     }
     default: {
       return state;
