@@ -53,3 +53,18 @@ export function clearArticleAdd() {
     type: types.CLEAR_ARTICLE_ADD,
   };
 }
+
+export function successCreateArticle() {
+  return {
+    type: types.SUCCESS_CREATE_ARTICLE,
+  };
+}
+export function createNewArticle(data) {
+  return function (dispatch) {
+    Api.client.post('/articles/', data)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(successCreateArticle());
+      });
+  };
+}

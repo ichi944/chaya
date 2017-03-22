@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use JWTAuth;
 use App\Article;
 
 use Illuminate\Support\Facades\Log;
@@ -46,7 +47,17 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $current_user = JWTAuth::parseToken()->authenticate();
+        $this->article->user_id = $current_user->id;
+        $this->article->heading = $request->heading;
+        $this->article->body = $request->body;
+        $created = $this->article->save();
+        if($created) {
+            Log::Info('a new article is created.');
+            return response()->json($this->article);
+        } else {
+            Log::Info('error');
+        }
     }
 
     /**

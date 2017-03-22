@@ -7,3 +7,4 @@ export const END_FETCH_ARTICLE = 'articles/END_FETCH_ARTICLE';
 export const UPDATE_ARTICLE_ADD_FORM = 'articles/UPDATE_ARTICLE_ADD_FORM';
 export const TOGGLE_PREVIEW_MODE = 'articles/TOGGLE_PREVIEW_MODE';
 export const CLEAR_ARTICLE_ADD = 'articles/CLEAR_ARTICLE_ADD';
+export const SUCCESS_CREATE_ARTICLE = 'articles/SUCCESS_CREATE_ARTICLE';

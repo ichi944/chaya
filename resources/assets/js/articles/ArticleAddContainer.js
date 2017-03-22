@@ -6,6 +6,7 @@ import {
   updateArticleAddForm,
   togglePreviewMode,
   clearArticleAdd,
+  createNewArticle,
 } from './actions';
 
 const mapStateToProps = ({ articleAdd }) => {
@@ -25,7 +26,9 @@ const mapDispatchToProps = (dispatch) => {
     handleTogglePreview() {
       dispatch(togglePreviewMode());
     },
-    handleSubmit() {},
+    handleSubmit(data) {
+      dispatch(createNewArticle(data));
+    },
   };
 };
 

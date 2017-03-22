@@ -4,6 +4,7 @@ const initialState = {
   heading: '',
   body: '',
   onPreview: false,
+  mode: 'new',
 };
 
 export default function articleAddReducer(state = initialState, action) {
@@ -27,6 +28,10 @@ export default function articleAddReducer(state = initialState, action) {
         body: '',
         onPreview: false,
       };
+    }
+    case types.SUCCESS_CREATE_ARTICLE: {
+      console.log('successCreateArticle in reducer');
+      return state;
     }
     default: {
       return state;

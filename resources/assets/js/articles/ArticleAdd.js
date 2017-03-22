@@ -15,6 +15,7 @@ class ArticleAdd extends Component {
   constructor(props) {
     super(props);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   getMarkdown(rawBody) {
     return marked(rawBody, {
@@ -29,6 +30,16 @@ class ArticleAdd extends Component {
     clearEditorContent();
     history.goBack();
   }
+  handleSubmit() {
+    const {
+      heading,
+      body,
+    } = this.props;
+    this.props.handleSubmit({
+      heading,
+      body,
+    });
+  }
   render() {
     const {
       heading,
@@ -38,9 +49,7 @@ class ArticleAdd extends Component {
     } = this.props;
     const {
       handleChange,
-      handleCancel,
       handleTogglePreview,
-      handleSubmit,
     } = this.props;
     const styles = {
       paper: {
@@ -102,14 +111,14 @@ class ArticleAdd extends Component {
                   <RaisedButton
                     label="公開する"
                     primary
-                    onTouchTap={handleSubmit}
+                    onTouchTap={this.handleSubmit}
                   />
                 ) : null}
                 {mode === 'edit' ? (
                   <RaisedButton
                     label="更新する"
                     primary
-                    onTouchTap={handleSubmit}
+                    onTouchTap={this.handleSubmit}
                   />
                   ) : null}
               </div>
