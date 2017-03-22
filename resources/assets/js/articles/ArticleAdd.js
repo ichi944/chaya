@@ -9,6 +9,7 @@ import {
   FlatButton,
   RaisedButton,
   Toggle,
+  Dialog,
 } from 'material-ui';
 
 class ArticleAdd extends Component {
@@ -16,6 +17,7 @@ class ArticleAdd extends Component {
     super(props);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
   getMarkdown(rawBody) {
     return marked(rawBody, {
@@ -40,12 +42,16 @@ class ArticleAdd extends Component {
       body,
     });
   }
+  handleClose() {
+    this.props.handleClose();
+  }
   render() {
     const {
       heading,
       body,
       onPreview,
       mode,
+      confirmSuccessDialogOpen,
     } = this.props;
     const {
       handleChange,
@@ -58,6 +64,13 @@ class ArticleAdd extends Component {
       headerText: {
       },
     };
+    const actions = (
+      <FlatButton
+        label="OK"
+        primary
+        onTouchTap={this.handleClose}
+      />
+    );
     return (
       <div style={{ position: 'relative' }}>
         <Paper className="editor-wrapper" style={styles.paper}>
@@ -136,6 +149,15 @@ class ArticleAdd extends Component {
           </div>
 
         </Paper>
+        <Dialog
+          title="The article is published!"
+          actions={actions}
+          modal
+          open={confirmSuccessDialogOpen}
+          onRequestClose={this.handleClose}
+        >
+        New article is saved.
+        </Dialog>
       </div>
     );
   }

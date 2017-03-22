@@ -7,6 +7,7 @@ import {
   togglePreviewMode,
   clearArticleAdd,
   createNewArticle,
+  confirmedSuccessCreating,
 } from './actions';
 
 const mapStateToProps = ({ articleAdd }) => {
@@ -28,6 +29,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleSubmit(data) {
       dispatch(createNewArticle(data));
+    },
+    handleClose() {
+      dispatch(confirmedSuccessCreating());
     },
   };
 };
