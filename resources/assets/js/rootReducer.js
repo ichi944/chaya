@@ -7,6 +7,7 @@ import profileReducer from './application/profileReducer';
 import articlesReducer from './articles/articlesReducer';
 import articleReducer from './articles/articleReducer';
 import articleAddReducer from './articles/articleAddReducer';
+import articleEditReducer from './articles/articleEditReducer';
 
 const rootReducer = combineReducers({
   router: routerReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   articles: articlesReducer,
   article: articleReducer,
   articleAdd: articleAddReducer,
+  articleEdit: articleEditReducer,
 });
 
 export default rootReducer;
