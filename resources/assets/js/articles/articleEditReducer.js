@@ -22,7 +22,7 @@ export default function articleEditReducer(state = initialState, action) {
         [action.name]: action.value,
       };
     }
-    case types.TOGGLE_PREVIEW_MODE: {
+    case types.TOGGLE_PREVIEW_MODE_ON_EDIT_FORM: {
       return {
         ...state,
         onPreview: !state.onPreview,

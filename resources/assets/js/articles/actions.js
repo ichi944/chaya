@@ -94,3 +94,8 @@ export function updateArticleEditForm(name, value) {
   };
 }
 
+export function togglePreviewModeOnEditForm() {
+  return {
+    type: types.TOGGLE_PREVIEW_MODE_ON_EDIT_FORM,
+  };
+}

@@ -5,6 +5,7 @@ import ArticleEdit from './ArticleEdit';
 import {
   fetchArticleById,
   updateArticleEditForm,
+  togglePreviewModeOnEditForm,
 } from './actions';
 
 const mapStateToProps = ({ articleEdit }) => {
@@ -20,7 +21,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleChange(e) {
       dispatch(updateArticleEditForm(e.target.name, e.target.value));
-    }
+    },
+    handleTogglePreview() {
+      dispatch(togglePreviewModeOnEditForm());
+    },
+
   };
 };
 
