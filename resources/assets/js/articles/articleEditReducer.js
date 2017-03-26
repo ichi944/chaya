@@ -36,6 +36,18 @@ export default function articleEditReducer(state = initialState, action) {
         onPreview: false,
       };
     }
+    case types.SUCCESS_UPDATE_ARTICLE: {
+      return {
+        ...state,
+        confirmSuccessDialogOpen: true,
+      };
+    }
+    case types.CLOSE_CONFIRM_SUCCESS_UPDATING_DIALOG: {
+      return {
+        ...state,
+        confirmSuccessDialogOpen: false,
+      };
+    }
     default: {
       return state;
     }

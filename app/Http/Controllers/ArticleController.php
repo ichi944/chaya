@@ -92,7 +92,17 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $current_user = JWTAuth::parseToken()->authenticate();
+        $target = $this->article->find($id);
+        $target->heading = $request->heading;
+        $target->body = $request->body;
+        $updated = $target->update();
+        if($updated) {
+            Log::Info('the article is updated successfully.');
+            return response()->json($target);
+        } else {
+            Log::Info('error');
+        }
     }
 
     /**

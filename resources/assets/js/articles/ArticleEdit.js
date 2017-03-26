@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Editor from './organisms/Editor';
 import {
-  ArticleIsPublishedDialog,
+  ArticleIsUpdatedDialog,
 } from './organisms/Dialogs';
 
 class ArticleEdit extends Component {
@@ -28,11 +28,13 @@ class ArticleEdit extends Component {
     history.goBack();
   }
   handleSubmit() {
+    const { id } = this.props.match.params;
     const {
       heading,
       body,
     } = this.props;
     this.props.handleSubmit({
+      id,
       heading,
       body,
     });
@@ -70,7 +72,7 @@ class ArticleEdit extends Component {
           handleTogglePreview={handleTogglePreview}
         />
 
-        <ArticleIsPublishedDialog
+        <ArticleIsUpdatedDialog
           open={confirmSuccessDialogOpen}
           handleClose={this.handleClose}
         />

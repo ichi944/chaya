@@ -105,3 +105,33 @@ export function clearArticleEdit() {
     type: types.CLEAR_ARTICLE_EDIT,
   };
 }
+
+export function successUpdateArticle() {
+  return {
+    type: types.SUCCESS_UPDATE_ARTICLE,
+  };
+}
+export function requestUpdateArticle(data) {
+  return function (dispatch) {
+    const {
+      id,
+    } = data;
+    Api.client.put(`/articles/${id}`, data)
+      .then((res) => {
+        dispatch(successUpdateArticle());
+      });
+  };
+}
+
+export function closeConfirmSuccessUpdatingDialog() {
+  return {
+    type: types.CLOSE_CONFIRM_SUCCESS_UPDATING_DIALOG,
+  };
+}
+export function confirmedSuccessUpdating(id) {
+  return function (dispatch) {
+    dispatch(clearArticleEdit());
+    dispatch(closeConfirmSuccessUpdatingDialog());
+    dispatch(push(`/app/articles/${id}`));
+  };
+}
