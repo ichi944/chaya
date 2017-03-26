@@ -4,13 +4,17 @@ import marked from 'marked';
 import {
   Paper,
   Divider,
-  Subheader,
   TextField,
   FlatButton,
   RaisedButton,
   Toggle,
   Dialog,
 } from 'material-ui';
+
+import EditorHeader from './molecules/EditorHeader';
+import {
+  ArticleIsPublishedDialog,
+} from './organisms/Dialogs';
 
 class ArticleAdd extends Component {
   constructor(props) {
@@ -61,22 +65,13 @@ class ArticleAdd extends Component {
       paper: {
         backgroundColor: '#FAFAFA',
       },
-      headerText: {
-      },
     };
-    const actions = (
-      <FlatButton
-        label="OK"
-        primary
-        onTouchTap={this.handleClose}
-      />
-    );
     return (
       <div style={{ position: 'relative' }}>
         <Paper className="editor-wrapper" style={styles.paper}>
-          <div>
-            <Subheader style={styles.headerText}>新しく書く...</Subheader>
-          </div>
+          <EditorHeader
+            title="新しく書く..."
+          />
 
           <div className="editor-main">
             <div className="editor-forms">
@@ -149,15 +144,11 @@ class ArticleAdd extends Component {
           </div>
 
         </Paper>
-        <Dialog
-          title="The article is published!"
-          actions={actions}
-          modal
+
+        <ArticleIsPublishedDialog
           open={confirmSuccessDialogOpen}
-          onRequestClose={this.handleClose}
-        >
-        New article is saved.
-        </Dialog>
+          handleClose={this.handleClose}
+        />
       </div>
     );
   }
