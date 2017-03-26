@@ -16,7 +16,7 @@ export default function articleEditReducer(state = initialState, action) {
         ...data,
       };
     }
-    case types.UPDATE_ARTICLE_Edit_FORM: {
+    case types.UPDATE_ARTICLE_EDIT_FORM: {
       return {
         ...state,
         [action.name]: action.value,

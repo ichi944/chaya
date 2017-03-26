@@ -85,3 +85,12 @@ export function confirmedSuccessCreating() {
     dispatch(push('/app/articles'));
   };
 }
+
+export function updateArticleEditForm(name, value) {
+  return {
+    type: types.UPDATE_ARTICLE_EDIT_FORM,
+    name,
+    value,
+  };
+}
+

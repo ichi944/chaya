@@ -4,6 +4,7 @@ import ArticleEdit from './ArticleEdit';
 
 import {
   fetchArticleById,
+  updateArticleEditForm,
 } from './actions';
 
 const mapStateToProps = ({ articleEdit }) => {
@@ -17,6 +18,9 @@ const mapDispatchToProps = (dispatch) => {
     initialize(articleId) {
       dispatch(fetchArticleById(articleId));
     },
+    handleChange(e) {
+      dispatch(updateArticleEditForm(e.target.name, e.target.value));
+    }
   };
 };
 
