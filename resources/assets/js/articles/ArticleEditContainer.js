@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import ArticleEdit from './ArticleEdit';
 
 import {
-  // updateArticleAddForm,
-  // togglePreviewMode,
-  // clearArticleAdd,
-  // createNewArticle,
-  // confirmedSuccessCreating,
+  fetchArticleById,
 } from './actions';
 
 const mapStateToProps = ({ articleEdit }) => {
@@ -18,7 +14,9 @@ const mapStateToProps = ({ articleEdit }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    initialize(articleId) {
+      dispatch(fetchArticleById(articleId));
+    },
   };
 };
 

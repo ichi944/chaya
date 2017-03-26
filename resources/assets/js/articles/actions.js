@@ -85,4 +85,3 @@ export function confirmedSuccessCreating() {
     dispatch(push('/app/articles'));
   };
 }
-
