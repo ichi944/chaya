@@ -99,3 +99,9 @@ export function togglePreviewModeOnEditForm() {
     type: types.TOGGLE_PREVIEW_MODE_ON_EDIT_FORM,
   };
 }
+
+export function clearArticleEdit() {
+  return {
+    type: types.CLEAR_ARTICLE_EDIT,
+  };
+}

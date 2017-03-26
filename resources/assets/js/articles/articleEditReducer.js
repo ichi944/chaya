@@ -28,6 +28,14 @@ export default function articleEditReducer(state = initialState, action) {
         onPreview: !state.onPreview,
       };
     }
+    case types.CLEAR_ARTICLE_EDIT: {
+      return {
+        ...state,
+        heading: '',
+        body: '',
+        onPreview: false,
+      };
+    }
     default: {
       return state;
     }

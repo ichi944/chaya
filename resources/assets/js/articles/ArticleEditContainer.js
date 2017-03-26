@@ -6,6 +6,7 @@ import {
   fetchArticleById,
   updateArticleEditForm,
   togglePreviewModeOnEditForm,
+  clearArticleEdit,
 } from './actions';
 
 const mapStateToProps = ({ articleEdit }) => {
@@ -25,7 +26,9 @@ const mapDispatchToProps = (dispatch) => {
     handleTogglePreview() {
       dispatch(togglePreviewModeOnEditForm());
     },
-
+    clearEditorContent() {
+      dispatch(clearArticleEdit());
+    },
   };
 };
 
