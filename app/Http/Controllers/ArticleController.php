@@ -113,6 +113,14 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $target = $this->article->find($id);
+        $deleted = $target->delete();
+
+        if($deleted) {
+            Log::Info("The article: $id is deleted.");
+            return response()->json(['_code' => 0]);
+        } else {
+            return response()->json(['_code' => 1]);
+        }
     }
 }

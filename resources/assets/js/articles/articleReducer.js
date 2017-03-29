@@ -32,6 +32,18 @@ export default function articleReducer(state = initialState, action) {
         confirmDeleteDialogOpen: false,
       };
     }
+    case types.SUCCESS_DELETE_ARTICLE: {
+      return {
+        id: null,
+        heading: '',
+        body: '',
+        created_at: '',
+        user: {
+          name: '',
+        },
+        confirmDeleteDialogOpen: false,
+      };
+    }
     default: {
       return state;
     }

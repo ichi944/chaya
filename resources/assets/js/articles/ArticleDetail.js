@@ -89,7 +89,7 @@ class ArticleDetail extends Component {
         <ConfirmDeleteArticleDialog
           open={confirmDeleteDialogOpen}
           handleCancel={handleCancelDelete}
-          handleSubmit={handleDelete}
+          handleSubmit={() => handleDelete(id)}
         />
       </div>
     );

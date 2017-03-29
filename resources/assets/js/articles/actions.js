@@ -145,10 +145,22 @@ export function showConfirmDeleteArticleDialog() {
 export function closeConfirmDeleteArticleDialog() {
   return {
     type: types.CLOSE_CONFIRM_DELETE_ARTICLE_DIALOG,
-  }
+  };
 }
+
+export function successDeleteArticle() {
+  return {
+    type: types.SUCCESS_DELETE_ARTICLE,
+  };
+}
+
 export function deleteArticleById(id) {
   return function (dispatch) {
-    dispatch(requestDeleteArticle(id));
-  }
+    console.log('deleting', id);
+    Api.client.delete(`/articles/${id}`)
+      .then(() => {
+        dispatch(successDeleteArticle());
+        dispatch(push('/app/articles/'));
+      });
+  };
 }
