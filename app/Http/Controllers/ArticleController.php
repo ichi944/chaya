@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JWTAuth;
 use App\Article;
+use App\Constants\Articles;
 
 use Illuminate\Support\Facades\Log;
 
@@ -24,7 +25,7 @@ class ArticleController extends Controller
         $data = $this->article
             ->with('user')
             ->orderBy('id', 'desc')
-            ->paginate(3);
+            ->paginate(Articles::ITEMS_PER_PAGE);
 
         return response()->json($data);
     }
