@@ -9,6 +9,7 @@ import {
 } from 'material-ui';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
+import { PageNavigation } from './organisms/PageNavigation';
 
 class ArticleIndex extends Component {
   componentDidMount() {
@@ -23,8 +24,24 @@ class ArticleIndex extends Component {
   }
   render() {
     const {
-      articles,
+      data,
+      total,
+      from,
+      to,
+      prev_page_url,
+      next_page_url,
+    } = this.props.articles;
+    const {
+      handlePrevPage,
+      handleNextPage,
     } = this.props;
+
+    const pageNavigationProps = {
+      prev_page_url,
+      next_page_url,
+      handlePrevPage,
+      handleNextPage,
+    }
 
     const styles = {
       button: {
@@ -34,12 +51,10 @@ class ArticleIndex extends Component {
       },
     };
 
-    if (articles.data.length === 0) {
-      return (
-        <div>no articles</div>
-      );
+    if (data.length === 0) {
+      return null;
     }
-    const articlesEl = articles.data.map((article) => {
+    const articlesEl = data.map((article) => {
       return (
         <Paper key={article.id}>
           <div className="article_index-wrapper">
@@ -62,18 +77,23 @@ class ArticleIndex extends Component {
     });
 
     return (
-      <Paper className="article_index-container">
-        <Subheader>Feed</Subheader>
-        <FloatingActionButton
-          style={styles.button}
-          zDepth={2}
-          onTouchTap={this.handleCreateNewArticle}
-        >
-          <ContentAdd />
-        </FloatingActionButton>
-        <Divider />
-        { articlesEl }
-      </Paper>
+      <div>
+        <Paper className="article_index-container">
+          <Subheader>Feed {from}件目〜{to}件目 (全{total}件)</Subheader>
+          <FloatingActionButton
+            style={styles.button}
+            zDepth={2}
+            onTouchTap={this.handleCreateNewArticle}
+          >
+            <ContentAdd />
+          </FloatingActionButton>
+          <Divider />
+          { articlesEl }
+        </Paper>
+        <PageNavigation
+          {...pageNavigationProps}
+        />
+      </div>
     );
   }
 }

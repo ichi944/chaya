@@ -14,6 +14,18 @@ const mapDispatchToProps = (dispatch) => {
     initialize() {
       dispatch(fetchArticles());
     },
+    handlePrevPage(e, url) {
+      const options = {
+        url,
+      };
+      dispatch(fetchArticles(options));
+    },
+    handleNextPage(e, url) {
+      const options = {
+        url,
+      };
+      dispatch(fetchArticles(options));
+    },
   };
 };
 

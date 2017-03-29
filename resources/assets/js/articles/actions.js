@@ -3,13 +3,13 @@ import { push } from 'react-router-redux';
 import * as types from './actionTypes';
 import Api from '../utils/Api';
 
-export function fetchArticles() {
+export function fetchArticles(options = { url: '/articles' }) {
   return function (dispatch) {
     dispatch({
       type: types.START_FETCH_ARTICLES,
     });
 
-    Api.client.get('/articles')
+    Api.client.get(options.url)
       .then((res) => {
         dispatch({
           type: types.END_FETCH_ARTICLES,
