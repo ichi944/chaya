@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Dialog,
   FlatButton,
+  RaisedButton,
 } from 'material-ui';
 
 export const ArticleIsPublishedDialog = (props) => {
@@ -50,6 +51,39 @@ export const ArticleIsUpdatedDialog = (props) => {
       onRequestClose={handleClose}
     >
       The article is updated successfully.
+    </Dialog>
+  );
+};
+
+export const ConfirmDeleteArticleDialog = (props) => {
+  const {
+    open,
+    handleCancel,
+    handleSubmit,
+  } = props;
+  const actions = (
+    <div>
+      <FlatButton
+        label="Cancel"
+        primary
+        onTouchTap={handleCancel}
+      />
+      <RaisedButton
+        label="Yes, delete"
+        primary
+        onTouchTap={handleSubmit}
+      />
+    </div>
+  );
+  return (
+    <Dialog
+      title="Delete this article?"
+      actions={actions}
+      modal
+      open={open}
+      onRequestClose={handleCancel}
+    >
+    aaa
     </Dialog>
   );
 }

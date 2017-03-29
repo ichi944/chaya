@@ -135,3 +135,20 @@ export function confirmedSuccessUpdating(id) {
     dispatch(push(`/app/articles/${id}`));
   };
 }
+
+export function showConfirmDeleteArticleDialog() {
+  return {
+    type: types.SHOW_CONFIRM_DELETE_ARTICLE_DIALOG,
+  };
+}
+
+export function closeConfirmDeleteArticleDialog() {
+  return {
+    type: types.CLOSE_CONFIRM_DELETE_ARTICLE_DIALOG,
+  }
+}
+export function deleteArticleById(id) {
+  return function (dispatch) {
+    dispatch(requestDeleteArticle(id));
+  }
+}

@@ -8,6 +8,7 @@ const initialState = {
   user: {
     name: 'no name',
   },
+  confirmDeleteDialogOpen: false,
 };
 
 export default function articleReducer(state = initialState, action) {
@@ -17,6 +18,18 @@ export default function articleReducer(state = initialState, action) {
       return {
         ...state,
         ...data,
+      };
+    }
+    case types.SHOW_CONFIRM_DELETE_ARTICLE_DIALOG: {
+      return {
+        ...state,
+        confirmDeleteDialogOpen: true,
+      };
+    }
+    case types.CLOSE_CONFIRM_DELETE_ARTICLE_DIALOG: {
+      return {
+        ...state,
+        confirmDeleteDialogOpen: false,
       };
     }
     default: {

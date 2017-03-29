@@ -13,6 +13,8 @@ import EditerModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
 import { grey400 } from 'material-ui/styles/colors';
 
+import { ConfirmDeleteArticleDialog } from './organisms/Dialogs';
+
 class ArticleDetail extends Component {
   componentDidMount() {
     const { initialize, match } = this.props;
@@ -30,10 +32,13 @@ class ArticleDetail extends Component {
       body,
       user,
       created_at,
+      confirmDeleteDialogOpen,
     } = this.props.article;
-    const handleDelete = () => {
-      console.log('delete');
-    };
+    const {
+      handleConfirmDeleteArticle,
+      handleCancelDelete,
+      handleDelete,
+    } = this.props;
     const styles = {
       backButton: {
         margin: '1rem 0 0 1rem',
@@ -76,10 +81,16 @@ class ArticleDetail extends Component {
           <div className="article-actions">
             <FlatButton
               label="削除"
-              onTouchTap={handleDelete}
+              onTouchTap={handleConfirmDeleteArticle}
             />
           </div>
         </Paper>
+
+        <ConfirmDeleteArticleDialog
+          open={confirmDeleteDialogOpen}
+          handleCancel={handleCancelDelete}
+          handleSubmit={handleDelete}
+        />
       </div>
     );
   }
