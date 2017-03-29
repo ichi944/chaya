@@ -1,12 +1,12 @@
 import * as types from './actionTypes';
 
 const initialState = {
-  id: 1,
-  heading: 'aaa',
-  body: '# asdf\n\nthis is test',
-  created_at: '2017-03-14',
+  id: null,
+  heading: '',
+  body: '',
+  created_at: '',
   user: {
-    name: 'no name',
+    name: '',
   },
   confirmDeleteDialogOpen: false,
 };
@@ -33,16 +33,7 @@ export default function articleReducer(state = initialState, action) {
       };
     }
     case types.SUCCESS_DELETE_ARTICLE: {
-      return {
-        id: null,
-        heading: '',
-        body: '',
-        created_at: '',
-        user: {
-          name: '',
-        },
-        confirmDeleteDialogOpen: false,
-      };
+      return initialState;
     }
     default: {
       return state;
