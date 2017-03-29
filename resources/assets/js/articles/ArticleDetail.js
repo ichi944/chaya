@@ -16,6 +16,10 @@ import { grey400 } from 'material-ui/styles/colors';
 import { ConfirmDeleteArticleDialog } from './organisms/Dialogs';
 
 class ArticleDetail extends Component {
+  componentWillMount() {
+    const { clearContent } = this.props;
+    clearContent();
+  }
   componentDidMount() {
     const { initialize, match } = this.props;
     initialize(match.params.id);

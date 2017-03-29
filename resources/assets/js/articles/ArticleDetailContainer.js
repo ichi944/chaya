@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 
 import ArticleDetail from './ArticleDetail';
 import {
+  clearArticle,
   fetchArticleById,
   deleteArticleById,
   showConfirmDeleteArticleDialog,
@@ -16,6 +17,9 @@ const mapStateToProps = ({ article }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    clearContent() {
+      dispatch(clearArticle());
+    },
     initialize(id) {
       dispatch(fetchArticleById(id));
     },

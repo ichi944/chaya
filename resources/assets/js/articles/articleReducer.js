@@ -20,6 +20,9 @@ export default function articleReducer(state = initialState, action) {
         ...data,
       };
     }
+    case types.CLEAR_ARTICLE: {
+      return initialState;
+    }
     case types.SHOW_CONFIRM_DELETE_ARTICLE_DIALOG: {
       return {
         ...state,

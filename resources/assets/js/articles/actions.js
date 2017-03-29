@@ -36,6 +36,12 @@ export function fetchArticleById(id) {
   };
 }
 
+export function clearArticle() {
+  return {
+    type: types.CLEAR_ARTICLE,
+  };
+}
+
 export function updateArticleAddForm(name, value) {
   return {
     type: types.UPDATE_ARTICLE_ADD_FORM,
