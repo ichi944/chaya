@@ -11,8 +11,16 @@ const mapStateToProps = ({ articles }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    initialize() {
-      dispatch(fetchArticles());
+    initialize(current_page = null) {
+      if (current_page) {
+        const url = `articles?page=${current_page}`;
+        const options = {
+          url,
+        };
+        dispatch(fetchArticles(options));
+      } else {
+        dispatch(fetchArticles());
+      }
     },
     handlePrevPage(e, url) {
       const options = {

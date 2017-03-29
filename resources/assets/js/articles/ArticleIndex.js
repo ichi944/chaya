@@ -14,7 +14,9 @@ import { PageNavigation } from './organisms/PageNavigation';
 class ArticleIndex extends Component {
   componentDidMount() {
     const { initialize } = this.props;
-    initialize();
+    const { current_page = null } = this.props.articles;
+
+    initialize(current_page);
 
     this.handleCreateNewArticle = this.handleCreateNewArticle.bind(this);
   }
