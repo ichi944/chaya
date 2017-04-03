@@ -9,6 +9,7 @@ import {
 } from 'material-ui';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
+import SearcherContainer from './SearcherContainer';
 import { PageNavigation } from './organisms/PageNavigation';
 
 class ArticleIndex extends Component {
@@ -80,6 +81,7 @@ class ArticleIndex extends Component {
 
     return (
       <div>
+        <SearcherContainer />
         <Paper className="article_index-container">
           <Subheader>Feed {from}件目〜{to}件目 (全{total}件)</Subheader>
           <FloatingActionButton

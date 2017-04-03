@@ -20,9 +20,16 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->article
+        $search_query = $request->input('query');
+        $query = $this->article;
+        if($search_query !== '') {
+            // TODO: make it can search also in article body.
+            $query = $this->article
+                ->where('heading', 'like', "%$search_query%");
+        }
+        $data = $query
             ->with('user')
             ->orderBy('id', 'desc')
             ->paginate(Articles::ITEMS_PER_PAGE);

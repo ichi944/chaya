@@ -8,6 +8,7 @@ import articlesReducer from './articles/articlesReducer';
 import articleReducer from './articles/articleReducer';
 import articleAddReducer from './articles/articleAddReducer';
 import articleEditReducer from './articles/articleEditReducer';
+import searcherReducer from './articles/searcherReducer';
 
 const rootReducer = combineReducers({
   router: routerReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   article: articleReducer,
   articleAdd: articleAddReducer,
   articleEdit: articleEditReducer,
+  searcher: searcherReducer,
 });
 
 export default rootReducer;

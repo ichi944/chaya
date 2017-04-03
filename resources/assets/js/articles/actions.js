@@ -3,13 +3,20 @@ import { push } from 'react-router-redux';
 import * as types from './actionTypes';
 import Api from '../utils/Api';
 
-export function fetchArticles(options = { url: '/articles' }) {
+export function fetchArticles(options = {}) {
   return function (dispatch) {
     dispatch({
       type: types.START_FETCH_ARTICLES,
     });
+    const {
+      url = '/articles',
+      query = null,
+    } = options;
 
-    Api.client.get(options.url)
+    const params = query ? { query } : {};
+    Api.client.get(url, {
+      params,
+    })
       .then((res) => {
         dispatch({
           type: types.END_FETCH_ARTICLES,
@@ -168,5 +175,21 @@ export function deleteArticleById(id) {
         dispatch(successDeleteArticle());
         dispatch(push('/app/articles/'));
       });
+  };
+}
+
+export function updateSearchQuery(query) {
+  return {
+    type: types.UPDATE_SEARCH_QUERY,
+    query,
+  };
+}
+
+export function requestSearch(query) {
+  return (dispatch) => {
+    const options = {
+      query,
+    };
+    dispatch(fetchArticles(options));
   };
 }
