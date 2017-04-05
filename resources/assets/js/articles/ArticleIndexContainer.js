@@ -14,16 +14,11 @@ const mapStateToProps = ({ articles, searcher }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    initialize(current_page = null) {
-      if (current_page) {
-        const url = `articles?page=${current_page}`;
-        const options = {
-          url,
-        };
-        dispatch(fetchArticles(options));
-      } else {
-        dispatch(fetchArticles());
-      }
+    initialize(current_page = null, query) {
+      let options = {};
+      options = current_page ? { ...options, page: current_page } : options;
+      options = query ? { ...options, query } : options;
+      dispatch(fetchArticles(options));
     },
     handleNavigatePage(nextUrl, query) {
       const { page } = url.parse(nextUrl, true).query;

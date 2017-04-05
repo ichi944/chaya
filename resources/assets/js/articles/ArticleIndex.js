@@ -16,8 +16,9 @@ class ArticleIndex extends Component {
   componentDidMount() {
     const { initialize } = this.props;
     const { current_page = null } = this.props.articles;
+    const { query = null } = this.props.searcher;
 
-    initialize(current_page);
+    initialize(current_page, query);
 
     this.handleCreateNewArticle = this.handleCreateNewArticle.bind(this);
   }
