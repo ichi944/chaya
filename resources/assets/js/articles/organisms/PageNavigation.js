@@ -6,9 +6,8 @@ import {
 
 export const PageNavigation = (props) => {
   const {
-    handlePrevPage,
+    handleNavigatePage,
     prev_page_url,
-    handleNextPage,
     next_page_url,
     query,
   } = props;
@@ -16,12 +15,12 @@ export const PageNavigation = (props) => {
     <div className="article_index-page_navi">
       <FlatButton
         label="prev"
-        onTouchTap={e => handlePrevPage(e, prev_page_url, query)}
+        onTouchTap={() => handleNavigatePage(prev_page_url, query)}
         disabled={prev_page_url === null}
       />
       <FlatButton
         label="next"
-        onTouchTap={e => handleNextPage(e, next_page_url, query)}
+        onTouchTap={() => handleNavigatePage(next_page_url, query)}
         disabled={next_page_url === null}
       />
     </div>

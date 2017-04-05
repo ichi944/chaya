@@ -25,20 +25,12 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(fetchArticles());
       }
     },
-    handlePrevPage(e, prevUrl, query = null) {
-      const parsed = url.parse(prevUrl, true);
-      const options = {
-        page: parsed.query.page,
-        query,
+    handleNavigatePage(nextUrl, query) {
+      const { page } = url.parse(nextUrl, true).query;
+      let options = {
+        page,
       };
-      dispatch(fetchArticles(options));
-    },
-    handleNextPage(e, nextUrl, query = null) {
-      const parsed = url.parse(nextUrl, true);
-      const options = {
-        page: parsed.query.page,
-        query,
-      };
+      options = query ? { ...options, query } : options;
       dispatch(fetchArticles(options));
     },
   };

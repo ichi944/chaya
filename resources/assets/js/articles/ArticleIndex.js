@@ -38,15 +38,13 @@ class ArticleIndex extends Component {
       query,
     } = this.props.searcher;
     const {
-      handlePrevPage,
-      handleNextPage,
+      handleNavigatePage,
     } = this.props;
 
     const pageNavigationProps = {
       prev_page_url,
       next_page_url,
-      handlePrevPage,
-      handleNextPage,
+      handleNavigatePage,
       query,
     };
 
