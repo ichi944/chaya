@@ -56,31 +56,38 @@ class ArticleIndex extends Component {
         top: '1.2rem',
       },
     };
-
+    let articlesEl;
     if (data.length === 0) {
-      return null;
-    }
-    const articlesEl = data.map((article) => {
-      return (
-        <Paper key={article.id}>
+      articlesEl = (
+        <Paper>
           <div className="article_index-wrapper">
-            <div className="article_index-avatar">
-              <Avatar />
-            </div>
-            <div className="article_index-header">
-              <p className="article_index-name">{article.user.name}</p>
-              <p className="article_index-date">{article.created_at}</p>
-            </div>
-            <div className="article_index-body">
-              <Link to={`/app/articles/${article.id}`}>
-                <h3 className="article_index-article_title">{article.heading}</h3>
-                <p className="article_index-description">{article.body}</p>
-              </Link>
-            </div>
+            記事がありませんでした。
           </div>
         </Paper>
       );
-    });
+    } else {
+      articlesEl = data.map((article) => {
+        return (
+          <Paper key={article.id}>
+            <div className="article_index-wrapper">
+              <div className="article_index-avatar">
+                <Avatar />
+              </div>
+              <div className="article_index-header">
+                <p className="article_index-name">{article.user.name}</p>
+                <p className="article_index-date">{article.created_at}</p>
+              </div>
+              <div className="article_index-body">
+                <Link to={`/app/articles/${article.id}`}>
+                  <h3 className="article_index-article_title">{article.heading}</h3>
+                  <p className="article_index-description">{article.body}</p>
+                </Link>
+              </div>
+            </div>
+          </Paper>
+        );
+      });
+    }
 
     return (
       <div>
