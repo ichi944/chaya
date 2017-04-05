@@ -79,6 +79,7 @@ module.exports.module = {
             loader: 'babel-loader' + Mix.babelConfig(),
             query: {
               presets: ['react', 'es2015', 'stage-2'],
+              plugins: ['transform-flow-strip-types']
             }
         }
     ]
