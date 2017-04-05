@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import marked from 'marked';
 
@@ -12,8 +13,21 @@ import {
 
 import EditorHeader from '../molecules/EditorHeader';
 
-class Editor extends Component {
-  getMarkdown(rawBody) {
+type Props = {
+  editorHeaderText: string;
+  heading: string;
+  body: string;
+  onPreview: boolean;
+  handleChange: Function;
+  handleCancel: Function;
+  handleCancelText: string;
+  handleSubmit: Function;
+  handleSubmitText: string;
+  handleTogglePreview: Function;
+}
+
+class Editor extends Component<void, Props, void> {
+  getMarkdown(rawBody: string) {
     return marked(rawBody, {
       gfm: true,
     });
