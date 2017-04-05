@@ -1,10 +1,15 @@
+// @flow
 import React from 'react';
 
 import {
   Subheader,
 } from 'material-ui';
 
-const EditerHeader = ({ title }) => {
+type Props = {
+  title: string
+}
+
+const EditerHeader = ({ title }: Props) => {
   const styles = {
     headerText: {
 
