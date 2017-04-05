@@ -35,6 +35,9 @@ class ArticleIndex extends Component {
       next_page_url,
     } = this.props.articles;
     const {
+      query,
+    } = this.props.searcher;
+    const {
       handlePrevPage,
       handleNextPage,
     } = this.props;
@@ -44,7 +47,8 @@ class ArticleIndex extends Component {
       next_page_url,
       handlePrevPage,
       handleNextPage,
-    }
+      query,
+    };
 
     const styles = {
       button: {

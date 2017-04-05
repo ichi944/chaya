@@ -1,11 +1,14 @@
 import { connect } from 'react-redux';
+import url from 'url';
 
 import ArticleIndex from './ArticleIndex';
 import { fetchArticles } from './actions';
 
-const mapStateToProps = ({ articles }) => {
+
+const mapStateToProps = ({ articles, searcher }) => {
   return {
     articles,
+    searcher,
   };
 };
 
@@ -22,15 +25,19 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(fetchArticles());
       }
     },
-    handlePrevPage(e, url) {
+    handlePrevPage(e, prevUrl, query = null) {
+      const parsed = url.parse(prevUrl, true);
       const options = {
-        url,
+        page: parsed.query.page,
+        query,
       };
       dispatch(fetchArticles(options));
     },
-    handleNextPage(e, url) {
+    handleNextPage(e, nextUrl, query = null) {
+      const parsed = url.parse(nextUrl, true);
       const options = {
-        url,
+        page: parsed.query.page,
+        query,
       };
       dispatch(fetchArticles(options));
     },

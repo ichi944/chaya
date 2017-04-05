@@ -21,6 +21,11 @@ const mapDispatchToProps = (dispatch) => {
     handleSubmit(query) {
       dispatch(requestSearch(query));
     },
+    handlePressEnter(e) {
+      if (e.key === 'Enter') {
+        dispatch(requestSearch(e.target.value));
+      }
+    },
   };
 };
 

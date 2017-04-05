@@ -13,6 +13,7 @@ class Searcher extends Component {
     const {
       handleChange,
       handleSubmit,
+      handlePressEnter,
     } = this.props;
     return (
       <Paper className="searcher-wrapper">
@@ -24,6 +25,7 @@ class Searcher extends Component {
             value={query}
             fullWidth
             onChange={handleChange}
+            onKeyPress={handlePressEnter}
           />
         </div>
         <div className="searcher-submit_button">

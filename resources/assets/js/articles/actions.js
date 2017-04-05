@@ -2,20 +2,16 @@ import { push } from 'react-router-redux';
 
 import * as types from './actionTypes';
 import Api from '../utils/Api';
+import { ARTICLE_API_URL } from './constants';
 
 export function fetchArticles(options = {}) {
   return function (dispatch) {
     dispatch({
       type: types.START_FETCH_ARTICLES,
     });
-    const {
-      url = '/articles',
-      query = null,
-    } = options;
-
-    const params = query ? { query } : {};
-    Api.client.get(url, {
-      params,
+    console.log('options in action: ', options);
+    Api.client.get(ARTICLE_API_URL, {
+      params: options,
     })
       .then((res) => {
         dispatch({

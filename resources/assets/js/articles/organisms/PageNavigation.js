@@ -10,17 +10,18 @@ export const PageNavigation = (props) => {
     prev_page_url,
     handleNextPage,
     next_page_url,
+    query,
   } = props;
   return (
     <div className="article_index-page_navi">
       <FlatButton
         label="prev"
-        onTouchTap={e => handlePrevPage(e, prev_page_url)}
+        onTouchTap={e => handlePrevPage(e, prev_page_url, query)}
         disabled={prev_page_url === null}
       />
       <FlatButton
         label="next"
-        onTouchTap={e => handleNextPage(e, next_page_url)}
+        onTouchTap={e => handleNextPage(e, next_page_url, query)}
         disabled={next_page_url === null}
       />
     </div>
