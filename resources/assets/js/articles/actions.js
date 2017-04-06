@@ -1,11 +1,12 @@
+// @flow
 import { push } from 'react-router-redux';
 
 import * as types from './actionTypes';
 import Api from '../utils/Api';
 import { ARTICLE_API_URL } from './constants';
 
-export function fetchArticles(options = {}) {
-  return function (dispatch) {
+export function fetchArticles(options: Object = {}) {
+  return function (dispatch: Function) {
     dispatch({
       type: types.START_FETCH_ARTICLES,
     });
@@ -22,8 +23,8 @@ export function fetchArticles(options = {}) {
   };
 }
 
-export function fetchArticleById(id) {
-  return function (dispatch) {
+export function fetchArticleById(id: number) {
+  return function (dispatch: Function) {
     dispatch({
       type: types.START_FETCH_ARTICLE,
     });
@@ -45,7 +46,7 @@ export function clearArticle() {
   };
 }
 
-export function updateArticleAddForm(name, value) {
+export function updateArticleAddForm(name: string, value: any) {
   return {
     type: types.UPDATE_ARTICLE_ADD_FORM,
     name,
@@ -70,10 +71,10 @@ export function successCreateArticle() {
     type: types.SUCCESS_CREATE_ARTICLE,
   };
 }
-export function createNewArticle(data) {
-  return function (dispatch) {
+export function createNewArticle(data: Object) {
+  return function (dispatch: Function) {
     Api.client.post('/articles/', data)
-      .then((res) => {
+      .then((res: Object) => {
         console.log(res.data);
 
         dispatch(successCreateArticle());
@@ -88,14 +89,14 @@ export function closeConfirmSuccessDialog() {
 }
 
 export function confirmedSuccessCreating() {
-  return function (dispatch) {
+  return function (dispatch: Function) {
     dispatch(clearArticleAdd());
     dispatch(closeConfirmSuccessDialog());
     dispatch(push('/app/articles'));
   };
 }
 
-export function updateArticleEditForm(name, value) {
+export function updateArticleEditForm(name: string, value: any) {
   return {
     type: types.UPDATE_ARTICLE_EDIT_FORM,
     name,
@@ -120,11 +121,9 @@ export function successUpdateArticle() {
     type: types.SUCCESS_UPDATE_ARTICLE,
   };
 }
-export function requestUpdateArticle(data) {
-  return function (dispatch) {
-    const {
-      id,
-    } = data;
+export function requestUpdateArticle(data: Object) {
+  return function (dispatch: Function) {
+    const id: number = data.id;
     Api.client.put(`/articles/${id}`, data)
       .then((res) => {
         dispatch(successUpdateArticle());
@@ -137,8 +136,8 @@ export function closeConfirmSuccessUpdatingDialog() {
     type: types.CLOSE_CONFIRM_SUCCESS_UPDATING_DIALOG,
   };
 }
-export function confirmedSuccessUpdating(id) {
-  return function (dispatch) {
+export function confirmedSuccessUpdating(id: number) {
+  return function (dispatch: Function) {
     dispatch(clearArticleEdit());
     dispatch(closeConfirmSuccessUpdatingDialog());
     dispatch(push(`/app/articles/${id}`));
@@ -163,8 +162,8 @@ export function successDeleteArticle() {
   };
 }
 
-export function deleteArticleById(id) {
-  return function (dispatch) {
+export function deleteArticleById(id: number) {
+  return function (dispatch: Function) {
     console.log('deleting', id);
     Api.client.delete(`/articles/${id}`)
       .then(() => {
@@ -174,15 +173,15 @@ export function deleteArticleById(id) {
   };
 }
 
-export function updateSearchQuery(query) {
+export function updateSearchQuery(query: string = '') {
   return {
     type: types.UPDATE_SEARCH_QUERY,
     query,
   };
 }
 
-export function requestSearch(query) {
-  return (dispatch) => {
+export function requestSearch(query: string = '') {
+  return (dispatch: Function) => {
     const options = {
       query,
     };

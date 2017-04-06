@@ -1,3 +1,4 @@
+// @flow
 import { connect } from 'react-redux';
 
 import Searcher from './Searcher';
@@ -13,7 +14,7 @@ const mapStateToProps = ({ searcher }) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Function) => {
   return {
     handleChange(e) {
       dispatch(updateSearchQuery(e.target.value));

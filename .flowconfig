@@ -1,0 +1,13 @@
+[ignore]
+.*/node_modules/.*
+.*/vendor/.*
+
+[include]
+
+[libs]
+flow-typed
+
+[options]
+
+[version]
+>=0.43.0

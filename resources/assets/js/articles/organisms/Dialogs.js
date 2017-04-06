@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import {
   Dialog,
@@ -5,11 +6,14 @@ import {
   RaisedButton,
 } from 'material-ui';
 
-export const ArticleIsPublishedDialog = (props) => {
-  const {
-    open,
-    handleClose,
-  } = props;
+type ArticleIsPublishedDialogProps = {
+  open: boolean;
+  handleClose: Function;
+}
+export const ArticleIsPublishedDialog = ({
+  open,
+  handleClose
+}: ArticleIsPublishedDialogProps) => {
   const actions = (
     <FlatButton
       label="OK"
@@ -30,11 +34,14 @@ export const ArticleIsPublishedDialog = (props) => {
   );
 };
 
-export const ArticleIsUpdatedDialog = (props) => {
-  const {
-    open,
-    handleClose,
-  } = props;
+type ArticleIsUpdatedDialogProps = {
+  open: boolean;
+  handleClose: Function;
+}
+export const ArticleIsUpdatedDialog = ({
+  open,
+  handleClose,
+}: ArticleIsUpdatedDialogProps) => {
   const actions = (
     <FlatButton
       label="OK"
@@ -55,12 +62,16 @@ export const ArticleIsUpdatedDialog = (props) => {
   );
 };
 
-export const ConfirmDeleteArticleDialog = (props) => {
-  const {
-    open,
-    handleCancel,
-    handleSubmit,
-  } = props;
+type ConfirmDeleteArticleDialogProps = {
+  open: boolean;
+  handleCancel: Function;
+  handleSubmit: Function;
+}
+export const ConfirmDeleteArticleDialog = ({
+  open,
+  handleCancel,
+  handleSubmit,
+}: ConfirmDeleteArticleDialogProps) => {
   const actions = (
     <div>
       <FlatButton
