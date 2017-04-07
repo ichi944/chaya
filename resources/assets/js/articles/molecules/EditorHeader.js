@@ -10,14 +10,9 @@ type Props = {
 }
 
 const EditerHeader = ({ title }: Props) => {
-  const styles = {
-    headerText: {
-
-    },
-  };
   return (
     <div>
-      <Subheader style={styles.headerText}>{title}</Subheader>
+      <Subheader>{title}</Subheader>
     </div>
   );
 };
