@@ -1,4 +1,13 @@
+// @flow
 import * as types from './actionTypes';
+
+type ArticleAddState = {
+  +heading: string,
+  +body: string,
+  +onPreview: boolean,
+  +mode: string,
+  +confirmSuccessDialogOpen: boolean,
+}
 
 const initialState = {
   heading: '',
@@ -8,7 +17,7 @@ const initialState = {
   confirmSuccessDialogOpen: false,
 };
 
-export default function articleAddReducer(state = initialState, action) {
+export default function articleAddReducer(state: ArticleAddState = initialState, action: any) {
   switch (action.type) {
     case types.UPDATE_ARTICLE_ADD_FORM: {
       return {

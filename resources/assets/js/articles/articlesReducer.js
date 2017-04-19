@@ -1,4 +1,18 @@
+// @flow
 import * as types from './actionTypes';
+
+type ArticlesState = {
+  +isFetching: boolean,
+  +current_page: ?number,
+  +data: Array<Object>,
+  +from: ?number,
+  +last_page: ?number,
+  +next_page_url: ?string,
+  +per_page: ?number,
+  +prev_page_url: ?string,
+  +to: ?number,
+  +total: ?number,
+}
 
 const initialState = {
   isFetching: false,
@@ -13,7 +27,7 @@ const initialState = {
   total: null,
 };
 
-export default function articlesReducer(state = initialState, action) {
+export default function articlesReducer(state: ArticlesState = initialState, action: any) {
   switch (action.type) {
     case types.START_FETCH_ARTICLES: {
       return {

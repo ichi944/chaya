@@ -1,11 +1,17 @@
+// @flow
 import * as types from './actionTypes';
+
+type AuthState = {
+  +isDoneCheckingStatusAtInitialize: boolean,
+  +isAuthenticated: boolean,
+}
 
 const initialState = {
   isDoneCheckingStatusAtInitialize: false,
   isAuthenticated: false,
 };
 
-export default function authReducer(state = initialState, action) {
+export default function authReducer(state: AuthState = initialState, action: any) {
   switch (action.type) {
     case types.END_INITIAL_CHECK_STATUS: {
       return {

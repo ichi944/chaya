@@ -1,4 +1,12 @@
+// @flow
 import * as types from './actionTypes';
+
+type LoginState = {
+  +email: string,
+  +password: string,
+  +showErrorMessage: boolean,
+  +errorMessage: string,
+}
 
 const initialState = {
   email: '',
@@ -7,7 +15,7 @@ const initialState = {
   errorMessage: '',
 };
 
-export default function loginReducer(state = initialState, action) {
+export default function loginReducer(state: LoginState = initialState, action: any) {
   switch (action.type) {
     case types.LOGIN_CHANGE: {
       console.log('LOGIN_CHANGE', action);
