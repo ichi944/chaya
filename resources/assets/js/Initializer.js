@@ -10,6 +10,7 @@ import LoadProfile from './application/LoadProfile';
 import HeaderContainer from './application/HeaderContainer';
 import SideBarContainer from './application/SideBarContainer';
 import LoginContainer from './auth/LoginContainer';
+import SignupContainer from './signup/SignupContainer';
 import HomeContainer from './home/HomeContainer';
 import ArticleIndexContainer from './articles/ArticleIndexContainer';
 import ArticleDetailContainer from './articles/ArticleDetailContainer';
@@ -60,6 +61,7 @@ class Initializer extends Component {
             <div>
               <Switch>
                 <Route path="/app/login" component={LoginContainer} />
+                <Route path="/app/signup" component={SignupContainer} />
                 <Route component={RedirectToLogin} />
               </Switch>
             </div>

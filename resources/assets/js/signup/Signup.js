@@ -4,12 +4,11 @@ import { Link, Redirect } from 'react-router-dom';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import Divider from 'material-ui/Divider';
 
-class Login extends Component {
+class Siginup extends Component {
   render() {
     const {
+      name,
       email,
       password,
       showErrorMessage,
@@ -18,8 +17,7 @@ class Login extends Component {
     } = this.props;
     const {
       handleChange,
-      handleAuthenticate,
-      handlePressEnter,
+      handleSubmit,
     } = this.props;
 
     if (isAuthenticated) {
@@ -32,14 +30,23 @@ class Login extends Component {
       <div>
         <Paper className="login-form" zDepth={1}>
           <div className="login-inner">
-            <h1 className="login-title">WELCOME</h1>
+            <h1 className="login-title">SIGN UP</h1>
+            <TextField
+              floatingLabelText="name"
+              hintText="your name"
+              name="name"
+              value={name}
+              onChange={handleChange}
+              onKeyPress={e => handlePressEnter(e, name, email, password)}
+            />
+            <br />
             <TextField
               floatingLabelText="email"
               hintText="you@example.com"
               name="email"
               value={email}
               onChange={handleChange}
-              onKeyPress={e => handlePressEnter(e, email, password)}
+              onKeyPress={e => handlePressEnter(e, name, email, password)}
             />
             <br />
             <TextField
@@ -49,18 +56,18 @@ class Login extends Component {
               name="password"
               value={password}
               onChange={handleChange}
-              onKeyPress={e => handlePressEnter(e, email, password)}
+              onKeyPress={e => handlePressEnter(e, name, email, password)}
             />
             <br />
             <div className="login-buttons">
               <RaisedButton
                 primary
-                label="Login"
-                onClick={() => handleAuthenticate(email, password)}
+                label="Sign Up"
+                onClick={() => handleSubmit(name, email, password)}
               />
             </div>
             <div className="login-links">
-              <Link to="signup">Sign up</Link>
+              <Link to="login">return to Login</Link>
             </div>
             <div className="login-error_message">
               { showErrorMessage ? (
@@ -77,4 +84,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Siginup;
