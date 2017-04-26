@@ -27,6 +27,20 @@ export default function signupReducer(state: SignupState = initialState, action:
         errorMessage: '',
       };
     }
+    case types.START_SIGNUP: {
+      console.log('starting sign up');
+      return state;
+    }
+    case types.SUCCESS_SIGNUP: {
+      return {
+        ...state,
+        name: '',
+        email: '',
+        password: '',
+        showErrorMessage: false,
+        errorMessage: false,
+      }
+    }
     default: {
       return state;
     }

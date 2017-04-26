@@ -6,6 +6,14 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Illuminate\Support\Facades\Log;
+
 
 class RegisterController extends Controller
 {
@@ -50,8 +58,39 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6',
         ]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @author ichi <ichi944g@gmail.com>
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        Log::Info($request);
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+        Log::Info('ok');
+        try {
+            if(! $token = JWTAuth::fromUser($user)) {
+                Log::Info('invalid token1');
+                return response()->json(['error' => 'something wrong: failed to create the token from user created']);
+            }
+        } catch (JWTException $e) {
+            Log::Info('invalid token 2');
+            return response()->json(['error' => 'could_not_create_token']);
+        }
+        Log::Info('complete register, and token is generated');
+        Log::Info($token);
+
+        return response()->json(compact('token'));
     }
 
     /**

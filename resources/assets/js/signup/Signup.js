@@ -18,6 +18,7 @@ class Siginup extends Component {
     const {
       handleChange,
       handleSubmit,
+      handlePressEnter,
     } = this.props;
 
     if (isAuthenticated) {
