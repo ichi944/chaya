@@ -16,9 +16,9 @@ class UserVerification extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -28,6 +28,6 @@ class UserVerification extends Mailable
      */
     public function build()
     {
-        return $this->view('email.user_verification');
+        return $this->view('email.user_verification', [ 'data' => $this->data ] );
     }
 }

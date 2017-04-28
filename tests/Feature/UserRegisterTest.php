@@ -12,6 +12,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserVerification;
 use App\User;
+use App\Services\TokenGeneraterService;
 
 class UserRegisterTest extends TestCase
 {
@@ -24,7 +25,8 @@ class UserRegisterTest extends TestCase
     public function testSendVerificationMail()
     {
         Mail::fake();
-        $handler = new SendRegisterVerification();
+        $tokenGenerater = new TokenGeneraterService();
+        $handler = new SendRegisterVerification($tokenGenerater);
         $email = 'foo@example.com';
         $user = User::create([
             'name' => 'foo',

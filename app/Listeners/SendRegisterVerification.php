@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserVerification;
 use Illuminate\Support\Facades\Log;
+use App\Services\TokenGeneraterService;
 
 class SendRegisterVerification
 {
@@ -16,9 +17,9 @@ class SendRegisterVerification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(TokenGeneraterService $tokenGenerater)
     {
-        //
+        $this->tokenGenerater = $tokenGenerater;
     }
 
     /**
@@ -30,6 +31,9 @@ class SendRegisterVerification
     public function handle(Registered $event)
     {
         Log::Info('@SendRegisterVerification');
-        Mail::to($event->user)->send(new UserVerification());
+        $token = $this->tokenGenerater->generateUserVerificationToken();
+        Log::Info('token is: '. $token);
+        $verification_url = env('APP_URL').'/auth/verification/'.$token;
+        Mail::to($event->user)->send(new UserVerification(compact('verification_url')));
     }
 }
