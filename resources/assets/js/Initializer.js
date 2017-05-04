@@ -41,6 +41,14 @@ class RedirectToLogin extends Component {
 }
 
 class Initializer extends Component {
+  componentWillUpdate() {
+    const {
+      auth,
+    } = this.props;
+    if(!auth.isAuthenticated) {
+      this.props.requestClearProfile();
+    }
+  }
   render() {
     const {
       auth,
