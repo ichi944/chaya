@@ -37,3 +37,40 @@ export function clearProfile() {
     type: types.CLEAR_PROFILE,
   }
 }
+
+export function updateProfileForm(data) {
+  return {
+    type: types.UPDATE_PROFILE_FORM,
+    data,
+  }
+}
+
+export function requestCurrentProfile() {
+  return (dispatch, getState) => {
+    const currentData = {
+      name: getState().profile.name,
+    }
+    dispatch(updateProfileForm(currentData));
+  }
+}
+
+export function updateProfileIsSucceeded(data) {
+  return {
+    type: types.UPDATE_PROFILE,
+    data,
+  }
+}
+export function requestUpdateProfile() {
+  return (dispatch, getState) => {
+    const {
+      name,
+    } = getState().editProfile;
+    Api.client.post('/profiles/update-me', {
+      name,
+    })
+      .then((res) => {
+        console.log(res);
+        dispatch(updateProfileIsSucceeded({name}));
+      })
+  }
+}

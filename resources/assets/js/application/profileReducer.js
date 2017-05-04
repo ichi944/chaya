@@ -11,11 +11,9 @@ const initialState = {
 export default function profileReducer(state = initialState, action) {
   switch (action.type) {
     case types.REQUEST_PROFILE: {
-      console.log('REQUEST_PROFILE');
       return state;
     }
     case types.LORDED_PROFILE: {
-      console.log('LORDED_PROFILE', action.profile);
       const {
         id,
         name,
@@ -33,6 +31,13 @@ export default function profileReducer(state = initialState, action) {
     }
     case types.CLEAR_PROFILE: {
       return initialState;
+    }
+    case types.UPDATE_PROFILE: {
+      const data = action.data;
+      return {
+        ...state,
+        ...data,
+      }
     }
     default: {
       return state;

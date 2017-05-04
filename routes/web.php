@@ -27,5 +27,6 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
         });
         Route::resource('articles', 'ArticleController');
         Route::get('profiles/me', 'UserController@profile');
+        Route::post('profiles/update-me', 'UserController@updateMe');
     });
 });

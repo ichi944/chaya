@@ -13,4 +13,19 @@ class UserController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
         return response()->json(compact('user'));
     }
+
+    public function updateMe(Request $request) {
+        $user = JWTAuth::parseToken()->authenticate();
+        $user->name = $request->input('name');
+        if($user->save()) {
+            return response()->json([
+                'status' => 'ok',
+                '_code' => 0,
+            ]);
+        }
+        return response()->json([
+            'status' => 'ok',
+            '_code' => 1,
+        ]);
+    }
 }

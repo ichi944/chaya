@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import {
   Drawer,
   AppBar,
@@ -31,6 +33,7 @@ class SideBar extends Component {
           showMenuIconButton={false}
         />
         <Subheader>{ profile.name }</Subheader>
+        <p className="sidebar_link-profile"><Link to="/app/profile">プロフィールを編集する...</Link></p>
         <Divider />
 
       </Drawer>

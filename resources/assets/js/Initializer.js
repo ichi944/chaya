@@ -9,6 +9,7 @@ import InitialCheckStatus from './auth/InitialCheckStatus';
 import LoadProfile from './application/LoadProfile';
 import HeaderContainer from './application/HeaderContainer';
 import SideBarContainer from './application/SideBarContainer';
+import EditProfileContainer from './application/EditProfileContainer';
 import LoginContainer from './auth/LoginContainer';
 import SignupContainer from './signup/SignupContainer';
 import SignupCompleteContainer from './signup/SignupCompleteContainer';
@@ -101,6 +102,7 @@ class Initializer extends Component {
                 <Route exact path="/app/articles/add" component={ArticleAddContainer} />
                 <Route exact path="/app/articles/:id/edit" component={ArticleEditContainer} />
                 <Route path="/app/articles/:id" component={ArticleDetailContainer} />
+                <Route exact path="/app/profile" component={EditProfileContainer} />
                 <Route component={NotFound} />
               </Switch>
             </div>
