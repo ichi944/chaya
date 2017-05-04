@@ -52,16 +52,25 @@ class LoginController extends Controller
         try {
             if(! $token = JWTAuth::attempt($credentials)) {
                 Log::Info('invalid token1');
-                return response()->json(['error' => 'invalid_credentials']);
+                return response()->json([
+                    '_code' => 1,
+                    'error' => 'invalid_credentials',
+                ]);
             }
         } catch (JWTException $e) {
             Log::Info('invalid token 2');
-            return response()->json(['error' => 'could_not_create_token']);
+            return response()->json([
+                '_code' => 1,
+                'error' => 'could_not_create_token',
+            ]);
         }
         Log::Info('all ok');
         Log::Info($token);
 
-        return response()->json(compact('token'));
+        return response()->json([
+            '_code' => 0,
+            'token' => $token,
+        ]);
     }
 
     public function hello(Request $request) {
