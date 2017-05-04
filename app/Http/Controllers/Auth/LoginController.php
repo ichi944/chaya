@@ -50,7 +50,11 @@ class LoginController extends Controller
         Log::Info('authenticate start');
         Log::Info($credentials['email']);
         try {
-            if(! $token = JWTAuth::attempt($credentials)) {
+            if(! $token = JWTAuth::attempt([
+                    'email' => $credentials['email'],
+                    'password' => $credentials['password'],
+                    'is_verified' => true,
+                ])) {
                 Log::Info('invalid token1');
                 return response()->json([
                     '_code' => 1,
