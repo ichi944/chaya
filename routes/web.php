@@ -23,6 +23,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
             Route::post('login', 'LoginController@authenticate');
             Route::get('hello', 'LoginController@hello');
             Route::post('signup', 'RegisterController@register');
+            Route::get('verification/{token}', 'RegisterController@verification');
         });
         Route::resource('articles', 'ArticleController');
         Route::get('profiles/me', 'UserController@profile');

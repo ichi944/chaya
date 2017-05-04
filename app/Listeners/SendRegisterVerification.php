@@ -31,7 +31,13 @@ class SendRegisterVerification
     public function handle(Registered $event)
     {
         Log::Info('@SendRegisterVerification');
-        $token = $this->tokenGenerater->generateUserVerificationToken();
+        $token = (new TokenGeneraterService())
+                ->generateUserVerificationToken();
+
+        $event->user->userVerificationToken()->create([
+            'token' => $token,
+        ]);
+
         Log::Info('token is: '. $token);
         $verification_url = env('APP_URL').'/auth/verification/'.$token;
         Mail::to($event->user)->send(new UserVerification(compact('verification_url')));

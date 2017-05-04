@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\UserVerificationToken;
+use App\Services\TokenGeneraterService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -73,7 +75,8 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        event(new Registered($user = $this->create($request->all())));
+        $user = $this->create($request->all());
+        event(new Registered($user));
         if($user) {
             return response()->json([
                 'status' => 'ok',
@@ -100,4 +103,35 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    /**
+     * Handle a user verification request.
+     *
+     * @author ichi <ichi944g@gmail.com>
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function verification(Request $request, $token)
+    {
+        Log::Info('in verification url, token is: '.$token);
+        $existed = UserVerificationToken::where('token', '=', $token)->first();
+        if ($existed) {
+            $user = $existed->user()->first();
+            $user->is_verified = true;
+            $user->save();
+
+            $tokenRow = $user->userVerificationToken()->first();
+            $tokenRow->delete();
+
+            return response()->json([
+                'status' => 'ok',
+                '_code' => 0,
+            ]);
+        }
+        return response()->json([
+            'status' => 'ok',
+            '_code' => 1,
+        ]);
+    }
+
 }
