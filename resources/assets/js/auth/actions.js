@@ -18,6 +18,15 @@ export function handleCheckAuthStatus() {
     dispatch({
       type: types.START_CHECK_AUTH_STATUS,
     });
+    // configure the handler when token expired.
+    Api.setInterceptors((response) => {
+      return response
+    }, (error) => {
+      dispatch({
+        type: types.FAILED_AUTHENTICATION,
+      })
+      return Promise.reject(error);;
+    })
     console.log('check if the token exists in localStorage');
     const token = localStorage.getItem('authToken');
     if (token) {
@@ -101,4 +110,18 @@ export function authenticate(email, password) {
       }
     });
   };
+}
+
+export function successSignOut() {
+  return {
+    type: types.SIGN_OUT,
+  }
+}
+export function requestSignOut() {
+  return (dispatch) => {
+    Api.client.get('/auth/signout')
+      .then((res) => {
+        dispatch(successSignOut());
+      });
+  }
 }

@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
 import * as authTypes from '../auth/actionTypes';
+import { requestSignOut } from '../auth/actions';
+
 
 import _ from 'lodash';
 
@@ -18,9 +20,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleSignOut() {
       localStorage.removeItem('authToken');
-      dispatch({
-        type: authTypes.SIGN_OUT,
-      });
+      dispatch(requestSignOut());
     },
   };
 };
