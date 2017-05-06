@@ -24,10 +24,13 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
             Route::get('hello', 'LoginController@hello');
             Route::post('signup', 'RegisterController@register');
             Route::get('verification/{token}', 'RegisterController@verification');
+            Route::get('signout', 'LoginController@signout')->middleware('jwt.refresh');
         });
-        Route::resource('articles', 'ArticleController');
-        Route::get('profiles/me', 'UserController@profile');
-        Route::post('profiles/update-me', 'UserController@updateMe');
+        Route::group(['middleware' => ['jwt.auth']], function() {
+            Route::resource('articles', 'ArticleController');
+            Route::get('profiles/me', 'UserController@profile');
+            Route::post('profiles/update-me', 'UserController@updateMe');
+        });
     });
 });
 

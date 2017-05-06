@@ -5,16 +5,34 @@ import * as types from './actionTypes';
 
 import Api from '../utils/Api';
 
+export function storeAuthorizationTokenToState(token) {
+  return {
+    type: types.STORE_AUTHORIZTION_TOKEN_TO_STATE,
+    token,
+  }
+}
+
 export function handleCheckAuthStatus() {
   return function (dispatch) {
     console.log('start check auth status');
     dispatch({
       type: types.START_CHECK_AUTH_STATUS,
     });
+    // configure the handler when token expired.
+    Api.setInterceptors((response) => {
+      return response
+    }, (error) => {
+      dispatch({
+        type: types.FAILED_AUTHENTICATION,
+      })
+      return Promise.reject(error);;
+    })
     console.log('check if the token exists in localStorage');
     const token = localStorage.getItem('authToken');
     if (token) {
       console.log('token exists: ', token);
+      dispatch(storeAuthorizationTokenToState(token));
+
       Api.setAuthorizationToken(token);
       Api.client.get('/auth/hello')
         .then((res) => {
@@ -79,8 +97,10 @@ export function authenticate(email, password) {
       } // endif: when error
       if (_.has(res.data, 'token')) {
         console.log('authenticated');
-        Api.setAuthorizationToken(res.data.token);
-        localStorage.setItem('authToken', res.data.token);
+        const { token } = res.data;
+        dispatch(storeAuthorizationTokenToState(token));
+        Api.setAuthorizationToken(token);
+        localStorage.setItem('authToken', token);
         dispatch({
           type: types.LOGIN_SUCCESS,
         });
@@ -90,4 +110,18 @@ export function authenticate(email, password) {
       }
     });
   };
+}
+
+export function successSignOut() {
+  return {
+    type: types.SIGN_OUT,
+  }
+}
+export function requestSignOut() {
+  return (dispatch) => {
+    Api.client.get('/auth/signout')
+      .then((res) => {
+        dispatch(successSignOut());
+      });
+  }
 }

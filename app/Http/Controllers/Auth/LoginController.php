@@ -77,6 +77,13 @@ class LoginController extends Controller
         ]);
     }
 
+    public function signout() {
+        return response()->json([
+            '_code' => 0,
+            'status' => 'ok',
+        ]);
+    }
+
     public function hello(Request $request) {
         try {
             if (! $user = JWTAuth::parseToken()->authenticate()) {
