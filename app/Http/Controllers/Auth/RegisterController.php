@@ -3,9 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\UserVerificationToken;
+use App\Services\TokenGeneraterService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Illuminate\Support\Facades\Log;
+
 
 class RegisterController extends Controller
 {
@@ -50,7 +60,32 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6',
+        ]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @author ichi <ichi944g@gmail.com>
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $user = $this->create($request->all());
+        event(new Registered($user));
+        if($user) {
+            return response()->json([
+                'status' => 'ok',
+                '_code' => 0
+            ]);
+        }
+        return response()->json([
+            'status' => 'ok',
+            '_code' => 1,
         ]);
     }
 
@@ -68,4 +103,35 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    /**
+     * Handle a user verification request.
+     *
+     * @author ichi <ichi944g@gmail.com>
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function verification(Request $request, $token)
+    {
+        Log::Info('in verification url, token is: '.$token);
+        $existed = UserVerificationToken::where('token', '=', $token)->first();
+        if ($existed) {
+            $user = $existed->user()->first();
+            $user->is_verified = true;
+            $user->save();
+
+            $tokenRow = $user->userVerificationToken()->first();
+            $tokenRow->delete();
+
+            return response()->json([
+                'status' => 'ok',
+                '_code' => 0,
+            ]);
+        }
+        return response()->json([
+            'status' => 'ok',
+            '_code' => 1,
+        ]);
+    }
+
 }

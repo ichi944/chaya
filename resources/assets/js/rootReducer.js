@@ -3,6 +3,8 @@ import { routerReducer } from 'react-router-redux';
 
 import authReducer from './auth/authReducer';
 import loginReducer from './auth/loginReducer';
+import signupReducer from './signup/signupReducer';
+import verifyUserReducer from './signup/verifyUserReducer';
 import profileReducer from './application/profileReducer';
 import articlesReducer from './articles/articlesReducer';
 import articleReducer from './articles/articleReducer';
@@ -14,6 +16,8 @@ const rootReducer = combineReducers({
   router: routerReducer,
   auth: authReducer,
   login: loginReducer,
+  signup: signupReducer,
+  verifyUser: verifyUserReducer,
   profile: profileReducer,
   articles: articlesReducer,
   article: articleReducer,

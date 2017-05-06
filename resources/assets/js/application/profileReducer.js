@@ -31,6 +31,9 @@ export default function profileReducer(state = initialState, action) {
         created_at,
       };
     }
+    case types.CLEAR_PROFILE: {
+      return initialState;
+    }
     default: {
       return state;
     }

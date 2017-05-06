@@ -31,3 +31,9 @@ export function fetchProfile() {
       });
   };
 }
+
+export function clearProfile() {
+  return {
+    type: types.CLEAR_PROFILE,
+  }
+}

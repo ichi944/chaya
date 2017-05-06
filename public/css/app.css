@@ -55,6 +55,11 @@ li {
   justify-content: flex-end;
   margin: 1rem 0;
 }
+.login-links {
+  display: flex;
+  justify-content: flex-end;
+  margin: 1rem;
+}
 
 /* $home */
 

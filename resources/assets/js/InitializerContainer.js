@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 
+import { clearProfile } from './application/actions';
 import Initializer from './Initializer';
+
 
 const mapStateToProps = ({ auth, profile }) => {
   return {
@@ -9,4 +11,12 @@ const mapStateToProps = ({ auth, profile }) => {
   };
 }
 
-export default connect(mapStateToProps)(Initializer);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    requestClearProfile() {
+      dispatch(clearProfile());
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Initializer);
