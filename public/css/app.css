@@ -8,6 +8,7 @@
   - article
   - editor
   - searcher
+  - avator_preview
  */
 
 /* $general */
@@ -205,6 +206,16 @@ li {
 }
 .searcher-submit_button {
   margin: .4rem 0 0 1rem;
+}
+
+/* $avator_preview */
+
+.avator-preview_wrapper {
+  display: -webkit-flex; /* Safari */
+  display: flex;
+}
+.avator-preview_dropzone {
+  margin-left: 1rem;
 }
 
 

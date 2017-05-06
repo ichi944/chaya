@@ -17,10 +17,12 @@ class UserController extends Controller
     public function updateMe(Request $request) {
         $user = JWTAuth::parseToken()->authenticate();
         $user->name = $request->input('name');
+        $filename = $request->file('image_data')->store($user->id.'/avator');
         if($user->save()) {
             return response()->json([
                 'status' => 'ok',
                 '_code' => 0,
+                'filename' => $filename,
             ]);
         }
         return response()->json([

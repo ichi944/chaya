@@ -60,17 +60,18 @@ export function updateProfileIsSucceeded(data) {
     data,
   }
 }
-export function requestUpdateProfile() {
+export function requestUpdateProfile(imageData) {
   return (dispatch, getState) => {
     const {
       name,
     } = getState().editProfile;
-    Api.client.post('/profiles/update-me', {
-      name,
-    })
+    const data = new FormData();
+    data.append('name', name);
+    data.append('image_data', imageData);
+    Api.client.post('/profiles/update-me', data)
       .then((res) => {
         console.log(res);
-        dispatch(updateProfileIsSucceeded({name}));
+        dispatch(updateProfileIsSucceeded({name, avatorUrl: res.data.filename}));
       })
   }
 }

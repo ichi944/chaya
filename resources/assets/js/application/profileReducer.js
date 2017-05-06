@@ -5,6 +5,7 @@ const initialState = {
   id: null,
   name: '',
   email: '',
+  avatorUrl: '',
   created_at: '',
 };
 

@@ -27,8 +27,8 @@ const mapDispatchToProps = (dispatch) => {
         [e.target.name]: e.target.value,
       }))
     },
-    handleUpdateProfile() {
-      dispatch(requestUpdateProfile());
+    handleUpdateProfile(imageData) {
+      dispatch(requestUpdateProfile(imageData));
     }
   };
 };

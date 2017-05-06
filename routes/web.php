@@ -30,3 +30,5 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
         Route::post('profiles/update-me', 'UserController@updateMe');
     });
 });
+
+Route::get('private-img/{filename}', 'ImageController@privateImage');
