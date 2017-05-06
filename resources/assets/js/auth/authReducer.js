@@ -4,11 +4,13 @@ import * as types from './actionTypes';
 type AuthState = {
   +isDoneCheckingStatusAtInitialize: boolean,
   +isAuthenticated: boolean,
+  +authorizationToken: ?string,
 }
 
 const initialState = {
   isDoneCheckingStatusAtInitialize: false,
   isAuthenticated: false,
+  authorizationToken: null,
 };
 
 export default function authReducer(state: AuthState = initialState, action: any) {
@@ -18,6 +20,12 @@ export default function authReducer(state: AuthState = initialState, action: any
         ...state,
         isDoneCheckingStatusAtInitialize: true,
       };
+    }
+    case types.STORE_AUTHORIZTION_TOKEN_TO_STATE: {
+      return {
+        ...state,
+        authorizationToken: action.token,
+      }
     }
     case types.AUTHENTICATED: {
       console.log('in reduser authenticated');
@@ -31,12 +39,14 @@ export default function authReducer(state: AuthState = initialState, action: any
       return {
         ...state,
         isAuthenticated: false,
+        authorizationToken: null,
       };
     }
     case types.FAILED_AUTHENTICATION: {
       return {
         ...state,
         isAuthenticated: false,
+        authorizationToken: null,
       };
     }
     case types.START_CHECK_AUTH_STATUS: {

@@ -5,6 +5,13 @@ import * as types from './actionTypes';
 
 import Api from '../utils/Api';
 
+export function storeAuthorizationTokenToState(token) {
+  return {
+    type: types.STORE_AUTHORIZTION_TOKEN_TO_STATE,
+    token,
+  }
+}
+
 export function handleCheckAuthStatus() {
   return function (dispatch) {
     console.log('start check auth status');
@@ -15,6 +22,8 @@ export function handleCheckAuthStatus() {
     const token = localStorage.getItem('authToken');
     if (token) {
       console.log('token exists: ', token);
+      dispatch(storeAuthorizationTokenToState(token));
+
       Api.setAuthorizationToken(token);
       Api.client.get('/auth/hello')
         .then((res) => {
@@ -79,8 +88,10 @@ export function authenticate(email, password) {
       } // endif: when error
       if (_.has(res.data, 'token')) {
         console.log('authenticated');
-        Api.setAuthorizationToken(res.data.token);
-        localStorage.setItem('authToken', res.data.token);
+        const { token } = res.data;
+        dispatch(storeAuthorizationTokenToState(token));
+        Api.setAuthorizationToken(token);
+        localStorage.setItem('authToken', token);
         dispatch({
           type: types.LOGIN_SUCCESS,
         });
