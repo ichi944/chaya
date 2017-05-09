@@ -14,15 +14,29 @@ class UserController extends Controller
         return response()->json(compact('user'));
     }
 
-    public function updateMe(Request $request) {
+    public function updateMyAvator(Request $request) {
         $user = JWTAuth::parseToken()->authenticate();
-        $user->name = $request->input('name');
         $filename = $request->file('image_data')->store($user->id.'/avator');
         if($user->save()) {
             return response()->json([
                 'status' => 'ok',
                 '_code' => 0,
                 'filename' => $filename,
+            ]);
+        }
+        return response()->json([
+            'status' => 'ok',
+            '_code' => 1,
+        ]);
+    }
+
+    public function updateMe(Request $request) {
+        $user = JWTAuth::parseToken()->authenticate();
+        $user->name = $request->input('name');
+        if($user->save()) {
+            return response()->json([
+                'status' => 'ok',
+                '_code' => 0,
             ]);
         }
         return response()->json([

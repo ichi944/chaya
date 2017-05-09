@@ -5,7 +5,7 @@ const initialState = {
   id: null,
   name: '',
   email: '',
-  avatorUrl: '',
+  avator_img_url: '',
   created_at: '',
 };
 
@@ -19,6 +19,7 @@ export default function profileReducer(state = initialState, action) {
         id,
         name,
         email,
+        avator_img_url,
         created_at,
       } = action.profile;
       return {
@@ -27,6 +28,7 @@ export default function profileReducer(state = initialState, action) {
         id,
         name,
         email,
+        avator_img_url,
         created_at,
       };
     }

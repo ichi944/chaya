@@ -29,9 +29,12 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
         Route::group(['middleware' => ['jwt.auth']], function() {
             Route::resource('articles', 'ArticleController');
             Route::get('profiles/me', 'UserController@profile');
+            Route::post('profiles/update-my-avator', 'UserController@updateMyAvator');
             Route::post('profiles/update-me', 'UserController@updateMe');
         });
     });
 });
 
-Route::get('private-img/{filename}', 'ImageController@privateImage');
+Route::group(['middleware' => ['jwt.auth']], function() {
+    Route::get('private-img/{filename}', 'ImageController@privateImage');
+});

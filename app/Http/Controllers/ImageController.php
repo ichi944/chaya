@@ -16,7 +16,8 @@ class ImageController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
 
         $path = storage_path('app/'.$user->id.'/avator/'.$filename);
-
+        Log::Info('path is: ');
+        Log::Info($path);
         if (!File::exists($path)) {
             abort(404);
         }

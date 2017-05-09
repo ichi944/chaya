@@ -6,7 +6,7 @@ import Dropzone from 'react-dropzone';
 
 import { AvatorPreview } from '../molecules/AvatorPreview';
 
-export const AvatorEditor = ({imageUrl, onDrop}) => {
+export const AvatorEditor = ({currentImageUrl, newImageUrl, onDrop}) => {
   const styles = {
     dropzone: {
       width: '200px',
@@ -20,7 +20,12 @@ export const AvatorEditor = ({imageUrl, onDrop}) => {
     <div className="avator-preview_wrapper">
       <div>
         <AvatorPreview
-          imageUrl={imageUrl}
+          imageUrl={currentImageUrl}
+        />
+      </div>
+      <div className="avator-preview_new-image">
+        <AvatorPreview
+          imageUrl={newImageUrl}
         />
       </div>
       <div className="avator-preview_dropzone">

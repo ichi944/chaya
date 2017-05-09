@@ -15,27 +15,33 @@ import { AvatorEditor } from './organisms/AvatorEditor';
 class EditProfile extends Component {
   constructor(props) {
     super(props);
+    this.handleSubmitAvator = this.handleSubmitAvator.bind(this);
     this.handleSubmitProfile = this.handleSubmitProfile.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.reader = new FileReader();
 
     this.state = {
-      previewUrl: null,
+      currentImageUrl: null,
+      newImageUrl: null,
       file: null,
     }
   }
   componentWillMount() {
     this.props.initializeProfileForm();
   }
-  handleSubmitProfile() {
+  handleSubmitAvator() {
+    console.log('@submit avatoa', this.state);
     const imageData = this.state.file;
-    this.props.handleUpdateProfile(imageData);
+    this.props.handleUpdateAvator(imageData);
+  }
+  handleSubmitProfile() {
+    this.props.handleUpdateProfile();
   }
   handleDrop(files) {
     this.reader.onloadend = () => {
       this.setState({
         file: files[0],
-        previewUrl: this.reader.result,
+        newImageUrl: this.reader.result,
       });
     }
     this.reader.readAsDataURL(files[0]);
@@ -47,13 +53,16 @@ class EditProfile extends Component {
       name,
     } = this.props.editProfile;
     const {
-      avatorUrl,
+      avator_img_url,
     } = this.props.profile;
+    const {
+      authorizationToken,
+    } = this.props.auth;
     const {
       handleChangeProfile,
     } = this.props;
-    const previewUrl = this.state.previewUrl !== null ? this.state.previewUrl : avatorUrl;
-    console.log('in EditProfile');
+    const currentImageUrl = avator_img_url;
+    const currentImageUrlWithToken = `/private-img/${currentImageUrl}?token=${authorizationToken}`
 
     const styles = {
       paper: {
@@ -73,14 +82,28 @@ class EditProfile extends Component {
         />
         <Paper className="editor-wrapper" style={styles.paper}>
           <div style={{ position: 'relative' }}>
-            <Subheader>プロフィールを変更する...</Subheader>
+            <Subheader>アバターを変更する...</Subheader>
           </div>
 
           <div className="editor-forms_inputs">
             <AvatorEditor
-              imageUrl={previewUrl}
+              currentImageUrl={currentImageUrlWithToken}
+              newImageUrl={this.state.newImageUrl}
               onDrop={this.handleDrop}
             />
+            <br />
+            <RaisedButton
+              label="Submit"
+              primary
+              onTouchTap={this.handleSubmitAvator}
+            />
+          </div>
+
+
+          <div style={{ position: 'relative' }}>
+            <Subheader>プロフィールを変更する...</Subheader>
+          </div>
+          <div className="editor-forms_inputs">
             <TextField
               floatingLabelText="名前"
               hintText="Your Name"

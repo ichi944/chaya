@@ -214,6 +214,9 @@ li {
   display: -webkit-flex; /* Safari */
   display: flex;
 }
+.avator-preview_new-image {
+  margin-left: 1rem;
+}
 .avator-preview_dropzone {
   margin-left: 1rem;
 }

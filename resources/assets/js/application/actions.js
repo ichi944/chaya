@@ -47,9 +47,7 @@ export function updateProfileForm(data) {
 
 export function requestCurrentProfile() {
   return (dispatch, getState) => {
-    const currentData = {
-      name: getState().profile.name,
-    }
+    const currentData = getState().profile
     dispatch(updateProfileForm(currentData));
   }
 }
@@ -60,18 +58,28 @@ export function updateProfileIsSucceeded(data) {
     data,
   }
 }
-export function requestUpdateProfile(imageData) {
+export function requestUpdateAvator(imageData) {
+  return (dispatch, getState) => {
+    const data = new FormData();
+    data.append('image_data', imageData);
+    Api.client.post('/profiles/update-my-avator', data)
+      .then((res) => {
+        console.log(res);
+        dispatch(updateProfileIsSucceeded({avatorUrl: res.data.filename}));
+      })
+  }
+}
+export function requestUpdateProfile() {
   return (dispatch, getState) => {
     const {
       name,
     } = getState().editProfile;
     const data = new FormData();
     data.append('name', name);
-    data.append('image_data', imageData);
     Api.client.post('/profiles/update-me', data)
       .then((res) => {
         console.log(res);
-        dispatch(updateProfileIsSucceeded({name, avatorUrl: res.data.filename}));
+        dispatch(updateProfileIsSucceeded({name}));
       })
   }
 }
