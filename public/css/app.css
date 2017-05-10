@@ -107,7 +107,7 @@ li {
   font-size: .7rem;
 }
 .article_index-body {
-  flex-grow: 4;
+  flex: 4;
 }
 .article_index-article_title {
   line-height: 1.4rem;
@@ -143,6 +143,12 @@ li {
 .article-meta {
   margin: 1rem 0;
   position: relative;
+}
+.article-author_profile {
+  display: flex;
+}
+.article-author_profile_col {
+  margin-right: 1rem;
 }
 .article-date {
   font-size: .8rem;

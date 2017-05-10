@@ -9,9 +9,10 @@ import {
   closeConfirmDeleteArticleDialog,
 } from './actions';
 
-const mapStateToProps = ({ article }) => {
+const mapStateToProps = ({ article, auth }) => {
   return {
     article,
+    auth,
   };
 };
 

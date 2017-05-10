@@ -6,6 +6,7 @@ import {
   Divider,
   FlatButton,
   FloatingActionButton,
+  Avatar,
 } from 'material-ui';
 
 import LabelIcon from 'material-ui/svg-icons/action/label';
@@ -39,10 +40,16 @@ class ArticleDetail extends Component {
       confirmDeleteDialogOpen,
     } = this.props.article;
     const {
+      authorizationToken,
+    } = this.props.auth;
+    const {
       handleConfirmDeleteArticle,
       handleCancelDelete,
       handleDelete,
     } = this.props;
+    if (!id) {
+      return <div />;
+    }
     const styles = {
       backButton: {
         margin: '1rem 0 0 1rem',
@@ -75,8 +82,17 @@ class ArticleDetail extends Component {
             >
               <EditerModeEdit />
             </FloatingActionButton>
-            <p>{user.name}</p>
-            <date className="article-date">{created_at} 作成</date>
+            <div className="article-author_profile">
+              <div className="article-author_profile_col">
+                <Avatar
+                  src={`/private-img/${user.avator_img_url}?token=${authorizationToken}`}
+                />
+              </div>
+              <div className="article-author_profile_col">
+                <p>{user.name}</p>
+                <date className="article-date">{created_at} 作成</date>
+              </div>
+            </div>
           </div>
           <div
             className="markdown-body article-body"
