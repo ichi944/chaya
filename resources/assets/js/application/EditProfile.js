@@ -5,6 +5,7 @@ import {
   FlatButton,
   RaisedButton,
   TextField,
+  Snackbar,
 } from 'material-ui';
 
 import { Link } from 'react-router-dom';
@@ -21,8 +22,6 @@ class EditProfile extends Component {
     this.reader = new FileReader();
 
     this.state = {
-      currentImageUrl: null,
-      newImageUrl: null,
       file: null,
     };
   }
@@ -52,6 +51,7 @@ class EditProfile extends Component {
     const {
       name,
       newImageUrl,
+      snackbarIsOpen,
     } = this.props.editProfile;
     const {
       avator_img_url,
@@ -120,6 +120,10 @@ class EditProfile extends Component {
             />
           </div>
         </Paper>
+        <Snackbar
+          open={snackbarIsOpen}
+          message="Your Upadate is Succeeded."
+        />
       </div>
     );
   }

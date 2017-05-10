@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 
 import EditProfile from './EditProfile';
 import {
+  clearProfileForm,
   updateProfileForm,
   requestCurrentProfile,
-  updateNewImagePreview,
   requestUpdateAvator,
   requestUpdateProfile,
  } from './actions';
@@ -21,6 +21,7 @@ const mapStateToProps = ({ profile, editProfile, auth }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     initializeProfileForm() {
+      dispatch(clearProfileForm());
       dispatch(requestCurrentProfile());
     },
     handleChangeProfile(e) {

@@ -1,6 +1,11 @@
 import Api from '../utils/Api';
 import * as types from './actionTypes';
 
+export function clearProfileForm() {
+  return {
+    type: types.CLEAR_PROFILE_FORM,
+  };
+}
 export function requestProfile() {
   return {
     type: types.REQUEST_PROFILE,
@@ -62,6 +67,13 @@ export function clearNewImagePreview() {
     type: types.CLEAR_NEW_IMAGE_PREVIEW,
   };
 }
+
+export function showSuccessNotification() {
+  return {
+    type: types.SHOW_SUCCESS_NOTIFICATION,
+  };
+}
+
 export function requestUpdateAvator(imageData) {
   return (dispatch) => {
     const data = new FormData();
@@ -71,9 +83,11 @@ export function requestUpdateAvator(imageData) {
         console.log(res);
         dispatch(updateProfileIsSucceeded({ avator_img_url: res.data.filename }));
         dispatch(clearNewImagePreview());
+        dispatch(showSuccessNotification());
       });
   };
 }
+
 export function requestUpdateProfile() {
   return (dispatch, getState) => {
     const {
@@ -85,6 +99,7 @@ export function requestUpdateProfile() {
       .then((res) => {
         console.log(res);
         dispatch(updateProfileIsSucceeded({ name }));
+        dispatch(showSuccessNotification());
       });
   };
 }
