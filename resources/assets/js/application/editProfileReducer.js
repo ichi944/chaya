@@ -3,10 +3,12 @@ import * as types from './actionTypes';
 
 type EditProfileState = {
   name: string,
+  newImageUrl: ?string,
 }
 
 const initialState = {
   name: '',
+  newImageUrl: null,
 };
 
 export default function editProfileReducer(state: EditProfileState = initialState, action: any) {
@@ -16,6 +18,12 @@ export default function editProfileReducer(state: EditProfileState = initialStat
       return {
         ...state,
         ...action.data,
+      };
+    }
+    case types.CLEAR_NEW_IMAGE_PREVIEW: {
+      return {
+        ...state,
+        newImageUrl: null,
       };
     }
     default: {

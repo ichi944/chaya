@@ -3,11 +3,18 @@ import {
   Paper,
 } from 'material-ui';
 
-export const AvatorPreview = ({ imageUrl }) => {
+export const AvatorPreview = ({ imageUrl, label }) => {
   const styles = {
     wrapper: {
       width: '160px',
       height: '160px',
+      position: 'relative',
+    },
+    label: {
+      position: 'absolute',
+      top: '0.3rem',
+      left: '0.3rem',
+      opacity: 0.7,
     },
     image: {
       width: '100%',
@@ -17,7 +24,10 @@ export const AvatorPreview = ({ imageUrl }) => {
     <Paper
       style={styles.wrapper}
     >
-      <img src={imageUrl} style={styles.image} alt="avator" />
+      <span style={styles.label}>{label}</span>
+      { imageUrl ? (
+        <img src={imageUrl} style={styles.image} alt="avator" />
+      ) : null }
     </Paper>
   );
 };

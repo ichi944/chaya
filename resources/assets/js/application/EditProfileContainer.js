@@ -4,6 +4,7 @@ import EditProfile from './EditProfile';
 import {
   updateProfileForm,
   requestCurrentProfile,
+  updateNewImagePreview,
   requestUpdateAvator,
   requestUpdateProfile,
  } from './actions';
@@ -26,6 +27,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(updateProfileForm({
         [e.target.name]: e.target.value,
       }));
+    },
+    handleUpdateNewImagePreview(reader_result) {
+      dispatch(updateProfileForm({ newImageUrl: reader_result }));
     },
     handleUpdateAvator(imageData) {
       dispatch(requestUpdateAvator(imageData));

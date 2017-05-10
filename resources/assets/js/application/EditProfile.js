@@ -41,8 +41,8 @@ class EditProfile extends Component {
     this.reader.onloadend = () => {
       this.setState({
         file: files[0],
-        newImageUrl: this.reader.result,
       });
+      this.props.handleUpdateNewImagePreview(this.reader.result);
     };
     this.reader.readAsDataURL(files[0]);
 
@@ -51,6 +51,7 @@ class EditProfile extends Component {
   render() {
     const {
       name,
+      newImageUrl,
     } = this.props.editProfile;
     const {
       avator_img_url,
@@ -88,7 +89,7 @@ class EditProfile extends Component {
           <div className="editor-forms_inputs">
             <AvatorEditor
               currentImageUrl={currentImageUrlWithToken}
-              newImageUrl={this.state.newImageUrl}
+              newImageUrl={newImageUrl}
               onDrop={this.handleDrop}
             />
             <br />

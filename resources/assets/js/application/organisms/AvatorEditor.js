@@ -17,11 +17,13 @@ export const AvatorEditor = ({ currentImageUrl, newImageUrl, onDrop }) => {
     <div className="avator-preview_wrapper">
       <div>
         <AvatorPreview
+          label="current"
           imageUrl={currentImageUrl}
         />
       </div>
       <div className="avator-preview_new-image">
         <AvatorPreview
+          label="new"
           imageUrl={newImageUrl}
         />
       </div>

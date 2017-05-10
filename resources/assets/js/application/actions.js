@@ -56,6 +56,12 @@ export function updateProfileIsSucceeded(data) {
     data,
   };
 }
+
+export function clearNewImagePreview() {
+  return {
+    type: types.CLEAR_NEW_IMAGE_PREVIEW,
+  };
+}
 export function requestUpdateAvator(imageData) {
   return (dispatch) => {
     const data = new FormData();
@@ -63,7 +69,8 @@ export function requestUpdateAvator(imageData) {
     Api.client.post('/profiles/update-my-avator', data)
       .then((res) => {
         console.log(res);
-        dispatch(updateProfileIsSucceeded({ avatorUrl: res.data.filename }));
+        dispatch(updateProfileIsSucceeded({ avator_img_url: res.data.filename }));
+        dispatch(clearNewImagePreview());
       });
   };
 }
