@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 
 import appHistory from './utils/appHistory';
-import PrivateRoute from './util_components/PrivateRoute';
 
 import InitialCheckStatus from './auth/InitialCheckStatus';
 import LoadProfile from './application/LoadProfile';
@@ -46,7 +45,7 @@ class Initializer extends Component {
     const {
       auth,
     } = this.props;
-    if(!auth.isAuthenticated) {
+    if (!auth.isAuthenticated) {
       this.props.requestClearProfile();
     }
   }

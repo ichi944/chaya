@@ -40,7 +40,7 @@ export default function profileReducer(state = initialState, action) {
       return {
         ...state,
         ...data,
-      }
+      };
     }
     default: {
       return state;

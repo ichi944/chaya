@@ -19,7 +19,7 @@ export default function verifyUserReducer(state: VerifyUserState = initialState,
         ...state,
         isRequesting: false,
         isVerified: true,
-      }
+      };
     }
     case types.VERIFICATION_FAILED: {
       console.log('VERIFICATION_FAILED');
@@ -27,7 +27,7 @@ export default function verifyUserReducer(state: VerifyUserState = initialState,
         ...state,
         isRequesting: false,
         isVerified: false,
-      }
+      };
     }
     default: {
       return state;

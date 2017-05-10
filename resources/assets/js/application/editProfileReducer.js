@@ -16,7 +16,7 @@ export default function editProfileReducer(state: EditProfileState = initialStat
       return {
         ...state,
         ...action.data,
-      }
+      };
     }
     default: {
       return state;

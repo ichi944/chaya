@@ -17,7 +17,7 @@ const mapStateToProps = ({ signup, auth }) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     handleChange: (e) => {
       const name = e.target.name;

@@ -115,13 +115,13 @@ export function authenticate(email, password) {
 export function successSignOut() {
   return {
     type: types.SIGN_OUT,
-  }
+  };
 }
 export function requestSignOut() {
   return (dispatch) => {
     Api.client.get('/auth/signout')
-      .then((res) => {
+      .then(() => {
         dispatch(successSignOut());
       });
-  }
+  };
 }

@@ -27,7 +27,7 @@ type Props = {
 }
 
 class Editor extends Component<void, Props, void> {
-  getMarkdown(rawBody: string) {
+  static getMarkdown(rawBody: string) {
     return marked(rawBody, {
       gfm: true,
     });

@@ -3,7 +3,7 @@ import {
   Paper,
 } from 'material-ui';
 
-export const AvatorPreview = ({imageUrl}) => {
+export const AvatorPreview = ({ imageUrl }) => {
   const styles = {
     wrapper: {
       width: '160px',
@@ -11,13 +11,13 @@ export const AvatorPreview = ({imageUrl}) => {
     },
     image: {
       width: '100%',
-    }
+    },
   };
   return (
     <Paper
       style={styles.wrapper}
     >
-      <img src={imageUrl} style={styles.image} />
+      <img src={imageUrl} style={styles.image} alt="avator" />
     </Paper>
   );
-}
+};

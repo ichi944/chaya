@@ -24,7 +24,7 @@ class EditProfile extends Component {
       currentImageUrl: null,
       newImageUrl: null,
       file: null,
-    }
+    };
   }
   componentWillMount() {
     this.props.initializeProfileForm();
@@ -43,7 +43,7 @@ class EditProfile extends Component {
         file: files[0],
         newImageUrl: this.reader.result,
       });
-    }
+    };
     this.reader.readAsDataURL(files[0]);
 
     console.log(files);
@@ -62,7 +62,7 @@ class EditProfile extends Component {
       handleChangeProfile,
     } = this.props;
     const currentImageUrl = avator_img_url;
-    const currentImageUrlWithToken = `/private-img/${currentImageUrl}?token=${authorizationToken}`
+    const currentImageUrlWithToken = `/private-img/${currentImageUrl}?token=${authorizationToken}`;
 
     const styles = {
       paper: {
@@ -72,7 +72,7 @@ class EditProfile extends Component {
         margin: '1rem 0 0 1rem',
       },
     };
-    console.log("@render", this.state);
+    console.log('@render', this.state);
     return (
       <div>
         <FlatButton

@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import * as types from './actionTypes';
 
 import EditProfile from './EditProfile';
 import {
@@ -21,20 +20,19 @@ const mapStateToProps = ({ profile, editProfile, auth }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     initializeProfileForm() {
-      dispatch(requestCurrentProfile())
+      dispatch(requestCurrentProfile());
     },
     handleChangeProfile(e) {
-      const name = e.target.name;
       dispatch(updateProfileForm({
         [e.target.name]: e.target.value,
-      }))
+      }));
     },
     handleUpdateAvator(imageData) {
       dispatch(requestUpdateAvator(imageData));
     },
     handleUpdateProfile() {
       dispatch(requestUpdateProfile());
-    }
+    },
   };
 };
 

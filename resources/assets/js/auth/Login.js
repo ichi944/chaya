@@ -4,8 +4,6 @@ import { Link, Redirect } from 'react-router-dom';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import Divider from 'material-ui/Divider';
 
 class Login extends Component {
   render() {

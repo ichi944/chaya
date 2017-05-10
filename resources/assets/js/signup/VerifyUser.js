@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Paper from 'material-ui/Paper';
 
@@ -7,7 +7,7 @@ class VerifyUser extends Component {
   componentDidMount() {
     const { token } = this.props.match.params;
     console.log('@VerifyUser', token);
-    this.props.handleVerifyUser(token)
+    this.props.handleVerifyUser(token);
   }
   render() {
     const {

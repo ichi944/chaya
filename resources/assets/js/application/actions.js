@@ -1,6 +1,5 @@
 import Api from '../utils/Api';
 import * as types from './actionTypes';
-import * as authTypes from '../auth/actionTypes';
 
 export function requestProfile() {
   return {
@@ -19,8 +18,7 @@ export function receiveProfile(profile) {
  * @return {function}
  */
 export function fetchProfile() {
-  return function (dispatch) {
-
+  return (dispatch) => {
     dispatch(requestProfile());
 
     return Api.client.get('/profiles/me')
@@ -35,39 +33,39 @@ export function fetchProfile() {
 export function clearProfile() {
   return {
     type: types.CLEAR_PROFILE,
-  }
+  };
 }
 
 export function updateProfileForm(data) {
   return {
     type: types.UPDATE_PROFILE_FORM,
     data,
-  }
+  };
 }
 
 export function requestCurrentProfile() {
   return (dispatch, getState) => {
-    const currentData = getState().profile
+    const currentData = getState().profile;
     dispatch(updateProfileForm(currentData));
-  }
+  };
 }
 
 export function updateProfileIsSucceeded(data) {
   return {
     type: types.UPDATE_PROFILE,
     data,
-  }
+  };
 }
 export function requestUpdateAvator(imageData) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     const data = new FormData();
     data.append('image_data', imageData);
     Api.client.post('/profiles/update-my-avator', data)
       .then((res) => {
         console.log(res);
-        dispatch(updateProfileIsSucceeded({avatorUrl: res.data.filename}));
-      })
-  }
+        dispatch(updateProfileIsSucceeded({ avatorUrl: res.data.filename }));
+      });
+  };
 }
 export function requestUpdateProfile() {
   return (dispatch, getState) => {
@@ -79,7 +77,7 @@ export function requestUpdateProfile() {
     Api.client.post('/profiles/update-me', data)
       .then((res) => {
         console.log(res);
-        dispatch(updateProfileIsSucceeded({name}));
-      })
-  }
+        dispatch(updateProfileIsSucceeded({ name }));
+      });
+  };
 }

@@ -1,12 +1,9 @@
 import React from 'react';
-import {
-  Paper,
-} from 'material-ui';
 import Dropzone from 'react-dropzone';
 
 import { AvatorPreview } from '../molecules/AvatorPreview';
 
-export const AvatorEditor = ({currentImageUrl, newImageUrl, onDrop}) => {
+export const AvatorEditor = ({ currentImageUrl, newImageUrl, onDrop }) => {
   const styles = {
     dropzone: {
       width: '200px',
@@ -14,8 +11,8 @@ export const AvatorEditor = ({currentImageUrl, newImageUrl, onDrop}) => {
       backgroundColor: '#eeeeee',
       border: 'dashed 2px #666666',
       borderRadius: '4px',
-    }
-  }
+    },
+  };
   return (
     <div className="avator-preview_wrapper">
       <div>
@@ -38,4 +35,4 @@ export const AvatorEditor = ({currentImageUrl, newImageUrl, onDrop}) => {
       </div>
     </div>
   );
-}
+};
