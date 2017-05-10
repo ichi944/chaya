@@ -36,5 +36,5 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
 });
 
 Route::group(['middleware' => ['jwt.auth']], function() {
-    Route::get('private-img/{filename}', 'ImageController@privateImage');
+    Route::get('private-img/{user_id}/avator/{filename}', 'ImageController@privateImage');
 });

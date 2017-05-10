@@ -17,11 +17,12 @@ class UserController extends Controller
     public function updateMyAvator(Request $request) {
         $user = JWTAuth::parseToken()->authenticate();
         $filename = $request->file('image_data')->store($user->id.'/avator');
+        $user->avator_img_url = $filename;
         if($user->save()) {
             return response()->json([
                 'status' => 'ok',
                 '_code' => 0,
-                'filename' => $filename,
+                'filename' => $user->avator_img_url,
             ]);
         }
         return response()->json([

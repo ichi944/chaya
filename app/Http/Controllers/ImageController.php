@@ -11,11 +11,11 @@ use Response;
 
 class ImageController extends Controller
 {
-    public function privateImage(Request $request, $filename) {
+    public function privateImage(Request $request, $user_id, $filename) {
         Log::Info($filename);
         $user = JWTAuth::parseToken()->authenticate();
 
-        $path = storage_path('app/'.$user->id.'/avator/'.$filename);
+        $path = storage_path('app/'.$user_id.'/avator/'.$filename);
         Log::Info('path is: ');
         Log::Info($path);
         if (!File::exists($path)) {
