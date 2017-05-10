@@ -33,6 +33,7 @@
     "sinon": "^2.1.0"
   },
   "devDependencies": {
+    "babel-eslint": "6",
     "babel-register": "^6.24.0",
     "chai": "^3.5.0",
     "enzyme": "^2.8.0",
