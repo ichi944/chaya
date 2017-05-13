@@ -5,10 +5,11 @@ import ArticleIndex from './ArticleIndex';
 import { fetchArticles } from './actions';
 
 
-const mapStateToProps = ({ articles, searcher }) => {
+const mapStateToProps = ({ articles, searcher, auth }) => {
   return {
     articles,
     searcher,
+    auth,
   };
 };
 

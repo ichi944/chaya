@@ -39,7 +39,7 @@ export default function signupReducer(state: SignupState = initialState, action:
         password: '',
         showErrorMessage: false,
         errorMessage: false,
-      }
+      };
     }
     default: {
       return state;

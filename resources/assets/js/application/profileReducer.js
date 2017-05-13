@@ -5,21 +5,21 @@ const initialState = {
   id: null,
   name: '',
   email: '',
+  avator_img_url: '',
   created_at: '',
 };
 
 export default function profileReducer(state = initialState, action) {
   switch (action.type) {
     case types.REQUEST_PROFILE: {
-      console.log('REQUEST_PROFILE');
       return state;
     }
     case types.LORDED_PROFILE: {
-      console.log('LORDED_PROFILE', action.profile);
       const {
         id,
         name,
         email,
+        avator_img_url,
         created_at,
       } = action.profile;
       return {
@@ -28,11 +28,19 @@ export default function profileReducer(state = initialState, action) {
         id,
         name,
         email,
+        avator_img_url,
         created_at,
       };
     }
     case types.CLEAR_PROFILE: {
       return initialState;
+    }
+    case types.UPDATE_PROFILE: {
+      const data = action.data;
+      return {
+        ...state,
+        ...data,
+      };
     }
     default: {
       return state;

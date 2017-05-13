@@ -4,14 +4,14 @@ import Api from '../utils/Api';
 export function startSignup() {
   return {
     type: types.START_SIGNUP,
-  }
+  };
 }
 
 export function successSiginup() {
   console.log('successSiginup');
   return {
     type: types.SUCCESS_SIGNUP,
-  }
+  };
 }
 export function requestSignup(name, email, password) {
   console.log('start request signup');
@@ -26,7 +26,7 @@ export function requestSignup(name, email, password) {
         console.log(res);
         dispatch(successSiginup());
       });
-  }
+  };
 }
 
 export function verificationSucceeded() {
@@ -38,7 +38,7 @@ export function verificationSucceeded() {
 export function verificationFailed() {
   return {
     type: types.VERIFICATION_FAILED,
-  }
+  };
 }
 export function requestVerifyUser(token) {
   return (dispatch) => {
@@ -51,5 +51,5 @@ export function requestVerifyUser(token) {
           dispatch(verificationFailed());
         }
       });
-  }
+  };
 }

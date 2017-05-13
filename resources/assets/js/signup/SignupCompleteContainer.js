@@ -1,13 +1,12 @@
 import { connect } from 'react-redux';
 
-import * as types from './actionTypes';
 import SignupComplete from './SignupComplete';
 
 const mapStateToProps = () => {
   return {};
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {
 
   };

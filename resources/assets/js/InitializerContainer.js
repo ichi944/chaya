@@ -9,14 +9,14 @@ const mapStateToProps = ({ auth, profile }) => {
     auth,
     profile,
   };
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     requestClearProfile() {
       dispatch(clearProfile());
-    }
+    },
   };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Initializer);

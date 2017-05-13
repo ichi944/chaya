@@ -3,10 +3,12 @@
   - general
   - login
   - home
+  - sidebar
   - article_index
   - article
   - editor
   - searcher
+  - avator_preview
  */
 
 /* $general */
@@ -70,6 +72,13 @@ li {
   text-align: center;
 }
 
+/* $sidebar */
+
+.sidebar_link-profile {
+  font-size: 0.7rem;
+  margin: 0 1rem 1rem;
+}
+
 /* $article_index */
 .article_index-container {
   position: relative;
@@ -98,7 +107,7 @@ li {
   font-size: .7rem;
 }
 .article_index-body {
-  flex-grow: 4;
+  flex: 4;
 }
 .article_index-article_title {
   line-height: 1.4rem;
@@ -134,6 +143,12 @@ li {
 .article-meta {
   margin: 1rem 0;
   position: relative;
+}
+.article-author_profile {
+  display: flex;
+}
+.article-author_profile_col {
+  margin-right: 1rem;
 }
 .article-date {
   font-size: .8rem;
@@ -197,6 +212,19 @@ li {
 }
 .searcher-submit_button {
   margin: .4rem 0 0 1rem;
+}
+
+/* $avator_preview */
+
+.avator-preview_wrapper {
+  display: -webkit-flex; /* Safari */
+  display: flex;
+}
+.avator-preview_new-image {
+  margin-left: 1rem;
+}
+.avator-preview_dropzone {
+  margin-left: 1rem;
 }
 
 

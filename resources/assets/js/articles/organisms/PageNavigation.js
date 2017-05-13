@@ -17,8 +17,8 @@ export const PageNavigation = ({
   next_page_url,
   query,
 }: Props) => {
-  const handleGoPrevPage: Function = prev_page_url ? () => handleNavigatePage(prev_page_url, query): () => {};
-  const handleGoNextPage: Function = next_page_url ? () => handleNavigatePage(next_page_url, query): () => {};
+  const handleGoPrevPage: Function = prev_page_url ? () => handleNavigatePage(prev_page_url, query) : () => {};
+  const handleGoNextPage: Function = next_page_url ? () => handleNavigatePage(next_page_url, query) : () => {};
   return (
     <div className="article_index-page_navi">
       <FlatButton

@@ -12,7 +12,7 @@ type ArticleIsPublishedDialogProps = {
 }
 export const ArticleIsPublishedDialog = ({
   open,
-  handleClose
+  handleClose,
 }: ArticleIsPublishedDialogProps) => {
   const actions = (
     <FlatButton
@@ -97,4 +97,4 @@ export const ConfirmDeleteArticleDialog = ({
     aaa
     </Dialog>
   );
-}
+};

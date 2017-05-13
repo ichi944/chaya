@@ -125,7 +125,7 @@ export function requestUpdateArticle(data: Object) {
   return function (dispatch: Function) {
     const id: number = data.id;
     Api.client.put(`/articles/${id}`, data)
-      .then((res) => {
+      .then(() => {
         dispatch(successUpdateArticle());
       });
   };
