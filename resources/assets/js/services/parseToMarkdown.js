@@ -1,7 +1,15 @@
-import marked from 'marked';
+import { Converter } from 'showdown';
 
 export default function parseToMarkdown(rawBody) {
-  return marked(rawBody, {
-    gfm: true,
+  const converter = new Converter({
+    simplifiedAutoLink: true,
+    literalMidWordUnderscores: true,
+    literalMidWordAsterisks: true,
+    tables: true,
+    ghCodeBlocks: true,
+    simpleLineBreaks: true,
+    openLinksInNewWindow: true,
   });
+  return converter.makeHtml(rawBody);
 }
+
