@@ -1,6 +1,5 @@
 import _ from 'lodash';
 
-import * as applicationTypes from '../application/actionTypes';
 import * as types from './actionTypes';
 
 import Api from '../services/Api';
@@ -9,7 +8,7 @@ export function storeAuthorizationTokenToState(token) {
   return {
     type: types.STORE_AUTHORIZTION_TOKEN_TO_STATE,
     token,
-  }
+  };
 }
 
 export function handleCheckAuthStatus() {
@@ -20,13 +19,27 @@ export function handleCheckAuthStatus() {
     });
     // configure the handler when token expired.
     Api.setInterceptors((response) => {
-      return response
+      console.log('@interceptor', response);
+      if (response.status === 401) {
+        console.log('@interceptor: token expired');
+        console.log(response);
+        dispatch({
+          type: types.FAILED_AUTHENTICATION,
+        });
+        dispatch({
+          type: types.END_INITIAL_CHECK_STATUS,
+        });
+        // return {
+        //   status: 401,
+        // };
+        return Promise.reject(response);
+      }
+      return response;
     }, (error) => {
-      dispatch({
-        type: types.FAILED_AUTHENTICATION,
-      })
-      return Promise.reject(error);;
-    })
+      console.log('@interceptor: api gets error.');
+      console.log(error);
+      return Promise.reject(error);
+    });
     console.log('check if the token exists in localStorage');
     const token = localStorage.getItem('authToken');
     if (token) {
@@ -41,17 +54,6 @@ export function handleCheckAuthStatus() {
             console.log('already authenticated');
             dispatch({
               type: types.AUTHENTICATED,
-            });
-            dispatch({
-              type: types.END_INITIAL_CHECK_STATUS,
-            });
-          } else {
-            console.log('not authenticated');
-            dispatch({
-              type: types.FAILED_AUTHENTICATION,
-            });
-            dispatch({
-              type: types.END_CHECK_AUTH_STATUS,
             });
             dispatch({
               type: types.END_INITIAL_CHECK_STATUS,
