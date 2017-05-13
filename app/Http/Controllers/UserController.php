@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Log;
+use Validator;
 
 class UserController extends Controller
 {
@@ -33,7 +34,43 @@ class UserController extends Controller
 
     public function updateMe(Request $request) {
         $user = JWTAuth::parseToken()->authenticate();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:32'
+            ]);
         $user->name = $request->input('name');
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'ok',
+                '_code' => 1,
+            ]);
+        }
+        if($user->save()) {
+            return response()->json([
+                'status' => 'ok',
+                '_code' => 0,
+            ]);
+        }
+        return response()->json([
+            'status' => 'ok',
+            '_code' => 1,
+        ]);
+    }
+
+    public function updateMyPassword(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|min:8|max:32'
+            ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'ok',
+                '_code' => 1,
+            ]);
+        }
+
+        $user = JWTAuth::parseToken()->authenticate();
+        $user->password = bcrypt($request->input('password'));
+
         if($user->save()) {
             return response()->json([
                 'status' => 'ok',

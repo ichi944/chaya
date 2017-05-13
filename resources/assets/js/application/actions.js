@@ -74,6 +74,19 @@ export function showSuccessNotification() {
   };
 }
 
+export function showFailedNotification(errorMessage = null) {
+  return {
+    type: types.SHOW_FAILED_NOTIFICATION,
+    errorMessage,
+  };
+}
+
+export function closeNotification() {
+  return {
+    type: types.CLOSE_NOTIFICATION,
+  };
+}
+
 export function requestUpdateAvator(imageData) {
   return (dispatch) => {
     const data = new FormData();
@@ -98,8 +111,42 @@ export function requestUpdateProfile() {
     Api.client.post('/profiles/update-me', data)
       .then((res) => {
         console.log(res);
-        dispatch(updateProfileIsSucceeded({ name }));
-        dispatch(showSuccessNotification());
+        if (res.data._code === 0) {
+          dispatch(updateProfileIsSucceeded({ name }));
+          dispatch(showSuccessNotification());
+        } else {
+          dispatch(showFailedNotification());
+        }
+      });
+  };
+}
+
+export function updatePasswordForm(password) {
+  return {
+    type: types.UPDATE_PASSWORD_FORM,
+    password,
+  };
+}
+
+export function clearPasswordForm() {
+  return {
+    type: types.CLEAR_PASSWORD_FORM,
+  };
+}
+export function requestUpdatePassword() {
+  return (dispatch, getState) => {
+    const {
+      password,
+    } = getState().editProfile;
+    Api.client.post('/profiles/update-my-password', { password })
+      .then((res) => {
+        console.log(res);
+        if (res.data._code === 0) {
+          dispatch(clearPasswordForm());
+          dispatch(showSuccessNotification());
+        } else {
+          dispatch(showFailedNotification());
+        }
       });
   };
 }

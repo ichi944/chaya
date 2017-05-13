@@ -18,6 +18,7 @@ class EditProfile extends Component {
     super(props);
     this.handleSubmitAvator = this.handleSubmitAvator.bind(this);
     this.handleSubmitProfile = this.handleSubmitProfile.bind(this);
+    this.handleSubmitPassword = this.handleSubmitPassword.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.reader = new FileReader();
 
@@ -36,6 +37,11 @@ class EditProfile extends Component {
   handleSubmitProfile() {
     this.props.handleUpdateProfile();
   }
+  handleSubmitPassword() {
+    console.log('@handleSubmitPasswrd');
+    console.log(this.props);
+    this.props.handleUpdatePassword();
+  }
   handleDrop(files) {
     this.reader.onloadend = () => {
       this.setState({
@@ -50,8 +56,10 @@ class EditProfile extends Component {
   render() {
     const {
       name,
+      password,
       newImageUrl,
       snackbarIsOpen,
+      snackbarMessage,
     } = this.props.editProfile;
     const {
       avator_img_url,
@@ -61,6 +69,7 @@ class EditProfile extends Component {
     } = this.props.auth;
     const {
       handleChangeProfile,
+      handleChangePassword,
     } = this.props;
     const currentImageUrl = avator_img_url;
     const currentImageUrlWithToken = `/private-img/${currentImageUrl}?token=${authorizationToken}`;
@@ -82,7 +91,7 @@ class EditProfile extends Component {
           containerElement={<Link to="/app/home" />}
         />
         <Paper className="editor-wrapper" style={styles.paper}>
-          <div style={{ position: 'relative' }}>
+          <div>
             <Subheader>アバターを変更する...</Subheader>
           </div>
 
@@ -99,9 +108,10 @@ class EditProfile extends Component {
               onTouchTap={this.handleSubmitAvator}
             />
           </div>
+        </Paper>
 
-
-          <div style={{ position: 'relative' }}>
+        <Paper className="editor-wrapper" style={styles.paper}>
+          <div>
             <Subheader>プロフィールを変更する...</Subheader>
           </div>
           <div className="editor-forms_inputs">
@@ -120,9 +130,30 @@ class EditProfile extends Component {
             />
           </div>
         </Paper>
+
+        <Paper className="editor-wrapper" style={styles.paper}>
+          <div>
+            <Subheader>パスワードを変更する...</Subheader>
+          </div>
+          <div className="editor-forms_inputs">
+            <TextField
+              floatingLabelText="新しいパスワード"
+              hintText="password"
+              name="password"
+              value={password}
+              onChange={handleChangePassword}
+            />
+            <br />
+            <RaisedButton
+              label="Submit"
+              primary
+              onTouchTap={this.handleSubmitPassword}
+            />
+          </div>
+        </Paper>
         <Snackbar
           open={snackbarIsOpen}
-          message="Your Upadate is Succeeded."
+          message={snackbarMessage}
         />
       </div>
     );

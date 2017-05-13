@@ -7,6 +7,9 @@ import {
   requestCurrentProfile,
   requestUpdateAvator,
   requestUpdateProfile,
+  updatePasswordForm,
+  requestUpdatePassword,
+  closeNotification,
  } from './actions';
 
 const mapStateToProps = ({ profile, editProfile, auth }) => {
@@ -28,6 +31,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(updateProfileForm({
         [e.target.name]: e.target.value,
       }));
+      dispatch(closeNotification());
     },
     handleUpdateNewImagePreview(reader_result) {
       dispatch(updateProfileForm({ newImageUrl: reader_result }));
@@ -37,6 +41,13 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleUpdateProfile() {
       dispatch(requestUpdateProfile());
+    },
+    handleChangePassword(e) {
+      dispatch(updatePasswordForm(e.target.value));
+      dispatch(closeNotification());
+    },
+    handleUpdatePassword() {
+      dispatch(requestUpdatePassword());
     },
   };
 };
