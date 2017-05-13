@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import marked from 'marked';
 import {
   Paper,
   Divider,
@@ -14,6 +13,7 @@ import EditerModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
 import { grey400 } from 'material-ui/styles/colors';
 
+import parseToMarkdown from '../services/parseToMarkdown';
 import { ConfirmDeleteArticleDialog } from './organisms/Dialogs';
 
 class ArticleDetail extends Component {
@@ -24,11 +24,6 @@ class ArticleDetail extends Component {
   componentDidMount() {
     const { initialize, match } = this.props;
     initialize(match.params.id);
-  }
-  getMarkdown(rawBody) {
-    return marked(rawBody, {
-      gfm: true,
-    });
   }
   render() {
     const {
@@ -96,7 +91,7 @@ class ArticleDetail extends Component {
           </div>
           <div
             className="markdown-body article-body"
-            dangerouslySetInnerHTML={{ __html: this.getMarkdown(body) }}
+            dangerouslySetInnerHTML={{ __html: parseToMarkdown(body) }}
           />
           <div className="article-actions">
             <FlatButton
