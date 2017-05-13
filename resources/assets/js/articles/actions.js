@@ -2,7 +2,7 @@
 import { push } from 'react-router-redux';
 
 import * as types from './actionTypes';
-import Api from '../utils/Api';
+import Api from '../services/Api';
 import { ARTICLE_API_URL } from './constants';
 
 export function fetchArticles(options: Object = {}) {

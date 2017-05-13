@@ -1,4 +1,4 @@
-import Api from '../utils/Api';
+import Api from '../services/Api';
 import * as types from './actionTypes';
 
 export function clearProfileForm() {

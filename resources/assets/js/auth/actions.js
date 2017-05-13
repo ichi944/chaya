@@ -3,7 +3,7 @@ import _ from 'lodash';
 import * as applicationTypes from '../application/actionTypes';
 import * as types from './actionTypes';
 
-import Api from '../utils/Api';
+import Api from '../services/Api';
 
 export function storeAuthorizationTokenToState(token) {
   return {
