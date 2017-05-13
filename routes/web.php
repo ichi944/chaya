@@ -31,6 +31,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
             Route::get('profiles/me', 'UserController@profile');
             Route::post('profiles/update-my-avator', 'UserController@updateMyAvator');
             Route::post('profiles/update-me', 'UserController@updateMe');
+            Route::post('profiles/update-my-password', 'UserController@updateMyPassword');
         });
     });
 });
