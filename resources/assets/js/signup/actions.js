@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import Api from '../utils/Api';
+import Api from '../services/Api';
 
 export function startSignup() {
   return {

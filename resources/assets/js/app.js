@@ -11,7 +11,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import rootReducer from './rootReducer';
-import appHistory from './utils/appHistory';
+import appHistory from './services/appHistory';
 
 import InitializerContainer from './InitializerContainer';
 

@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import marked from 'marked';
 
 import {
   Paper,
@@ -11,6 +10,7 @@ import {
   Toggle,
 } from 'material-ui';
 
+import parseToMarkdown from '../../services/parseToMarkdown';
 import EditorHeader from '../molecules/EditorHeader';
 
 type Props = {
@@ -27,11 +27,6 @@ type Props = {
 }
 
 class Editor extends Component<void, Props, void> {
-  getMarkdown(rawBody: string) {
-    return marked(rawBody, {
-      gfm: true,
-    });
-  }
   render() {
     const {
       editorHeaderText,
@@ -64,7 +59,7 @@ class Editor extends Component<void, Props, void> {
                 <Divider />
                 <div
                   className="markdown-body editor-previewer_body"
-                  dangerouslySetInnerHTML={{ __html: this.getMarkdown(body) }}
+                  dangerouslySetInnerHTML={{ __html: parseToMarkdown(body) }}
                 />
               </div>
             ) : (
