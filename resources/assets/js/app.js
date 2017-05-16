@@ -19,20 +19,14 @@ injectTapEventPlugin();
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(
-    thunkMiddleware,
-    routerMiddleware(appHistory),
-    logger,
-  ),
+  applyMiddleware(thunkMiddleware, routerMiddleware(appHistory), logger),
 );
 
 class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <Provider
-          store={store}
-        >
+        <Provider store={store}>
           <InitializerContainer />
         </Provider>
       </MuiThemeProvider>
@@ -40,7 +34,4 @@ class App extends Component {
   }
 }
 
-render(
-  <App />,
-  document.querySelector('#root'),
-);
+render(<App />, document.querySelector('#root'));
