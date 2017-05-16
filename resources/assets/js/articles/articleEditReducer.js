@@ -8,6 +8,13 @@ type ArticleEditState = {
   confirmSuccessDialogOpen: boolean,
 }
 
+type ArticleEditAction = {
+  type: string,
+  +name: string,
+  +value: string,
+  +data: Object,
+}
+
 const initialState = {
   heading: '',
   body: '',
@@ -15,7 +22,10 @@ const initialState = {
   confirmSuccessDialogOpen: false,
 };
 
-export default function articleEditReducer(state: ArticleEditState = initialState, action: any) {
+export default function articleEditReducer(
+  state: ArticleEditState = initialState,
+  action: ArticleEditAction,
+  ) {
   switch (action.type) {
     case types.END_FETCH_ARTICLE: {
       const data = action.data;

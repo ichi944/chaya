@@ -9,6 +9,11 @@ type ArticleAddState = {
   +confirmSuccessDialogOpen: boolean,
 }
 
+type ArticleAddAction = {
+  type: string,
+  +name: string,
+  +value: string,
+}
 const initialState = {
   heading: '',
   body: '',
@@ -17,7 +22,10 @@ const initialState = {
   confirmSuccessDialogOpen: false,
 };
 
-export default function articleAddReducer(state: ArticleAddState = initialState, action: any) {
+export default function articleAddReducer(
+  state: ArticleAddState = initialState,
+  action: ArticleAddAction,
+  ) {
   switch (action.type) {
     case types.UPDATE_ARTICLE_ADD_FORM: {
       return {
