@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -22,16 +22,14 @@ const store = createStore(
   applyMiddleware(thunkMiddleware, routerMiddleware(appHistory), logger),
 );
 
-class App extends Component {
-  render() {
-    return (
-      <MuiThemeProvider>
-        <Provider store={store}>
-          <InitializerContainer />
-        </Provider>
-      </MuiThemeProvider>
-    );
-  }
-}
+const App = () => {
+  return (
+    <MuiThemeProvider>
+      <Provider store={store}>
+        <InitializerContainer />
+      </Provider>
+    </MuiThemeProvider>
+  );
+};
 
 render(<App />, document.querySelector('#root'));
