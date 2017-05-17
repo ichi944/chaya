@@ -7,24 +7,12 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 class Login extends Component {
   render() {
-    const {
-      email,
-      password,
-      showErrorMessage,
-      errorMessage,
-      isAuthenticated,
-    } = this.props;
-    const {
-      handleChange,
-      handleAuthenticate,
-      handlePressEnter,
-    } = this.props;
+    const { email, password, showErrorMessage, errorMessage, isAuthenticated } = this.props;
+    const { handleChange, handleAuthenticate, handlePressEnter } = this.props;
 
     if (isAuthenticated) {
       console.log('you are alredy authenticated, redirect to home.');
-      return (
-        <Redirect to="/app/home" />
-      );
+      return <Redirect to="/app/home" />;
     }
     return (
       <div>
@@ -61,12 +49,7 @@ class Login extends Component {
               <Link to="signup">Sign up</Link>
             </div>
             <div className="login-error_message">
-              { showErrorMessage ? (
-                <p>{errorMessage}</p>
-                ) : (
-                  <p>&nbsp;</p>
-                )
-              }
+              {showErrorMessage ? <p>{errorMessage}</p> : <p>&nbsp;</p>}
             </div>
           </div>
         </Paper>

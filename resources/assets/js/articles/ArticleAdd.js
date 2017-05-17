@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 
 import Editor from './organisms/Editor';
-import {
-  ArticleIsPublishedDialog,
-} from './organisms/Dialogs';
+import { ArticleIsPublishedDialog } from './organisms/Dialogs';
 
 class ArticleAdd extends Component {
   constructor(props) {
@@ -13,18 +11,12 @@ class ArticleAdd extends Component {
     this.handleClose = this.handleClose.bind(this);
   }
   handleCancel() {
-    const {
-      history,
-      clearEditorContent,
-    } = this.props;
+    const { history, clearEditorContent } = this.props;
     clearEditorContent();
     history.goBack();
   }
   handleSubmit() {
-    const {
-      heading,
-      body,
-    } = this.props;
+    const { heading, body } = this.props;
     this.props.handleSubmit({
       heading,
       body,
@@ -34,17 +26,8 @@ class ArticleAdd extends Component {
     this.props.handleClose();
   }
   render() {
-    const {
-      heading,
-      body,
-      onPreview,
-      mode,
-      confirmSuccessDialogOpen,
-    } = this.props;
-    const {
-      handleChange,
-      handleTogglePreview,
-    } = this.props;
+    const { heading, body, onPreview, mode, confirmSuccessDialogOpen } = this.props;
+    const { handleChange, handleTogglePreview } = this.props;
 
     return (
       <div style={{ position: 'relative' }}>
@@ -63,10 +46,7 @@ class ArticleAdd extends Component {
           handleTogglePreview={handleTogglePreview}
         />
 
-        <ArticleIsPublishedDialog
-          open={confirmSuccessDialogOpen}
-          handleClose={this.handleClose}
-        />
+        <ArticleIsPublishedDialog open={confirmSuccessDialogOpen} handleClose={this.handleClose} />
       </div>
     );
   }

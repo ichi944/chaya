@@ -6,7 +6,7 @@ type LoginState = {
   +password: string,
   +showErrorMessage: boolean,
   +errorMessage: string,
-}
+};
 
 const initialState = {
   email: '',

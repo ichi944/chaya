@@ -7,7 +7,7 @@ type SignupState = {
   +password: string,
   +showErrorMessage: boolean,
   +errorMessage: string,
-}
+};
 
 const initialState = {
   name: '',

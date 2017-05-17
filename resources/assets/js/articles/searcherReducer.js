@@ -3,7 +3,7 @@ import * as types from './actionTypes';
 
 type SearcherState = {
   +query: string,
-}
+};
 
 const initialState = {
   query: '',

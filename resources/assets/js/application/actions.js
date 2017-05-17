@@ -26,12 +26,11 @@ export function fetchProfile() {
   return (dispatch) => {
     dispatch(requestProfile());
 
-    return Api.client.get('/profiles/me')
-      .then((res) => {
-        console.log('in fetchProfile');
-        console.log(res);
-        dispatch(receiveProfile(res.data.user));
-      });
+    return Api.client.get('/profiles/me').then((res) => {
+      console.log('in fetchProfile');
+      console.log(res);
+      dispatch(receiveProfile(res.data.user));
+    });
   };
 }
 
@@ -91,33 +90,29 @@ export function requestUpdateAvator(imageData) {
   return (dispatch) => {
     const data = new FormData();
     data.append('image_data', imageData);
-    Api.client.post('/profiles/update-my-avator', data)
-      .then((res) => {
-        console.log(res);
-        dispatch(updateProfileIsSucceeded({ avator_img_url: res.data.filename }));
-        dispatch(clearNewImagePreview());
-        dispatch(showSuccessNotification());
-      });
+    Api.client.post('/profiles/update-my-avator', data).then((res) => {
+      console.log(res);
+      dispatch(updateProfileIsSucceeded({ avator_img_url: res.data.filename }));
+      dispatch(clearNewImagePreview());
+      dispatch(showSuccessNotification());
+    });
   };
 }
 
 export function requestUpdateProfile() {
   return (dispatch, getState) => {
-    const {
-      name,
-    } = getState().editProfile;
+    const { name } = getState().editProfile;
     const data = new FormData();
     data.append('name', name);
-    Api.client.post('/profiles/update-me', data)
-      .then((res) => {
-        console.log(res);
-        if (res.data._code === 0) {
-          dispatch(updateProfileIsSucceeded({ name }));
-          dispatch(showSuccessNotification());
-        } else {
-          dispatch(showFailedNotification());
-        }
-      });
+    Api.client.post('/profiles/update-me', data).then((res) => {
+      console.log(res);
+      if (res.data._code === 0) {
+        dispatch(updateProfileIsSucceeded({ name }));
+        dispatch(showSuccessNotification());
+      } else {
+        dispatch(showFailedNotification());
+      }
+    });
   };
 }
 
@@ -135,18 +130,15 @@ export function clearPasswordForm() {
 }
 export function requestUpdatePassword() {
   return (dispatch, getState) => {
-    const {
-      password,
-    } = getState().editProfile;
-    Api.client.post('/profiles/update-my-password', { password })
-      .then((res) => {
-        console.log(res);
-        if (res.data._code === 0) {
-          dispatch(clearPasswordForm());
-          dispatch(showSuccessNotification());
-        } else {
-          dispatch(showFailedNotification());
-        }
-      });
+    const { password } = getState().editProfile;
+    Api.client.post('/profiles/update-my-password', { password }).then((res) => {
+      console.log(res);
+      if (res.data._code === 0) {
+        dispatch(clearPasswordForm());
+        dispatch(showSuccessNotification());
+      } else {
+        dispatch(showFailedNotification());
+      }
+    });
   };
 }

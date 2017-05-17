@@ -1,26 +1,13 @@
 // @flow
 import React from 'react';
-import {
-  Dialog,
-  FlatButton,
-  RaisedButton,
-} from 'material-ui';
+import { Dialog, FlatButton, RaisedButton } from 'material-ui';
 
 type ArticleIsPublishedDialogProps = {
-  open: boolean;
-  handleClose: Function;
-}
-export const ArticleIsPublishedDialog = ({
-  open,
-  handleClose,
-}: ArticleIsPublishedDialogProps) => {
-  const actions = (
-    <FlatButton
-      label="OK"
-      primary
-      onTouchTap={handleClose}
-    />
-  );
+  open: boolean,
+  handleClose: Function,
+};
+export const ArticleIsPublishedDialog = ({ open, handleClose }: ArticleIsPublishedDialogProps) => {
+  const actions = <FlatButton label="OK" primary onTouchTap={handleClose} />;
   return (
     <Dialog
       title="The article is published!"
@@ -35,20 +22,11 @@ export const ArticleIsPublishedDialog = ({
 };
 
 type ArticleIsUpdatedDialogProps = {
-  open: boolean;
-  handleClose: Function;
-}
-export const ArticleIsUpdatedDialog = ({
-  open,
-  handleClose,
-}: ArticleIsUpdatedDialogProps) => {
-  const actions = (
-    <FlatButton
-      label="OK"
-      primary
-      onTouchTap={handleClose}
-    />
-  );
+  open: boolean,
+  handleClose: Function,
+};
+export const ArticleIsUpdatedDialog = ({ open, handleClose }: ArticleIsUpdatedDialogProps) => {
+  const actions = <FlatButton label="OK" primary onTouchTap={handleClose} />;
   return (
     <Dialog
       title="The article is updated!"
@@ -63,10 +41,10 @@ export const ArticleIsUpdatedDialog = ({
 };
 
 type ConfirmDeleteArticleDialogProps = {
-  open: boolean;
-  handleCancel: Function;
-  handleSubmit: Function;
-}
+  open: boolean,
+  handleCancel: Function,
+  handleSubmit: Function,
+};
 export const ConfirmDeleteArticleDialog = ({
   open,
   handleCancel,
@@ -74,16 +52,8 @@ export const ConfirmDeleteArticleDialog = ({
 }: ConfirmDeleteArticleDialogProps) => {
   const actions = (
     <div>
-      <FlatButton
-        label="Cancel"
-        primary
-        onTouchTap={handleCancel}
-      />
-      <RaisedButton
-        label="Yes, delete"
-        primary
-        onTouchTap={handleSubmit}
-      />
+      <FlatButton label="Cancel" primary onTouchTap={handleCancel} />
+      <RaisedButton label="Yes, delete" primary onTouchTap={handleSubmit} />
     </div>
   );
   return (
@@ -94,7 +64,7 @@ export const ConfirmDeleteArticleDialog = ({
       open={open}
       onRequestClose={handleCancel}
     >
-    aaa
+      aaa
     </Dialog>
   );
 };

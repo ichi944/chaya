@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Paper,
-} from 'material-ui';
+import { Paper } from 'material-ui';
 
 class Home extends Component {
   render() {
-    const {
-      name,
-    } = this.props.profile;
+    const { name } = this.props.profile;
     return (
       <Paper className="home-welcome_message_box">
         <h3>Welcome! {name}.</h3>

@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Paper,
-} from 'material-ui';
+import { Paper } from 'material-ui';
 
 export const AvatorPreview = ({ imageUrl, label }) => {
   const styles = {
@@ -21,13 +19,9 @@ export const AvatorPreview = ({ imageUrl, label }) => {
     },
   };
   return (
-    <Paper
-      style={styles.wrapper}
-    >
+    <Paper style={styles.wrapper}>
       <span style={styles.label}>{label}</span>
-      { imageUrl ? (
-        <img src={imageUrl} style={styles.image} alt="avator" />
-      ) : null }
+      {imageUrl ? <img src={imageUrl} style={styles.image} alt="avator" /> : null}
     </Paper>
   );
 };

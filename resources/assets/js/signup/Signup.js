@@ -7,25 +7,12 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 class Siginup extends Component {
   render() {
-    const {
-      name,
-      email,
-      password,
-      showErrorMessage,
-      errorMessage,
-      isAuthenticated,
-    } = this.props;
-    const {
-      handleChange,
-      handleSubmit,
-      handlePressEnter,
-    } = this.props;
+    const { name, email, password, showErrorMessage, errorMessage, isAuthenticated } = this.props;
+    const { handleChange, handleSubmit, handlePressEnter } = this.props;
 
     if (isAuthenticated) {
       console.log('you are alredy authenticated, redirect to home.');
-      return (
-        <Redirect to="/app/home" />
-      );
+      return <Redirect to="/app/home" />;
     }
     return (
       <div>
@@ -71,12 +58,7 @@ class Siginup extends Component {
               <Link to="login">return to Login</Link>
             </div>
             <div className="login-error_message">
-              { showErrorMessage ? (
-                <p>{errorMessage}</p>
-                ) : (
-                  <p>&nbsp;</p>
-                )
-              }
+              {showErrorMessage ? <p>{errorMessage}</p> : <p>&nbsp;</p>}
             </div>
           </div>
         </Paper>

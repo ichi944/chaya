@@ -10,7 +10,7 @@ import {
   updatePasswordForm,
   requestUpdatePassword,
   closeNotification,
- } from './actions';
+} from './actions';
 
 const mapStateToProps = ({ profile, editProfile, auth }) => {
   console.log('in EditProfile container');
@@ -28,9 +28,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(requestCurrentProfile());
     },
     handleChangeProfile(e) {
-      dispatch(updateProfileForm({
-        [e.target.name]: e.target.value,
-      }));
+      dispatch(
+        updateProfileForm({
+          [e.target.name]: e.target.value,
+        }),
+      );
       dispatch(closeNotification());
     },
     handleUpdateNewImagePreview(reader_result) {

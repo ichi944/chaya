@@ -17,11 +17,12 @@ export function requestSignup(name, email, password) {
   console.log('start request signup');
   return (dispatch) => {
     dispatch(startSignup());
-    Api.client.post('/auth/signup', {
-      name,
-      email,
-      password,
-    })
+    Api.client
+      .post('/auth/signup', {
+        name,
+        email,
+        password,
+      })
       .then((res) => {
         console.log(res);
         dispatch(successSiginup());
@@ -42,14 +43,13 @@ export function verificationFailed() {
 }
 export function requestVerifyUser(token) {
   return (dispatch) => {
-    Api.client.get(`/auth/verification/${token}`)
-      .then((res) => {
-        console.log('@requestVerifyUser', res);
-        if (res.data._code === 0) {
-          dispatch(verificationSucceeded());
-        } else {
-          dispatch(verificationFailed());
-        }
-      });
+    Api.client.get(`/auth/verification/${token}`).then((res) => {
+      console.log('@requestVerifyUser', res);
+      if (res.data._code === 0) {
+        dispatch(verificationSucceeded());
+      } else {
+        dispatch(verificationFailed());
+      }
+    });
   };
 }

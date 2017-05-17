@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 
 import Searcher from './Searcher';
 
-import {
-  updateSearchQuery,
-  requestSearch,
- } from './actions';
+import { updateSearchQuery, requestSearch } from './actions';
 
 const mapStateToProps = ({ searcher }) => {
   return {

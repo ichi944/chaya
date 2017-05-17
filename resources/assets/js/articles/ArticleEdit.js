@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 
 import Editor from './organisms/Editor';
-import {
-  ArticleIsUpdatedDialog,
-} from './organisms/Dialogs';
+import { ArticleIsUpdatedDialog } from './organisms/Dialogs';
 
 class ArticleEdit extends Component {
   constructor(props) {
@@ -13,26 +11,17 @@ class ArticleEdit extends Component {
     this.handleClose = this.handleClose.bind(this);
   }
   componentDidMount() {
-    const {
-      initialize,
-      match,
-    } = this.props;
+    const { initialize, match } = this.props;
     initialize(match.params.id);
   }
   handleCancel() {
-    const {
-      history,
-      clearEditorContent,
-    } = this.props;
+    const { history, clearEditorContent } = this.props;
     clearEditorContent();
     history.goBack();
   }
   handleSubmit() {
     const { id } = this.props.match.params;
-    const {
-      heading,
-      body,
-    } = this.props;
+    const { heading, body } = this.props;
     this.props.handleSubmit({
       id,
       heading,
@@ -43,17 +32,8 @@ class ArticleEdit extends Component {
     this.props.handleClose();
   }
   render() {
-    const {
-      heading,
-      body,
-      onPreview,
-      mode,
-      confirmSuccessDialogOpen,
-    } = this.props;
-    const {
-      handleChange,
-      handleTogglePreview,
-    } = this.props;
+    const { heading, body, onPreview, mode, confirmSuccessDialogOpen } = this.props;
+    const { handleChange, handleTogglePreview } = this.props;
 
     return (
       <div style={{ position: 'relative' }}>
@@ -72,10 +52,7 @@ class ArticleEdit extends Component {
           handleTogglePreview={handleTogglePreview}
         />
 
-        <ArticleIsUpdatedDialog
-          open={confirmSuccessDialogOpen}
-          handleClose={this.handleClose}
-        />
+        <ArticleIsUpdatedDialog open={confirmSuccessDialogOpen} handleClose={this.handleClose} />
       </div>
     );
   }

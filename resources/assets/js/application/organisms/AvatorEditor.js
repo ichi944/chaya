@@ -16,22 +16,13 @@ export const AvatorEditor = ({ currentImageUrl, newImageUrl, onDrop }) => {
   return (
     <div className="avator-preview_wrapper">
       <div>
-        <AvatorPreview
-          label="current"
-          imageUrl={currentImageUrl}
-        />
+        <AvatorPreview label="current" imageUrl={currentImageUrl} />
       </div>
       <div className="avator-preview_new-image">
-        <AvatorPreview
-          label="new"
-          imageUrl={newImageUrl}
-        />
+        <AvatorPreview label="new" imageUrl={newImageUrl} />
       </div>
       <div className="avator-preview_dropzone">
-        <Dropzone
-          style={styles.dropzone}
-          onDrop={onDrop}
-        >
+        <Dropzone style={styles.dropzone} onDrop={onDrop}>
           <p>Drop the iamge you choose.</p>
         </Dropzone>
       </div>

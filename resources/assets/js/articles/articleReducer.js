@@ -10,7 +10,7 @@ type ArticleState = {
     +name: string,
   },
   confirmDeleteDialogOpen: boolean,
-}
+};
 
 const initialState = {
   id: null,

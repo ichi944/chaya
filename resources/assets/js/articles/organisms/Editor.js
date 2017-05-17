@@ -1,30 +1,23 @@
 // @flow
 import React, { Component } from 'react';
 
-import {
-  Paper,
-  Divider,
-  TextField,
-  FlatButton,
-  RaisedButton,
-  Toggle,
-} from 'material-ui';
+import { Paper, Divider, TextField, FlatButton, RaisedButton, Toggle } from 'material-ui';
 
 import parseToMarkdown from '../../services/parseToMarkdown';
 import EditorHeader from '../molecules/EditorHeader';
 
 type Props = {
-  editorHeaderText: string;
-  heading: string;
-  body: string;
-  onPreview: boolean;
-  handleChange: Function;
-  handleCancel: Function;
-  handleCancelText: string;
-  handleSubmit: Function;
-  handleSubmitText: string;
-  handleTogglePreview: Function;
-}
+  editorHeaderText: string,
+  heading: string,
+  body: string,
+  onPreview: boolean,
+  handleChange: Function,
+  handleCancel: Function,
+  handleCancelText: string,
+  handleSubmit: Function,
+  handleSubmitText: string,
+  handleTogglePreview: Function,
+};
 
 class Editor extends Component<void, Props, void> {
   render() {
@@ -47,14 +40,12 @@ class Editor extends Component<void, Props, void> {
     };
     return (
       <Paper className="editor-wrapper" style={styles.paper}>
-        <EditorHeader
-          title={editorHeaderText}
-        />
+        <EditorHeader title={editorHeaderText} />
 
         <div className="editor-main">
           <div className="editor-forms">
-            {onPreview ? (
-              <div className="editor-previewer_wrapper">
+            {onPreview
+              ? <div className="editor-previewer_wrapper">
                 <h2 className="editor-previewer_heading">{heading}</h2>
                 <Divider />
                 <div
@@ -62,8 +53,7 @@ class Editor extends Component<void, Props, void> {
                   dangerouslySetInnerHTML={{ __html: parseToMarkdown(body) }}
                 />
               </div>
-            ) : (
-              <div className="editor-forms_inputs">
+              : <div className="editor-forms_inputs">
                 <TextField
                   floatingLabelText="見出し"
                   hintText=""
@@ -83,9 +73,9 @@ class Editor extends Component<void, Props, void> {
                   rows={12}
                   fullWidth
                   onChange={handleChange}
-                /><br />
-              </div>
-            )}
+                />
+                <br />
+              </div>}
 
             <div className="editor-actions">
               <FlatButton
@@ -93,11 +83,7 @@ class Editor extends Component<void, Props, void> {
                 onTouchTap={handleCancel}
                 style={{ marginRight: '1rem' }}
               />
-              <RaisedButton
-                label={handleSubmitText}
-                primary
-                onTouchTap={handleSubmit}
-              />
+              <RaisedButton label={handleSubmitText} primary onTouchTap={handleSubmit} />
             </div>
           </div>
 

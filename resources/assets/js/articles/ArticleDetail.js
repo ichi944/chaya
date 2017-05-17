@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Paper,
-  Divider,
-  FlatButton,
-  FloatingActionButton,
-  Avatar,
-} from 'material-ui';
+import { Paper, Divider, FlatButton, FloatingActionButton, Avatar } from 'material-ui';
 
 import LabelIcon from 'material-ui/svg-icons/action/label';
 import EditerModeEdit from 'material-ui/svg-icons/editor/mode-edit';
@@ -26,22 +20,9 @@ class ArticleDetail extends Component {
     initialize(match.params.id);
   }
   render() {
-    const {
-      id,
-      heading,
-      body,
-      user,
-      created_at,
-      confirmDeleteDialogOpen,
-    } = this.props.article;
-    const {
-      authorizationToken,
-    } = this.props.auth;
-    const {
-      handleConfirmDeleteArticle,
-      handleCancelDelete,
-      handleDelete,
-    } = this.props;
+    const { id, heading, body, user, created_at, confirmDeleteDialogOpen } = this.props.article;
+    const { authorizationToken } = this.props.auth;
+    const { handleConfirmDeleteArticle, handleCancelDelete, handleDelete } = this.props;
     if (!id) {
       return <div />;
     }
@@ -63,10 +44,14 @@ class ArticleDetail extends Component {
         />
         <Paper className="article-wrapper">
           <div className="article-header">
-            <h2>{ heading }</h2>
+            <h2>{heading}</h2>
             <ul className="article-tags">
-              <li className="article-tag_list_item"><LabelIcon style={styles.tagIcon} color={grey400} viewBox="0 0 24 20" />ランチ</li>
-              <li className="article-tag_list_item"><LabelIcon style={styles.tagIcon} color={grey400} viewBox="0 0 24 20" />とりあえず</li>
+              <li className="article-tag_list_item">
+                <LabelIcon style={styles.tagIcon} color={grey400} viewBox="0 0 24 20" />ランチ
+              </li>
+              <li className="article-tag_list_item">
+                <LabelIcon style={styles.tagIcon} color={grey400} viewBox="0 0 24 20" />とりあえず
+              </li>
             </ul>
           </div>
           <Divider />
@@ -79,9 +64,7 @@ class ArticleDetail extends Component {
             </FloatingActionButton>
             <div className="article-author_profile">
               <div className="article-author_profile_col">
-                <Avatar
-                  src={`/private-img/${user.avator_img_url}?token=${authorizationToken}`}
-                />
+                <Avatar src={`/private-img/${user.avator_img_url}?token=${authorizationToken}`} />
               </div>
               <div className="article-author_profile_col">
                 <p>{user.name}</p>
@@ -94,10 +77,7 @@ class ArticleDetail extends Component {
             dangerouslySetInnerHTML={{ __html: parseToMarkdown(body) }}
           />
           <div className="article-actions">
-            <FlatButton
-              label="削除"
-              onTouchTap={handleConfirmDeleteArticle}
-            />
+            <FlatButton label="削除" onTouchTap={handleConfirmDeleteArticle} />
           </div>
         </Paper>
 
