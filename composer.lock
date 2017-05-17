@@ -238,16 +238,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.4.9",
+            "version": "v5.4.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "600330ae1d218919b3b307e0578461a2df248663"
+                "reference": "ad82327705658dbf5f0ce72805caa950dfbe150d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/600330ae1d218919b3b307e0578461a2df248663",
-                "reference": "600330ae1d218919b3b307e0578461a2df248663",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/ad82327705658dbf5f0ce72805caa950dfbe150d",
+                "reference": "ad82327705658dbf5f0ce72805caa950dfbe150d",
                 "shasum": ""
             },
             "require": {
@@ -363,7 +363,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-02-03 19:47:35"
+            "time": "2017-05-11 20:10:35"
         },
         {
             "name": "laravel/tinker",
@@ -2225,12 +2225,12 @@
             "version": "0.9.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/padraic/mockery.git",
+                "url": "https://github.com/mockery/mockery.git",
                 "reference": "4de7969f4664da3cef1ccd83866c9f59378c3371"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/4de7969f4664da3cef1ccd83866c9f59378c3371",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/4de7969f4664da3cef1ccd83866c9f59378c3371",
                 "reference": "4de7969f4664da3cef1ccd83866c9f59378c3371",
                 "shasum": ""
             },
