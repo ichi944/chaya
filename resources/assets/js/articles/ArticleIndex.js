@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Avatar,
-  Paper,
-  Divider,
-  Subheader,
-  FloatingActionButton,
-} from 'material-ui';
+import { Avatar, Paper, Divider, Subheader, FloatingActionButton } from 'material-ui';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import SearcherContainer from './SearcherContainer';
@@ -27,23 +21,10 @@ class ArticleIndex extends Component {
     push('articles/add');
   }
   render() {
-    const {
-      data,
-      total,
-      from,
-      to,
-      prev_page_url,
-      next_page_url,
-    } = this.props.articles;
-    const {
-      query,
-    } = this.props.searcher;
-    const {
-      handleNavigatePage,
-    } = this.props;
-    const {
-      authorizationToken,
-    } = this.props.auth;
+    const { data, total, from, to, prev_page_url, next_page_url } = this.props.articles;
+    const { query } = this.props.searcher;
+    const { handleNavigatePage } = this.props;
+    const { authorizationToken } = this.props.auth;
 
     const pageNavigationProps = {
       prev_page_url,
@@ -107,11 +88,9 @@ class ArticleIndex extends Component {
             <ContentAdd />
           </FloatingActionButton>
           <Divider />
-          { articlesEl }
+          {articlesEl}
         </Paper>
-        <PageNavigation
-          {...pageNavigationProps}
-        />
+        <PageNavigation {...pageNavigationProps} />
       </div>
     );
   }

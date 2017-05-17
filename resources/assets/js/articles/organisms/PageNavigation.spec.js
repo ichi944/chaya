@@ -17,9 +17,7 @@ describe('<PageNavigation />', () => {
       next_page_url: 'url',
       query: null,
     };
-    const wrapper = shallow(
-      <PageNavigation {...props} />
-    );
+    const wrapper = shallow(<PageNavigation {...props} />);
     expect(wrapper.find(FlatButton)).to.have.length(2);
   });
   // TODO: Test clicking buttons

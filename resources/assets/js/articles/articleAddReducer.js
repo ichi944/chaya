@@ -7,13 +7,13 @@ type ArticleAddState = {
   +onPreview: boolean,
   +mode: string,
   +confirmSuccessDialogOpen: boolean,
-}
+};
 
 type ArticleAddAction = {
   type: string,
   +name: string,
   +value: string,
-}
+};
 const initialState = {
   heading: '',
   body: '',
@@ -25,7 +25,7 @@ const initialState = {
 export default function articleAddReducer(
   state: ArticleAddState = initialState,
   action: ArticleAddAction,
-  ) {
+) {
   switch (action.type) {
     case types.UPDATE_ARTICLE_ADD_FORM: {
       return {

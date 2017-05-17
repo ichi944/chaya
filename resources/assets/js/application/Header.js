@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
-import {
-  AppBar,
-  FlatButton,
-} from 'material-ui';
+import { AppBar, FlatButton } from 'material-ui';
 
 class Header extends Component {
   render() {
-    const {
-      isAuthenticated,
-      handleSignOut,
-    } = this.props;
+    const { isAuthenticated, handleSignOut } = this.props;
     console.log('in Header');
     console.log(this.props);
 

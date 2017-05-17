@@ -15,13 +15,7 @@ export default function profileReducer(state = initialState, action) {
       return state;
     }
     case types.LORDED_PROFILE: {
-      const {
-        id,
-        name,
-        email,
-        avator_img_url,
-        created_at,
-      } = action.profile;
+      const { id, name, email, avator_img_url, created_at } = action.profile;
       return {
         ...state,
         isLoaded: true,

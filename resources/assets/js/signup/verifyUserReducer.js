@@ -4,7 +4,7 @@ import * as types from './actionTypes';
 type VerifyUserState = {
   isRequesting: boolean,
   isVerified: boolean,
-}
+};
 
 const initialState = {
   isRequesting: true,

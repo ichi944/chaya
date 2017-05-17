@@ -16,7 +16,7 @@ class Api {
   }
   setAuthorizationToken(token) {
     const value = `Bearer ${token}`;
-    this.client.defaults.headers.common['Authorization'] = value;
+    this.client.defaults.headers.common['Authorization'] = value; // eslint-disable-line dot-notation
   }
 }
 

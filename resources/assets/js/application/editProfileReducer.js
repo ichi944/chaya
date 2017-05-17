@@ -7,7 +7,7 @@ type EditProfileState = {
   newImageUrl: ?string,
   snackbarIsOpen: boolean,
   snackbarMessage: string,
-}
+};
 
 const initialState = {
   name: '',
@@ -56,7 +56,7 @@ export default function editProfileReducer(state: EditProfileState = initialStat
       return {
         ...state,
         snackbarIsOpen: false,
-      }
+      };
     }
     case types.CLEAR_PASSWORD_FORM: {
       return {

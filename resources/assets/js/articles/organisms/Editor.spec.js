@@ -14,7 +14,7 @@ describe('<Editor />', () => {
       editorHeaderText: 'Edit',
       heading: 'test heading',
       body: 'test body',
-      onPreview : false,
+      onPreview: false,
       handleChange: () => {},
       handleCancel: () => {},
       handleCancelText: 'cancel',
@@ -22,9 +22,7 @@ describe('<Editor />', () => {
       handleSubmitText: 'submit',
       handleTogglePreview: () => {},
     };
-    const wrapper = shallow(
-      <Editor {...props} />
-    );
+    const wrapper = shallow(<Editor {...props} />);
     expect(wrapper.find(TextField)).to.have.length(2);
     expect(wrapper.find('.editor-previewer_wrapper')).to.have.length(0);
   });
@@ -34,7 +32,7 @@ describe('<Editor />', () => {
       editorHeaderText: 'Edit',
       heading: 'test heading',
       body: 'test body',
-      onPreview : true,
+      onPreview: true,
       handleChange: () => {},
       handleCancel: () => {},
       handleCancelText: 'cancel',
@@ -42,9 +40,7 @@ describe('<Editor />', () => {
       handleSubmitText: 'submit',
       handleTogglePreview: () => {},
     };
-    const wrapper = shallow(
-      <Editor {...props} />
-    );
+    const wrapper = shallow(<Editor {...props} />);
     expect(wrapper.find(TextField)).to.have.length(0);
     expect(wrapper.find('.editor-previewer_wrapper')).to.have.length(1);
   });

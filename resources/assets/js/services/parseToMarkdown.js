@@ -12,4 +12,3 @@ export default function parseToMarkdown(rawBody) {
   });
   return converter.makeHtml(rawBody);
 }
-

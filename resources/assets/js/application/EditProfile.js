@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
-import {
-  Subheader,
-  Paper,
-  FlatButton,
-  RaisedButton,
-  TextField,
-  Snackbar,
-} from 'material-ui';
+import { Subheader, Paper, FlatButton, RaisedButton, TextField, Snackbar } from 'material-ui';
 
 import { Link } from 'react-router-dom';
 
 import { AvatorEditor } from './organisms/AvatorEditor';
-
 
 class EditProfile extends Component {
   constructor(props) {
@@ -54,23 +46,10 @@ class EditProfile extends Component {
     console.log(files);
   }
   render() {
-    const {
-      name,
-      password,
-      newImageUrl,
-      snackbarIsOpen,
-      snackbarMessage,
-    } = this.props.editProfile;
-    const {
-      avator_img_url,
-    } = this.props.profile;
-    const {
-      authorizationToken,
-    } = this.props.auth;
-    const {
-      handleChangeProfile,
-      handleChangePassword,
-    } = this.props;
+    const { name, password, newImageUrl, snackbarIsOpen, snackbarMessage } = this.props.editProfile;
+    const { avator_img_url } = this.props.profile;
+    const { authorizationToken } = this.props.auth;
+    const { handleChangeProfile, handleChangePassword } = this.props;
     const currentImageUrl = avator_img_url;
     const currentImageUrlWithToken = `/private-img/${currentImageUrl}?token=${authorizationToken}`;
 
@@ -102,11 +81,7 @@ class EditProfile extends Component {
               onDrop={this.handleDrop}
             />
             <br />
-            <RaisedButton
-              label="Submit"
-              primary
-              onTouchTap={this.handleSubmitAvator}
-            />
+            <RaisedButton label="Submit" primary onTouchTap={this.handleSubmitAvator} />
           </div>
         </Paper>
 
@@ -123,11 +98,7 @@ class EditProfile extends Component {
               onChange={handleChangeProfile}
             />
             <br />
-            <RaisedButton
-              label="Submit"
-              primary
-              onTouchTap={this.handleSubmitProfile}
-            />
+            <RaisedButton label="Submit" primary onTouchTap={this.handleSubmitProfile} />
           </div>
         </Paper>
 
@@ -144,17 +115,10 @@ class EditProfile extends Component {
               onChange={handleChangePassword}
             />
             <br />
-            <RaisedButton
-              label="Submit"
-              primary
-              onTouchTap={this.handleSubmitPassword}
-            />
+            <RaisedButton label="Submit" primary onTouchTap={this.handleSubmitPassword} />
           </div>
         </Paper>
-        <Snackbar
-          open={snackbarIsOpen}
-          message={snackbarMessage}
-        />
+        <Snackbar open={snackbarIsOpen} message={snackbarMessage} />
       </div>
     );
   }

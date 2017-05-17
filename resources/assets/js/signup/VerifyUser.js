@@ -10,14 +10,9 @@ class VerifyUser extends Component {
     this.props.handleVerifyUser(token);
   }
   render() {
-    const {
-      isRequesting,
-      isVerified,
-    } = this.props.verifyUser;
+    const { isRequesting, isVerified } = this.props.verifyUser;
     if (isRequesting) {
-      return (
-        <div>...checking</div>
-      );
+      return <div>...checking</div>;
     }
     if (isVerified) {
       return (

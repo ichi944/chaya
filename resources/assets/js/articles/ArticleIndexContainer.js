@@ -4,7 +4,6 @@ import url from 'url';
 import ArticleIndex from './ArticleIndex';
 import { fetchArticles } from './actions';
 
-
 const mapStateToProps = ({ articles, searcher, auth }) => {
   return {
     articles,

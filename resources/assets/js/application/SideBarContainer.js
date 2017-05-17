@@ -10,7 +10,4 @@ const mapStateToProps = ({ profile }) => {
   };
 };
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps),
-  )(SideBar);
+export default compose(withRouter, connect(mapStateToProps))(SideBar);

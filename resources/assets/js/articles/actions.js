@@ -11,9 +11,10 @@ export function fetchArticles(options: Object = {}) {
       type: types.START_FETCH_ARTICLES,
     });
     console.log('options in action: ', options);
-    Api.client.get(ARTICLE_API_URL, {
-      params: options,
-    })
+    Api.client
+      .get(ARTICLE_API_URL, {
+        params: options,
+      })
       .then((res) => {
         dispatch({
           type: types.END_FETCH_ARTICLES,
@@ -29,14 +30,13 @@ export function fetchArticleById(id: number) {
       type: types.START_FETCH_ARTICLE,
     });
 
-    Api.client.get(`/articles/${id}`)
-      .then((res) => {
-        console.log('got article');
-        dispatch({
-          type: types.END_FETCH_ARTICLE,
-          data: res.data,
-        });
-      }); // Api
+    Api.client.get(`/articles/${id}`).then((res) => {
+      console.log('got article');
+      dispatch({
+        type: types.END_FETCH_ARTICLE,
+        data: res.data,
+      });
+    }); // Api
   };
 }
 
@@ -73,12 +73,11 @@ export function successCreateArticle() {
 }
 export function createNewArticle(data: Object) {
   return function (dispatch: Function) {
-    Api.client.post('/articles/', data)
-      .then((res: Object) => {
-        console.log(res.data);
+    Api.client.post('/articles/', data).then((res: Object) => {
+      console.log(res.data);
 
-        dispatch(successCreateArticle());
-      });
+      dispatch(successCreateArticle());
+    });
   };
 }
 
@@ -124,10 +123,9 @@ export function successUpdateArticle() {
 export function requestUpdateArticle(data: Object) {
   return function (dispatch: Function) {
     const id: number = data.id;
-    Api.client.put(`/articles/${id}`, data)
-      .then(() => {
-        dispatch(successUpdateArticle());
-      });
+    Api.client.put(`/articles/${id}`, data).then(() => {
+      dispatch(successUpdateArticle());
+    });
   };
 }
 
@@ -165,11 +163,10 @@ export function successDeleteArticle() {
 export function deleteArticleById(id: number) {
   return function (dispatch: Function) {
     console.log('deleting', id);
-    Api.client.delete(`/articles/${id}`)
-      .then(() => {
-        dispatch(successDeleteArticle());
-        dispatch(push('/app/articles/'));
-      });
+    Api.client.delete(`/articles/${id}`).then(() => {
+      dispatch(successDeleteArticle());
+      dispatch(push('/app/articles/'));
+    });
   };
 }
 

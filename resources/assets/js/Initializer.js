@@ -21,9 +21,7 @@ import ArticleEditContainer from './articles/ArticleEditContainer';
 
 class NotFound extends Component {
   render() {
-    return (
-      <div>404 not found</div>
-    );
+    return <div>404 not found</div>;
   }
 }
 
@@ -42,32 +40,23 @@ class RedirectToLogin extends Component {
 
 class Initializer extends Component {
   componentWillUpdate() {
-    const {
-      auth,
-    } = this.props;
+    const { auth } = this.props;
     if (!auth.isAuthenticated) {
       this.props.requestClearProfile();
     }
   }
   render() {
-    const {
-      auth,
-      profile,
-    } = this.props;
+    const { auth, profile } = this.props;
     // check the user status when user comes into the app at first.
     // try to login with the token in localstorage if it's exists.
     if (!auth.isDoneCheckingStatusAtInitialize) {
-      return (
-        <InitialCheckStatus />
-      );
+      return <InitialCheckStatus />;
       // show login screen if not authenticated.
     } else if (!auth.isAuthenticated) {
       return (
         <div>
           <HeaderContainer />
-          <ConnectedRouter
-            history={appHistory}
-          >
+          <ConnectedRouter history={appHistory}>
             <div>
               <Switch>
                 <Route exact path="/app/login" component={LoginContainer} />
@@ -81,15 +70,11 @@ class Initializer extends Component {
         </div>
       );
     } else if (auth.isAuthenticated && !profile.isLoaded) {
-      return (
-        <LoadProfile />
-      );
+      return <LoadProfile />;
     }
     return (
       <div>
-        <ConnectedRouter
-          history={appHistory}
-        >
+        <ConnectedRouter history={appHistory}>
           <div>
             <HeaderContainer />
             <SideBarContainer />

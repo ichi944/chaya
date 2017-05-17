@@ -1,20 +1,10 @@
 import React, { Component } from 'react';
-import {
-  Paper,
-  FlatButton,
-  TextField,
-} from 'material-ui';
+import { Paper, FlatButton, TextField } from 'material-ui';
 
 class Searcher extends Component {
   render() {
-    const {
-      query,
-    } = this.props;
-    const {
-      handleChange,
-      handleSubmit,
-      handlePressEnter,
-    } = this.props;
+    const { query } = this.props;
+    const { handleChange, handleSubmit, handlePressEnter } = this.props;
     return (
       <Paper className="searcher-wrapper">
         <div className="searcher-input_wrapper">
@@ -29,11 +19,7 @@ class Searcher extends Component {
           />
         </div>
         <div className="searcher-submit_button">
-          <FlatButton
-            label="検索する"
-            primary
-            onTouchTap={() => handleSubmit(query)}
-          />
+          <FlatButton label="検索する" primary onTouchTap={() => handleSubmit(query)} />
         </div>
       </Paper>
     );

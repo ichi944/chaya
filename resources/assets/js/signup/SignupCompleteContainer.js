@@ -7,9 +7,7 @@ const mapStateToProps = () => {
 };
 
 const mapDispatchToProps = () => {
-  return {
-
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupComplete);
