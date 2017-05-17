@@ -5,7 +5,7 @@ type AuthState = {
   +isDoneCheckingStatusAtInitialize: boolean,
   +isAuthenticated: boolean,
   +authorizationToken: ?string,
-}
+};
 
 const initialState = {
   isDoneCheckingStatusAtInitialize: false,
@@ -25,7 +25,7 @@ export default function authReducer(state: AuthState = initialState, action: any
       return {
         ...state,
         authorizationToken: action.token,
-      }
+      };
     }
     case types.AUTHENTICATED: {
       console.log('in reduser authenticated');

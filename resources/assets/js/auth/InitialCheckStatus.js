@@ -10,9 +10,7 @@ class InitialCheckStatus extends Component {
     checkAuthStatus();
   }
   render() {
-    return (
-      <div>initial</div>
-    );
+    return <div>initial</div>;
   }
 }
 
