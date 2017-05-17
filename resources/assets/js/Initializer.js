@@ -19,24 +19,16 @@ import ArticleDetailContainer from './articles/ArticleDetailContainer';
 import ArticleAddContainer from './articles/ArticleAddContainer';
 import ArticleEditContainer from './articles/ArticleEditContainer';
 
-class NotFound extends Component {
-  render() {
-    return <div>404 not found</div>;
-  }
-}
+const NotFound = () => <div>404 not found</div>;
 
-class RedirectToLogin extends Component {
-  render() {
-    return (
-      <Redirect
-        to={{
-          pathname: '/app/login',
-          state: { from: this.props.location },
-        }}
-      />
-    );
-  }
-}
+const RedirectToLogin = props => (
+  <Redirect
+    to={{
+      pathname: '/app/login',
+      state: { from: props.location },
+    }}
+  />
+);
 
 class Initializer extends Component {
   componentWillUpdate() {
