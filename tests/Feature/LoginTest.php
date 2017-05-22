@@ -24,7 +24,7 @@ class LoginTest extends TestCase
         $user = factory(User::class)->create([
             'name' => 'foo',
             'email' => $email,
-            'is_verified' => false,
+            'is_verified_with_email' => false,
             'password' => bcrypt($password),
         ]);
 
@@ -46,7 +46,7 @@ class LoginTest extends TestCase
         $user = factory(User::class)->create([
             'name' => 'foo',
             'email' => $email,
-            'is_verified' => true,
+            'is_verified_with_email' => true,
             'password' => bcrypt($password),
         ]);
 
