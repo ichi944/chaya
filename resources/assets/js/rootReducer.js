@@ -12,6 +12,7 @@ import articleReducer from './articles/articleReducer';
 import articleAddReducer from './articles/articleAddReducer';
 import articleEditReducer from './articles/articleEditReducer';
 import searcherReducer from './articles/searcherReducer';
+import teamMembersReducer from './manage_team_members/teamMembersReducer';
 
 const rootReducer = combineReducers({
   router: routerReducer,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   articleAdd: articleAddReducer,
   articleEdit: articleEditReducer,
   searcher: searcherReducer,
+  teamMembers: teamMembersReducer,
 });
 
 export default rootReducer;

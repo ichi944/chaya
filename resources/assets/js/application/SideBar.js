@@ -18,6 +18,7 @@ class SideBar extends Component {
     this.handleLeftIconButtonTouchTap = this.handleLeftIconButtonTouchTap.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleManageAppSettingTouchTap = this.handleManageAppSettingTouchTap.bind(this);
+    this.handleManageTeamMembersTouchTap = this.handleManageTeamMembersTouchTap.bind(this);
     this.state = {
       open: false,
       anchorEl: null,
@@ -44,6 +45,11 @@ class SideBar extends Component {
     const { push } = this.props.history;
     push('/app/admin-preferences');
   }
+  handleManageTeamMembersTouchTap() {
+    const { push } = this.props.history;
+    this.handleRequestClose();
+    push('/app/manage-team-members');
+  }
   render() {
     const { profile } = this.props;
     return (
@@ -66,6 +72,11 @@ class SideBar extends Component {
                 primaryText="アプリケーションの管理をする..."
                 style={styles.menuItem}
                 onTouchTap={this.handleManageAppSettingTouchTap}
+              />
+              <MenuItem
+                primaryText="チームメンバーの管理をする..."
+                style={styles.menuItem}
+                onTouchTap={this.handleManageTeamMembersTouchTap}
               />
             </Menu>
           </Popover>
