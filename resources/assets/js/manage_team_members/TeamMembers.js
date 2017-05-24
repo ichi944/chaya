@@ -35,13 +35,13 @@ class TeamMembers extends Component {
                 {member.comment}
               </div>
               <div className="article_index-body">
-                {member.is_verified
+                {member.is_verified_with_email
                   ? <span style={styles.is_verified_with_email}>メール認証済み</span>
                   : <span>メール未認証</span>}
               </div>
               <div className="article_index-body">
                 {member.is_verified_by_admin
-                  ? <span style={styles.is_verified_with_email}>認証済み</span>
+                  ? <span style={styles.is_verified_by_admin}>認証済み</span>
                   : <FlatButton label="承認する" primary />}
               </div>
               <div className="article_index-body">

@@ -35,6 +35,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
             Route::post('profiles/update-my-password', 'UserController@updateMyPassword');
 
             Route::get('team-members', 'TeamMemberController@index');
+            Route::post('team-members/{team_member_id}', 'TeamMemberController@update');
         });
     });
 });
