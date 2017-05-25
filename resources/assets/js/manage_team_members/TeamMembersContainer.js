@@ -1,7 +1,7 @@
 // @flow
 import { connect } from 'react-redux';
 
-import { fetchTeamMembers } from './actions';
+import { fetchTeamMembers, requestVerifyByAdmin } from './actions';
 import TeamMembers from './TeamMembers';
 
 const mapStateToProps = ({ teamMembers, auth }) => {
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch: Function) => {
   return {
     initialize() {
       dispatch(fetchTeamMembers());
+    },
+    handleVerifyByAdmin(memberId) {
+      dispatch(requestVerifyByAdmin(memberId));
     },
   };
 };

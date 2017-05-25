@@ -1,4 +1,5 @@
 // @flow
+import _ from 'lodash';
 import * as types from './actionTypes';
 
 type TeamMember = {
@@ -21,6 +22,22 @@ export default function teamMembersReducer(state: TeamMembersState = initialStat
       return {
         ...state,
         members: data,
+      };
+    }
+    case types.VERIFY_BY_ADMIN_IS_SUCCEEDED: {
+      const { memberId } = action;
+      const updated = _.map(state.members, (member) => {
+        if (member.id === memberId) {
+          return {
+            ...member,
+            is_verified_by_admin: true,
+          };
+        }
+        return member;
+      });
+      return {
+        state,
+        members: updated,
       };
     }
     default: {

@@ -9,14 +9,20 @@ const styles = {
 };
 
 class TeamMembers extends Component {
+  constructor(props) {
+    super(props);
+    this.handleTouchTapVerifyByAdmin = this.handleTouchTapVerifyByAdmin.bind(this);
+  }
   componentDidMount() {
     const { initialize } = this.props;
     initialize();
   }
+  handleTouchTapVerifyByAdmin(e, memberId) {
+    this.props.handleVerifyByAdmin(memberId);
+  }
   render() {
     const { members } = this.props.teamMembers;
     const { authorizationToken } = this.props.auth;
-    console.log('@team member render', this.props);
     return (
       <Paper className="article_index-container">
         <Subheader>メンバー一覧</Subheader>
@@ -42,7 +48,11 @@ class TeamMembers extends Component {
               <div className="article_index-body">
                 {member.is_verified_by_admin
                   ? <span style={styles.is_verified_by_admin}>認証済み</span>
-                  : <FlatButton label="承認する" primary />}
+                  : <FlatButton
+                    label="承認する"
+                    primary
+                    onTouchTap={e => this.handleTouchTapVerifyByAdmin(e, member.id)}
+                  />}
               </div>
               <div className="article_index-body">
                 {member.is_locked ? 'ロックされています' : <FlatButton label="ロックする" />}

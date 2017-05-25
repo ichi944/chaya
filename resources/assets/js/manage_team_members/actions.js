@@ -17,3 +17,19 @@ export function fetchTeamMembers() {
     });
   };
 }
+
+export function verifyByAdminIsSucceeded(memberId) {
+  return {
+    type: types.VERIFY_BY_ADMIN_IS_SUCCEEDED,
+    memberId,
+  };
+}
+
+export function requestVerifyByAdmin(memberId) {
+  return (dispatch) => {
+    Api.client.put(`team-members/${memberId}`, { is_verified_by_admin: true }).then((res) => {
+      console.log('@update team member', res);
+      dispatch(verifyByAdminIsSucceeded(memberId));
+    });
+  };
+}
