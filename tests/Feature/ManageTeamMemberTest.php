@@ -39,7 +39,7 @@ class ManageTeamMemberTest extends TestCase
             'is_verified_by_admin' => false,
         ]);
         $headers['Authorization'] = 'Bearer ' . $token;
-        $response = $this->put('/api/v1.0.0/team-members/verify/'.$not_verified->id, ['is_verified_by_admin' => true], $headers);
+        $response = $this->put('/api/v1.0.0/team-members/verify/'.$not_verified->id, [], $headers);
 
         $response
             ->assertStatus(200)
@@ -47,6 +47,36 @@ class ManageTeamMemberTest extends TestCase
         $this->assertDatabaseHas('users', [
             'id' => 2,
             'is_verified_by_admin' => true,
+        ]);
+    }
+
+    public function testAdminFailedToVerifyIfMemberDoesNotVerifiedWithEmail()
+    {
+        $admin_email = 'test@example.com';
+        $admin_password = 'password';
+        $admin = factory(User::class)->create([
+            'id' => 1,
+            'email' => $admin_email,
+            'password' => $admin_password,
+            'is_verified_with_email' => true,
+            'is_verified_by_admin' => true,
+        ]);
+        $token = JWTAuth::fromUser($admin);
+
+        $not_verified = factory(User::class)->create([
+            'id' => 2,
+            'is_verified_with_email' => false,
+            'is_verified_by_admin' => false,
+        ]);
+        $headers['Authorization'] = 'Bearer ' . $token;
+        $response = $this->put('/api/v1.0.0/team-members/verify/'.$not_verified->id, [], $headers);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson(['_code' => 1]);
+        $this->assertDatabaseHas('users', [
+            'id' => 2,
+            'is_verified_by_admin' => false,
         ]);
     }
 }

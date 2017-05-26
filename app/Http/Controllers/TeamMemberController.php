@@ -31,7 +31,9 @@ class TeamMemberController extends Controller
     public function verify(Request $request, $team_member_id)
     {
         $member = User::find($team_member_id);
-
+        if(!$member->is_verified_with_email) {
+            return response()->json(['status' => 'ok', '_code' =>1]);
+        }
         $member->is_verified_by_admin = true;
         if($member->save()) {
             return response()->json(['status' => 'ok', '_code' => 0]);
