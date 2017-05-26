@@ -40,6 +40,10 @@ export default function teamMembersReducer(state: TeamMembersState = initialStat
         members: updated,
       };
     }
+    case types.VERIFY_BY_ADMIN_IS_FAILED: {
+      console.log('failed to verivy by admin');
+      return state;
+    }
     default: {
       return state;
     }
