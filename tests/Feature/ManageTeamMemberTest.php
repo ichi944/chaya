@@ -39,7 +39,7 @@ class ManageTeamMemberTest extends TestCase
             'is_verified_by_admin' => false,
         ]);
         $headers['Authorization'] = 'Bearer ' . $token;
-        $response = $this->post('/api/v1.0.0/team-members/'.$not_verified->id, ['is_verified_by_admin' => true], $headers);
+        $response = $this->put('/api/v1.0.0/team-members/verify/'.$not_verified->id, ['is_verified_by_admin' => true], $headers);
 
         $response
             ->assertStatus(200)

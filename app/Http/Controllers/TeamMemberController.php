@@ -28,12 +28,11 @@ class TeamMemberController extends Controller
      * @param  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $team_member_id)
+    public function verify(Request $request, $team_member_id)
     {
-        $updates = $request->only('is_verified_by_admin');
         $member = User::find($team_member_id);
 
-        $member->is_verified_by_admin = $updates['is_verified_by_admin'];
+        $member->is_verified_by_admin = true;
         if($member->save()) {
             return response()->json(['status' => 'ok', '_code' => 0]);
         }
