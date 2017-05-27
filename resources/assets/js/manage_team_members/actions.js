@@ -32,7 +32,7 @@ export function verifyByAdminIsFailed() {
 }
 export function requestVerifyByAdmin(memberId) {
   return (dispatch) => {
-    Api.client.put(`team-members/verify/${memberId}`).then((res) => {
+    Api.client.put(`team-members/${memberId}/verify`).then((res) => {
       console.log('@update team member', res);
       if (res.data._code !== 0) {
         dispatch(verifyByAdminIsFailed());
