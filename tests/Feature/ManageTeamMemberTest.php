@@ -22,15 +22,7 @@ class ManageTeamMemberTest extends TestCase
      */
     public function testAdminVerifiesMember()
     {
-        $admin_email = 'test@example.com';
-        $admin_password = 'password';
-        $admin = factory(User::class)->create([
-            'id' => 1,
-            'email' => $admin_email,
-            'password' => $admin_password,
-            'is_verified_with_email' => true,
-            'is_verified_by_admin' => true,
-        ]);
+        $admin = $this->createAdmin01();
         $token = JWTAuth::fromUser($admin);
 
         $not_verified = factory(User::class)->create([
@@ -52,15 +44,7 @@ class ManageTeamMemberTest extends TestCase
 
     public function testAdminFailedToVerifyIfMemberDoesNotVerifiedWithEmail()
     {
-        $admin_email = 'test@example.com';
-        $admin_password = 'password';
-        $admin = factory(User::class)->create([
-            'id' => 1,
-            'email' => $admin_email,
-            'password' => $admin_password,
-            'is_verified_with_email' => true,
-            'is_verified_by_admin' => true,
-        ]);
+        $admin = $this->createAdmin01();
         $token = JWTAuth::fromUser($admin);
 
         $not_verified = factory(User::class)->create([
@@ -78,5 +62,64 @@ class ManageTeamMemberTest extends TestCase
             'id' => 2,
             'is_verified_by_admin' => false,
         ]);
+    }
+
+    public function testAdminLockMember()
+    {
+        $admin = $this->createAdmin01();
+        $member = factory(User::class)->create([
+            'id' => 2,
+            'is_verified_with_email' => true,
+            'is_verified_by_admin' => true,
+        ]);
+        $token = JWTAuth::fromUser($admin);
+        $headers['Authorization'] = 'Bearer ' . $token;
+
+        $response = $this->put('/api/v1.0.0/team-members/'.$member->id.'/lock', [], $headers);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson(['_code' => 0]);
+        $this->assertDatabaseHas('users', [
+            'id' => 2,
+            'is_locked' => true,
+        ]);
+    }
+
+    public function testAdminUnlockMember()
+    {
+        $admin = $this->createAdmin01();
+        $member = factory(User::class)->create([
+            'id' => 2,
+            'is_verified_with_email' => true,
+            'is_verified_by_admin' => true,
+            'is_locked' => true,
+        ]);
+        $token = JWTAuth::fromUser($admin);
+        $headers['Authorization'] = 'Bearer ' . $token;
+
+        $response = $this->put('/api/v1.0.0/team-members/'.$member->id.'/unlock', [], $headers);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson(['_code' => 0]);
+        $this->assertDatabaseHas('users', [
+            'id' => 2,
+            'is_locked' => false,
+        ]);
+    }
+
+    /**
+     * return Admin user
+     * @return App\User
+     **/
+    private function createAdmin01()
+    {
+        $admin = factory(User::class)->create([
+            'id' => 1,
+            'is_verified_with_email' => true,
+            'is_verified_by_admin' => true,
+        ]);
+        return $admin;
     }
 }
