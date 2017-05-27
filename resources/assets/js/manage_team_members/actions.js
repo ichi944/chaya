@@ -42,3 +42,55 @@ export function requestVerifyByAdmin(memberId) {
     });
   };
 }
+
+export function lockMemberIsFailed() {
+  return {
+    type: types.LOCK_MEMBER_IS_FAILED,
+  };
+}
+
+export function lockMemberIsSucceeded(memberId) {
+  return {
+    type: types.LOCK_MEMBER_IS_SUCCEEDED,
+    memberId,
+  };
+}
+
+export function requestLockMember(memberId) {
+  return (dispatch) => {
+    Api.client.put(`team-members/${memberId}/lock`).then((res) => {
+      console.log('@lock member');
+      if (res.data._code !== 0) {
+        dispatch(lockMemberIsFailed());
+        return;
+      }
+      dispatch(lockMemberIsSucceeded(memberId));
+    });
+  };
+}
+
+export function unlockMemberIsFailed() {
+  return {
+    type: types.UNLOCK_MEMBER_IS_FAILED,
+  };
+}
+
+export function unlockMemberIsSucceeded(memberId) {
+  return {
+    type: types.UNLOCK_MEMBER_IS_SUCCEEDED,
+    memberId,
+  };
+}
+
+export function requestUnlockMember(memberId) {
+  return (dispatch) => {
+    Api.client.put(`team-members/${memberId}/unlock`).then((res) => {
+      console.log('@unlock member');
+      if (res.data._code !== 0) {
+        dispatch(unlockMemberIsFailed());
+        return;
+      }
+      dispatch(unlockMemberIsSucceeded(memberId));
+    });
+  };
+}

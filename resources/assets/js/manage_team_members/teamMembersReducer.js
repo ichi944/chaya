@@ -44,6 +44,44 @@ export default function teamMembersReducer(state: TeamMembersState = initialStat
       console.log('failed to verivy by admin');
       return state;
     }
+    case types.LOCK_MEMBER_IS_SUCCEEDED: {
+      const { memberId } = action;
+      const updated = _.map(state.members, (member) => {
+        if (member.id === memberId) {
+          return {
+            ...member,
+            is_locked: true,
+          };
+        }
+        return member;
+      });
+      return {
+        state,
+        members: updated,
+      };
+    }
+    case types.LOCK_MEMBER_IS_FAILED: {
+      return state;
+    }
+    case types.UNLOCK_MEMBER_IS_SUCCEEDED: {
+      const { memberId } = action;
+      const updated = _.map(state.members, (member) => {
+        if (member.id === memberId) {
+          return {
+            ...member,
+            is_locked: false,
+          };
+        }
+        return member;
+      });
+      return {
+        state,
+        members: updated,
+      };
+    }
+    case types.UNLOCK_MEMBER_IS_FAILED: {
+      return state;
+    }
     default: {
       return state;
     }

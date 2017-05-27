@@ -12,6 +12,8 @@ class TeamMembers extends Component {
   constructor(props) {
     super(props);
     this.handleTouchTapVerifyByAdmin = this.handleTouchTapVerifyByAdmin.bind(this);
+    this.handleTouchTapLockMember = this.handleTouchTapLockMember.bind(this);
+    this.handleTouchTapUnlockMember = this.handleTouchTapUnlockMember.bind(this);
   }
   componentDidMount() {
     const { initialize } = this.props;
@@ -19,6 +21,12 @@ class TeamMembers extends Component {
   }
   handleTouchTapVerifyByAdmin(e, memberId) {
     this.props.handleVerifyByAdmin(memberId);
+  }
+  handleTouchTapLockMember(e, memberId) {
+    this.props.handleLockMember(memberId);
+  }
+  handleTouchTapUnlockMember(e, memberId) {
+    this.props.handleUnlockMember(memberId);
   }
   render() {
     const { members } = this.props.teamMembers;
@@ -55,7 +63,19 @@ class TeamMembers extends Component {
                   />}
               </div>
               <div className="article_index-body">
-                {member.is_locked ? 'ロックされています' : <FlatButton label="ロックする" />}
+                {member.is_locked
+                  ? <div>
+                    <span>ロックされています</span>
+                    <FlatButton
+                      label="ロックを解除する"
+                      onTouchTap={e => this.handleTouchTapUnlockMember(e, member.id)}
+                    />
+                  </div>
+                  : <FlatButton
+                    secondary
+                    label="ロックする"
+                    onTouchTap={e => this.handleTouchTapLockMember(e, member.id)}
+                  />}
               </div>
             </div>
           </Paper>
