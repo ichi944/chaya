@@ -55,6 +55,7 @@ class LoginController extends Controller
                     'password' => $credentials['password'],
                     'is_verified_with_email' => true,
                     'is_verified_by_admin' => true,
+                    'is_locked' => false,
                 ])) {
                 Log::Info('invalid token1');
                 return response()->json([

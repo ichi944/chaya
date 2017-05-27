@@ -62,6 +62,30 @@ class LoginTest extends TestCase
             ->assertJson(['_code' => 1]);
     }
 
+    public function testLoginIsFailedWhenUserIsLocked()
+    {
+        $email = 'foo@example.com';
+        $password = 'secret';
+        $user = factory(User::class)->create([
+            'name' => 'foo',
+            'email' => $email,
+            'is_verified_with_email' => true,
+            'is_verified_by_admin' => true,
+            'is_locked' => true,
+            'password' => bcrypt($password),
+        ]);
+
+        $credentials = [
+            'email' => $email,
+            'password' => $password,
+        ];
+
+        $response = $this->post('/api/v1.0.0/auth/login', $credentials);
+        $response
+            ->assertStatus(200)
+            ->assertJson(['_code' => 1]);
+    }
+
     public function testLoginIsSucceededWhenUserVerified()
     {
         $email = 'foo@example.com';
