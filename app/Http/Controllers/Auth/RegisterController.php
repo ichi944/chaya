@@ -117,7 +117,7 @@ class RegisterController extends Controller
         $existed = UserVerificationToken::where('token', '=', $token)->first();
         if ($existed) {
             $user = $existed->user()->first();
-            $user->is_verified = true;
+            $user->is_verified_with_email = true;
             $user->save();
 
             $tokenRow = $user->userVerificationToken()->first();

@@ -80,7 +80,7 @@ class UserRegisterTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'name' => $user->name,
-            'is_verified' => true,
+            'is_verified_with_email' => true,
         ]);
         $this->assertEquals(UserVerificationToken::all()->count(), 0);
     }
@@ -103,7 +103,7 @@ class UserRegisterTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'name' => $user->name,
-            'is_verified' => false,
+            'is_verified_with_email' => false,
         ]);
         $this->assertEquals(UserVerificationToken::all()->count(), 1);
 

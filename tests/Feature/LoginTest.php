@@ -17,14 +17,61 @@ class LoginTest extends TestCase
      *
      * @return void
      */
-    public function testLoginIsFailedWhenUserNonVerified()
+    public function testLoginIsFailedWhenUserNonVerifiedWithEmail()
     {
         $email = 'foo@example.com';
         $password = 'secret';
         $user = factory(User::class)->create([
             'name' => 'foo',
             'email' => $email,
-            'is_verified' => false,
+            'is_verified_with_email' => false,
+            'password' => bcrypt($password),
+        ]);
+
+        $credentials = [
+            'email' => $email,
+            'password' => $password,
+        ];
+
+        $response = $this->post('/api/v1.0.0/auth/login', $credentials);
+        $response
+            ->assertStatus(200)
+            ->assertJson(['_code' => 1]);
+    }
+
+    public function testLoginIsFailedWhenUserNonVerifiedByAdmin()
+    {
+        $email = 'foo@example.com';
+        $password = 'secret';
+        $user = factory(User::class)->create([
+            'name' => 'foo',
+            'email' => $email,
+            'is_verified_with_email' => true,
+            'is_verified_by_admin' => false,
+            'password' => bcrypt($password),
+        ]);
+
+        $credentials = [
+            'email' => $email,
+            'password' => $password,
+        ];
+
+        $response = $this->post('/api/v1.0.0/auth/login', $credentials);
+        $response
+            ->assertStatus(200)
+            ->assertJson(['_code' => 1]);
+    }
+
+    public function testLoginIsFailedWhenUserIsLocked()
+    {
+        $email = 'foo@example.com';
+        $password = 'secret';
+        $user = factory(User::class)->create([
+            'name' => 'foo',
+            'email' => $email,
+            'is_verified_with_email' => true,
+            'is_verified_by_admin' => true,
+            'is_locked' => true,
             'password' => bcrypt($password),
         ]);
 
@@ -46,7 +93,8 @@ class LoginTest extends TestCase
         $user = factory(User::class)->create([
             'name' => 'foo',
             'email' => $email,
-            'is_verified' => true,
+            'is_verified_with_email' => true,
+            'is_verified_by_admin' => true,
             'password' => bcrypt($password),
         ]);
 
