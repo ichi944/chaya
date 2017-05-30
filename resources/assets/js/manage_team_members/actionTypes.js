@@ -6,3 +6,5 @@ export const LOCK_MEMBER_IS_SUCCEEDED = 'manage_team_members/LOCK_MEMBER_IS_SUCC
 export const LOCK_MEMBER_IS_FAILED = 'manage_team_members/LOCK_MEMBER_IS_FAILED';
 export const UNLOCK_MEMBER_IS_SUCCEEDED = 'manage_team_members/UNLOCK_MEMBER_IS_SUCCEEDED';
 export const UNLOCK_MEMBER_IS_FAILED = 'manage_team_members/UNLOCK_MEMBER_IS_FAILED';
+export const TOGGLE_SHOW_MEMBERS_WHO_IS_NOT_VERIFIED_WITH_EMAIL =
+  'manage_team_members/TOGGLE_SHOW_MEMBERS_WHO_IS_NOT_VERIFIED_WITH_EMAIL';

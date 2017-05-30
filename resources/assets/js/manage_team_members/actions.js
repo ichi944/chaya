@@ -94,3 +94,9 @@ export function requestUnlockMember(memberId) {
     });
   };
 }
+export function ToggleShowMembersWhoIsNotVerifiedWithEmail(isInputChecked) {
+  return {
+    type: types.TOGGLE_SHOW_MEMBERS_WHO_IS_NOT_VERIFIED_WITH_EMAIL,
+    isInputChecked,
+  };
+}

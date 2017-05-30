@@ -9,10 +9,12 @@ type TeamMember = {
 };
 type TeamMembersState = {
   members: Array<TeamMember>,
+  showMembersWhoIsNotVerifiedWithEmail: boolean,
 };
 
 const initialState = {
   members: [],
+  show_members_who_is_not_verified_with_email: false,
 };
 
 export default function teamMembersReducer(state: TeamMembersState = initialState, action: any) {
@@ -81,6 +83,13 @@ export default function teamMembersReducer(state: TeamMembersState = initialStat
     }
     case types.UNLOCK_MEMBER_IS_FAILED: {
       return state;
+    }
+    case types.TOGGLE_SHOW_MEMBERS_WHO_IS_NOT_VERIFIED_WITH_EMAIL: {
+      const { isInputChecked } = action;
+      return {
+        ...state,
+        showMembersWhoIsNotVerifiedWithEmail: isInputChecked,
+      };
     }
     default: {
       return state;
