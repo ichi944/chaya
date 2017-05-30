@@ -6,6 +6,7 @@ import {
   requestVerifyByAdmin,
   requestLockMember,
   requestUnlockMember,
+  ToggleShowMembersWhoIsNotVerifiedWithEmail,
 } from './actions';
 import TeamMembers from './TeamMembers';
 
@@ -29,6 +30,9 @@ const mapDispatchToProps = (dispatch: Function) => {
     },
     handleUnlockMember(memberId) {
       dispatch(requestUnlockMember(memberId));
+    },
+    handleToggleShowMembersWhoIsNotVerifiedWithEmail(isInputChecked) {
+      dispatch(ToggleShowMembersWhoIsNotVerifiedWithEmail(isInputChecked));
     },
   };
 };
