@@ -1,3 +1,4 @@
 dependencies:
   pre:
     - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
+    - echo -e "$NPM_USER\n$NPM_PASS\n$NPM_EMAIL" | npm login
