@@ -12,5 +12,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'is_verified_with_email' => 0,
         'is_verified_by_admin' => 0,
         'is_locked' => 0,
+        'is_admin' => 0,
     ];
 });

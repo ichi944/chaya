@@ -119,6 +119,7 @@ class ManageTeamMemberTest extends TestCase
             'id' => 1,
             'is_verified_with_email' => true,
             'is_verified_by_admin' => true,
+            'is_admin' => true,
         ]);
         return $admin;
     }
