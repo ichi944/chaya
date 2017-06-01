@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Eloquent;
 
-class UserVerificationToken extends Model
+class UserVerificationToken extends Eloquent
 {
     /**
      * The attributes that are mass assignable.
