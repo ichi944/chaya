@@ -7,17 +7,19 @@ use JWTAuth;
 use App\Article;
 use App\Constants\Articles;
 
-use Illuminate\Support\Facades\Log;
+use Log;
 
 class ArticleController extends Controller
 {
+    private $article;
+
     public function __construct(Article $article)
     {
         $this->article = $article;
     }
     /**
      * Display a listing of the resource.
-     *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -35,7 +37,7 @@ class ArticleController extends Controller
             ->paginate(Articles::ITEMS_PER_PAGE);
 
         return response()->json($data);
-    }
+    }/** @noinspection PhpInconsistentReturnPointsInspection */
 
     /**
      * Show the form for creating a new resource.
@@ -45,12 +47,12 @@ class ArticleController extends Controller
     public function create()
     {
         //
-    }
+    }/** @noinspection PhpInconsistentReturnPointsInspection */
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -78,7 +80,7 @@ class ArticleController extends Controller
     {
         $data = $this->article->with('user')->find($id);
         return response()->json($data);
-    }
+    }/** @noinspection PhpInconsistentReturnPointsInspection */
 
     /**
      * Show the form for editing the specified resource.
@@ -89,18 +91,17 @@ class ArticleController extends Controller
     public function edit($id)
     {
         //
-    }
+    }/** @noinspection PhpInconsistentReturnPointsInspection */
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $current_user = JWTAuth::parseToken()->authenticate();
         $target = $this->article->find($id);
         $target->heading = $request->heading;
         $target->body = $request->body;

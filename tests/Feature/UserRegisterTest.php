@@ -3,14 +3,11 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 use App\Listeners\SendRegisterVerification;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Event;
+use Mail;
+use Event;
 use App\Mail\UserVerification;
 use App\User;
 use App\UserVerificationToken;
@@ -30,7 +27,7 @@ class UserRegisterTest extends TestCase
     {
         Event::fake();
         $name = 'foo';
-        $response = $this->json('POST', '/api/v1.0.0/auth/signup', [
+        $this->json('POST', '/api/v1.0.0/auth/signup', [
             'name' => $name,
             'email' => 'foo@example.com',
             'password' => 'password',
@@ -68,7 +65,7 @@ class UserRegisterTest extends TestCase
             'name' => 'foo',
         ]);
         $valid_token = 'validtoken';
-        $token = factory(UserVerificationToken::class)->create([
+        factory(UserVerificationToken::class)->create([
             'user_id' => $user->id,
             'token' => $valid_token,
         ]);
@@ -90,7 +87,7 @@ class UserRegisterTest extends TestCase
             'name' => 'foo',
         ]);
         $valid_token = 'validtoken';
-        $token = factory(UserVerificationToken::class)->create([
+        factory(UserVerificationToken::class)->create([
             'user_id' => $user->id,
             'token' => $valid_token,
         ]);

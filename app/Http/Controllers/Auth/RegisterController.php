@@ -4,18 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\UserVerificationToken;
-use App\Services\TokenGeneraterService;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Illuminate\Support\Facades\Log;
-
+use Log;
 
 class RegisterController extends Controller
 {
@@ -41,8 +35,6 @@ class RegisterController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -108,10 +100,11 @@ class RegisterController extends Controller
      * Handle a user verification request.
      *
      * @author ichi <ichi944g@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
+     * @param $token
      * @return \Illuminate\Http\Response
+     * @internal param Request $request
      */
-    public function verification(Request $request, $token)
+    public function verification($token)
     {
         Log::Info('in verification url, token is: '.$token);
         $existed = UserVerificationToken::where('token', '=', $token)->first();

@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Illuminate\Support\Facades\Log;
 use Validator;
 
 class UserController extends Controller
 {
-    public function profile(Request $request) {
+    public function profile()
+    {
         $user = JWTAuth::parseToken()->authenticate();
         return response()->json(compact('user'));
     }

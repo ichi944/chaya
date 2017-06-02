@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
-use Log;
 
 class TeamMemberController extends Controller
 {
@@ -12,12 +10,13 @@ class TeamMemberController extends Controller
     {
         $this->user = $user;
     }
+
     /**
      * Display a listing of the resource.
-     * @param  $request
      * @return \Illuminate\Http\Response
+     * @internal param $request
      */
-    public function index(Request $request)
+    public function index()
     {
         $members = $this->user->all();
         return response()->json($members);
@@ -25,12 +24,13 @@ class TeamMemberController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param  $request
+     * @param $team_member_id
      * @return \Illuminate\Http\Response
+     * @internal param $request
      */
-    public function verify(Request $request, $team_member_id)
+    public function verify($team_member_id)
     {
-        $member = User::find($team_member_id);
+        $member = $this->user->find($team_member_id);
         if(!$member->is_verified_with_email) {
             return response()->json(['status' => 'ok', '_code' =>1]);
         }
@@ -43,10 +43,11 @@ class TeamMemberController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param  $request
+     * @param $team_member_id
      * @return \Illuminate\Http\Response
+     * @internal param $request
      */
-    public function lock(Request $request, $team_member_id)
+    public function lock($team_member_id)
     {
         $member = User::find($team_member_id);
         if(!($member->is_verified_with_email && $member->is_verified_by_admin)) {
@@ -61,10 +62,11 @@ class TeamMemberController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param  $request
+     * @param $team_member_id
      * @return \Illuminate\Http\Response
+     * @internal param $request
      */
-    public function unlock(Request $request, $team_member_id)
+    public function unlock($team_member_id)
     {
         $member = User::find($team_member_id);
         if(!($member->is_verified_with_email && $member->is_verified_by_admin)) {
