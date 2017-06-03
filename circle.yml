@@ -1,0 +1,25 @@
+machine:
+  node:
+    version: 6.0.0
+  php:
+    version: 5.6.22
+  environment:
+    DB_CONNECTION: circle_test
+    APP_ENV: local
+    APP_KEY: base64:129oHC3pcla1VIXA2dT1G/kDg8aYueBFmHi4V8XLOk8=
+  services:
+    - mysql
+
+database:
+  override:
+    - "php artisan migrate"
+    - "php artisan db:seed"
+
+dependencies:
+  pre:
+    - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
+
+test:
+  override:
+    - vendor/bin/phpunit
+
