@@ -7,7 +7,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Middleware\BaseMiddleware;
 
-class checkAdmin extends BaseMiddleware
+class CheckAdmin extends BaseMiddleware
 {
     /**
      * Handle an incoming request.
