@@ -2,7 +2,7 @@ machine:
   node:
     version: 6.0.0
   php:
-    version: 7.0.4
+    version: 5.6.22
   environment:
     DB_CONNECTION: circle_test
     APP_ENV: local
