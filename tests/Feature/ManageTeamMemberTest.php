@@ -3,14 +3,10 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 
 use App\User;
-use Log;
 
 class ManageTeamMemberTest extends TestCase
 {
@@ -111,7 +107,7 @@ class ManageTeamMemberTest extends TestCase
 
     /**
      * return Admin user
-     * @return App\User
+     * @return User
      **/
     private function createAdmin01()
     {

@@ -3,11 +3,9 @@
 namespace App\Listeners;
 
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Mail;
+use Mail;
 use App\Mail\UserVerification;
-use Illuminate\Support\Facades\Log;
+use Log;
 use App\Services\TokenGeneraterService;
 
 class SendRegisterVerification
@@ -15,7 +13,7 @@ class SendRegisterVerification
     /**
      * Create the event listener.
      *
-     * @return void
+     * @param TokenGeneraterService $tokenGenerater
      */
     public function __construct(TokenGeneraterService $tokenGenerater)
     {

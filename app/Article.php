@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Eloquent;
 
-class Article extends Model
+class Article extends Eloquent
 {
     /**
      * The attributes that are mass assignable.
