@@ -6,6 +6,7 @@ machine:
   environment:
     DB_CONNECTION: circle_test
     APP_ENV: local
+    APP_KEY: base64:129oHC3pcla1VIXA2dT1G/kDg8aYueBFmHi4V8XLOk8=
   services:
     - mysql
 
@@ -17,5 +18,5 @@ database:
 dependencies:
   pre:
     - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
-    - php artisan key:generate
+
 
