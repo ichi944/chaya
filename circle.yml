@@ -3,6 +3,17 @@ machine:
     version: 6.0.0
   php:
     version: 7.0.4
+  environment:
+    DB_CONNECTION: circle_test
+    APP_ENV: local
+  services:
+    - mysql
+
+database:
+  override:
+    - "php artisan migrate"
+    - "php artisan db:seed"
+
 dependencies:
   pre:
     - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
