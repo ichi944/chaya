@@ -37,7 +37,17 @@ class SendRegisterVerification
         ]);
 
         Log::Info('token is: '. $token);
-        $verification_url = env('APP_URL').'/auth/verification/'.$token;
+        $verification_url = $this->getApplicationBaseUrl() . \App\Constants\Verification::URL . '/' . $token;
         Mail::to($event->user)->send(new UserVerification(compact('verification_url')));
+    }
+
+    private function getApplicationBaseUrl()
+    {
+        $base = env('APP_URL', 'http://localhost');
+        $port = '';
+        if (!empty(env('APP_PORT'))) {
+            $port = ':' . env('APP_PORT');
+        }
+        return $base . $port;
     }
 }
