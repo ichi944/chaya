@@ -1,3 +1,4 @@
+import { push } from 'react-router-redux';
 import * as types from './actionTypes';
 import Api from '../services/Api';
 
@@ -26,6 +27,7 @@ export function requestSignup(name, email, password) {
       .then((res) => {
         console.log(res);
         dispatch(successSiginup());
+        dispatch(push('/app/signup-complete'));
       });
   };
 }

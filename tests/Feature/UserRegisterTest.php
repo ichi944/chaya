@@ -12,8 +12,8 @@ use App\Mail\UserVerification;
 use App\User;
 use App\UserVerificationToken;
 use App\Services\TokenGeneraterService;
-
-
+use App\Listeners\NotifyMailVerificationIsDoneToAdmin as NotifyMailVerificationIsDoneToAdminHandler;
+use App\Events\MailVerificationIsDone;
 
 class UserRegisterTest extends TestCase
 {
@@ -61,6 +61,7 @@ class UserRegisterTest extends TestCase
     }
 
     public function testSuccessVerificationByValidToken() {
+        Event::fake();
         $user = factory(User::class)->create([
             'name' => 'foo',
         ]);
@@ -71,6 +72,9 @@ class UserRegisterTest extends TestCase
         ]);
         $response = $this->get('/api/v1.0.0/auth/verification/'.$valid_token);
 
+        Event::assertDispatched(MailVerificationIsDone::class, function ($e) use($user) {
+            return $e->user->name === $user->name;
+        });
         $response
             ->assertStatus(200)
             ->assertJson(['_code' => 0]);
@@ -104,5 +108,28 @@ class UserRegisterTest extends TestCase
         ]);
         $this->assertEquals(UserVerificationToken::all()->count(), 1);
 
+    }
+
+    public function testNotifyMailHasNameOfNewMember()
+    {
+        Mail::fake();
+        $user = factory(User::class)->create([
+            'name' => 'foo',
+            'is_verified_with_email' => true,
+        ]);
+        $admin = factory(User::class)->create([
+            'name' => 'bar',
+            'email' => 'bar@example.com',
+            'is_admin' => true,
+        ]);
+
+        $handler = new NotifyMailVerificationIsDoneToAdminHandler();
+        $event = new MailVerificationIsDone($user);
+        $handler->handle($event);
+
+        Mail::assertSent(\App\Mail\NotifyMailVerificationIsDoneToAdmin::class, function($mail) use($admin, $user) {
+            return $mail->hasTo($admin->email) &&
+                $mail->user->name === 'foo';
+        });
     }
 }

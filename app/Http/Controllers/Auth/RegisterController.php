@@ -9,6 +9,7 @@ use Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use App\Events\MailVerificationIsDone;
 use Log;
 
 class RegisterController extends Controller
@@ -115,6 +116,8 @@ class RegisterController extends Controller
 
             $tokenRow = $user->userVerificationToken()->first();
             $tokenRow->delete();
+
+            event(new MailVerificationIsDone($user));
 
             return response()->json([
                 'status' => 'ok',
