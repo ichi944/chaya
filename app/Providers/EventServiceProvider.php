@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Registered' => [
             'App\Listeners\SendRegisterVerification',
         ],
+        'App\Events\MailVerificationIsDone' => [
+            'App\Listeners\NotifyMailVerificationIsDoneToAdmin',
+        ],
     ];
 
     /**
