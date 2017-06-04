@@ -19,7 +19,9 @@ class VerifyUser extends Component {
         <div>
           <Paper className="login-form" zDepth={1}>
             <div className="login-inner">
-              <h1 className="login-title">You are Verified.</h1>
+              <h1 className="login-title">
+                Mail Verification is done.<br />Please wait the administrator verify you.
+              </h1>
               <div className="login-links">
                 <Link to="/app/login">go to Login</Link>
               </div>
@@ -33,7 +35,7 @@ class VerifyUser extends Component {
         <Paper className="login-form" zDepth={1}>
           <div className="login-inner">
             <h1 className="login-title">Verification Failed.</h1>
-            <p>Please check a link on the email.</p>
+            <p>Please check the link on the email.</p>
             <div className="login-links">
               <Link to="/app/signup">go to signup</Link>
             </div>
