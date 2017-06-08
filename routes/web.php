@@ -34,6 +34,8 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
             Route::post('profiles/update-me', 'UserController@updateMe');
             Route::post('profiles/update-my-password', 'UserController@updateMyPassword');
 
+            Route::get('channels', 'ChannelController@index');
+
             Route::get('team-members', 'TeamMemberController@index');
 
             Route::group(['middleware' => ['checkAdmin']], function() {

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { Drawer, AppBar, Subheader, Divider, Popover, Menu, MenuItem } from 'material-ui';
 
+import ChannelList from './organisms/ChannelList';
+
 const styles = {
   menuItem: {
     lineHeight: '36px',
@@ -51,7 +53,7 @@ class SideBar extends Component {
     push('/app/manage-team-members');
   }
   render() {
-    const { profile } = this.props;
+    const { profile, channels } = this.props;
     return (
       <Drawer docked width={220}>
         <AppBar
@@ -84,6 +86,8 @@ class SideBar extends Component {
         <Subheader>{profile.name}</Subheader>
         <p className="sidebar_link-profile"><Link to="/app/profile">プロフィールを編集する...</Link></p>
         <Divider />
+        <Subheader>Channel</Subheader>
+        <ChannelList channels={channels} />
 
       </Drawer>
     );

@@ -4,9 +4,10 @@ import { withRouter } from 'react-router';
 
 import SideBar from './SideBar';
 
-const mapStateToProps = ({ profile }) => {
+const mapStateToProps = ({ profile, channels }) => {
   return {
     profile,
+    channels,
   };
 };
 

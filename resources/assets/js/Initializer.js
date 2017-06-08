@@ -6,6 +6,7 @@ import appHistory from './services/appHistory';
 
 import InitialCheckStatus from './auth/InitialCheckStatus';
 import LoadProfile from './application/LoadProfile';
+import LoadChannel from './channel/LoadChannel';
 import HeaderContainer from './application/HeaderContainer';
 import SideBarContainer from './application/SideBarContainer';
 import EditProfileContainer from './application/EditProfileContainer';
@@ -19,6 +20,7 @@ import ArticleDetailContainer from './articles/ArticleDetailContainer';
 import ArticleAddContainer from './articles/ArticleAddContainer';
 import ArticleEditContainer from './articles/ArticleEditContainer';
 import TeamMembersContainer from './manage_team_members/TeamMembersContainer';
+import ChannelContainer from './channel/';
 
 const NotFound = () => <div>404 not found</div>;
 
@@ -39,7 +41,7 @@ class Initializer extends Component {
     }
   }
   render() {
-    const { auth, profile } = this.props;
+    const { auth, profile, channels } = this.props;
     // check the user status when user comes into the app at first.
     // try to login with the token in localstorage if it's exists.
     if (!auth.isDoneCheckingStatusAtInitialize) {
@@ -64,6 +66,8 @@ class Initializer extends Component {
       );
     } else if (auth.isAuthenticated && !profile.isLoaded) {
       return <LoadProfile />;
+    } else if (!channels.isLoaded) {
+      return <LoadChannel />;
     }
     return (
       <div>
@@ -80,6 +84,7 @@ class Initializer extends Component {
                 <Route exact path="/app/articles/:id/edit" component={ArticleEditContainer} />
                 <Route path="/app/articles/:id" component={ArticleDetailContainer} />
                 <Route exact path="/app/profile" component={EditProfileContainer} />
+                <Route exact path="/app/channels/:name" component={ChannelContainer} />
                 <Route exact path="/app/manage-team-members" component={TeamMembersContainer} />
                 <Route component={NotFound} />
               </Switch>
