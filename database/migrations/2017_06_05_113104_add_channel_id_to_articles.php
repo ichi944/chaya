@@ -29,6 +29,7 @@ class AddChannelIdToArticles extends Migration
     public function down()
     {
         Schema::table('articles', function (Blueprint $table) {
+            $table->dropForeign('articles_channel_id_foreign');
             $table->dropColumn('channel_id');
         });
     }
