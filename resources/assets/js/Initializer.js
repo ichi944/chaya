@@ -20,7 +20,6 @@ import ArticleDetailContainer from './articles/ArticleDetailContainer';
 import ArticleAddContainer from './articles/ArticleAddContainer';
 import ArticleEditContainer from './articles/ArticleEditContainer';
 import TeamMembersContainer from './manage_team_members/TeamMembersContainer';
-import ChannelContainer from './channel/';
 
 const NotFound = () => <div>404 not found</div>;
 
@@ -84,7 +83,6 @@ class Initializer extends Component {
                 <Route exact path="/app/articles/:id/edit" component={ArticleEditContainer} />
                 <Route path="/app/articles/:id" component={ArticleDetailContainer} />
                 <Route exact path="/app/profile" component={EditProfileContainer} />
-                <Route exact path="/app/channels/:name" component={ChannelContainer} />
                 <Route exact path="/app/manage-team-members" component={TeamMembersContainer} />
                 <Route component={NotFound} />
               </Switch>
