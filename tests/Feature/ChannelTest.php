@@ -54,7 +54,7 @@ class ChannelTest extends TestCase
 
     }
     /**
-     * return Admin user
+     * return a member
      * @return User
      **/
     private function createMember01()
