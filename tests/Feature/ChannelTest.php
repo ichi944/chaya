@@ -10,13 +10,40 @@ use App\Channel;
 use App\Article;
 use App\User;
 use JWTAuth;
+use App\Helpers\TestHelper;
 
 class ChannelTest extends TestCase
 {
     use DatabaseMigrations;
+
+    const KEY_AUTH_TOKEN = 'Authorization';
+
+    public function testGetAllChannels()
+    {
+        $member = $this->createMember01();
+        $token = JWTAuth::fromUser($member);
+        $channel1 = factory(Channel::class)->create([
+            'id' => 1,
+        ]);
+        $channel2 = factory(Channel::class)->create([
+            'id' => 2,
+        ]);
+
+        $headers = TestHelper::createHeaderWithAuthorizationToken($token);
+        $response = $this->get(TestHelper::getApiBase().'/channels', $headers);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                [
+                    'id' => 1,
+                ],
+                [
+                    'id' => 2,
+                ]
+            ]);
+    }
     /**
-     * A basic test example.
-     *
      * @return void
      */
     public function testGetArticlesOwnedByTargetChannel()
@@ -39,8 +66,8 @@ class ChannelTest extends TestCase
             'channel_id' => 2,
         ]);
 
-        $headers['Authorization'] = 'Bearer ' . $token;
-        $response = $this->get('/api/v1.0.0/channels/'.$channel1->id.'/articles', $headers);
+        $headers = TestHelper::createHeaderWithAuthorizationToken($token);
+        $response = $this->get(TestHelper::getApiBase().'/channels/'.$channel1->id.'/articles', $headers);
         $response
             ->assertStatus(200)
             ->assertJson([
