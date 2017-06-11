@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use JWTAuth;
 
 use App\User;
+use App\Helpers\TestHelper;
 
 class ManageTeamMemberTest extends TestCase
 {
@@ -26,8 +27,8 @@ class ManageTeamMemberTest extends TestCase
             'is_verified_with_email' => true,
             'is_verified_by_admin' => false,
         ]);
-        $headers['Authorization'] = 'Bearer ' . $token;
-        $response = $this->put('/api/v1.0.0/team-members/'.$not_verified->id.'/verify', [], $headers);
+        $headers = TestHelper::createHeaderWithAuthorizationToken($token);
+        $response = $this->put(TestHelper::getApiBase().'/team-members/'.$not_verified->id.'/verify', [], $headers);
 
         $response
             ->assertStatus(200)
@@ -48,8 +49,8 @@ class ManageTeamMemberTest extends TestCase
             'is_verified_with_email' => false,
             'is_verified_by_admin' => false,
         ]);
-        $headers['Authorization'] = 'Bearer ' . $token;
-        $response = $this->put('/api/v1.0.0/team-members/'.$not_verified->id.'/verify', [], $headers);
+        $headers = TestHelper::createHeaderWithAuthorizationToken($token);
+        $response = $this->put(TestHelper::getApiBase().'/team-members/'.$not_verified->id.'/verify', [], $headers);
 
         $response
             ->assertStatus(200)
@@ -69,9 +70,9 @@ class ManageTeamMemberTest extends TestCase
             'is_verified_by_admin' => true,
         ]);
         $token = JWTAuth::fromUser($admin);
-        $headers['Authorization'] = 'Bearer ' . $token;
+        $headers = TestHelper::createHeaderWithAuthorizationToken($token);
 
-        $response = $this->put('/api/v1.0.0/team-members/'.$member->id.'/lock', [], $headers);
+        $response = $this->put(TestHelper::getApiBase().'/team-members/'.$member->id.'/lock', [], $headers);
 
         $response
             ->assertStatus(200)
@@ -92,9 +93,9 @@ class ManageTeamMemberTest extends TestCase
             'is_locked' => true,
         ]);
         $token = JWTAuth::fromUser($admin);
-        $headers['Authorization'] = 'Bearer ' . $token;
+        $headers = TestHelper::createHeaderWithAuthorizationToken($token);
 
-        $response = $this->put('/api/v1.0.0/team-members/'.$member->id.'/unlock', [], $headers);
+        $response = $this->put(TestHelper::getApiBase().'/team-members/'.$member->id.'/unlock', [], $headers);
 
         $response
             ->assertStatus(200)
