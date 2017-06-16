@@ -185,3 +185,18 @@ export function requestSearch(query: string = '') {
     dispatch(fetchArticles(options));
   };
 }
+
+export function fetchArticlesByChannel(channel_id: number, options: Object) {
+  return (dispatch: Function) => {
+    Api.client
+      .get(`channels/${channel_id}/articles`, {
+        params: options,
+      })
+      .then((res) => {
+        dispatch({
+          type: types.END_FETCH_ARTICLES_BY_CHANNEL,
+          data: res.data,
+        });
+      }); // Api
+  };
+}

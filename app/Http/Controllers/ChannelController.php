@@ -39,7 +39,11 @@ class ChannelController extends Controller
     public function articles($channel_id)
     {
         $channel = $this->channel->find($channel_id);
-        $articles = $channel->articles()->paginate(\App\Constants\Articles::ITEMS_PER_PAGE);
+        $articles = $channel
+            ->articles()
+            ->with('user')
+            ->orderBy('id', 'desc')
+            ->paginate(\App\Constants\Articles::ITEMS_PER_PAGE);
 
         return response()->json([
             'channel' => $channel,

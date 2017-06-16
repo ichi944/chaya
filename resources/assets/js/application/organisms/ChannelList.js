@@ -17,9 +17,10 @@ class ChannelList extends Component {
         {channels.map((channel) => {
           return (
             <ListItem
+              key={channel.id}
               primaryText={channel.name}
               style={styles.channelListItem}
-              containerElement={<Link to={`app/channels/${channel.name}`} />}
+              containerElement={<Link to={`/app/articles/channel/${channel.id}`} />}
             />
           );
         })}
