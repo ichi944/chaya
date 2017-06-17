@@ -39,7 +39,6 @@ class ArticleChannel extends Component {
       prev_page_url,
       next_page_url,
     } = this.props.articleChannel.articles;
-    const { query } = this.props.searcher;
     const { handleNavigatePage } = this.props;
     const { authorizationToken } = this.props.auth;
 
@@ -47,7 +46,6 @@ class ArticleChannel extends Component {
       prev_page_url,
       next_page_url,
       handleNavigatePage,
-      query,
     };
 
     const styles = {
@@ -60,7 +58,6 @@ class ArticleChannel extends Component {
 
     return (
       <div>
-        <SearcherContainer />
         <Paper className="article_index-container">
           <Subheader>Feed {from}件目〜{to}件目 (全{total}件)</Subheader>
           <FloatingActionButton
