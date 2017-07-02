@@ -200,3 +200,22 @@ export function fetchArticlesByChannel(channel_id: number, options: Object) {
       }); // Api
   };
 }
+
+export function openDescriptionEditor() {
+  return {
+    type: types.OPEN_DESCRIPTION_EDITOR,
+  };
+}
+
+export function closeDescriptionEditor() {
+  return {
+    type: types.CLOSE_DESCRIPTION_EDITOR,
+  };
+}
+
+export function changeDescriptionEditorContent(value: string) {
+  return {
+    type: types.CHANGE_DESCRIPTION_EDITOR_CONTENT,
+    content: value,
+  };
+}

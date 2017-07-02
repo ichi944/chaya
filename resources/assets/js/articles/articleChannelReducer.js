@@ -1,5 +1,6 @@
 // @flow
 import * as types from './actionTypes';
+import * as channelActionTypes from '../channel/actionTypes';
 
 type ArticleChannelState = {
   articles: {
@@ -17,9 +18,12 @@ type ArticleChannelState = {
   channel: {
     +id: ?number,
     +name: ?string,
+    +description: ?string,
     +updated_at: ?string,
     +created_at: ?string,
   },
+  descriptionEditorIsOpen: boolean,
+  descriptionEditorContent: ?string,
 };
 
 const initialState = {
@@ -38,9 +42,12 @@ const initialState = {
   channel: {
     id: null,
     name: null,
+    string: null,
     updated_at: null,
     created_at: null,
   },
+  descriptionEditorIsOpen: false,
+  descriptionEditorContent: '',
 };
 
 export default function articleChannelReducer(
@@ -54,6 +61,33 @@ export default function articleChannelReducer(
         ...state,
         ...data,
         isFetching: false,
+      };
+    }
+    case types.OPEN_DESCRIPTION_EDITOR: {
+      return {
+        ...state,
+        descriptionEditorIsOpen: true,
+      };
+    }
+    case types.CLOSE_DESCRIPTION_EDITOR: {
+      return {
+        ...state,
+        descriptionEditorIsOpen: false,
+        descriptionEditorContent: '',
+      };
+    }
+    case channelActionTypes.UPDATE_DESCRIPTION_IS_SUCCEEDED: {
+      const { updated_channel } = action;
+      return {
+        ...state,
+        channel: updated_channel,
+      };
+    }
+    case types.CHANGE_DESCRIPTION_EDITOR_CONTENT: {
+      const { content } = action;
+      return {
+        ...state,
+        descriptionEditorContent: content,
       };
     }
     default: {

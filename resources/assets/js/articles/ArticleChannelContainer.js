@@ -2,7 +2,13 @@ import { connect } from 'react-redux';
 import url from 'url';
 
 import ArticleChannel from './ArticleChannel';
-import { fetchArticlesByChannel } from './actions';
+import {
+  fetchArticlesByChannel,
+  openDescriptionEditor,
+  closeDescriptionEditor,
+  changeDescriptionEditorContent,
+} from './actions';
+import { updateDescription, requestUpdateChannelDescription } from '../channel/actions';
 
 const mapStateToProps = ({ articleChannel, searcher, auth }) => {
   return {
@@ -32,6 +38,21 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       // TODO: consider about search query on channel.
       // options = query ? { ...options, query } : options;
       dispatch(fetchArticlesByChannel(channel_id, options));
+    },
+    handleUpdateChannelDescription(channel_id, description) {
+      dispatch(updateDescription(channel_id, description));
+    },
+    handleOpenDescriptionEditor() {
+      dispatch(openDescriptionEditor());
+    },
+    handleCloseDescriptionEditor() {
+      dispatch(closeDescriptionEditor());
+    },
+    handleChangeEditDescriptionContent(value) {
+      dispatch(changeDescriptionEditorContent(value));
+    },
+    handleSubmitEditDescription() {
+      dispatch(requestUpdateChannelDescription());
     },
   };
 };

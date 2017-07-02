@@ -53,7 +53,7 @@ class SideBar extends Component {
     push('/app/manage-team-members');
   }
   render() {
-    const { profile, channels } = this.props;
+    const { profile, channels, articleChannel } = this.props;
     return (
       <Drawer docked width={220}>
         <AppBar
@@ -87,7 +87,7 @@ class SideBar extends Component {
         <p className="sidebar_link-profile"><Link to="/app/profile">プロフィールを編集する...</Link></p>
         <Divider />
         <Subheader>Channel</Subheader>
-        <ChannelList channels={channels} />
+        <ChannelList channels={channels} articleChannel={articleChannel} />
 
       </Drawer>
     );

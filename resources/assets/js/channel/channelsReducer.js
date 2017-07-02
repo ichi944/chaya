@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as types from './actionTypes';
 
 const initialState = {
@@ -12,6 +13,18 @@ export default function channelsReducer(state = initialState, action) {
         ...state,
         channels: action.channels,
         isLoaded: true,
+      };
+    }
+    case types.UPDATE_DESCRIPTION_IS_SUCCEEDED: {
+      const updated = _.map(state.channels, (channel) => {
+        if (channel.id === action.updated_channel.id) {
+          return action.updated_channel;
+        }
+        return channel;
+      });
+      return {
+        ...state,
+        channels: updated,
       };
     }
     default: {

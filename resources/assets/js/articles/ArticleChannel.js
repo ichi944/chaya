@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
-import { Paper, Divider, Subheader, FloatingActionButton } from 'material-ui';
+import { Paper, Divider, FloatingActionButton, Card, CardHeader, CardText } from 'material-ui';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import { pink200 } from 'material-ui/styles/colors';
+import IconButton from 'material-ui/IconButton';
+import ActionSettings from 'material-ui/svg-icons/action/settings';
 
-import SearcherContainer from './SearcherContainer';
 import { ArticleListItem } from './organisms/ArticleListItem';
 import { PageNavigation } from './organisms/PageNavigation';
+import { EditDescriptionDialog } from './organisms/Dialogs';
 
 class ArticleChannel extends Component {
   constructor(props) {
     super(props);
     this.handleCreateNewArticle = this.handleCreateNewArticle.bind(this);
+    this.handleUpdateChannelDescription = this.handleUpdateChannelDescription.bind(this);
+    this.handleToggleDescriptionEditor = this.handleToggleDescriptionEditor.bind(this);
+    this.handleChangeEditDescriptionContent = this.handleChangeEditDescriptionContent.bind(this);
+    this.handleSubmitEditDescription = this.handleSubmitEditDescription.bind(this);
   }
   componentDidMount() {
     const { initialize } = this.props;
@@ -30,6 +37,22 @@ class ArticleChannel extends Component {
     const { push } = this.props.history;
     push('articles/add');
   }
+  handleUpdateChannelDescription(channel_id, description) {
+    this.props.handleUpdateChannelDescription(channel_id, description);
+  }
+  handleToggleDescriptionEditor() {
+    if (this.props.articleChannel.descriptionEditorIsOpen) {
+      this.props.handleCloseDescriptionEditor();
+    } else {
+      this.props.handleOpenDescriptionEditor();
+    }
+  }
+  handleChangeEditDescriptionContent(e) {
+    this.props.handleChangeEditDescriptionContent(e.target.value);
+  }
+  handleSubmitEditDescription() {
+    this.props.handleSubmitEditDescription();
+  }
   render() {
     const {
       data,
@@ -39,6 +62,8 @@ class ArticleChannel extends Component {
       prev_page_url,
       next_page_url,
     } = this.props.articleChannel.articles;
+    const { name, description = 'no description' } = this.props.articleChannel.channel;
+    const { descriptionEditorIsOpen, descriptionEditorContent } = this.props.articleChannel;
     const { handleNavigatePage } = this.props;
     const { authorizationToken } = this.props.auth;
 
@@ -52,14 +77,20 @@ class ArticleChannel extends Component {
       button: {
         position: 'absolute',
         right: '2rem',
-        top: '1.2rem',
+        top: '4.7rem',
+      },
+      channelHeader: {
+        position: 'relative',
+      },
+      channelAction: {
+        marginTop: '-1rem',
+        martinLeft: '1rem',
       },
     };
 
     return (
       <div>
         <Paper className="article_index-container">
-          <Subheader>Feed {from}件目〜{to}件目 (全{total}件)</Subheader>
           <FloatingActionButton
             style={styles.button}
             zDepth={2}
@@ -68,6 +99,17 @@ class ArticleChannel extends Component {
             <ContentAdd />
           </FloatingActionButton>
           <Divider />
+          <Card style={styles.ChannelHeader}>
+            <CardHeader title={`${name} Channel`} subtitle={`${from}件目〜${to}件目 (全${total}件)`} />
+            <div style={styles.channelAction}>
+              <IconButton onTouchTap={this.handleToggleDescriptionEditor}>
+                <ActionSettings color={pink200} />
+              </IconButton>
+            </div>
+            <Divider />
+            <CardText dangerouslySetInnerHTML={{ __html: description.replace(/\r?\n/g, '<br>') }} />
+          </Card>
+
           {data.length === 0
             ? <Paper>
               <div className="article_index-wrapper">
@@ -85,6 +127,13 @@ class ArticleChannel extends Component {
             })}
         </Paper>
         <PageNavigation {...pageNavigationProps} />
+        <EditDescriptionDialog
+          open={descriptionEditorIsOpen}
+          handleChange={this.handleChangeEditDescriptionContent}
+          handleCancel={this.handleToggleDescriptionEditor}
+          handleSubmit={this.handleSubmitEditDescription}
+          content={descriptionEditorContent}
+        />
       </div>
     );
   }
