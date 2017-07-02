@@ -36,6 +36,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
 
             Route::get('channels', 'ChannelController@index');
             Route::get('channels/{channel_id}/articles', 'ChannelController@articles');
+            Route::put('channels/{channel_id}/description', 'ChannelController@updateDescription');
 
             Route::get('team-members', 'TeamMemberController@index');
 

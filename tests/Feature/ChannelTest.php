@@ -81,6 +81,32 @@ class ChannelTest extends TestCase
 
     }
     /**
+     * @return void
+     */
+    public function testUpdateDescription()
+    {
+        $member = $this->createMember01();
+        $token = JWTAuth::fromUser($member);
+        $channel = factory(Channel::class)->create([
+            'id' => 1,
+            'description' => 'old',
+        ]);
+        $payload = [
+            'description' => 'new',
+        ];
+        $headers = TestHelper::createHeaderWithAuthorizationToken($token);
+        $response = $this->put(TestHelper::getApiBase().'/channels/'.$channel->id.'/description', $payload, $headers);
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                '_code' => 0,
+                'channel' => [
+                    'id' => 1,
+                    'description' => 'new'
+                ],
+            ]);
+    }
+    /**
      * return a member
      * @return User
      **/

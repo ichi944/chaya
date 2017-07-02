@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Channel;
 use App\Article;
+use Log;
 
 class ChannelController extends Controller
 {
@@ -35,6 +36,7 @@ class ChannelController extends Controller
 
     /**
      * @param Int $channel_id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function articles($channel_id)
     {
@@ -48,6 +50,26 @@ class ChannelController extends Controller
         return response()->json([
             'channel' => $channel,
             'articles' => $articles,
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $chanel_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateDescription(Request $request, $channel_id)
+    {
+        $channel = $this->channel->find($channel_id);
+        $channel->description = $request->input('description');
+        if($channel->save()) {
+            return response()->json([
+                '_code' => 0,
+                'channel'=> $channel,
+            ]);
+        }
+        return response()->json([
+            '_code' => 1,
         ]);
     }
 
