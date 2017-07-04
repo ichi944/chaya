@@ -35,7 +35,7 @@ class ArticleChannel extends Component {
   }
   handleCreateNewArticle() {
     const { push } = this.props.history;
-    push('articles/add');
+    push('/app/articles/add');
   }
   handleUpdateChannelDescription(channel_id, description) {
     this.props.handleUpdateChannelDescription(channel_id, description);
