@@ -88,10 +88,12 @@ export function closeConfirmSuccessDialog() {
 }
 
 export function confirmedSuccessCreating() {
-  return function (dispatch: Function) {
+  return function (dispatch: Function, getState: Function) {
     dispatch(clearArticleAdd());
     dispatch(closeConfirmSuccessDialog());
-    dispatch(push('/app/articles'));
+
+    const currentChannelId = getState().articleChannel.channel.id;
+    dispatch(push(`/app/articles/channel/${currentChannelId}`));
   };
 }
 
