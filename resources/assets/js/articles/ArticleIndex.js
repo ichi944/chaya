@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Paper, Divider, Subheader, FloatingActionButton } from 'material-ui';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import { Paper, Divider, Subheader } from 'material-ui';
 
 import SearcherContainer from './SearcherContainer';
 import { ArticleListItem } from './organisms/ArticleListItem';
@@ -35,26 +34,12 @@ class ArticleIndex extends Component {
       query,
     };
 
-    const styles = {
-      button: {
-        position: 'absolute',
-        right: '2rem',
-        top: '1.2rem',
-      },
-    };
-
     return (
       <div>
         <SearcherContainer />
         <Paper className="article_index-container">
           <Subheader>Feed {from}件目〜{to}件目 (全{total}件)</Subheader>
-          <FloatingActionButton
-            style={styles.button}
-            zDepth={2}
-            onTouchTap={this.handleCreateNewArticle}
-          >
-            <ContentAdd />
-          </FloatingActionButton>
+
           <Divider />
           {data.length === 0
             ? <Paper>
