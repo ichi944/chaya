@@ -62,7 +62,7 @@ class ArticleChannel extends Component {
       prev_page_url,
       next_page_url,
     } = this.props.articleChannel.articles;
-    const { name, description = 'no description' } = this.props.articleChannel.channel;
+    const { name, description } = this.props.articleChannel.channel;
     const { descriptionEditorIsOpen, descriptionEditorContent } = this.props.articleChannel;
     const { handleNavigatePage } = this.props;
     const { authorizationToken } = this.props.auth;
@@ -107,7 +107,11 @@ class ArticleChannel extends Component {
               </IconButton>
             </div>
             <Divider />
-            <CardText dangerouslySetInnerHTML={{ __html: description.replace(/\r?\n/g, '<br>') }} />
+            <CardText
+              dangerouslySetInnerHTML={{
+                __html: description ? description.replace(/\r?\n/g, '<br>') : 'no description',
+              }}
+            />
           </Card>
 
           {data.length === 0

@@ -18,7 +18,7 @@ type ArticleChannelState = {
   channel: {
     +id: ?number,
     +name: ?string,
-    +description: ?string,
+    // +description: ?string,
     +updated_at: ?string,
     +created_at: ?string,
   },
@@ -42,7 +42,7 @@ const initialState = {
   channel: {
     id: null,
     name: null,
-    string: null,
+    description: null,
     updated_at: null,
     created_at: null,
   },
@@ -88,6 +88,12 @@ export default function articleChannelReducer(
       return {
         ...state,
         descriptionEditorContent: content,
+      };
+    }
+    case types.CLEAR_ACTIVE_CHANNEL: {
+      return {
+        ...state,
+        channel: initialState.channel,
       };
     }
     default: {

@@ -26,6 +26,13 @@ class SideBar extends Component {
       anchorEl: null,
     };
   }
+  componentDidUpdate() {
+    const { router } = this.props;
+    const currentChannelId = this.props.articleChannel.channel.id;
+    if (!/channel/.test(router.location.pathname) && currentChannelId) {
+      this.props.clearActiveChannel();
+    }
+  }
   handleClickTitle() {
     const { push } = this.props.history;
     push('/app/home');

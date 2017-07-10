@@ -29,3 +29,6 @@ export const CLOSE_CONFIRM_DELETE_ARTICLE_DIALOG = 'articles/CLOSE_CONFIRM_DELET
 export const SUCCESS_DELETE_ARTICLE = 'articles/SUCCESS_DELETE_ARTICLE';
 
 export const UPDATE_SEARCH_QUERY = 'articles/UPDATE_SEARCH_QUERY';
+
+// for control the line under the active channel.
+export const CLEAR_ACTIVE_CHANNEL = 'articles/CLEAR_ACTIVE_CHANNEL';

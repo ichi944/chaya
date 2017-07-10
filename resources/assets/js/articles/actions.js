@@ -221,3 +221,9 @@ export function changeDescriptionEditorContent(value: string) {
     content: value,
   };
 }
+
+export function requestClearActiveChannel() {
+  return {
+    type: types.CLEAR_ACTIVE_CHANNEL,
+  };
+}
