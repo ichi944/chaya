@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import Editor from './organisms/Editor';
 import { ArticleIsPublishedDialog } from './organisms/Dialogs';
@@ -16,16 +17,27 @@ class ArticleAdd extends Component {
     history.goBack();
   }
   handleSubmit() {
-    const { heading, body } = this.props;
+    const { heading, body, currentChannelId } = this.props;
     this.props.handleSubmit({
       heading,
       body,
+      channelId: currentChannelId,
     });
   }
   handleClose() {
     this.props.handleClose();
   }
   render() {
+    const { currentChannelId } = this.props;
+    if (!currentChannelId) {
+      return (
+        <Redirect
+          to={{
+            pathname: '/app/home',
+          }}
+        />
+      );
+    }
     const { heading, body, onPreview, mode, confirmSuccessDialogOpen } = this.props;
     const { handleChange, handleTogglePreview } = this.props;
 
@@ -33,7 +45,7 @@ class ArticleAdd extends Component {
       <div style={{ position: 'relative' }}>
 
         <Editor
-          editorHeaderText="新しく書く..."
+          editorHeaderText={`${this.props.currentChannelName} チャンネルに新しく書く...`}
           heading={heading}
           body={body}
           onPreview={onPreview}

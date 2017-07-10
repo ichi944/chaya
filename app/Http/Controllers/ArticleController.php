@@ -61,6 +61,7 @@ class ArticleController extends Controller
         $this->article->user_id = $current_user->id;
         $this->article->heading = $request->heading;
         $this->article->body = $request->body;
+        $this->article->channel_id = $request->channelId;
         $created = $this->article->save();
         if($created) {
             Log::Info('a new article is created.');
