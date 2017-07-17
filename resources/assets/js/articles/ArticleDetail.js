@@ -11,6 +11,10 @@ import parseToMarkdown from '../services/parseToMarkdown';
 import { ConfirmDeleteArticleDialog } from './organisms/Dialogs';
 
 class ArticleDetail extends Component {
+  constructor(props) {
+    super();
+    this.goBack = this.goBack.bind(this);
+  }
   componentWillMount() {
     const { clearContent } = this.props;
     clearContent();
@@ -18,6 +22,9 @@ class ArticleDetail extends Component {
   componentDidMount() {
     const { initialize, match } = this.props;
     initialize(match.params.id);
+  }
+  goBack() {
+    this.props.history.goBack();
   }
   render() {
     const { id, heading, body, user, created_at, confirmDeleteDialogOpen } = this.props.article;
@@ -37,11 +44,7 @@ class ArticleDetail extends Component {
     };
     return (
       <div>
-        <FlatButton
-          style={styles.backButton}
-          label="back"
-          containerElement={<Link to="/app/articles" />}
-        />
+        <FlatButton style={styles.backButton} label="back" onTouchTap={this.goBack} />
         <Paper className="article-wrapper">
           <div className="article-header">
             <h2>{heading}</h2>

@@ -2,6 +2,8 @@
 import * as types from './actionTypes';
 
 type ArticleAddState = {
+  +channelId: ?number,
+  +channelName: ?string,
   +heading: string,
   +body: string,
   +onPreview: boolean,
@@ -15,6 +17,8 @@ type ArticleAddAction = {
   +value: string,
 };
 const initialState = {
+  channelId: null,
+  channelName: '',
   heading: '',
   body: '',
   onPreview: false,
@@ -40,12 +44,7 @@ export default function articleAddReducer(
       };
     }
     case types.CLEAR_ARTICLE_ADD: {
-      return {
-        ...state,
-        heading: '',
-        body: '',
-        onPreview: false,
-      };
+      return initialState;
     }
     case types.SUCCESS_CREATE_ARTICLE: {
       return {

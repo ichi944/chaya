@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\User;
+use App\Helpers\TestHelper;
 
 class LoginTest extends TestCase
 {
@@ -33,7 +34,7 @@ class LoginTest extends TestCase
             'password' => $password,
         ];
 
-        $response = $this->post('/api/v1.0.0/auth/login', $credentials);
+        $response = $this->post(TestHelper::getApiBase().'/auth/login', $credentials);
         $response
             ->assertStatus(200)
             ->assertJson(['_code' => 1]);
@@ -56,7 +57,7 @@ class LoginTest extends TestCase
             'password' => $password,
         ];
 
-        $response = $this->post('/api/v1.0.0/auth/login', $credentials);
+        $response = $this->post(TestHelper::getApiBase().'/auth/login', $credentials);
         $response
             ->assertStatus(200)
             ->assertJson(['_code' => 1]);
@@ -80,7 +81,7 @@ class LoginTest extends TestCase
             'password' => $password,
         ];
 
-        $response = $this->post('/api/v1.0.0/auth/login', $credentials);
+        $response = $this->post(TestHelper::getApiBase().'/auth/login', $credentials);
         $response
             ->assertStatus(200)
             ->assertJson(['_code' => 1]);
@@ -103,7 +104,7 @@ class LoginTest extends TestCase
             'password' => $password,
         ];
 
-        $response = $this->post('/api/v1.0.0/auth/login', $credentials);
+        $response = $this->post(TestHelper::getApiBase().'/auth/login', $credentials);
         $response
             ->assertStatus(200)
             ->assertJson(['_code' => 0]);

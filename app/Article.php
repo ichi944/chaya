@@ -12,12 +12,17 @@ class Article extends Eloquent
      * @var array
      */
     protected $fillable = [
-        'user_id', 'heading', 'body',
+        'user_id', 'heading', 'body', 'channel_id',
     ];
 
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function channel()
+    {
+        return $this->belongsTo('App\Channel');
     }
 
 }

@@ -88,10 +88,12 @@ export function closeConfirmSuccessDialog() {
 }
 
 export function confirmedSuccessCreating() {
-  return function (dispatch: Function) {
+  return function (dispatch: Function, getState: Function) {
     dispatch(clearArticleAdd());
     dispatch(closeConfirmSuccessDialog());
-    dispatch(push('/app/articles'));
+
+    const currentChannelId = getState().articleChannel.channel.id;
+    dispatch(push(`/app/articles/channel/${currentChannelId}`));
   };
 }
 
@@ -183,5 +185,45 @@ export function requestSearch(query: string = '') {
       query,
     };
     dispatch(fetchArticles(options));
+  };
+}
+
+export function fetchArticlesByChannel(channel_id: number, options: Object) {
+  return (dispatch: Function) => {
+    Api.client
+      .get(`channels/${channel_id}/articles`, {
+        params: options,
+      })
+      .then((res) => {
+        dispatch({
+          type: types.END_FETCH_ARTICLES_BY_CHANNEL,
+          data: res.data,
+        });
+      }); // Api
+  };
+}
+
+export function openDescriptionEditor() {
+  return {
+    type: types.OPEN_DESCRIPTION_EDITOR,
+  };
+}
+
+export function closeDescriptionEditor() {
+  return {
+    type: types.CLOSE_DESCRIPTION_EDITOR,
+  };
+}
+
+export function changeDescriptionEditorContent(value: string) {
+  return {
+    type: types.CHANGE_DESCRIPTION_EDITOR_CONTENT,
+    content: value,
+  };
+}
+
+export function requestClearActiveChannel() {
+  return {
+    type: types.CLEAR_ACTIVE_CHANNEL,
   };
 }

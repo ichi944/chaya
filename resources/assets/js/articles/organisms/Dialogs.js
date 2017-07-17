@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Dialog, FlatButton, RaisedButton } from 'material-ui';
+import { Dialog, FlatButton, RaisedButton, TextField } from 'material-ui';
 
 type ArticleIsPublishedDialogProps = {
   open: boolean,
@@ -65,6 +65,46 @@ export const ConfirmDeleteArticleDialog = ({
       onRequestClose={handleCancel}
     >
       aaa
+    </Dialog>
+  );
+};
+
+type EditDescriptionDialogProps = {
+  open: boolean,
+  handleChange: Function,
+  handleCancel: Function,
+  handleSubmit: Function,
+  content: ?string,
+};
+export const EditDescriptionDialog = ({
+  open,
+  handleChange,
+  handleCancel,
+  handleSubmit,
+  content,
+}: EditDescriptionDialogProps) => {
+  const actions = (
+    <div>
+      <FlatButton label="Cancel" primary onTouchTap={handleCancel} />
+      <RaisedButton label="Submit" primary onTouchTap={handleSubmit} />
+    </div>
+  );
+  return (
+    <Dialog
+      title="Edit channel description"
+      actions={actions}
+      open={open}
+      onRequestClose={handleCancel}
+    >
+      <TextField
+        floatingLabelText="チャンネルの説明"
+        hintText=""
+        name="content"
+        value={content}
+        multiLine
+        fullWidth
+        onChange={handleChange}
+      />
     </Dialog>
   );
 };

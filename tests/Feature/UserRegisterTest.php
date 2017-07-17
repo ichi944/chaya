@@ -14,6 +14,7 @@ use App\UserVerificationToken;
 use App\Services\TokenGeneraterService;
 use App\Listeners\NotifyMailVerificationIsDoneToAdmin as NotifyMailVerificationIsDoneToAdminHandler;
 use App\Events\MailVerificationIsDone;
+use App\Helpers\TestHelper;
 
 class UserRegisterTest extends TestCase
 {
@@ -27,7 +28,7 @@ class UserRegisterTest extends TestCase
     {
         Event::fake();
         $name = 'foo';
-        $this->json('POST', '/api/v1.0.0/auth/signup', [
+        $this->json('POST', TestHelper::getApiBase().'/auth/signup', [
             'name' => $name,
             'email' => 'foo@example.com',
             'password' => 'password',
@@ -70,7 +71,7 @@ class UserRegisterTest extends TestCase
             'user_id' => $user->id,
             'token' => $valid_token,
         ]);
-        $response = $this->get('/api/v1.0.0/auth/verification/'.$valid_token);
+        $response = $this->get(TestHelper::getApiBase().'/auth/verification/'.$valid_token);
 
         Event::assertDispatched(MailVerificationIsDone::class, function ($e) use($user) {
             return $e->user->name === $user->name;
@@ -96,7 +97,7 @@ class UserRegisterTest extends TestCase
             'token' => $valid_token,
         ]);
         $invalid_token = 'thisisinvalidtoken';
-        $response = $this->get('/api/v1.0.0/auth/verification/'.$invalid_token);
+        $response = $this->get(TestHelper::getApiBase().'/auth/verification/'.$invalid_token);
 
         $response
             ->assertStatus(200)

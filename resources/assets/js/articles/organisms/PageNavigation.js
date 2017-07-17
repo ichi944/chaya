@@ -7,13 +7,13 @@ type Props = {
   handleNavigatePage: Function,
   prev_page_url: string,
   next_page_url: string,
-  query: string,
+  query: ?string,
 };
 export const PageNavigation = ({
   handleNavigatePage,
   prev_page_url,
   next_page_url,
-  query,
+  query = null,
 }: Props) => {
   const handleGoPrevPage: Function = prev_page_url
     ? () => handleNavigatePage(prev_page_url, query)

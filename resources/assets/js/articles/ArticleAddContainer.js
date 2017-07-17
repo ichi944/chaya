@@ -10,9 +10,11 @@ import {
   confirmedSuccessCreating,
 } from './actions';
 
-const mapStateToProps = ({ articleAdd }) => {
+const mapStateToProps = ({ articleAdd, articleChannel }) => {
   return {
     ...articleAdd,
+    currentChannelId: articleChannel.channel.id,
+    currentChannelName: articleChannel.channel.name,
   };
 };
 
