@@ -29,6 +29,9 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
         Route::group(['middleware' => ['jwt.auth']], function() {
             Route::resource('articles', 'ArticleController');
 
+            Route::put('articles/{id}/pinned', 'ArticleController@pinned');
+            Route::put('articles/{id}/unpinned', 'ArticleController@unpinned');
+
             Route::get('profiles/me', 'UserController@profile');
             Route::post('profiles/update-my-avator', 'UserController@updateMyAvator');
             Route::post('profiles/update-me', 'UserController@updateMe');
