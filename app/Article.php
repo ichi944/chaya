@@ -25,4 +25,9 @@ class Article extends Eloquent
         return $this->belongsTo('App\Channel');
     }
 
+    public function pinned()
+    {
+        return $this->hasOne('App\PinnedArticle');
+    }
+
 }

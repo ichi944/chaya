@@ -35,6 +35,7 @@ class ArticleController extends Controller
         }
         $data = $query
             ->with('user')
+            ->with('pinned')
             ->orderBy('id', 'desc')
             ->paginate(Articles::ITEMS_PER_PAGE);
 
@@ -81,7 +82,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $data = $this->article->with('user')->find($id);
+        $data = $this->article->with('user')->with('pinned')->find($id);
         return response()->json($data);
     }/** @noinspection PhpInconsistentReturnPointsInspection */
 
@@ -126,6 +127,12 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         $target = $this->article->find($id);
+
+        // delete cascade manually.
+        $pinned = $target->pinned()->first();
+        if($pinned) {
+            $pinned->delete();
+        }
         $deleted = $target->delete();
 
         if($deleted) {

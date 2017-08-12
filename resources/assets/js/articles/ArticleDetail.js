@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Paper, Divider, FlatButton, FloatingActionButton, Avatar } from 'material-ui';
+import { Paper, Divider, Checkbox, FlatButton, FloatingActionButton, Avatar } from 'material-ui';
 
 import LabelIcon from 'material-ui/svg-icons/action/label';
 import EditerModeEdit from 'material-ui/svg-icons/editor/mode-edit';
@@ -12,8 +12,9 @@ import { ConfirmDeleteArticleDialog } from './organisms/Dialogs';
 
 class ArticleDetail extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.goBack = this.goBack.bind(this);
+    this.onCheckPin = this.onCheckPin.bind(this);
   }
   componentWillMount() {
     const { clearContent } = this.props;
@@ -23,11 +24,28 @@ class ArticleDetail extends Component {
     const { initialize, match } = this.props;
     initialize(match.params.id);
   }
+  onCheckPin(e, isInputChecked) {
+    console.log(isInputChecked);
+    const { id } = this.props.article;
+    if (isInputChecked) {
+      this.props.handlePinArticle(id);
+    } else {
+      this.props.handleUnpinArticle(id);
+    }
+  }
   goBack() {
     this.props.history.goBack();
   }
   render() {
-    const { id, heading, body, user, created_at, confirmDeleteDialogOpen } = this.props.article;
+    const {
+      id,
+      heading,
+      body,
+      user,
+      created_at,
+      pinned,
+      confirmDeleteDialogOpen,
+    } = this.props.article;
     const { authorizationToken } = this.props.auth;
     const { handleConfirmDeleteArticle, handleCancelDelete, handleDelete } = this.props;
     if (!id) {
@@ -41,13 +59,29 @@ class ArticleDetail extends Component {
         width: '16px',
         height: '16px',
       },
+      pin: {
+        fontSize: '12px',
+      },
+      pinIconStyle: {
+        width: '14px',
+        marginRight: '6px',
+      },
     };
+    console.log('@article detail', pinned);
     return (
       <div>
         <FlatButton style={styles.backButton} label="back" onTouchTap={this.goBack} />
         <Paper className="article-wrapper">
           <div className="article-header">
             <h2>{heading}</h2>
+            <div>
+              <Checkbox
+                label="pin"
+                iconStyle={styles.pinIconStyle}
+                checked={pinned}
+                onCheck={this.onCheckPin}
+              />
+            </div>
             <ul className="article-tags">
               <li className="article-tag_list_item">
                 <LabelIcon style={styles.tagIcon} color={grey400} viewBox="0 0 24 20" />ランチ

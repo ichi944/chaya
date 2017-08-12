@@ -7,6 +7,8 @@ import {
   deleteArticleById,
   showConfirmDeleteArticleDialog,
   closeConfirmDeleteArticleDialog,
+  requestPinArticle,
+  requestUnpinArticle,
 } from './actions';
 
 const mapStateToProps = ({ article, auth }) => {
@@ -32,6 +34,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleDelete(id) {
       dispatch(deleteArticleById(id));
+    },
+    handlePinArticle(id) {
+      dispatch(requestPinArticle(id));
+    },
+    handleUnpinArticle(id) {
+      dispatch(requestUnpinArticle(id));
     },
   };
 };
