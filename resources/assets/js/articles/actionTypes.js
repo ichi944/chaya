@@ -32,3 +32,6 @@ export const UPDATE_SEARCH_QUERY = 'articles/UPDATE_SEARCH_QUERY';
 
 // for control the line under the active channel.
 export const CLEAR_ACTIVE_CHANNEL = 'articles/CLEAR_ACTIVE_CHANNEL';
+
+export const SUCCESS_PIN_ARTICLE = 'articles/SUCCESS_PIN_ARTICLE';
+export const SUCEESS_UNPIN_ARTICLE = 'articles/SUCEESS_UNPIN_ARTICLE';

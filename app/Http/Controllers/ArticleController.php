@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JWTAuth;
 use App\Article;
+use App\PinnedArticle;
 use App\Constants\Articles;
 
 use Log;
@@ -13,9 +14,10 @@ class ArticleController extends Controller
 {
     private $article;
 
-    public function __construct(Article $article)
+    public function __construct(Article $article, PinnedArticle $pinned_article)
     {
         $this->article = $article;
+        $this->pinned_article = $pinned_article;
     }
     /**
      * Display a listing of the resource.
@@ -33,6 +35,7 @@ class ArticleController extends Controller
         }
         $data = $query
             ->with('user')
+            ->with('pinned')
             ->orderBy('id', 'desc')
             ->paginate(Articles::ITEMS_PER_PAGE);
 
@@ -79,7 +82,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $data = $this->article->with('user')->find($id);
+        $data = $this->article->with('user')->with('pinned')->find($id);
         return response()->json($data);
     }/** @noinspection PhpInconsistentReturnPointsInspection */
 
@@ -124,10 +127,55 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         $target = $this->article->find($id);
+
+        // delete cascade manually.
+        $pinned = $target->pinned()->first();
+        if($pinned) {
+            $pinned->delete();
+        }
         $deleted = $target->delete();
 
         if($deleted) {
             Log::Info("The article: $id is deleted.");
+            return response()->json(['_code' => 0]);
+        } else {
+            return response()->json(['_code' => 1]);
+        }
+    }
+
+    /**
+     * User create a pinned article.
+     *
+     * @param  int $id article id
+     * @return  \Illuminate\Http\Response
+     */
+    public function pinned($id)
+    {
+        $current_user = JWTAuth::parseToken()->authenticate();
+        $article = $this->article->find($id);
+        $result = $this->pinned_article->create([
+            'article_id' => $article->id,
+            'channel_id' => $article->channel_id,
+            'created_by' => $current_user->id,
+        ]);
+        if($result) {
+            return response()->json(['_code' => 0]);
+        } else {
+            return response()->json(['_code' => 1]);
+        }
+    }
+
+    /**
+     * User delete a pinned article.
+     *
+     * @param  int $id article id
+     * @return  \Illuminate\Http\Response
+     */
+    public function unpinned($id)
+    {
+        $pinned_article = $this->pinned_article->where('article_id', '=', $id);
+        $result = $pinned_article->delete();
+        if($result) {
             return response()->json(['_code' => 0]);
         } else {
             return response()->json(['_code' => 1]);

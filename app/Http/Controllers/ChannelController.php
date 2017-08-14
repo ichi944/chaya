@@ -44,6 +44,7 @@ class ChannelController extends Controller
         $articles = $channel
             ->articles()
             ->with('user')
+            ->with('pinned')
             ->orderBy('id', 'desc')
             ->paginate(\App\Constants\Articles::ITEMS_PER_PAGE);
 

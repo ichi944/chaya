@@ -227,3 +227,37 @@ export function requestClearActiveChannel() {
     type: types.CLEAR_ACTIVE_CHANNEL,
   };
 }
+
+export function successPinArticle(article_id: number) {
+  return {
+    type: types.SUCCESS_PIN_ARTICLE,
+    article_id,
+  };
+}
+
+export function successUnpinArticle(article_id: number) {
+  return {
+    type: types.SUCEESS_UNPIN_ARTICLE,
+    article_id,
+  };
+}
+
+export function requestPinArticle(article_id: number) {
+  return (dispatch: Function) => {
+    Api.client.put(`articles/${article_id}/pinned`).then((res) => {
+      if (res.data._code === 0) {
+        dispatch(successPinArticle(article_id));
+      }
+    });
+  };
+}
+
+export function requestUnpinArticle(article_id: number) {
+  return (dispatch: Function) => {
+    Api.client.put(`articles/${article_id}/unpinned`).then((res) => {
+      if (res.data._code === 0) {
+        dispatch(successUnpinArticle(article_id));
+      }
+    });
+  };
+}
