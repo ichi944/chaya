@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 class Siginup extends Component {
   render() {
@@ -48,7 +48,8 @@ class Siginup extends Component {
             />
             <br />
             <div className="login-buttons">
-              <RaisedButton
+              <Button
+                raised
                 primary
                 label="Sign Up"
                 onClick={() => handleSubmit(name, email, password)}

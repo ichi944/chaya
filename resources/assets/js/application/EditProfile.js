@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Subheader, Paper, FlatButton, RaisedButton, TextField, Snackbar } from 'material-ui';
+import { Subheader, Paper, FlatButton, Button, TextField, Snackbar } from 'material-ui';
 
 import { Link } from 'react-router-dom';
 
@@ -81,7 +81,7 @@ class EditProfile extends Component {
               onDrop={this.handleDrop}
             />
             <br />
-            <RaisedButton label="Submit" primary onTouchTap={this.handleSubmitAvator} />
+            <Button raised label="Submit" primary onTouchTap={this.handleSubmitAvator} />
           </div>
         </Paper>
 
@@ -98,7 +98,7 @@ class EditProfile extends Component {
               onChange={handleChangeProfile}
             />
             <br />
-            <RaisedButton label="Submit" primary onTouchTap={this.handleSubmitProfile} />
+            <Button raised label="Submit" primary onTouchTap={this.handleSubmitProfile} />
           </div>
         </Paper>
 
@@ -115,7 +115,7 @@ class EditProfile extends Component {
               onChange={handleChangePassword}
             />
             <br />
-            <RaisedButton label="Submit" primary onTouchTap={this.handleSubmitPassword} />
+            <Button raised label="Submit" primary onTouchTap={this.handleSubmitPassword} />
           </div>
         </Paper>
         <Snackbar open={snackbarIsOpen} message={snackbarMessage} />

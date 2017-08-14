@@ -1,13 +1,13 @@
 // @flow
 import React from 'react';
-import { Dialog, FlatButton, RaisedButton, TextField } from 'material-ui';
+import { Dialog, Button, TextField } from 'material-ui';
 
 type ArticleIsPublishedDialogProps = {
   open: boolean,
   handleClose: Function,
 };
 export const ArticleIsPublishedDialog = ({ open, handleClose }: ArticleIsPublishedDialogProps) => {
-  const actions = <FlatButton label="OK" primary onTouchTap={handleClose} />;
+  const actions = <Button label="OK" primary onTouchTap={handleClose} />;
   return (
     <Dialog
       title="The article is published!"
@@ -26,7 +26,7 @@ type ArticleIsUpdatedDialogProps = {
   handleClose: Function,
 };
 export const ArticleIsUpdatedDialog = ({ open, handleClose }: ArticleIsUpdatedDialogProps) => {
-  const actions = <FlatButton label="OK" primary onTouchTap={handleClose} />;
+  const actions = <Button label="OK" primary onTouchTap={handleClose} />;
   return (
     <Dialog
       title="The article is updated!"
@@ -52,8 +52,8 @@ export const ConfirmDeleteArticleDialog = ({
 }: ConfirmDeleteArticleDialogProps) => {
   const actions = (
     <div>
-      <FlatButton label="Cancel" primary onTouchTap={handleCancel} />
-      <RaisedButton label="Yes, delete" primary onTouchTap={handleSubmit} />
+      <Button label="Cancel" primary onTouchTap={handleCancel} />
+      <Button raised label="Yes, delete" primary onTouchTap={handleSubmit} />
     </div>
   );
   return (
@@ -85,8 +85,8 @@ export const EditDescriptionDialog = ({
 }: EditDescriptionDialogProps) => {
   const actions = (
     <div>
-      <FlatButton label="Cancel" primary onTouchTap={handleCancel} />
-      <RaisedButton label="Submit" primary onTouchTap={handleSubmit} />
+      <Button label="Cancel" primary onTouchTap={handleCancel} />
+      <Button raised label="Submit" primary onTouchTap={handleSubmit} />
     </div>
   );
   return (

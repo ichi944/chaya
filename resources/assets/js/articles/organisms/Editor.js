@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Paper, Divider, TextField, FlatButton, RaisedButton, Toggle } from 'material-ui';
+import { Paper, Divider, TextField, Button, Toggle } from 'material-ui';
 
 import parseToMarkdown from '../../services/parseToMarkdown';
 import EditorHeader from '../molecules/EditorHeader';
@@ -78,12 +78,12 @@ class Editor extends Component<void, Props, void> {
               </div>}
 
             <div className="editor-actions">
-              <FlatButton
+              <Button
                 label={handleCancelText}
                 onTouchTap={handleCancel}
                 style={{ marginRight: '1rem' }}
               />
-              <RaisedButton label={handleSubmitText} primary onTouchTap={handleSubmit} />
+              <Button raised label={handleSubmitText} primary onTouchTap={handleSubmit} />
             </div>
           </div>
 
