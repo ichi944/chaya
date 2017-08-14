@@ -31,7 +31,7 @@
     "history": "^4.5.1",
     "laravel-mix": "^0.11.4",
     "lodash": "^4.16.2",
-    "material-ui": "^0.18.1",
+    "material-ui": "next",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-dropzone": "^3.13.1",
