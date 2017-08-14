@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { List, ListItem } from 'material-ui/List';
-import { pink200 } from 'material-ui/styles/colors';
+import { pink200 } from 'material-ui/colors';
 import { Link } from 'react-router-dom';
 
 const styles = {

@@ -5,7 +5,7 @@ import { Paper, Divider, Checkbox, FlatButton, FloatingActionButton, Avatar } fr
 import LabelIcon from 'material-ui/svg-icons/action/label';
 import EditerModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
-import { grey400 } from 'material-ui/styles/colors';
+import { grey400 } from 'material-ui/colors';
 
 import parseToMarkdown from '../services/parseToMarkdown';
 import { ConfirmDeleteArticleDialog } from './organisms/Dialogs';

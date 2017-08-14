@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Paper, FlatButton, Avatar, Subheader, Divider, Toggle } from 'material-ui';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import { grey400 } from 'material-ui/styles/colors';
+import { grey400 } from 'material-ui/colors';
 
 const styles = {
   backButton: {

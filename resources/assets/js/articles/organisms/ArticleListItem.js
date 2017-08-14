@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, Paper } from 'material-ui';
 import Badge from 'material-ui/Badge';
-import { pink200 } from 'material-ui/styles/colors';
+import { pink200 } from 'material-ui/colors';
 
 type Props = {
   article: Object,

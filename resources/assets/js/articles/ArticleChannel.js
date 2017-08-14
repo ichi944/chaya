@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Paper, Divider, FloatingActionButton, Card, CardHeader, CardText } from 'material-ui';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import { pink200 } from 'material-ui/styles/colors';
+import { pink200 } from 'material-ui/colors';
 import IconButton from 'material-ui/IconButton';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 
