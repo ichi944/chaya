@@ -6,7 +6,8 @@ import thunkMiddleware from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
 import { logger } from 'redux-logger';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import createPalette from 'material-ui/styles/palette';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -22,9 +23,15 @@ const store = createStore(
   applyMiddleware(thunkMiddleware, routerMiddleware(appHistory), logger),
 );
 
+const theme = createMuiTheme({
+  palette: createPalette({
+    type: 'light',
+  }),
+});
+
 const App = () => {
   return (
-    <MuiThemeProvider>
+    <MuiThemeProvider theme={theme}>
       <Provider store={store}>
         <InitializerContainer />
       </Provider>
