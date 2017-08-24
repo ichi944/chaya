@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
-import { AppBar, FlatButton } from 'material-ui';
+import AppBar from 'material-ui/AppBar';
+import Button from 'material-ui/Button';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+
+const styles = {
+  typography: {
+    flex: 1,
+  },
+};
 
 class Header extends Component {
   render() {
     const { isAuthenticated, handleSignOut } = this.props;
-    console.log('in Header');
-    console.log(this.props);
 
-    const logoutEl = isAuthenticated ? <FlatButton label="logout" /> : null;
     return (
       <div>
-        <AppBar
-          title=""
-          showMenuIconButton={false}
-          iconElementRight={logoutEl}
-          onRightIconButtonTouchTap={handleSignOut}
-        />
+        <AppBar position="static">
+          <Toolbar>
+            <Typography color="inherit" style={styles.typography} />
+            {isAuthenticated
+              ? <Button color="contrast" onClick={handleSignOut}>Logout</Button>
+              : null}
+          </Toolbar>
+        </AppBar>
       </div>
     );
   }
