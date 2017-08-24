@@ -16,35 +16,36 @@ class Login extends Component {
     }
     return (
       <div>
-        <Paper className="login-form" zDepth={1}>
+        <Paper className="login-form">
           <div className="login-inner">
             <h1 className="login-title">WELCOME</h1>
             <TextField
-              floatingLabelText="email"
-              hintText="you@example.com"
+              id="email"
+              label="email"
+              placeholder="you@example.com"
               name="email"
               value={email}
+              fullWidth
               onChange={handleChange}
               onKeyPress={e => handlePressEnter(e, email, password)}
             />
             <br />
             <TextField
-              floatingLabelText="password"
-              hintText="enter your password"
+              id="password"
+              label="password"
+              placeholder="enter your password"
               type="password"
               name="password"
               value={password}
+              fullWidth
               onChange={handleChange}
               onKeyPress={e => handlePressEnter(e, email, password)}
             />
             <br />
             <div className="login-buttons">
-              <Button
-                raised
-                primary
-                label="Login"
-                onClick={() => handleAuthenticate(email, password)}
-              />
+              <Button raised color="primary" onClick={() => handleAuthenticate(email, password)}>
+                Login
+              </Button>
             </div>
             <div className="login-links">
               <Link to="signup">Sign up</Link>
