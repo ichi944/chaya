@@ -1,17 +1,35 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Drawer, AppBar, Subheader, Divider, Popover, Menu, MenuItem } from 'material-ui';
+// import { Drawer, AppBar, Subheader, Divider, Popover, Menu, MenuItem } from 'material-ui';
+import Drawer from 'material-ui/Drawer';
+import AppBar from 'material-ui/AppBar';
+import Button from 'material-ui/Button';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import IconButton from 'material-ui/IconButton';
+import Divider from 'material-ui/Divider';
+
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+
+import Subheader from '../Subheader';
+
+// import Popover from 'material-ui/Popover';
+// import Menu from 'material-ui/Menu';
+// import MenuItem from 'material-ui/MenuItem';
 
 import ChannelList from './organisms/ChannelList';
 
-const styles = {
+const styles = createStyleSheet(() => ({
   menuItem: {
     lineHeight: '36px',
     minHeight: '36px',
     fontSize: '.8rem',
   },
-};
+  paper: {
+    width: '220px',
+  },
+}));
 
 class SideBar extends Component {
   constructor(props) {
@@ -61,13 +79,20 @@ class SideBar extends Component {
   }
   render() {
     const { profile, channels, articleChannel } = this.props;
+    console.log(this.props.classes.paper);
     return (
-      <Drawer docked width={220}>
-        <AppBar
-          title="CHAYA"
-          onTitleTouchTap={this.handleClickTitle}
-          onLeftIconButtonTouchTap={this.handleLeftIconButtonTouchTap}
-        >
+      <Drawer
+        docked
+        open
+        classes={{
+          paper: this.props.classes.paper,
+        }}
+      >
+        <AppBar position="static">
+          <Typography type="title" color="inherit">
+            Chaya
+          </Typography>
+          {/*
           <Popover
             open={this.state.open}
             anchorEl={this.state.anchorEl}
@@ -89,6 +114,7 @@ class SideBar extends Component {
               />
             </Menu>
           </Popover>
+          */}
         </AppBar>
         <Subheader>{profile.name}</Subheader>
         <p className="sidebar_link-profile"><Link to="/app/profile">プロフィールを編集する...</Link></p>
@@ -101,4 +127,4 @@ class SideBar extends Component {
   }
 }
 
-export default SideBar;
+export default withStyles(styles)(SideBar);
