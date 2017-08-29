@@ -10,7 +10,7 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 import Subheader from '../Subheader';
 
@@ -20,7 +20,7 @@ import Subheader from '../Subheader';
 
 import ChannelList from './organisms/ChannelList';
 
-const styles = createStyleSheet(() => ({
+const styles = {
   menuItem: {
     lineHeight: '36px',
     minHeight: '36px',
@@ -29,7 +29,7 @@ const styles = createStyleSheet(() => ({
   paper: {
     width: '220px',
   },
-}));
+};
 
 class SideBar extends Component {
   constructor(props) {
