@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { List, ListItem } from 'material-ui/List';
+import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import { pink200 } from 'material-ui/colors';
 import { Link } from 'react-router-dom';
 
@@ -15,6 +15,9 @@ const styles = {
 };
 
 class ChannelList extends Component {
+  handleClickChannelList(channelId) {
+    this.props.handleClickChannelListItem(channelId);
+  }
   render() {
     const { channels } = this.props.channels;
     return (
@@ -23,11 +26,16 @@ class ChannelList extends Component {
           const active = channel.id === this.props.articleChannel.channel.id;
           return (
             <ListItem
+              button
+              dense
               key={channel.id}
-              primaryText={channel.name}
+              onClick={() => {
+                this.handleClickChannelList(channel.id);
+              }}
               style={active ? styles.channelListItemActive : styles.channelListItem}
-              containerElement={<Link to={`/app/articles/channel/${channel.id}`} />}
-            />
+            >
+              <ListItemText primary={channel.name} />
+            </ListItem>
           );
         })}
       </List>
