@@ -78,7 +78,7 @@ class SideBar extends Component {
     console.log(classes.paper);
     return (
       <Drawer
-        docked
+        type="persistent"
         open
         classes={{
           paper: classes.paper,
