@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Paper, Divider, Checkbox, FlatButton, FloatingActionButton, Avatar } from 'material-ui';
 
-import LabelIcon from 'material-ui/svg-icons/action/label';
-import EditerModeEdit from 'material-ui/svg-icons/editor/mode-edit';
+import LabelIcon from 'material-ui-icons/Label';
+import EditerModeEdit from 'material-ui-icons/ModeEdit';
 
 import { grey400 } from 'material-ui/colors';
 

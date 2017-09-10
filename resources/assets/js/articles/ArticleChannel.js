@@ -1,13 +1,35 @@
 import React, { Component } from 'react';
-import { Paper, Divider, FloatingActionButton, Card, CardHeader, CardText } from 'material-ui';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import { Paper } from 'material-ui';
+import Card, { CardHeader, CardActions, CardContent } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
+import ContentAdd from 'material-ui-icons/Add';
 import { pink200 } from 'material-ui/colors';
 import IconButton from 'material-ui/IconButton';
-import ActionSettings from 'material-ui/svg-icons/action/settings';
+import SettingsIcon from 'material-ui-icons/Settings';
+import Divider from 'material-ui/Divider';
+import Button from 'material-ui/Button';
+import AddIcon from 'material-ui-icons/Add';
+
+import { withStyles } from 'material-ui/styles';
 
 import { ArticleListItem } from './organisms/ArticleListItem';
 import { PageNavigation } from './organisms/PageNavigation';
 import { EditDescriptionDialog } from './organisms/Dialogs';
+
+const styles = {
+  button: {
+    position: 'fixed',
+    right: '2rem',
+    bottom: '4.7rem',
+  },
+  channelHeader: {
+    position: 'relative',
+  },
+  channelAction: {
+    marginTop: '-1rem',
+    martinLeft: '1rem',
+  },
+};
 
 class ArticleChannel extends Component {
   constructor(props) {
@@ -66,6 +88,7 @@ class ArticleChannel extends Component {
     const { descriptionEditorIsOpen, descriptionEditorContent } = this.props.articleChannel;
     const { handleNavigatePage } = this.props;
     const { authorizationToken } = this.props.auth;
+    const classes = this.props.classes;
 
     const pageNavigationProps = {
       prev_page_url,
@@ -73,45 +96,29 @@ class ArticleChannel extends Component {
       handleNavigatePage,
     };
 
-    const styles = {
-      button: {
-        position: 'absolute',
-        right: '2rem',
-        top: '4.7rem',
-      },
-      channelHeader: {
-        position: 'relative',
-      },
-      channelAction: {
-        marginTop: '-1rem',
-        martinLeft: '1rem',
-      },
-    };
-
     return (
       <div>
         <Paper className="article_index-container">
-          <FloatingActionButton
-            style={styles.button}
-            zDepth={2}
-            onTouchTap={this.handleCreateNewArticle}
-          >
-            <ContentAdd />
-          </FloatingActionButton>
-          <Divider />
-          <Card style={styles.ChannelHeader}>
-            <CardHeader title={`${name} Channel`} subtitle={`${from}件目〜${to}件目 (全${total}件)`} />
-            <div style={styles.channelAction}>
-              <IconButton onTouchTap={this.handleToggleDescriptionEditor}>
-                <ActionSettings color={pink200} />
+          <Button fab color="primary" aria-label="add" className={classes.button}>
+            <AddIcon />
+          </Button>
+
+          <Card className={classes.channelHeader}>
+            <CardHeader title={`${name} Channel`} subheader={`${from}件目〜${to}件目 (全${total}件)`} />
+            <div className={classes.channelAction}>
+              <IconButton onClick={this.handleToggleDescriptionEditor}>
+                <SettingsIcon color={pink200} />
               </IconButton>
             </div>
             <Divider />
-            <CardText
-              dangerouslySetInnerHTML={{
-                __html: description ? description.replace(/\r?\n/g, '<br>') : 'no description',
-              }}
-            />
+            <CardContent>
+              <Typography
+                component="p"
+                dangerouslySetInnerHTML={{
+                  __html: description ? description.replace(/\r?\n/g, '<br>') : 'no description',
+                }}
+              />
+            </CardContent>
           </Card>
 
           {data.length === 0
@@ -131,6 +138,7 @@ class ArticleChannel extends Component {
             })}
         </Paper>
         <PageNavigation {...pageNavigationProps} />
+        {/*
         <EditDescriptionDialog
           open={descriptionEditorIsOpen}
           handleChange={this.handleChangeEditDescriptionContent}
@@ -138,9 +146,10 @@ class ArticleChannel extends Component {
           handleSubmit={this.handleSubmitEditDescription}
           content={descriptionEditorContent}
         />
+      */}
       </div>
     );
   }
 }
 
-export default ArticleChannel;
+export default withStyles(styles)(ArticleChannel);

@@ -112,8 +112,12 @@ li {
 .article_index-body {
   flex: 4;
 }
+.article_index-body a:visited {
+  color: rgba(0, 0, 0, 0.54);
+}
 .article_index-article_title {
   line-height: 1.4rem;
+  font-weight: 500;
 }
 .article_index-description {
   margin-top: .4rem;

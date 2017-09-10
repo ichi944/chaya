@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { FlatButton } from 'material-ui';
+import Button from 'material-ui/Button';
 
 type Props = {
   handleNavigatePage: Function,
@@ -23,8 +23,8 @@ export const PageNavigation = ({
     : () => {};
   return (
     <div className="article_index-page_navi">
-      <FlatButton label="prev" onTouchTap={handleGoPrevPage} disabled={prev_page_url === null} />
-      <FlatButton label="next" onTouchTap={handleGoNextPage} disabled={next_page_url === null} />
+      <Button onTouchTap={handleGoPrevPage} disabled={prev_page_url === null}>prev</Button>
+      <Button onTouchTap={handleGoNextPage} disabled={next_page_url === null}>next</Button>
     </div>
   );
 };
