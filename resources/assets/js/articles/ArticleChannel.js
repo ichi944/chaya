@@ -138,7 +138,6 @@ class ArticleChannel extends Component {
             })}
         </Paper>
         <PageNavigation {...pageNavigationProps} />
-        {/*
         <EditDescriptionDialog
           open={descriptionEditorIsOpen}
           handleChange={this.handleChangeEditDescriptionContent}
@@ -146,7 +145,6 @@ class ArticleChannel extends Component {
           handleSubmit={this.handleSubmitEditDescription}
           content={descriptionEditorContent}
         />
-      */}
       </div>
     );
   }

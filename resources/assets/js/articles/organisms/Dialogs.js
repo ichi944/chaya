@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
-import { Dialog, Button, TextField } from 'material-ui';
+import { Button, TextField } from 'material-ui';
+import Dialog, { DialogActions, DialogContent, DialogContentText } from 'material-ui/Dialog';
 
 type ArticleIsPublishedDialogProps = {
   open: boolean,
@@ -83,28 +84,23 @@ export const EditDescriptionDialog = ({
   handleSubmit,
   content,
 }: EditDescriptionDialogProps) => {
-  const actions = (
-    <div>
-      <Button label="Cancel" primary onTouchTap={handleCancel} />
-      <Button raised label="Submit" primary onTouchTap={handleSubmit} />
-    </div>
-  );
   return (
-    <Dialog
-      title="Edit channel description"
-      actions={actions}
-      open={open}
-      onRequestClose={handleCancel}
-    >
-      <TextField
-        floatingLabelText="チャンネルの説明"
-        hintText=""
-        name="content"
-        value={content}
-        multiLine
-        fullWidth
-        onChange={handleChange}
-      />
+    <Dialog open={open} onRequestClose={handleCancel}>
+      <DialogContent>
+        <DialogContentText>新しいチャンネルの説明を入力してください。</DialogContentText>
+        <TextField
+          id="edit_channel_desicription"
+          name="content"
+          value={content}
+          multiline
+          fullWidth
+          onChange={handleChange}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCancel}>Cancel</Button>
+        <Button onClick={handleSubmit} color="primary">Submit</Button>
+      </DialogActions>
     </Dialog>
   );
 };
