@@ -51,21 +51,15 @@ export const ConfirmDeleteArticleDialog = ({
   handleCancel,
   handleSubmit,
 }: ConfirmDeleteArticleDialogProps) => {
-  const actions = (
-    <div>
-      <Button label="Cancel" primary onTouchTap={handleCancel} />
-      <Button raised label="Yes, delete" primary onTouchTap={handleSubmit} />
-    </div>
-  );
   return (
-    <Dialog
-      title="Delete this article?"
-      actions={actions}
-      modal
-      open={open}
-      onRequestClose={handleCancel}
-    >
-      aaa
+    <Dialog open={open} onRequestClose={handleCancel}>
+      <DialogContent>
+        <DialogContentText>本当に削除しますか?</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCancel}>やめておく</Button>
+        <Button color="accent" onClick={handleSubmit}>削除する</Button>
+      </DialogActions>
     </Dialog>
   );
 };

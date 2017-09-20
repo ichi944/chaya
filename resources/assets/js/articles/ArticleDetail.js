@@ -1,14 +1,40 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Paper, Divider, Checkbox, FlatButton, FloatingActionButton, Avatar } from 'material-ui';
+import { Paper, Divider, Checkbox, Button, Avatar } from 'material-ui';
+import { FormGroup, FormControlLabel } from 'material-ui/Form';
 
 import LabelIcon from 'material-ui-icons/Label';
-import EditerModeEdit from 'material-ui-icons/ModeEdit';
+import ModeEditIcon from 'material-ui-icons/ModeEdit';
+import AddIcon from 'material-ui-icons/Add';
 
 import { grey400 } from 'material-ui/colors';
 
+import { withStyles } from 'material-ui/styles';
+
 import parseToMarkdown from '../services/parseToMarkdown';
 import { ConfirmDeleteArticleDialog } from './organisms/Dialogs';
+
+const styles = {
+  button: {
+    position: 'fixed',
+    right: '2rem',
+    bottom: '2.7rem',
+  },
+  backButton: {
+    margin: '1rem 0 0 1rem',
+  },
+  tagIcon: {
+    width: '16px',
+    height: '16px',
+  },
+  pin: {
+    fontSize: '12px',
+  },
+  pinIconStyle: {
+    width: '14px',
+    marginRight: '6px',
+  },
+};
 
 class ArticleDetail extends Component {
   constructor(props) {
@@ -46,40 +72,23 @@ class ArticleDetail extends Component {
       pinned,
       confirmDeleteDialogOpen,
     } = this.props.article;
+    const { classes } = this.props;
     const { authorizationToken } = this.props.auth;
     const { handleConfirmDeleteArticle, handleCancelDelete, handleDelete } = this.props;
     if (!id) {
       return <div />;
     }
-    const styles = {
-      backButton: {
-        margin: '1rem 0 0 1rem',
-      },
-      tagIcon: {
-        width: '16px',
-        height: '16px',
-      },
-      pin: {
-        fontSize: '12px',
-      },
-      pinIconStyle: {
-        width: '14px',
-        marginRight: '6px',
-      },
-    };
     console.log('@article detail', pinned);
     return (
       <div>
-        <FlatButton style={styles.backButton} label="back" onTouchTap={this.goBack} />
+        <Button className={classes.backButton} onTouchTap={this.goBack}>Back</Button>
         <Paper className="article-wrapper">
           <div className="article-header">
             <h2>{heading}</h2>
             <div>
-              <Checkbox
+              <FormControlLabel
+                control={<Checkbox label="pin" checked={pinned} onChange={this.onCheckPin} />}
                 label="pin"
-                iconStyle={styles.pinIconStyle}
-                checked={pinned}
-                onCheck={this.onCheckPin}
               />
             </div>
             <ul className="article-tags">
@@ -93,12 +102,15 @@ class ArticleDetail extends Component {
           </div>
           <Divider />
           <div className="article-meta">
-            <FloatingActionButton
-              className="article-edit_button"
-              containerElement={<Link to={`/app/articles/${id}/edit`} />}
+            <Button
+              fab
+              href={`/app/articles/${id}/edit`}
+              color="primary"
+              aria-label="edit"
+              className={classes.button}
             >
-              <EditerModeEdit />
-            </FloatingActionButton>
+              <ModeEditIcon />
+            </Button>
             <div className="article-author_profile">
               <div className="article-author_profile_col">
                 <Avatar src={`/private-img/${user.avator_img_url}?token=${authorizationToken}`} />
@@ -114,7 +126,7 @@ class ArticleDetail extends Component {
             dangerouslySetInnerHTML={{ __html: parseToMarkdown(body) }}
           />
           <div className="article-actions">
-            <FlatButton label="削除" onTouchTap={handleConfirmDeleteArticle} />
+            <Button onClick={handleConfirmDeleteArticle}>削除</Button>
           </div>
         </Paper>
 
@@ -128,4 +140,4 @@ class ArticleDetail extends Component {
   }
 }
 
-export default ArticleDetail;
+export default withStyles(styles)(ArticleDetail);
