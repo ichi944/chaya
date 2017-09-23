@@ -57,6 +57,7 @@ class ArticleChannel extends Component {
   }
   handleCreateNewArticle() {
     const { push } = this.props.history;
+    console.log('on click create new', this.props);
     push('/app/articles/add');
   }
   handleUpdateChannelDescription(channel_id, description) {
@@ -99,7 +100,13 @@ class ArticleChannel extends Component {
     return (
       <div>
         <Paper className="article_index-container">
-          <Button fab color="primary" aria-label="add" className={classes.button}>
+          <Button
+            fab
+            onClick={this.handleCreateNewArticle}
+            color="primary"
+            aria-label="add"
+            className={classes.button}
+          >
             <AddIcon />
           </Button>
 

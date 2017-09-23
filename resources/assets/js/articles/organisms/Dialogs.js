@@ -8,16 +8,14 @@ type ArticleIsPublishedDialogProps = {
   handleClose: Function,
 };
 export const ArticleIsPublishedDialog = ({ open, handleClose }: ArticleIsPublishedDialogProps) => {
-  const actions = <Button label="OK" primary onTouchTap={handleClose} />;
   return (
-    <Dialog
-      title="The article is published!"
-      actions={actions}
-      modal
-      open={open}
-      onRequestClose={handleClose}
-    >
-      New article is saved.
+    <Dialog open={open}>
+      <DialogContent>
+        <DialogContentText>記事が公開されました</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button color="primary" onClick={handleClose}>OK</Button>
+      </DialogActions>
     </Dialog>
   );
 };
@@ -27,16 +25,14 @@ type ArticleIsUpdatedDialogProps = {
   handleClose: Function,
 };
 export const ArticleIsUpdatedDialog = ({ open, handleClose }: ArticleIsUpdatedDialogProps) => {
-  const actions = <Button label="OK" primary onTouchTap={handleClose} />;
   return (
-    <Dialog
-      title="The article is updated!"
-      actions={actions}
-      modal
-      open={open}
-      onRequestClose={handleClose}
-    >
-      The article is updated successfully.
+    <Dialog open={open}>
+      <DialogContent>
+        <DialogContentText>記事が更新されました</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button color="primary" onClick={handleClose}>OK</Button>
+      </DialogActions>
     </Dialog>
   );
 };
