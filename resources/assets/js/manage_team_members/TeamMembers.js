@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Paper, FlatButton, Avatar, Subheader, Divider, Toggle } from 'material-ui';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import { Paper, Button, Avatar, Divider } from 'material-ui';
+import { FormControlLabel } from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
+import Card, { CardActions, CardContent, CardHeader, CardText } from 'material-ui/Card';
 import { grey400 } from 'material-ui/colors';
+import Subheader from '../application/atoms/Subheader';
 
 const styles = {
   backButton: {
@@ -36,10 +39,14 @@ class TeamMembers extends Component {
     this.handleToggleShowMembersWhoIsNotVerifiedWithEmail = this.handleToggleShowMembersWhoIsNotVerifiedWithEmail.bind(
       this,
     );
+    this.handleClickBack = this.handleClickBack.bind(this);
   }
   componentDidMount() {
     const { initialize } = this.props;
     initialize();
+  }
+  handleClickBack(e) {
+    this.props.history.goBack();
   }
   handleTouchTapVerifyByAdmin(e, memberId) {
     this.props.handleVerifyByAdmin(memberId);
@@ -58,32 +65,25 @@ class TeamMembers extends Component {
     const { authorizationToken } = this.props.auth;
     return (
       <div>
-        <FlatButton
-          style={styles.backButton}
-          label="home"
-          containerElement={<Link to="/app/home" />}
-        />
+        <Button style={styles.backButton} onClick={this.handleClickBack}>back</Button>
         <Card style={styles.headerCard}>
-          <CardHeader
-            title="メンバーの管理を行う"
-            subtitle="各メンバーのステータスの確認と認証、ロック/アンロックを行います。"
-            actAsExpander
-            showExpandableButton
-          />
+          <CardHeader title="メンバーの管理を行う" subheader="各メンバーのステータスの確認と認証、ロック/アンロックを行います。" />
           <CardActions>
-            <Toggle
-              onToggle={this.handleToggleShowMembersWhoIsNotVerifiedWithEmail}
-              toggled={showMembersWhoIsNotVerifiedWithEmail}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={showMembersWhoIsNotVerifiedWithEmail}
+                  onChange={this.handleToggleShowMembersWhoIsNotVerifiedWithEmail}
+                />
+              }
               label="メール未認証のメンバーを表示する"
-              labelPosition="right"
-              labelStyle={styles.label}
             />
           </CardActions>
-          <CardText expandable>
+          <CardContent>
             メンバーのプロフィールとステータスの確認・変更を行うことが出来ます。<br />
             メンバーのログインには、メール認証を行なったのち管理者による承認が必要です。<br />
             メンバーをロックするとそのメンバーはログイン出来なくなります。投稿はそのまま残ります。
-          </CardText>
+          </CardContent>
         </Card>
         <Paper className="article_index-container">
           <Subheader>メンバー一覧</Subheader>
@@ -112,26 +112,27 @@ class TeamMembers extends Component {
                   <div className="article_index-body">
                     {member.is_verified_by_admin
                         ? <span style={styles.is_verified_by_admin}>認証済み</span>
-                        : <FlatButton
-                          label="承認する"
-                          primary
-                          onTouchTap={e => this.handleTouchTapVerifyByAdmin(e, member.id)}
-                        />}
+                        : <Button
+                          color="primary"
+                          onClick={e => this.handleTouchTapVerifyByAdmin(e, member.id)}
+                        >
+                            承認する
+                          </Button>}
                   </div>
                   <div className="article_index-body">
                     {member.is_locked
                         ? <div>
                           <span>ロックされています</span>
-                          <FlatButton
-                            label="ロックを解除する"
-                            onTouchTap={e => this.handleTouchTapUnlockMember(e, member.id)}
-                          />
+                          <Button onClick={e => this.handleTouchTapUnlockMember(e, member.id)}>
+                              ロックを解除する
+                            </Button>
                         </div>
-                        : <FlatButton
-                          secondary
-                          label="ロックする"
-                          onTouchTap={e => this.handleTouchTapLockMember(e, member.id)}
-                        />}
+                        : <Button
+                          color="accent"
+                          onClick={e => this.handleTouchTapLockMember(e, member.id)}
+                        >
+                            ロックする
+                          </Button>}
                   </div>
                 </div>
               </Paper>
