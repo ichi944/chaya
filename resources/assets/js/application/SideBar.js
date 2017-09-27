@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-// import { Drawer, AppBar, Subheader, Divider, Popover, Menu, MenuItem } from 'material-ui';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
+import Menu, { MenuItem } from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
@@ -20,13 +20,18 @@ const styles = {
   paper: {
     width: '220px',
   },
+  menuItemRoot: {
+    fontSize: '0.8rem',
+    height: '1rem',
+    lineHeight: '1rem',
+  },
 };
 
 class SideBar extends Component {
   constructor(props) {
     super(props);
     this.handleClickTitle = this.handleClickTitle.bind(this);
-    this.handleLeftIconButtonTouchTap = this.handleLeftIconButtonTouchTap.bind(this);
+    this.handleClickMenu = this.handleClickMenu.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleManageAppSettingTouchTap = this.handleManageAppSettingTouchTap.bind(this);
     this.handleManageTeamMembersTouchTap = this.handleManageTeamMembersTouchTap.bind(this);
@@ -48,8 +53,7 @@ class SideBar extends Component {
     const { push } = this.props.history;
     push('/app/home');
   }
-  handleLeftIconButtonTouchTap(e) {
-    console.log('toggle');
+  handleClickMenu(e) {
     this.setState({
       open: !this.state.open,
       anchorEl: e.currentTarget,
@@ -76,7 +80,6 @@ class SideBar extends Component {
   }
   render() {
     const { profile, channels, articleChannel, classes } = this.props;
-    console.log(classes.paper);
     return (
       <Drawer
         type="persistent"
@@ -87,9 +90,32 @@ class SideBar extends Component {
       >
         <AppBar position="static">
           <Toolbar>
-            <IconButton color="contrast" aria-label="Menu">
+            <IconButton color="contrast" aria-label="Menu" onClick={this.handleClickMenu}>
               <MenuIcon />
             </IconButton>
+            <Menu
+              anchorEl={this.state.anchorEl}
+              open={this.state.open}
+              onRequestClose={this.handleRequestClose}
+              PaperProps={{
+                style: {
+                  width: 'auto',
+                },
+              }}
+            >
+              <MenuItem
+                classes={{ root: classes.menuItemRoot }}
+                onClick={this.handleManageAppSettingTouchTap}
+              >
+                アプリケーションの管理をする...
+              </MenuItem>
+              <MenuItem
+                classes={{ root: classes.menuItemRoot }}
+                onClick={this.handleManageTeamMembersTouchTap}
+              >
+                チームメンバーの管理をする...
+              </MenuItem>
+            </Menu>
             <Typography type="title" color="inherit">
               CHAYA
             </Typography>
