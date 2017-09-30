@@ -9,6 +9,7 @@ type ArticleState = {
   +user: {
     +name: string,
   },
+  +pinned: boolean,
   confirmDeleteDialogOpen: boolean,
 };
 
@@ -20,6 +21,7 @@ const initialState = {
   user: {
     name: '',
   },
+  pinned: false,
   confirmDeleteDialogOpen: false,
 };
 
@@ -27,9 +29,11 @@ export default function articleReducer(state: ArticleState = initialState, actio
   switch (action.type) {
     case types.END_FETCH_ARTICLE: {
       const data = action.data;
+      const pinned = data.pinned !== null;
       return {
         ...state,
         ...data,
+        pinned,
       };
     }
     case types.CLEAR_ARTICLE: {
@@ -49,6 +53,18 @@ export default function articleReducer(state: ArticleState = initialState, actio
     }
     case types.SUCCESS_DELETE_ARTICLE: {
       return initialState;
+    }
+    case types.SUCCESS_PIN_ARTICLE: {
+      return {
+        ...state,
+        pinned: true,
+      };
+    }
+    case types.SUCEESS_UNPIN_ARTICLE: {
+      return {
+        ...state,
+        pinned: false,
+      };
     }
     default: {
       return state;

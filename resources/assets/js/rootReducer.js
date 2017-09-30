@@ -7,7 +7,9 @@ import signupReducer from './signup/signupReducer';
 import verifyUserReducer from './signup/verifyUserReducer';
 import profileReducer from './application/profileReducer';
 import editProfileReducer from './application/editProfileReducer';
+import channelsReducer from './channel/channelsReducer';
 import articlesReducer from './articles/articlesReducer';
+import articleChannelReducer from './articles/articleChannelReducer';
 import articleReducer from './articles/articleReducer';
 import articleAddReducer from './articles/articleAddReducer';
 import articleEditReducer from './articles/articleEditReducer';
@@ -21,8 +23,10 @@ const rootReducer = combineReducers({
   signup: signupReducer,
   verifyUser: verifyUserReducer,
   profile: profileReducer,
+  channels: channelsReducer,
   editProfile: editProfileReducer,
   articles: articlesReducer,
+  articleChannel: articleChannelReducer,
   article: articleReducer,
   articleAdd: articleAddReducer,
   articleEdit: articleEditReducer,

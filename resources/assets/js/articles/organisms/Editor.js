@@ -1,7 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Paper, Divider, TextField, FlatButton, RaisedButton, Toggle } from 'material-ui';
+import { Paper, Divider, TextField, Button } from 'material-ui';
+import { FormControlLabel } from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
 
 import parseToMarkdown from '../../services/parseToMarkdown';
 import EditorHeader from '../molecules/EditorHeader';
@@ -55,45 +57,40 @@ class Editor extends Component<void, Props, void> {
               </div>
               : <div className="editor-forms_inputs">
                 <TextField
-                  floatingLabelText="見出し"
-                  hintText=""
+                  label="見出し"
                   name="heading"
                   value={heading}
                   fullWidth
                   onChange={handleChange}
+                  margin="normal"
                 />
                 <br />
 
                 <TextField
-                  floatingLabelText="本文"
-                  hintText=""
+                  label="本文"
                   name="body"
                   value={body}
-                  multiLine
+                  multiline
                   rows={12}
                   fullWidth
                   onChange={handleChange}
+                  margin="normal"
                 />
                 <br />
               </div>}
 
             <div className="editor-actions">
-              <FlatButton
-                label={handleCancelText}
-                onTouchTap={handleCancel}
-                style={{ marginRight: '1rem' }}
-              />
-              <RaisedButton label={handleSubmitText} primary onTouchTap={handleSubmit} />
+              <Button onClick={handleCancel}>{handleCancelText}</Button>
+              <Button color="primary" onClick={handleSubmit}>{handleSubmitText}</Button>
             </div>
           </div>
 
           <div className="editor-tools">
-            <Toggle
+            <FormControlLabel
+              control={<Switch checked={onPreview} onChange={handleTogglePreview} />}
               label="プレビュー"
-              labelPosition="right"
-              toggled={onPreview}
-              onToggle={handleTogglePreview}
             />
+
           </div>
 
         </div>

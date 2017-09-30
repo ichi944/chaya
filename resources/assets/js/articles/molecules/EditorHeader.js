@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { Subheader } from 'material-ui';
+import Subheader from '../../application/atoms/Subheader';
 
 type Props = {
   title: string,

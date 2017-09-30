@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Subheader, Paper, FlatButton, RaisedButton, TextField, Snackbar } from 'material-ui';
-
-import { Link } from 'react-router-dom';
+import { Paper, Button, TextField, Snackbar } from 'material-ui';
 
 import { AvatorEditor } from './organisms/AvatorEditor';
+import Subheader from './atoms/Subheader';
 
 class EditProfile extends Component {
   constructor(props) {
@@ -64,11 +63,7 @@ class EditProfile extends Component {
     console.log('@render', this.state);
     return (
       <div>
-        <FlatButton
-          style={styles.backButton}
-          label="back"
-          containerElement={<Link to="/app/home" />}
-        />
+        <Button href="/app/home" style={styles.backButton}>back</Button>
         <Paper className="editor-wrapper" style={styles.paper}>
           <div>
             <Subheader>アバターを変更する...</Subheader>
@@ -81,7 +76,9 @@ class EditProfile extends Component {
               onDrop={this.handleDrop}
             />
             <br />
-            <RaisedButton label="Submit" primary onTouchTap={this.handleSubmitAvator} />
+            <Button raised color="primary" onClick={this.handleSubmitAvator}>
+              Submit
+            </Button>
           </div>
         </Paper>
 
@@ -90,15 +87,11 @@ class EditProfile extends Component {
             <Subheader>プロフィールを変更する...</Subheader>
           </div>
           <div className="editor-forms_inputs">
-            <TextField
-              floatingLabelText="名前"
-              hintText="Your Name"
-              name="name"
-              value={name}
-              onChange={handleChangeProfile}
-            />
+            <TextField label="名前" name="name" value={name} onChange={handleChangeProfile} />
             <br />
-            <RaisedButton label="Submit" primary onTouchTap={this.handleSubmitProfile} />
+            <Button raised color="primary" onClick={this.handleSubmitProfile}>
+              Submit
+            </Button>
           </div>
         </Paper>
 
@@ -108,14 +101,15 @@ class EditProfile extends Component {
           </div>
           <div className="editor-forms_inputs">
             <TextField
-              floatingLabelText="新しいパスワード"
-              hintText="password"
+              label="新しいパスワード"
               name="password"
               value={password}
               onChange={handleChangePassword}
             />
             <br />
-            <RaisedButton label="Submit" primary onTouchTap={this.handleSubmitPassword} />
+            <Button raised color="primary" onClick={this.handleSubmitPassword}>
+              Submit
+            </Button>
           </div>
         </Paper>
         <Snackbar open={snackbarIsOpen} message={snackbarMessage} />
