@@ -20,40 +20,40 @@ class Siginup extends Component {
           <div className="login-inner">
             <h1 className="login-title">SIGN UP</h1>
             <TextField
-              floatingLabelText="name"
-              hintText="your name"
+              label="name"
+              placeholder="your name"
               name="name"
               value={name}
+              fullWidth
               onChange={handleChange}
               onKeyPress={e => handlePressEnter(e, name, email, password)}
             />
             <br />
             <TextField
-              floatingLabelText="email"
-              hintText="you@example.com"
+              label="email"
+              placeholder="you@example.com"
               name="email"
               value={email}
+              fullWidth
               onChange={handleChange}
               onKeyPress={e => handlePressEnter(e, name, email, password)}
             />
             <br />
             <TextField
-              floatingLabelText="password"
-              hintText="enter your password"
+              label="password"
+              placeholder="enter your password"
               type="password"
               name="password"
               value={password}
+              fullWidth
               onChange={handleChange}
               onKeyPress={e => handlePressEnter(e, name, email, password)}
             />
             <br />
             <div className="login-buttons">
-              <Button
-                raised
-                primary
-                label="Sign Up"
-                onClick={() => handleSubmit(name, email, password)}
-              />
+              <Button raised color="primary" onClick={() => handleSubmit(name, email, password)}>
+                Sign Up
+              </Button>
             </div>
             <div className="login-links">
               <Link to="login">return to Login</Link>

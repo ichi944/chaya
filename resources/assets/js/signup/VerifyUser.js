@@ -12,7 +12,15 @@ class VerifyUser extends Component {
   render() {
     const { isRequesting, isVerified } = this.props.verifyUser;
     if (isRequesting) {
-      return <div>...checking</div>;
+      return (
+        <div>
+          <Paper className="login-form" zDepth={1}>
+            <div className="login-inner">
+              <p>now checking....</p>
+            </div>
+          </Paper>
+        </div>
+      );
     }
     if (isVerified) {
       return (
@@ -20,8 +28,9 @@ class VerifyUser extends Component {
           <Paper className="login-form" zDepth={1}>
             <div className="login-inner">
               <h1 className="login-title">
-                Mail Verification is done.<br />Please wait the administrator verify you.
+                Mail Verification is done.
               </h1>
+              <p>Please wait the administrator verify you.</p>
               <div className="login-links">
                 <Link to="/app/login">go to Login</Link>
               </div>
