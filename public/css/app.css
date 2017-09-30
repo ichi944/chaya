@@ -110,6 +110,7 @@ li {
   font-size: .7rem;
 }
 .article_index-body {
+  display: flex;
   flex: 4;
 }
 .article_index-body a:visited {

@@ -4,7 +4,7 @@ import { Paper, Button, Avatar, Divider } from 'material-ui';
 import { FormControlLabel } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 import Card, { CardActions, CardContent, CardHeader, CardText } from 'material-ui/Card';
-import { grey400 } from 'material-ui/colors';
+import { grey } from 'material-ui/colors';
 import Subheader from '../application/atoms/Subheader';
 
 const styles = {
@@ -12,14 +12,14 @@ const styles = {
     margin: '1rem 0 0 1rem',
   },
   is_verified_with_email: {
-    color: grey400,
+    color: grey[400],
     lineHeight: '3rem',
   },
   is_not_verified_with_email: {
     lineHeight: '3rem',
   },
   is_verified_by_admin: {
-    color: grey400,
+    color: grey[400],
     lineHeight: '3rem',
   },
   headerCard: {
@@ -106,12 +106,12 @@ class TeamMembers extends Component {
                   </div>
                   <div className="article_index-body">
                     {member.is_verified_with_email
-                        ? <span style={styles.is_verified_with_email}>メール認証済み</span>
-                        : <span style={styles.is_not_verified_with_email}>メール未認証</span>}
+                        ? <Button disabled>メール認証済み</Button>
+                        : <Button disabled>メール未認証</Button>}
                   </div>
                   <div className="article_index-body">
                     {member.is_verified_by_admin
-                        ? <span style={styles.is_verified_by_admin}>認証済み</span>
+                        ? <Button disabled>管理者認証済み</Button>
                         : <Button
                           color="primary"
                           onClick={e => this.handleTouchTapVerifyByAdmin(e, member.id)}
