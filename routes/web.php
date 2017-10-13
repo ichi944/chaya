@@ -27,6 +27,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
             Route::get('signout', 'LoginController@signout')->middleware('jwt.refresh');
         });
         Route::group(['middleware' => ['jwt.auth']], function() {
+            Route::get('say-hello', 'AppController@sayHello');
             Route::resource('articles', 'ArticleController');
 
             Route::put('articles/{id}/pinned', 'ArticleController@pinned');
