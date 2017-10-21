@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Log;
 
 class Hello implements ShouldBroadcast
 {
@@ -31,6 +32,6 @@ class Hello implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('shared');
+        return new PrivateChannel('shared');
     }
 }

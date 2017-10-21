@@ -6,6 +6,7 @@ import appHistory from './services/appHistory';
 
 import InitialCheckStatus from './auth/InitialCheckStatus';
 import LoadProfile from './application/LoadProfile';
+import ConfigureSocket from './application/ConfigureSocket';
 import LoadChannel from './channel/LoadChannel';
 import HeaderContainer from './application/HeaderContainer';
 import SideBarContainer from './application/SideBarContainer';
@@ -41,7 +42,7 @@ class Initializer extends Component {
     }
   }
   render() {
-    const { auth, profile, channels } = this.props;
+    const { auth, profile, channels, socket } = this.props;
     // check the user status when user comes into the app at first.
     // try to login with the token in localstorage if it's exists.
     if (!auth.isDoneCheckingStatusAtInitialize) {
@@ -68,6 +69,8 @@ class Initializer extends Component {
       return <LoadProfile />;
     } else if (!channels.isLoaded) {
       return <LoadChannel />;
+    } else if (!socket.hasSocketId) {
+      return <ConfigureSocket />;
     }
     return (
       <div>

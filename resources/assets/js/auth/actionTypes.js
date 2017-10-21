@@ -9,3 +9,4 @@ export const LOGIN_START = 'auth/LOGIN_START';
 export const LOGIN_CHANGE = 'auth/LOGIN_CHANGE';
 export const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'auth/LOGIN_FAILED';
+export const INITIALIZE_SOCKET_IO_SUCCEEDED = 'auth/INITIALIZE_SOCKET_IO_SUCCEEDED';

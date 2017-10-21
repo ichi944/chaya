@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { clearProfile } from './application/actions';
 import Initializer from './Initializer';
 
-const mapStateToProps = ({ auth, profile, channels }) => {
+const mapStateToProps = ({ auth, profile, channels, socket }) => {
   return {
     auth,
     profile,
     channels,
+    socket,
   };
 };
 

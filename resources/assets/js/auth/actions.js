@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Echo from 'laravel-echo';
 
 import * as types from './actionTypes';
 
@@ -8,6 +9,29 @@ export function storeAuthorizationTokenToState(token) {
   return {
     type: types.STORE_AUTHORIZTION_TOKEN_TO_STATE,
     token,
+  };
+}
+
+export function initializeSocketIOSucceeded() {
+  return {
+    type: types.INITIALIZE_SOCKET_IO_SUCCEEDED,
+  };
+}
+export function requestInitializeSocketIO(token) {
+  return function (dispatch) {
+    window.Echo = new Echo({
+      broadcaster: 'socket.io',
+      host: `${window.location.hostname}:6001`,
+      auth: {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    });
+    window.Echo.private('shared').listen('Hello', () => {
+      console.log('got the message "Hello" from someone!');
+    });
+    dispatch(initializeSocketIOSucceeded);
   };
 }
 
@@ -54,6 +78,8 @@ export function handleCheckAuthStatus() {
         console.log('response of hello: ', res.data);
         if (_.has(res.data, 'status') && res.data.status === true) {
           console.log('already authenticated');
+
+          dispatch(requestInitializeSocketIO(token));
           dispatch({
             type: types.AUTHENTICATED,
           });
@@ -75,8 +101,7 @@ export function handleCheckAuthStatus() {
 
 export function authenticate(email, password) {
   return function (dispatch) {
-    console.log('on handleAuthenticate');
-    console.log(email, password);
+    console.log('start authentication', email);
 
     dispatch({
       type: types.LOGIN_START,
@@ -103,6 +128,8 @@ export function authenticate(email, password) {
         if (_.has(res.data, 'token')) {
           console.log('authenticated');
           const { token } = res.data;
+
+          dispatch(requestInitializeSocketIO(token));
           dispatch(storeAuthorizationTokenToState(token));
           Api.setAuthorizationToken(token);
           localStorage.setItem('authToken', token);

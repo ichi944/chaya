@@ -6,8 +6,6 @@ import thunkMiddleware from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
 import { logger } from 'redux-logger';
 
-import Echo from 'laravel-echo';
-
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import blue from 'material-ui/colors/blue';
 
@@ -17,15 +15,6 @@ import rootReducer from './rootReducer';
 import appHistory from './services/appHistory';
 
 import InitializerContainer from './InitializerContainer';
-
-window.Echo = new Echo({
-  broadcaster: 'socket.io',
-  host: `${window.location.hostname}:6001`,
-});
-
-window.Echo.channel('shared').listen('Hello', () => {
-  console.log('got the message "Hello" from someone!');
-});
 
 injectTapEventPlugin();
 

@@ -6,6 +6,7 @@ import loginReducer from './auth/loginReducer';
 import signupReducer from './signup/signupReducer';
 import verifyUserReducer from './signup/verifyUserReducer';
 import profileReducer from './application/profileReducer';
+import socketReducer from './application/socketReducer';
 import editProfileReducer from './application/editProfileReducer';
 import channelsReducer from './channel/channelsReducer';
 import articlesReducer from './articles/articlesReducer';
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   signup: signupReducer,
   verifyUser: verifyUserReducer,
   profile: profileReducer,
+  socket: socketReducer,
   channels: channelsReducer,
   editProfile: editProfileReducer,
   articles: articlesReducer,
