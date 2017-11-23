@@ -5,6 +5,8 @@ import * as types from './actionTypes';
 
 import Api from '../services/Api';
 
+import { notifyHello } from '../notifier/actions';
+
 export function storeAuthorizationTokenToState(token) {
   return {
     type: types.STORE_AUTHORIZTION_TOKEN_TO_STATE,
@@ -27,9 +29,6 @@ export function requestInitializeSocketIO(token) {
           Authorization: `Bearer ${token}`,
         },
       },
-    });
-    window.Echo.private('shared').listen('Hello', () => {
-      console.log('got the message "Hello" from someone!');
     });
     dispatch(initializeSocketIOSucceeded);
   };

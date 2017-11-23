@@ -11,9 +11,8 @@ const mapStateToProps = ({ profile }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleHello() {
-      console.log('hello');
-      dispatch(sayHello());
+    handleHello(text) {
+      dispatch(sayHello(text));
     },
   };
 };

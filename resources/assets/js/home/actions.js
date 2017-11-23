@@ -7,9 +7,9 @@ export function sayHelloSucceeded() {
   };
 }
 
-export function sayHello() {
+export function sayHello(text) {
   return (dispatch) => {
-    Api.client.get('/say-hello').then((res) => {
+    Api.client.post('/say-hello', { text }).then((res) => {
       console.log(res);
       dispatch(sayHelloSucceeded());
     });

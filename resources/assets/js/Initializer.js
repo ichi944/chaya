@@ -22,6 +22,7 @@ import ArticleDetailContainer from './articles/ArticleDetailContainer';
 import ArticleAddContainer from './articles/ArticleAddContainer';
 import ArticleEditContainer from './articles/ArticleEditContainer';
 import TeamMembersContainer from './manage_team_members/TeamMembersContainer';
+import Notifier from './notifier/Notifier';
 
 const NotFound = () => <div>404 not found</div>;
 
@@ -96,6 +97,7 @@ class Initializer extends Component {
                 <Route component={NotFound} />
               </Switch>
             </div>
+            <Notifier />
           </div>
         </ConnectedRouter>
       </div>
