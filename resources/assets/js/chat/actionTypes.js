@@ -1,0 +1,1 @@
+export const UPDATE_CHAT_INPUT = 'chat/UPDATE_CHAT_INPUT';
