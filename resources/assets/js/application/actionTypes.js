@@ -10,3 +10,4 @@ export const UPDATE_PASSWORD_FORM = 'application/UPDATE_PASSWORD_FORM';
 export const CLEAR_PASSWORD_FORM = 'application/CLEAR_PASSWORD_FORM';
 export const SHOW_FAILED_NOTIFICATION = 'application/SHOW_FAILED_NOTIFICATION';
 export const CLOSE_NOTIFICATION = 'application/CLOSE_NOTIFICATION';
+export const DONE_SET_SOCKET_ID = 'application/DONE_SET_SOCKET_ID';

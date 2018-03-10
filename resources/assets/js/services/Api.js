@@ -14,6 +14,9 @@ class Api {
   setInterceptors(handler, errorHandler) {
     this.client.interceptors.response.use(handler, errorHandler);
   }
+  setSocketId(socketId) {
+    this.client.defaults.headers.common['X-Socket-Id'] = socketId;
+  }
   setAuthorizationToken(token) {
     const value = `Bearer ${token}`;
     this.client.defaults.headers.common['Authorization'] = value; // eslint-disable-line dot-notation

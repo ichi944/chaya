@@ -142,3 +142,12 @@ export function requestUpdatePassword() {
     });
   };
 }
+
+export function configureSocketId() {
+  const socketId = window.Echo.socketId();
+  console.log('@getting socketId: ', socketId);
+  Api.setSocketId(socketId);
+  return {
+    type: types.DONE_SET_SOCKET_ID,
+  };
+}

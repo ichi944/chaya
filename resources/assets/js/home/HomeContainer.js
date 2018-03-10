@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import Home from './Home';
+import { sayHello } from './actions';
 
 const mapStateToProps = ({ profile }) => {
   return {
@@ -8,4 +9,12 @@ const mapStateToProps = ({ profile }) => {
   };
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleHello(text) {
+      dispatch(sayHello(text));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

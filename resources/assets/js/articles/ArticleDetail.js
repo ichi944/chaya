@@ -12,6 +12,7 @@ import { grey400 } from 'material-ui/colors';
 import { withStyles } from 'material-ui/styles';
 
 import parseToMarkdown from '../services/parseToMarkdown';
+import ArticleChatContainer from '../chat/ArticleChatContainer';
 import { ConfirmDeleteArticleDialog } from './organisms/Dialogs';
 
 const styles = {
@@ -129,6 +130,8 @@ class ArticleDetail extends Component {
             <Button onClick={handleConfirmDeleteArticle}>削除</Button>
           </div>
         </Paper>
+
+        <ArticleChatContainer />
 
         <ConfirmDeleteArticleDialog
           open={confirmDeleteDialogOpen}
