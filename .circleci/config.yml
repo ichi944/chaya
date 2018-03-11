@@ -9,6 +9,7 @@ jobs:
     environment:
       - APP_DEBUG: true
       - APP_ENV: testing
+      - APP_KEY: base64:0TDHPEGpzH2EUUhOgrw/IcHF5M5vuBl3Zc5p0gMidVU=
       - DB_CONNECTION: circle_test
       - MYSQL_ALLOW_EMPTY_PASSWORD: true
     steps:
@@ -34,6 +35,5 @@ jobs:
           key: node-v1-{{ checksum "package.json" }}
           paths:
             - node_modules
-      - run: php artisan key:generate
       - run: php artisan migrate
       - run: php ./vendor/bin/phpunit
