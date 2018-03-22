@@ -180,7 +180,6 @@ return [
         /*
          * Third Party Packages
          */
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
     ],
 
     /*
