@@ -22,7 +22,9 @@ class ArticleIndex extends Component {
     push('articles/add');
   }
   render() {
-    const { data, total, from, to, prev_page_url, next_page_url } = this.props.articles;
+    const {
+      data, total, from, to, prev_page_url, next_page_url,
+    } = this.props.articles;
     const { query } = this.props.searcher;
     const { handleNavigatePage } = this.props;
     const { authorizationToken } = this.props.auth;
@@ -45,17 +47,17 @@ class ArticleIndex extends Component {
             ? <Paper>
               <div className="article_index-wrapper">
                   記事がありませんでした。
-                </div>
-            </Paper>
+              </div>
+              </Paper>
             : data.map((article) => {
-              return (
-                <ArticleListItem
-                  article={article}
-                  authorizationToken={authorizationToken}
-                  key={article.id}
-                />
-              );
-            })}
+                return (
+                  <ArticleListItem
+                    article={article}
+                    authorizationToken={authorizationToken}
+                    key={article.id}
+                  />
+                );
+              })}
         </Paper>
         <PageNavigation {...pageNavigationProps} />
       </div>

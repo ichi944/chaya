@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { shallow, mount, render } from 'enzyme';
+import { configure, shallow, mount, render } from 'enzyme';
 import { assert, expect } from 'chai';
 import { FlatButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
+import Adapter from 'enzyme-adapter-react-16';
 import { PageNavigation } from './PageNavigation';
 
+configure({ adapter: new Adapter() });
 injectTapEventPlugin();
 
 describe('<PageNavigation />', () => {

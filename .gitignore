@@ -10,3 +10,5 @@ Homestead.yaml
 .env
 
 /echo/laravel-echo-server.json
+yarn-error.log
+

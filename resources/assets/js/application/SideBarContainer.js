@@ -5,7 +5,9 @@ import { withRouter } from 'react-router';
 import SideBar from './SideBar';
 import { requestClearActiveChannel } from '../articles/actions';
 
-const mapStateToProps = ({ router, profile, channels, articleChannel }) => {
+const mapStateToProps = ({
+  router, profile, channels, articleChannel,
+}) => {
   return {
     router,
     profile,

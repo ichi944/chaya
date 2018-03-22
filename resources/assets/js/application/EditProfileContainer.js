@@ -28,11 +28,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(requestCurrentProfile());
     },
     handleChangeProfile(e) {
-      dispatch(
-        updateProfileForm({
-          [e.target.name]: e.target.value,
-        }),
-      );
+      dispatch(updateProfileForm({
+        [e.target.name]: e.target.value,
+      }));
       dispatch(closeNotification());
     },
     handleUpdateNewImagePreview(reader_result) {

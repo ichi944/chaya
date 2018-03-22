@@ -20,7 +20,7 @@ class Header extends Component {
           <Toolbar>
             <Typography color="inherit" style={styles.typography} />
             {isAuthenticated
-              ? <Button color="contrast" onClick={handleSignOut}>Logout</Button>
+              ? <Button color="inherit" onClick={handleSignOut}>Logout</Button>
               : null}
           </Toolbar>
         </AppBar>

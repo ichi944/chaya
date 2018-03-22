@@ -14,7 +14,7 @@ class VerifyUser extends Component {
     if (isRequesting) {
       return (
         <div>
-          <Paper className="login-form" zDepth={1}>
+          <Paper className="login-form" elevation={1}>
             <div className="login-inner">
               <p>now checking....</p>
             </div>
@@ -25,7 +25,7 @@ class VerifyUser extends Component {
     if (isVerified) {
       return (
         <div>
-          <Paper className="login-form" zDepth={1}>
+          <Paper className="login-form" elevation={1}>
             <div className="login-inner">
               <h1 className="login-title">
                 Mail Verification is done.
@@ -41,7 +41,7 @@ class VerifyUser extends Component {
     }
     return (
       <div>
-        <Paper className="login-form" zDepth={1}>
+        <Paper className="login-form" elevation={1}>
           <div className="login-inner">
             <h1 className="login-title">Verification Failed.</h1>
             <p>Please check the link on the email.</p>

@@ -43,7 +43,9 @@ class Initializer extends Component {
     }
   }
   render() {
-    const { auth, profile, channels, socket } = this.props;
+    const {
+      auth, profile, channels, socket,
+    } = this.props;
     // check the user status when user comes into the app at first.
     // try to login with the token in localstorage if it's exists.
     if (!auth.isDoneCheckingStatusAtInitialize) {
