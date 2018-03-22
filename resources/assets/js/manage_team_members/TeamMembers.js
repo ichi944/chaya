@@ -36,9 +36,7 @@ class TeamMembers extends Component {
     this.handleTouchTapVerifyByAdmin = this.handleTouchTapVerifyByAdmin.bind(this);
     this.handleTouchTapLockMember = this.handleTouchTapLockMember.bind(this);
     this.handleTouchTapUnlockMember = this.handleTouchTapUnlockMember.bind(this);
-    this.handleToggleShowMembersWhoIsNotVerifiedWithEmail = this.handleToggleShowMembersWhoIsNotVerifiedWithEmail.bind(
-      this,
-    );
+    this.handleToggleShowMembersWhoIsNotVerifiedWithEmail = this.handleToggleShowMembersWhoIsNotVerifiedWithEmail.bind(this);
     this.handleClickBack = this.handleClickBack.bind(this);
   }
   componentDidMount() {
@@ -125,17 +123,17 @@ class TeamMembers extends Component {
                           <span>ロックされています</span>
                           <Button onClick={e => this.handleTouchTapUnlockMember(e, member.id)}>
                               ロックを解除する
-                            </Button>
-                        </div>
+                          </Button>
+                          </div>
                         : <Button
-                          color="accent"
+                          color="primary"
                           onClick={e => this.handleTouchTapLockMember(e, member.id)}
                         >
                             ロックする
                           </Button>}
                   </div>
                 </div>
-              </Paper>
+                </Paper>
               : null;
           })}
         </Paper>

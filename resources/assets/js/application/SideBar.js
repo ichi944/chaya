@@ -79,24 +79,25 @@ class SideBar extends Component {
     push(`/app/articles/channel/${channelId}`);
   }
   render() {
-    const { profile, channels, articleChannel, classes } = this.props;
+    const {
+      profile, channels, articleChannel, classes,
+    } = this.props;
     return (
       <Drawer
-        type="persistent"
-        open
+        variant="permanent"
         classes={{
           paper: classes.paper,
         }}
       >
         <AppBar position="static">
           <Toolbar>
-            <IconButton color="contrast" aria-label="Menu" onClick={this.handleClickMenu}>
+            <IconButton color="inherit" aria-label="Menu" onClick={this.handleClickMenu}>
               <MenuIcon />
             </IconButton>
             <Menu
               anchorEl={this.state.anchorEl}
               open={this.state.open}
-              onRequestClose={this.handleRequestClose}
+              onClose={this.handleRequestClose}
               PaperProps={{
                 style: {
                   width: 'auto',
@@ -116,7 +117,7 @@ class SideBar extends Component {
                 チームメンバーの管理をする...
               </MenuItem>
             </Menu>
-            <Typography type="title" color="inherit">
+            <Typography variant="title" color="inherit" noWrap>
               CHAYA
             </Typography>
           </Toolbar>
@@ -126,7 +127,7 @@ class SideBar extends Component {
             anchorEl={this.state.anchorEl}
             anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
             targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-            onRequestClose={this.handleRequestClose}
+            onClose={this.handleRequestClose}
           >
             <Menu>
               <MenuItem primaryText="個人の設定をする..." style={styles.menuItem} disabled />

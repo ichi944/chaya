@@ -39,7 +39,7 @@ class Notifier extends Component {
           horizontal: 'left',
         }}
         open={open}
-        onRequestClose={this.handleRequestClose}
+        onClose={this.handleRequestClose}
         message={<span>{message}</span>}
         action={[
           <IconButton

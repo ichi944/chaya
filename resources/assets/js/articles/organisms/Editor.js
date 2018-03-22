@@ -54,7 +54,7 @@ class Editor extends Component<void, Props, void> {
                   className="markdown-body editor-previewer_body"
                   dangerouslySetInnerHTML={{ __html: parseToMarkdown(body) }}
                 />
-              </div>
+                </div>
               : <div className="editor-forms_inputs">
                 <TextField
                   label="見出し"
@@ -77,7 +77,7 @@ class Editor extends Component<void, Props, void> {
                   margin="normal"
                 />
                 <br />
-              </div>}
+                </div>}
 
             <div className="editor-actions">
               <Button onClick={handleCancel}>{handleCancelText}</Button>

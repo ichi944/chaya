@@ -104,7 +104,7 @@ class ArticleDetail extends Component {
           <Divider />
           <div className="article-meta">
             <Button
-              fab
+              variant="fab"
               href={`/app/articles/${id}/edit`}
               color="primary"
               aria-label="edit"

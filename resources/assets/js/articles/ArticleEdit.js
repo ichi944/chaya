@@ -32,7 +32,9 @@ class ArticleEdit extends Component {
     this.props.handleClose();
   }
   render() {
-    const { heading, body, onPreview, mode, confirmSuccessDialogOpen } = this.props;
+    const {
+      heading, body, onPreview, mode, confirmSuccessDialogOpen,
+    } = this.props;
     const { handleChange, handleTogglePreview } = this.props;
 
     return (

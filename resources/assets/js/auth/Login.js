@@ -7,7 +7,9 @@ import Button from 'material-ui/Button';
 
 class Login extends Component {
   render() {
-    const { email, password, showErrorMessage, errorMessage, isAuthenticated } = this.props;
+    const {
+      email, password, showErrorMessage, errorMessage, isAuthenticated,
+    } = this.props;
     const { handleChange, handleAuthenticate, handlePressEnter } = this.props;
 
     if (isAuthenticated) {
@@ -43,7 +45,11 @@ class Login extends Component {
             />
             <br />
             <div className="login-buttons">
-              <Button raised color="primary" onClick={() => handleAuthenticate(email, password)}>
+              <Button
+                variant="raised"
+                color="primary"
+                onClick={() => handleAuthenticate(email, password)}
+              >
                 Login
               </Button>
             </div>

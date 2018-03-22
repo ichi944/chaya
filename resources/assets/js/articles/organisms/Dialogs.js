@@ -48,13 +48,13 @@ export const ConfirmDeleteArticleDialog = ({
   handleSubmit,
 }: ConfirmDeleteArticleDialogProps) => {
   return (
-    <Dialog open={open} onRequestClose={handleCancel}>
+    <Dialog open={open} onClose={handleCancel}>
       <DialogContent>
         <DialogContentText>本当に削除しますか?</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCancel}>やめておく</Button>
-        <Button color="accent" onClick={handleSubmit}>削除する</Button>
+        <Button color="primary" onClick={handleSubmit}>削除する</Button>
       </DialogActions>
     </Dialog>
   );
@@ -75,7 +75,7 @@ export const EditDescriptionDialog = ({
   content,
 }: EditDescriptionDialogProps) => {
   return (
-    <Dialog open={open} onRequestClose={handleCancel}>
+    <Dialog open={open} onClose={handleCancel}>
       <DialogContent>
         <DialogContentText>新しいチャンネルの説明を入力してください。</DialogContentText>
         <TextField

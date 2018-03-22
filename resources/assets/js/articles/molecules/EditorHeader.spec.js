@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { shallow, mount, render } from 'enzyme';
+import { configure, shallow, mount, render } from 'enzyme';
 import { assert, expect } from 'chai';
 import { Subheader } from 'material-ui';
-
+import Adapter from 'enzyme-adapter-react-16';
 import EditorHeader from './EditorHeader';
+
+configure({ adapter: new Adapter() });
 
 describe('<EditorHeader />', () => {
   it('renders a Subheader', () => {

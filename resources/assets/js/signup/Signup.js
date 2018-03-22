@@ -7,7 +7,9 @@ import Button from 'material-ui/Button';
 
 class Siginup extends Component {
   render() {
-    const { name, email, password, showErrorMessage, errorMessage, isAuthenticated } = this.props;
+    const {
+      name, email, password, showErrorMessage, errorMessage, isAuthenticated,
+    } = this.props;
     const { handleChange, handleSubmit, handlePressEnter } = this.props;
 
     if (isAuthenticated) {
@@ -16,7 +18,7 @@ class Siginup extends Component {
     }
     return (
       <div>
-        <Paper className="login-form" zDepth={1}>
+        <Paper className="login-form" elevation={1}>
           <div className="login-inner">
             <h1 className="login-title">SIGN UP</h1>
             <TextField
@@ -51,7 +53,11 @@ class Siginup extends Component {
             />
             <br />
             <div className="login-buttons">
-              <Button raised color="primary" onClick={() => handleSubmit(name, email, password)}>
+              <Button
+                variant="raised"
+                color="primary"
+                onClick={() => handleSubmit(name, email, password)}
+              >
                 Sign Up
               </Button>
             </div>

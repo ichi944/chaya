@@ -101,7 +101,7 @@ class ArticleChannel extends Component {
       <div>
         <Paper className="article_index-container">
           <Button
-            fab
+            variant="fab"
             onClick={this.handleCreateNewArticle}
             color="primary"
             aria-label="add"
@@ -132,17 +132,17 @@ class ArticleChannel extends Component {
             ? <Paper>
               <div className="article_index-wrapper">
                   記事がありませんでした。
-                </div>
-            </Paper>
+              </div>
+              </Paper>
             : data.map((article) => {
-              return (
-                <ArticleListItem
-                  article={article}
-                  authorizationToken={authorizationToken}
-                  key={article.id}
-                />
-              );
-            })}
+                return (
+                  <ArticleListItem
+                    article={article}
+                    authorizationToken={authorizationToken}
+                    key={article.id}
+                  />
+                );
+              })}
         </Paper>
         <PageNavigation {...pageNavigationProps} />
         <EditDescriptionDialog

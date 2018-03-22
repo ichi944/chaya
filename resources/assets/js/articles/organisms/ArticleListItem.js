@@ -35,9 +35,9 @@ export const ArticleListItem = (props: Props) => {
         <div className="article_index-body">
           <Link to={`/app/articles/${article.id}`}>
             {article.pinned
-              ? <Badge badgeContent="p" color="accent">
+              ? <Badge badgeContent="p" color="primary">
                 <h3 className="article_index-article_title">{article.heading}</h3>
-              </Badge>
+                </Badge>
               : <h3 className="article_index-article_title">{article.heading}</h3>}
             <p className="article_index-description">{article.body.substring(0, 60)}...</p>
           </Link>

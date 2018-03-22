@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import { pink200 } from 'material-ui/colors';
+import pink from 'material-ui/colors/pink';
 import { Link } from 'react-router-dom';
 
 const styles = {
@@ -10,7 +10,7 @@ const styles = {
   },
   channelListItemActive: {
     paddingLeft: '1rem',
-    backgroundColor: pink200,
+    backgroundColor: pink[200],
   },
 };
 

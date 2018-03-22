@@ -45,7 +45,9 @@ class EditProfile extends Component {
     console.log(files);
   }
   render() {
-    const { name, password, newImageUrl, snackbarIsOpen, snackbarMessage } = this.props.editProfile;
+    const {
+      name, password, newImageUrl, snackbarIsOpen, snackbarMessage,
+    } = this.props.editProfile;
     const { avator_img_url } = this.props.profile;
     const { authorizationToken } = this.props.auth;
     const { handleChangeProfile, handleChangePassword } = this.props;
@@ -76,7 +78,7 @@ class EditProfile extends Component {
               onDrop={this.handleDrop}
             />
             <br />
-            <Button raised color="primary" onClick={this.handleSubmitAvator}>
+            <Button variant="raised" color="primary" onClick={this.handleSubmitAvator}>
               Submit
             </Button>
           </div>
@@ -89,7 +91,7 @@ class EditProfile extends Component {
           <div className="editor-forms_inputs">
             <TextField label="名前" name="name" value={name} onChange={handleChangeProfile} />
             <br />
-            <Button raised color="primary" onClick={this.handleSubmitProfile}>
+            <Button variant="raised" color="primary" onClick={this.handleSubmitProfile}>
               Submit
             </Button>
           </div>
@@ -107,7 +109,7 @@ class EditProfile extends Component {
               onChange={handleChangePassword}
             />
             <br />
-            <Button raised color="primary" onClick={this.handleSubmitPassword}>
+            <Button variant="raised" color="primary" onClick={this.handleSubmitPassword}>
               Submit
             </Button>
           </div>

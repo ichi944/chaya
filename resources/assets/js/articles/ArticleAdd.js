@@ -38,7 +38,9 @@ class ArticleAdd extends Component {
         />
       );
     }
-    const { heading, body, onPreview, mode, confirmSuccessDialogOpen } = this.props;
+    const {
+      heading, body, onPreview, mode, confirmSuccessDialogOpen,
+    } = this.props;
     const { handleChange, handleTogglePreview } = this.props;
 
     return (
