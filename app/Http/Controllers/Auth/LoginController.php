@@ -41,7 +41,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        // do nothing
     }
 
     public function authenticate(Request $request)
@@ -50,7 +50,7 @@ class LoginController extends Controller
         Log::Info('authenticate start');
         Log::Info($credentials['email']);
         try {
-            if(! $token = JWTAuth::attempt([
+            if(! $token = auth()->attempt([
                     'email' => $credentials['email'],
                     'password' => $credentials['password'],
                     'is_verified_with_email' => true,
@@ -88,8 +88,8 @@ class LoginController extends Controller
 
     public function hello(Request $request) {
         try {
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['user_not_found'], 404);
+            if (! $user = auth()->user()) {
+                return response()->json(['user_not_found'], 401);
             }
         } catch (TokenExpiredException $e) {
             return response()->json(['token_expired'], $e->getStatusCode());

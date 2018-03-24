@@ -3,11 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Middleware\BaseMiddleware;
+use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 
-class CheckAdmin extends BaseMiddleware
+class CheckAdmin
 {
     /**
      * Handle an incoming request.
@@ -18,24 +16,16 @@ class CheckAdmin extends BaseMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!$token = $this->auth->setRequest($request)->getToken()) {
-            return $this->respond('tymon.jwt.absent', 'token_not_provided', 400);
-        }
         try {
-            $user = $this->auth->authenticate($token);
-        } catch (TokenExpiredException $e) {
-            return $this->respond('tymon.jwt.expired', 'token_expired', $e->getStatusCode(), [$e]);
-        } catch (JWTException $e) {
-            return $this->respond('tymon.jwt.invalid', 'token_invalid', $e->getStatusCode(), [$e]);
-        }
+            $user = auth()->userOrFail();
 
-        if (!$user) {
-            return $this->respond('tymon.jwt.user_not_found', 'user_not_found', 404);
-        }
+            if (!$user->is_admin) {
+                return response()->json(['_code' => 1, 'message' => 'this action is not permitted']);
+            }
+            return $next($request);
 
-        if (!$user->is_admin) {
-            return $this->respond('tymon.jwt.invalid', 'action_is_not_permitted', 403, 'Forbidden');
+        } catch (UserNotDefinedException $e) {
+            return response()->json(['status' => 'ng', 'message' => 'user not defined']);
         }
-        return $next($request);
     }
 }
