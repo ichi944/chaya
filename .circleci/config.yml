@@ -12,6 +12,7 @@ jobs:
       - APP_KEY: base64:0TDHPEGpzH2EUUhOgrw/IcHF5M5vuBl3Zc5p0gMidVU=
       - DB_CONNECTION: circle_test
       - MYSQL_ALLOW_EMPTY_PASSWORD: true
+      - JWT_SECRET: TYNxsCKFGRjMloeH6woMrRHFivyKt260
     steps:
       - checkout
       - run: sudo apt install -y libsqlite3-dev zlib1g-dev
