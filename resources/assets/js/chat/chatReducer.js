@@ -12,6 +12,12 @@ export default function chatReducer(state = initialState, action) {
         chatInput: action.value,
       };
     }
+    case types.POST_CHAT_MESSAGE_SUCCEEDED: {
+      return {
+        ...state,
+        chatInput: '',
+      };
+    }
     default: {
       return state;
     }

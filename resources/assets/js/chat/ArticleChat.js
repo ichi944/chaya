@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
 import { Paper, Divider, TextField, Button } from 'material-ui';
 import { FormControlLabel } from 'material-ui/Form';
+import { withStyles } from 'material-ui/styles';
+
+const styles = {
+  wrapper: {
+    padding: '1rem',
+    margin: '1rem',
+  },
+};
 
 class ArticleChat extends Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-  handleChange(e) {
-    console.log('@ArticleChat handleChange', e.value);
-    this.props.handleChange(e.value);
-  }
   render() {
-    console.log('@ArticleChat', this.props.article);
+    const { handleChange, handlePressEnter } = this.props;
     const { chatInput } = this.props.chat;
+    const { id } = this.props.article;
+    const { classes } = this.props;
     return (
-      <Paper>
+      <Paper className={classes.wrapper}>
         <TextField
           label="Message"
           name="message"
           value={chatInput}
-          onChange={this.handleChange}
+          onChange={handleChange}
+          onKeyPress={(e) => {
+            handlePressEnter(e, chatInput, id);
+          }}
+          multiline
           fullWidth
           margin="normal"
         />
@@ -29,4 +35,4 @@ class ArticleChat extends Component {
   }
 }
 
-export default ArticleChat;
+export default withStyles(styles)(ArticleChat);
