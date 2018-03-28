@@ -16,4 +16,9 @@ class ChatMessage extends Model
         'user_id',
         'body',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

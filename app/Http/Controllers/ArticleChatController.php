@@ -36,12 +36,13 @@ class ArticleChatController extends Controller
         }
 
         $chat_messages = $query->where('article_id', $id)
-            ->orderBy('id', 'desc')
+            ->with('user')
+            ->orderBy('id', 'asc')
             ->take(10)
             ->get();
         return response()->json([
             '_code' => 0,
-            'data' => $chat_messages,
+            'content' => $chat_messages,
         ]);
     }
     /**

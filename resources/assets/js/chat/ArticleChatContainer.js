@@ -2,10 +2,11 @@ import { connect } from 'react-redux';
 
 import ArticleChat from './ArticleChat';
 
-import { updateChatInput, requestPostChatMessage } from './actions';
+import { requestLatestMessages, updateChatInput, requestPostChatMessage } from './actions';
 
-const mapStateToProps = ({ article, chat }) => {
+const mapStateToProps = ({ auth, article, chat }) => {
   return {
+    auth,
     article,
     chat,
   };
@@ -13,6 +14,9 @@ const mapStateToProps = ({ article, chat }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    fetchLatestMessages(article_id) {
+      dispatch(requestLatestMessages(article_id));
+    },
     handleChange(e) {
       dispatch(updateChatInput(e.target.value));
     },
