@@ -2,7 +2,12 @@ import { connect } from 'react-redux';
 
 import ArticleChat from './ArticleChat';
 
-import { requestLatestMessages, updateChatInput, requestPostChatMessage } from './actions';
+import {
+  requestLatestMessages,
+  updateChatInput,
+  requestPostChatMessage,
+  addNewArticleChatMessage,
+} from './actions';
 
 const mapStateToProps = ({ auth, article, chat }) => {
   return {
@@ -25,6 +30,9 @@ const mapDispatchToProps = (dispatch) => {
         e.preventDefault();
         dispatch(requestPostChatMessage(chat_message, article_id));
       }
+    },
+    newArticleChatPosted(message) {
+      dispatch(addNewArticleChatMessage(message));
     },
   };
 };

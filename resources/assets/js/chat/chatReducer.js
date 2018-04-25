@@ -25,6 +25,12 @@ export default function chatReducer(state = initialState, action) {
         chatInput: '',
       };
     }
+    case types.ADD_NEW_ARTICLE_CHAT_MESSAGE: {
+      return {
+        ...state,
+        messages: [...state.messages, action.chat_message],
+      };
+    }
     default: {
       return state;
     }

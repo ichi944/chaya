@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ChatMessage;
+use App\Events\ArticleChatPosted;
 use Log;
 
 class ArticleChatController extends Controller
@@ -58,6 +59,11 @@ class ArticleChatController extends Controller
             'user_id' => $current_user->id,
             'body' => $request->chat_message,
         ]);
+        $new_message = $this->chatMessage
+            ->where('id', $created->id)
+            ->with('user')
+            ->first();
+        event(new ArticleChatPosted(['chat_message' => $new_message]));
         return response()->json(['_code' => 0]);
     }
 }

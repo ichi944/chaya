@@ -49,3 +49,10 @@ export function requestPostChatMessage(chat_message, article_id) {
       }); // Api
   };
 }
+
+export function addNewArticleChatMessage(chat_message) {
+  return {
+    type: types.ADD_NEW_ARTICLE_CHAT_MESSAGE,
+    chat_message,
+  };
+}

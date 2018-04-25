@@ -15,6 +15,10 @@ class ArticleChat extends Component {
   componentDidMount() {
     const { id } = this.props.article;
     this.props.fetchLatestMessages(id);
+    window.Echo.private('shared').listen('ArticleChatPosted', (e) => {
+      console.log('@ArticleChat', e.message);
+      this.props.newArticleChatPosted(e.message.chat_message);
+    });
   }
   render() {
     const { handleChange, handlePressEnter } = this.props;
