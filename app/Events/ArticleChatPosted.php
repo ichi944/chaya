@@ -36,7 +36,7 @@ class ArticleChatPosted implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('shared');
+        return new PrivateChannel('articleChat');
     }
 
 /**

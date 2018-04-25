@@ -20,3 +20,7 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 Broadcast::channel('shared', function () {
     return true;
 });
+
+Broadcast::channel('articleChat', function () {
+    return true;
+});
