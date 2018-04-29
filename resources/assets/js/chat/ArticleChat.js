@@ -48,7 +48,8 @@ class ArticleChat extends Component {
           ))}
         </List>
         <TextField
-          label="Message"
+          label="Add Message"
+          helperText="A message is sent when you press Enter. Please press Shift + Enter if you want to add a new line."
           name="message"
           value={chatInput}
           onChange={handleChange}

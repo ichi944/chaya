@@ -27,6 +27,8 @@ const mapDispatchToProps = (dispatch) => {
     },
     handlePressEnter(e, chat_message, article_id) {
       if (e.shiftKey && e.key === 'Enter') {
+        // add line-break, do nothing. continue
+      } else if (e.key === 'Enter') {
         e.preventDefault();
         dispatch(requestPostChatMessage(chat_message, article_id));
       }
