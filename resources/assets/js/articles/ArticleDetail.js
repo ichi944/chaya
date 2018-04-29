@@ -103,15 +103,6 @@ class ArticleDetail extends Component {
           </div>
           <Divider />
           <div className="article-meta">
-            <Button
-              variant="fab"
-              href={`/app/articles/${id}/edit`}
-              color="primary"
-              aria-label="edit"
-              className={classes.button}
-            >
-              <ModeEditIcon />
-            </Button>
             <div className="article-author_profile">
               <div className="article-author_profile_col">
                 <Avatar src={`/private-img/${user.avator_img_url}?token=${authorizationToken}`} />
@@ -132,6 +123,16 @@ class ArticleDetail extends Component {
         </Paper>
 
         <ArticleChatContainer />
+
+        <Button
+          variant="fab"
+          href={`/app/articles/${id}/edit`}
+          color="primary"
+          aria-label="edit"
+          className={classes.button}
+        >
+          <ModeEditIcon />
+        </Button>
 
         <ConfirmDeleteArticleDialog
           open={confirmDeleteDialogOpen}

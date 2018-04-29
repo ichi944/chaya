@@ -5,6 +5,8 @@ import Typography from 'material-ui/Typography';
 import { Paper, Divider, TextField, Button, Avatar } from 'material-ui';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import { FormControlLabel } from 'material-ui/Form';
+import Fade from 'material-ui/transitions/Fade';
+import grey from 'material-ui/colors/grey';
 import { withStyles } from 'material-ui/styles';
 
 const styles = {
@@ -17,6 +19,7 @@ const styles = {
   },
   noMessageLabel: {
     opacity: 0.5,
+    padding: '0 1rem',
   },
   loadOldMessageLinkButton: {
     width: '100%',
@@ -24,6 +27,12 @@ const styles = {
     '&:hover': {
       opacity: 0.5,
     },
+  },
+  message_meta: {
+    color: grey[500],
+  },
+  message_body: {
+    color: grey[900],
   },
 };
 
@@ -55,7 +64,7 @@ class ArticleChat extends Component {
       <Paper className={classes.wrapper}>
         <Grid container spacing={24}>
           <Grid item xs={12}>
-            <Paper class={classes.loadOldMessageLink}>
+            <div className={classes.loadOldMessageLink}>
               {show_no_messages_info
                 ? <Typography className={classes.noMessageLabel}>no previous message</Typography>
                 : <ButtonBase
@@ -65,23 +74,29 @@ class ArticleChat extends Component {
                 >
                   <Typography>Read old messages.</Typography>
                   </ButtonBase>}
-            </Paper>
+            </div>
           </Grid>
         </Grid>
         <List dense>
           {messages.map(message => (
-            <ListItem key={message.id} divider>
-              <Avatar
-                alt={message.user.name}
-                src={`/private-img/${message.user.avator_img_url}?token=${authorizationToken}`}
-              />
-              <ListItemText
-                primary={`${message.user.name} ${message.created_at}`}
-                secondary={message.body.split('\n').map((item, key) => {
-                  return <span key={key}>{item}<br /></span>;
-                })}
-              />
-            </ListItem>
+            <Fade in key={message.id} timeout={1000}>
+              <ListItem key={message.id} divider>
+                <Avatar
+                  alt={message.user.name}
+                  src={`/private-img/${message.user.avator_img_url}?token=${authorizationToken}`}
+                />
+                <ListItemText
+                  classes={{
+                    primary: classes.message_meta,
+                    secondary: classes.message_body,
+                  }}
+                  primary={`${message.user.name} ${message.created_at}`}
+                  secondary={message.body.split('\n').map((item, key) => {
+                    return <span key={key}>{item}<br /></span>;
+                  })}
+                />
+              </ListItem>
+            </Fade>
           ))}
         </List>
         <TextField
