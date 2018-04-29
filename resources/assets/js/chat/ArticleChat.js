@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Grid from 'material-ui/Grid';
+import ButtonBase from 'material-ui/ButtonBase';
+import Typography from 'material-ui/Typography';
 import { Paper, Divider, TextField, Button, Avatar } from 'material-ui';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import { FormControlLabel } from 'material-ui/Form';
@@ -8,6 +11,16 @@ const styles = {
   wrapper: {
     padding: '1rem',
     margin: '1rem',
+  },
+  loadOldMessageLink: {
+    textAlign: 'center',
+  },
+  loadOldMessageLinkButton: {
+    width: '100%',
+    padding: '0 1rem',
+    '&:hover': {
+      opacity: 0.5,
+    },
   },
 };
 
@@ -24,13 +37,32 @@ class ArticleChat extends Component {
     window.Echo.leave('articleChat');
   }
   render() {
-    const { handleChange, handlePressEnter } = this.props;
+    const { handleChange, handlePressEnter, handleLoadOldMessage } = this.props;
     const { authorizationToken } = this.props.auth;
-    const { messages, chatInput } = this.props.chat;
+    const { messages, chatInput, show_no_messages_info } = this.props.chat;
     const { id } = this.props.article;
     const { classes } = this.props;
+    let max_id = null;
+    if (messages.length > 0) {
+      max_id = messages[0].id - 1;
+    }
     return (
       <Paper className={classes.wrapper}>
+        <Grid container spacing={24}>
+          <Grid item xs={12}>
+            <Paper class={classes.loadOldMessageLink}>
+              {show_no_messages_info
+                ? <Typography>no previous message</Typography>
+                : <ButtonBase
+                  focusRipple
+                  className={classes.loadOldMessageLinkButton}
+                  onClick={() => handleLoadOldMessage(id, max_id)}
+                >
+                  <Typography>Read old messages.</Typography>
+                  </ButtonBase>}
+            </Paper>
+          </Grid>
+        </Grid>
         <List dense>
           {messages.map(message => (
             <ListItem key={message.id} divider>

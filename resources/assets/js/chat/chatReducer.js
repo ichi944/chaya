@@ -3,6 +3,7 @@ import * as types from './actionTypes';
 const initialState = {
   messages: [],
   chatInput: '',
+  show_no_messages_info: false,
 };
 
 export default function chatReducer(state = initialState, action) {
@@ -11,6 +12,7 @@ export default function chatReducer(state = initialState, action) {
       return {
         ...state,
         messages: action.messages,
+        show_no_messages_info: false,
       };
     }
     case types.UPDATE_CHAT_INPUT: {
@@ -29,6 +31,19 @@ export default function chatReducer(state = initialState, action) {
       return {
         ...state,
         messages: [...state.messages, action.chat_message],
+      };
+    }
+    case types.FETCH_MESSAGES_SUCCEEDED: {
+      return {
+        ...state,
+        messages: [...action.chat_messages, ...state.messages],
+        show_no_messages_info: false,
+      };
+    }
+    case types.NO_MESSAGES_INFO_SHOWN: {
+      return {
+        ...state,
+        show_no_messages_info: true,
       };
     }
     default: {

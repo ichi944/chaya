@@ -29,18 +29,30 @@ class ArticleChatController extends Controller
     public function index(Request $request, $id)
     {
         $current_user = auth()->user();
-        $max_id = $request->input('max_id');
+        $number = 10;
+        $max_id = $request->query('max_id', null);
         $query = $this->chatMessage;
 
-        if ($max_id) {
+        if ($max_id !== null) {
+            $max_id = (int)$max_id;
+        }
+        if ($max_id === 0) {
+            return response()->json([
+                '_code' => 1,
+                'message' => 'massage does not exists',
+            ]);
+        }
+        if (isset($max_id) && $max_id > 0) {
             $query = $query->where('id', '<=', $max_id);
         }
 
         $chat_messages = $query->where('article_id', $id)
+            ->orderBy('id', 'desc')
             ->with('user')
-            ->orderBy('id', 'asc')
-            ->take(10)
-            ->get();
+            ->take($number)
+            ->get()
+            ->reverse()
+            ->values();
         return response()->json([
             '_code' => 0,
             'content' => $chat_messages,

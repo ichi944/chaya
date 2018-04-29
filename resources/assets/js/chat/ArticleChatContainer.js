@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ArticleChat from './ArticleChat';
 
 import {
+  requestMessages,
   requestLatestMessages,
   updateChatInput,
   requestPostChatMessage,
@@ -35,6 +36,13 @@ const mapDispatchToProps = (dispatch) => {
     },
     newArticleChatPosted(message) {
       dispatch(addNewArticleChatMessage(message));
+    },
+    handleLoadOldMessage(article_id, max_id = null) {
+      if (max_id === null) {
+        alert("max id doesn't exist");
+        return;
+      }
+      dispatch(requestMessages(article_id, max_id));
     },
   };
 };

@@ -18,6 +18,37 @@ export function requestLatestMessages(article_id) {
   };
 }
 
+export function fetchMessagesSucceeded(chat_messages) {
+  return {
+    type: types.FETCH_MESSAGES_SUCCEEDED,
+    chat_messages,
+  };
+}
+
+export function noMessagesInfoShown() {
+  return {
+    type: types.NO_MESSAGES_INFO_SHOWN,
+  };
+}
+
+export function requestMessages(article_id, max_id) {
+  return (dispatch) => {
+    Api.client
+      .get(`/articles/${article_id}/get-chat-messages`, {
+        params: {
+          max_id,
+        },
+      })
+      .then((res) => {
+        if (res.data._code === 0) {
+          dispatch(fetchMessagesSucceeded(res.data.content));
+        } else {
+          dispatch(noMessagesInfoShown());
+        }
+      });
+  };
+}
+
 export function updateChatInput(value) {
   return {
     type: types.UPDATE_CHAT_INPUT,
