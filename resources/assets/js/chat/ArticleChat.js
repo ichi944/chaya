@@ -15,6 +15,9 @@ const styles = {
   loadOldMessageLink: {
     textAlign: 'center',
   },
+  noMessageLabel: {
+    opacity: 0.5,
+  },
   loadOldMessageLinkButton: {
     width: '100%',
     padding: '0 1rem',
@@ -30,7 +33,9 @@ class ArticleChat extends Component {
     this.props.fetchLatestMessages(id);
     window.Echo.private('articleChat').listen('ArticleChatPosted', (e) => {
       console.log('@ArticleChat', e.message);
-      this.props.newArticleChatPosted(e.message.chat_message);
+      if (e.message.chat_message.article_id === id) {
+        this.props.newArticleChatPosted(e.message.chat_message);
+      }
     });
   }
   componentWillUnmount() {
@@ -52,7 +57,7 @@ class ArticleChat extends Component {
           <Grid item xs={12}>
             <Paper class={classes.loadOldMessageLink}>
               {show_no_messages_info
-                ? <Typography>no previous message</Typography>
+                ? <Typography className={classes.noMessageLabel}>no previous message</Typography>
                 : <ButtonBase
                   focusRipple
                   className={classes.loadOldMessageLinkButton}

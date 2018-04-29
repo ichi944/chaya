@@ -12,7 +12,7 @@ export default function chatReducer(state = initialState, action) {
       return {
         ...state,
         messages: action.messages,
-        show_no_messages_info: false,
+        show_no_messages_info: action.show_no_messages_info,
       };
     }
     case types.UPDATE_CHAT_INPUT: {
@@ -37,7 +37,7 @@ export default function chatReducer(state = initialState, action) {
       return {
         ...state,
         messages: [...action.chat_messages, ...state.messages],
-        show_no_messages_info: false,
+        show_no_messages_info: action.show_no_messages_info,
       };
     }
     case types.NO_MESSAGES_INFO_SHOWN: {

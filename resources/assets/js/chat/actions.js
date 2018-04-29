@@ -2,9 +2,11 @@ import * as types from './actionTypes';
 import Api from '../services/Api';
 
 export function fetchLatestMessagesSucceeded(messages) {
+  const show_no_messages_info = messages.length === 0;
   return {
     type: types.FETCH_LATEST_MESSAGES_SUCCEEDED,
     messages,
+    show_no_messages_info,
   };
 }
 
@@ -19,9 +21,11 @@ export function requestLatestMessages(article_id) {
 }
 
 export function fetchMessagesSucceeded(chat_messages) {
+  const show_no_messages_info = chat_messages.length === 0;
   return {
     type: types.FETCH_MESSAGES_SUCCEEDED,
     chat_messages,
+    show_no_messages_info,
   };
 }
 
