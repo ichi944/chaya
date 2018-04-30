@@ -67,21 +67,48 @@ class ChatMessageTest extends TestCase
             ->assertStatus(200)
             ->assertJson([
                 '_code' => 0,
-                'data' => [
-                    ['id' => 15],
-                    ['id' => 14],
-                    ['id' => 13],
-                    ['id' => 12],
-                    ['id' => 11],
-                    ['id' => 10],
-                    ['id' => 9],
-                    ['id' => 8],
-                    ['id' => 7],
+                'content' => [
                     ['id' => 6],
+                    ['id' => 7],
+                    ['id' => 8],
+                    ['id' => 9],
+                    ['id' => 10],
+                    ['id' => 11],
+                    ['id' => 12],
+                    ['id' => 13],
+                    ['id' => 14],
+                    ['id' => 15],
                 ],
             ]);
     }
 
+    public function testCantGetAnyMessages()
+    {
+        $member = $this->createMember01();
+        $token = auth()->login($member);
+
+        $channel1 = factory(Channel::class)->create([
+            'id' => 1,
+        ]);
+        $article = factory(Article::class)->create([
+            'id' => 1,
+            'channel_id' => 1,
+            'user_id' => 1,
+        ]);
+
+        $no_messages_article_id = 3;
+        $chat_messages = factory(ChatMessage::class, 15)->create();
+
+        $headers = TestHelper::createHeaderWithAuthorizationToken($token);
+        $response = $this->get(TestHelper::getApiBase().'/articles/'.$no_messages_article_id.'/get-chat-messages', $headers);
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                '_code' => 0,
+                // content should be empgy.
+                'content' => [],
+            ]);
+    }
 
     public function testGetOldChatMessages()
     {
@@ -107,12 +134,12 @@ class ChatMessageTest extends TestCase
             ->assertStatus(200)
             ->assertJson([
                 '_code' => 0,
-                'data' => [
-                    ['id' => 5],
-                    ['id' => 4],
-                    ['id' => 3],
-                    ['id' => 2],
+                'content' => [
                     ['id' => 1],
+                    ['id' => 2],
+                    ['id' => 3],
+                    ['id' => 4],
+                    ['id' => 5],
                 ],
             ]);
     }
