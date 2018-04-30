@@ -140,14 +140,6 @@ li {
   right: 2rem;
   top: -2.7rem;
 }
-.article-tags {
-  margin: .4rem 0;
-  font-size: .6rem;
-}
-.article-tag_list_item {
-  display: inline;
-  margin-right: 1rem;
-}
 .article-meta {
   margin: 1rem 0;
   position: relative;
