@@ -10,12 +10,30 @@ const styles = {
     lineHeight: '48px',
     paddingLeft: '16px',
     width: '100%',
+    display: 'inline-flex',
+    justifyContent: 'space-between',
+    alignContent: 'center',
+  },
+  rightIcon: {
+    paddingTop: '0.25rem',
+    paddingRight: '1rem',
+    cursor: 'pointer',
+    '&:hover': {
+      opacity: 0.6,
+    },
   },
 };
 
 const Subheader = (props) => {
-  const { children, classes } = props;
-  return <h3 className={classes.h3}>{children}</h3>;
+  const { children, rightIcon, classes } = props;
+  if (rightIcon) {
+    return (
+      <h3 className={classes.h3}>
+        <span>{children}</span><span className={classes.rightIcon}>{rightIcon}</span>
+      </h3>
+    );
+  }
+  return <h3 className={classes.h3}><span>{children}</span></h3>;
 };
 
 export default withStyles(styles)(Subheader);
