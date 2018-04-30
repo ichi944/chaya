@@ -33,6 +33,10 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
             Route::put('articles/{id}/pinned', 'ArticleController@pinned');
             Route::put('articles/{id}/unpinned', 'ArticleController@unpinned');
 
+            // Chat on Article
+            Route::get('articles/{id}/get-chat-messages', 'ArticleChatController@index');
+            Route::post('articles/{id}/post-chat-message', 'ArticleChatController@store');
+
             Route::get('profiles/me', 'UserController@profile');
             Route::post('profiles/update-my-avator', 'UserController@updateMyAvator');
             Route::post('profiles/update-me', 'UserController@updateMe');
