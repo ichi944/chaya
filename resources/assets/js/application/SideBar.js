@@ -17,6 +17,9 @@ import Subheader from './atoms/Subheader';
 import ChannelList from './organisms/ChannelList';
 
 const styles = {
+  logo: {
+    cursor: 'pointer',
+  },
   paper: {
     width: '220px',
   },
@@ -30,7 +33,7 @@ const styles = {
 class SideBar extends Component {
   constructor(props) {
     super(props);
-    this.handleClickTitle = this.handleClickTitle.bind(this);
+    this.handleClickLogo = this.handleClickLogo.bind(this);
     this.handleClickMenu = this.handleClickMenu.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleManageAppSettingTouchTap = this.handleManageAppSettingTouchTap.bind(this);
@@ -49,7 +52,7 @@ class SideBar extends Component {
       this.props.clearActiveChannel();
     }
   }
-  handleClickTitle() {
+  handleClickLogo() {
     const { push } = this.props.history;
     push('/app/home');
   }
@@ -117,33 +120,16 @@ class SideBar extends Component {
                 チームメンバーの管理をする...
               </MenuItem>
             </Menu>
-            <Typography variant="title" color="inherit" noWrap>
+            <Typography
+              className={classes.logo}
+              variant="title"
+              color="inherit"
+              noWrap
+              onClick={this.handleClickLogo}
+            >
               CHAYA
             </Typography>
           </Toolbar>
-          {/*
-          <Popover
-            open={this.state.open}
-            anchorEl={this.state.anchorEl}
-            anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-            targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-            onClose={this.handleRequestClose}
-          >
-            <Menu>
-              <MenuItem primaryText="個人の設定をする..." style={styles.menuItem} disabled />
-              <MenuItem
-                primaryText="アプリケーションの管理をする..."
-                style={styles.menuItem}
-                onTouchTap={this.handleManageAppSettingTouchTap}
-              />
-              <MenuItem
-                primaryText="チームメンバーの管理をする..."
-                style={styles.menuItem}
-                onTouchTap={this.handleManageTeamMembersTouchTap}
-              />
-            </Menu>
-          </Popover>
-          */}
         </AppBar>
         <Subheader>{profile.name}</Subheader>
         <p className="sidebar_link-profile"><Link to="/app/profile">プロフィールを編集する...</Link></p>
