@@ -24,10 +24,6 @@ const styles = {
   backButton: {
     margin: '1rem 0 0 1rem',
   },
-  tagIcon: {
-    width: '16px',
-    height: '16px',
-  },
   pin: {
     fontSize: '12px',
   },
@@ -92,14 +88,6 @@ class ArticleDetail extends Component {
                 label="pin"
               />
             </div>
-            <ul className="article-tags">
-              <li className="article-tag_list_item">
-                <LabelIcon style={styles.tagIcon} color={grey400} viewBox="0 0 24 20" />ランチ
-              </li>
-              <li className="article-tag_list_item">
-                <LabelIcon style={styles.tagIcon} color={grey400} viewBox="0 0 24 20" />とりあえず
-              </li>
-            </ul>
           </div>
           <Divider />
           <div className="article-meta">
