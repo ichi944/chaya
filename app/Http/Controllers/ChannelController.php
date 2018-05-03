@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Channel;
 use App\Article;
+use App\Events\ChannelListUpdated;
 use Log;
 
 class ChannelController extends Controller
@@ -62,6 +63,8 @@ class ChannelController extends Controller
         ]);
 
         if ($created) {
+            $channels = $this->channel->all();
+            event(new ChannelListUpdated($channels));
             return response()->json([
                 '_code' => 0,
             ]);

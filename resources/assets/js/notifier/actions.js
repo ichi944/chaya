@@ -1,4 +1,5 @@
 import * as types from './actionTypes';
+import { UPDATE_CHANNEL_LIST } from '../channel/actionTypes';
 
 export function closeNotifier() {
   return {
@@ -12,5 +13,11 @@ export function notifyHello(message) {
     user_id,
     name,
     text,
+  };
+}
+export function channelListUpdated(channels) {
+  return {
+    type: UPDATE_CHANNEL_LIST,
+    channels,
   };
 }
