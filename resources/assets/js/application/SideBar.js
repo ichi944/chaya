@@ -85,6 +85,8 @@ class SideBar extends Component {
   }
   handleClickAddChannel() {
     console.log('@handleClickAddChannel');
+    const { push } = this.props.history;
+    push('/app/channels/add');
   }
   render() {
     const {

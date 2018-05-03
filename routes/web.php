@@ -43,6 +43,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
             Route::post('profiles/update-my-password', 'UserController@updateMyPassword');
 
             Route::get('channels', 'ChannelController@index');
+            Route::post('channels/add', 'ChannelController@add');
             Route::get('channels/{channel_id}/articles', 'ChannelController@articles');
             Route::put('channels/{channel_id}/description', 'ChannelController@updateDescription');
 

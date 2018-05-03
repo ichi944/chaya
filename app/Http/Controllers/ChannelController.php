@@ -54,6 +54,20 @@ class ChannelController extends Controller
         ]);
     }
 
+    public function add(Request $request)
+    {
+        $created = $this->channel->create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+        ]);
+
+        if ($created) {
+            return response()->json([
+                '_code' => 0,
+            ]);
+        }
+    }
+
     /**
      * @param Request $request
      * @param int $chanel_id

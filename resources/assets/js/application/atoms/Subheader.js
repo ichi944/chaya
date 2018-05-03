@@ -13,6 +13,7 @@ const styles = {
     display: 'inline-flex',
     justifyContent: 'space-between',
     alignContent: 'center',
+    verticalAlign: 'baseline',
   },
   rightIcon: {
     paddingTop: '0.25rem',

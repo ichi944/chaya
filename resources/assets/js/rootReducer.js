@@ -9,6 +9,7 @@ import profileReducer from './application/profileReducer';
 import socketReducer from './application/socketReducer';
 import editProfileReducer from './application/editProfileReducer';
 import channelsReducer from './channel/channelsReducer';
+import channelAddReducer from './channel/channelAddReducer';
 import articlesReducer from './articles/articlesReducer';
 import articleChannelReducer from './articles/articleChannelReducer';
 import articleReducer from './articles/articleReducer';
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   socket: socketReducer,
   channels: channelsReducer,
+  channelAdd: channelAddReducer,
   editProfile: editProfileReducer,
   articles: articlesReducer,
   articleChannel: articleChannelReducer,

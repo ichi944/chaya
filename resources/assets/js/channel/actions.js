@@ -36,3 +36,58 @@ export function requestUpdateChannelDescription() {
     });
   };
 }
+
+export function updateChannelAddForm(name, value) {
+  return {
+    type: types.UPDATE_CHANNEL_ADD_FORM,
+    name,
+    value,
+  };
+}
+
+export function channelAddSucceeded() {
+  return {
+    type: types.CHANNEL_ADD_SUCCEEDED,
+  };
+}
+
+export function validateChannelAddFailed(errors) {
+  return {
+    type: types.VALIDATE_CHANNEL_ADD_FAILED,
+    ...errors,
+  };
+}
+export function validateChannelAdd() {
+  return (dispatch, getState) => {
+    const { name, description } = getState().channelAdd;
+    if (name === '') {
+      dispatch(validateChannelAddFailed({
+        nameValid: false,
+        nameErrorMessage: 'チャンネル名は必須です。',
+      }));
+    } else if (name.length > 20) {
+      dispatch(validateChannelAddFailed({
+        nameValid: false,
+        nameErrorMessage: '20文字以内で入力してください。',
+      }));
+    } else {
+      dispatch(requestChannelAdd());
+    }
+  };
+}
+
+export function requestChannelAdd() {
+  return (dispatch, getState) => {
+    const { name, description } = getState().channelAdd;
+    console.log('@requestChannelAdd', name, description);
+    Api.client
+      .post('/channels/add', {
+        name,
+        description,
+      })
+      .then((res) => {
+        console.log(res.data);
+        dispatch(channelAddSucceeded());
+      });
+  };
+}
