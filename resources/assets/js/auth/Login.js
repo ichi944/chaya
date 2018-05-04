@@ -28,6 +28,7 @@ class Login extends Component {
               name="email"
               value={email}
               fullWidth
+              autoFocus
               onChange={handleChange}
               onKeyPress={e => handlePressEnter(e, email, password)}
             />

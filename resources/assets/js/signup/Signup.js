@@ -27,6 +27,7 @@ class Siginup extends Component {
               name="name"
               value={name}
               fullWidth
+              autoFocus
               onChange={handleChange}
               onKeyPress={e => handlePressEnter(e, name, email, password)}
             />
