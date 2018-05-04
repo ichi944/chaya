@@ -61,6 +61,7 @@ class Editor extends Component<void, Props, void> {
                   name="heading"
                   value={heading}
                   fullWidth
+                  autoFocus
                   onChange={handleChange}
                   margin="normal"
                 />
