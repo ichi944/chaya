@@ -195,6 +195,10 @@ export function fetchArticlesByChannel(channel_id: number, options: Object) {
         params: options,
       })
       .then((res) => {
+        if (res.data._code !== 0) {
+          console.log('failed fetching articles');
+          return;
+        }
         dispatch({
           type: types.END_FETCH_ARTICLES_BY_CHANNEL,
           data: res.data,

@@ -13,6 +13,7 @@ use App\User;
 use JWTAuth;
 use App\Helpers\TestHelper;
 use App\Events\ChannelListUpdated;
+use App\Constants\ResponseCode;
 
 class ChannelTest extends TestCase
 {
@@ -37,11 +38,14 @@ class ChannelTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                [
-                    'id' => 1,
-                ],
-                [
-                    'id' => 2,
+                '_code' => ResponseCode::SUCCESS,
+                'channels' => [
+                    [
+                        'id' => 1,
+                    ],
+                    [
+                        'id' => 2,
+                    ],
                 ]
             ]);
     }
@@ -73,6 +77,7 @@ class ChannelTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
+                '_code' => ResponseCode::SUCCESS,
                 'channel' => [
                     'id' => 1,
                 ],
@@ -101,7 +106,7 @@ class ChannelTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                '_code' => 0,
+                '_code' => ResponseCode::SUCCESS,
                 'channel' => [
                     'id' => 1,
                     'description' => 'new'
@@ -135,7 +140,7 @@ class ChannelTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                '_code' => 0,
+                '_code' => ResponseCode::SUCCESS,
                 'channel' => [
                     'name' => $name,
                     'description' => $description,
@@ -173,7 +178,7 @@ class ChannelTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                '_code' => 1,
+                '_code' => ResponseCode::ERROR,
             ]);
         Event::assertNotDispatched(ChannelListUpdated::class);
     }
@@ -209,7 +214,7 @@ class ChannelTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                '_code' => 1,
+                '_code' => ResponseCode::ERROR,
             ]);
         Event::assertNotDispatched(ChannelListUpdated::class);
     }
@@ -240,7 +245,7 @@ class ChannelTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                '_code' => 1,
+                '_code' => ResponseCode::ERROR,
             ]);
         Event::assertNotDispatched(ChannelListUpdated::class);
     }

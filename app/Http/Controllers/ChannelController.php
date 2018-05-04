@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Channel;
 use App\Article;
 use App\Events\ChannelListUpdated;
+use App\Constants\ResponseCode;
 use Validator;
 use Log;
 
@@ -33,7 +34,10 @@ class ChannelController extends Controller
     public function index()
     {
         $channels = $this->channel->all();
-        return response()->json($channels);
+        return response()->json([
+            '_code' => ResponseCode::SUCCESS,
+            'channels' => $channels,
+        ]);
     }
 
     /**
@@ -51,11 +55,15 @@ class ChannelController extends Controller
             ->paginate(\App\Constants\Articles::ITEMS_PER_PAGE);
 
         return response()->json([
+            '_code' => ResponseCode::SUCCESS,
             'channel' => $channel,
             'articles' => $articles,
         ]);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function add(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -64,7 +72,7 @@ class ChannelController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                '_code' => 1,
+                '_code' => ResponseCode::ERROR,
                 'message' => 'invalid parameter',
             ]);
         }
@@ -78,7 +86,7 @@ class ChannelController extends Controller
             $channels = $this->channel->all();
             event(new ChannelListUpdated($channels));
             return response()->json([
-                '_code' => 0,
+                '_code' => ResponseCode::SUCCESS,
                 'channel' => $created,
             ]);
         }
@@ -95,12 +103,12 @@ class ChannelController extends Controller
         $channel->description = $request->input('description');
         if($channel->save()) {
             return response()->json([
-                '_code' => 0,
+                '_code' => ResponseCode::SUCCESS,
                 'channel'=> $channel,
             ]);
         }
         return response()->json([
-            '_code' => 1,
+            '_code' => ResponseCode::ERROR,
         ]);
     }
 
