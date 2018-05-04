@@ -163,11 +163,12 @@ export function successDeleteArticle() {
 }
 
 export function deleteArticleById(id: number) {
-  return function (dispatch: Function) {
+  return function (dispatch: Function, getState: Function) {
     console.log('deleting', id);
+    const currentChannelId = getState().articleChannel.channel.id;
     Api.client.delete(`/articles/${id}`).then(() => {
       dispatch(successDeleteArticle());
-      dispatch(push('/app/articles/'));
+      dispatch(push(`/app/articles/channel/${currentChannelId}`));
     });
   };
 }

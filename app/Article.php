@@ -30,4 +30,9 @@ class Article extends Eloquent
         return $this->hasOne('App\PinnedArticle');
     }
 
+    public function chat_messages()
+    {
+        return $this->hasMany('App\ChatMessage');
+    }
+
 }
