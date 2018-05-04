@@ -8,6 +8,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\{User, Channel, Article, ChatMessage};
 use App\Helpers\TestHelper;
+use App\Constants\ResponseCode;
+use Event;
+use App\Events\ArticleChatPosted;
 
 class ChatMessageTest extends TestCase
 {
@@ -17,7 +20,7 @@ class ChatMessageTest extends TestCase
      *
      * @return void
      */
-    public function testNewChatMessageCreted()
+    public function testNewChatMessageCreated()
     {
         $member = $this->createMember01();
         $token = auth()->login($member);
@@ -30,6 +33,9 @@ class ChatMessageTest extends TestCase
             'channel_id' => 1,
             'user_id' => 1,
         ]);
+
+        Event::fake();
+
         $headers = TestHelper::createHeaderWithAuthorizationToken($token);
         $test_chat_message = 'test message';
         $data = ['chat_message' => $test_chat_message];
@@ -38,12 +44,13 @@ class ChatMessageTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                '_code' => 0,
+                '_code' => ResponseCode::SUCCESS,
             ]);
 
         $this->assertDatabaseHas('chat_messages', [
             'body' => $test_chat_message,
         ]);
+        Event::assertDispatched(ArticleChatPosted::class);
     }
 
     public function testLatestTenChatMessages()
@@ -66,7 +73,7 @@ class ChatMessageTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                '_code' => 0,
+                '_code' => ResponseCode::SUCCESS,
                 'content' => [
                     ['id' => 6],
                     ['id' => 7],
@@ -104,7 +111,7 @@ class ChatMessageTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                '_code' => 0,
+                '_code' => ResponseCode::SUCCESS,
                 // content should be empgy.
                 'content' => [],
             ]);
@@ -133,7 +140,7 @@ class ChatMessageTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                '_code' => 0,
+                '_code' => ResponseCode::SUCCESS,
                 'content' => [
                     ['id' => 1],
                     ['id' => 2],
