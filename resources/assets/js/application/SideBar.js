@@ -141,9 +141,12 @@ class SideBar extends Component {
         <Subheader>{profile.name}</Subheader>
         <p className="sidebar_link-profile"><Link to="/app/profile">プロフィールを編集する...</Link></p>
         <Divider />
-        <Subheader rightIcon={<AddCircleOutlineIcon onClick={this.handleClickAddChannel} />}>
-          Channel
-        </Subheader>
+        {profile.isAdmin
+          ? <Subheader rightIcon={<AddCircleOutlineIcon onClick={this.handleClickAddChannel} />}>
+              Channel
+            </Subheader>
+          : <Subheader>Channel</Subheader>}
+
         <ChannelList
           channels={channels}
           articleChannel={articleChannel}

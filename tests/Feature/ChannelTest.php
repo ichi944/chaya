@@ -6,11 +6,13 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Event;
 use App\Channel;
 use App\Article;
 use App\User;
 use JWTAuth;
 use App\Helpers\TestHelper;
+use App\Events\ChannelListUpdated;
 
 class ChannelTest extends TestCase
 {
@@ -105,6 +107,75 @@ class ChannelTest extends TestCase
                     'description' => 'new'
                 ],
             ]);
+    }
+
+    /**
+     * @return void
+     */
+    public function testAddNewChannel()
+    {
+        $admin = factory(User::class)->create([
+            'id' => 1,
+            'is_verified_with_email' => true,
+            'is_verified_by_admin' => true,
+            'is_admin' => 1,
+        ]);
+        $token = auth()->login($admin);
+
+        Event::fake();
+
+        $name = 'new channel';
+        $description = 'some text';
+        $payload = [
+            'name' => $name,
+            'description' => $description,
+        ];
+        $headers = TestHelper::createHeaderWithAuthorizationToken($token);
+        $response = $this->post(TestHelper::getApiBase().'/channels/add', $payload, $headers);
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                '_code' => 0,
+                'channel' => [
+                    'name' => $name,
+                    'description' => $description,
+                ],
+            ]);
+        Event::assertDispatched(ChannelListUpdated::class, function ($e) {
+            // assert only 1 channel exists.
+            return $e->channels->count() === 1;
+        });
+    }
+
+    /**
+     * @return void
+     */
+    public function testGeneralUserCantAddNewChannel()
+    {
+        $admin = factory(User::class)->create([
+            'id' => 1,
+            'is_verified_with_email' => true,
+            'is_verified_by_admin' => true,
+            'is_admin' => 0,
+        ]);
+        $token = auth()->login($admin);
+
+        Event::fake();
+
+        $name = 'new channel';
+        $description = 'some text';
+        $payload = [
+            'name' => $name,
+            'description' => $description,
+        ];
+        $headers = TestHelper::createHeaderWithAuthorizationToken($token);
+        $response = $this->post(TestHelper::getApiBase().'/channels/add', $payload, $headers);
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                '_code' => 1,
+            ]);
+        Event::assertNotDispatched(ChannelListUpdated::class);
     }
     /**
      * return a member

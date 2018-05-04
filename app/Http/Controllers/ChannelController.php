@@ -67,6 +67,7 @@ class ChannelController extends Controller
             event(new ChannelListUpdated($channels));
             return response()->json([
                 '_code' => 0,
+                'channel' => $created,
             ]);
         }
     }
