@@ -147,6 +147,73 @@ class ChannelTest extends TestCase
         });
     }
 
+
+    /**
+     * @return void
+     */
+    public function testFailedAddNewChannelByInvalidParams()
+    {
+        $admin = factory(User::class)->create([
+            'id' => 1,
+            'is_verified_with_email' => true,
+            'is_verified_by_admin' => true,
+            'is_admin' => 1,
+        ]);
+        $token = auth()->login($admin);
+
+        Event::fake();
+
+        $description = 'some text';
+        $payload = [
+            // not provide 'name'
+            'description' => $description,
+        ];
+        $headers = TestHelper::createHeaderWithAuthorizationToken($token);
+        $response = $this->post(TestHelper::getApiBase().'/channels/add', $payload, $headers);
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                '_code' => 1,
+            ]);
+        Event::assertNotDispatched(ChannelListUpdated::class);
+    }
+
+
+    /**
+     * @return void
+     */
+    public function testChannelNameMustBeUnique()
+    {
+        $admin = factory(User::class)->create([
+            'id' => 1,
+            'is_verified_with_email' => true,
+            'is_verified_by_admin' => true,
+            'is_admin' => 1,
+        ]);
+        $token = auth()->login($admin);
+
+        $name = 'channel1';
+        $description = 'some text';
+        $current_channel = factory(Channel::class)->create([
+            'name' => $name,
+        ]);
+
+        Event::fake();
+
+        $payload = [
+            'name' => $name,
+            'description' => $description,
+        ];
+        $headers = TestHelper::createHeaderWithAuthorizationToken($token);
+        $response = $this->post(TestHelper::getApiBase().'/channels/add', $payload, $headers);
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                '_code' => 1,
+            ]);
+        Event::assertNotDispatched(ChannelListUpdated::class);
+    }
+
     /**
      * @return void
      */
