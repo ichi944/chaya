@@ -24,3 +24,7 @@ Broadcast::channel('shared', function () {
 Broadcast::channel('articleChat', function () {
     return true;
 });
+
+Broadcast::channel('channel', function () {
+    return true;
+});

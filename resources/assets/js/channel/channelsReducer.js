@@ -27,6 +27,12 @@ export default function channelsReducer(state = initialState, action) {
         channels: updated,
       };
     }
+    case types.UPDATE_CHANNEL_LIST: {
+      return {
+        ...state,
+        channels: action.channels,
+      };
+    }
     default: {
       return state;
     }

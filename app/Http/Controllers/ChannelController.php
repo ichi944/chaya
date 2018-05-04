@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Channel;
 use App\Article;
+use App\Events\ChannelListUpdated;
+use Validator;
 use Log;
 
 class ChannelController extends Controller
@@ -52,6 +54,34 @@ class ChannelController extends Controller
             'channel' => $channel,
             'articles' => $articles,
         ]);
+    }
+
+    public function add(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:channels|max:20',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                '_code' => 1,
+                'message' => 'invalid parameter',
+            ]);
+        }
+
+        $created = $this->channel->create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+        ]);
+
+        if ($created) {
+            $channels = $this->channel->all();
+            event(new ChannelListUpdated($channels));
+            return response()->json([
+                '_code' => 0,
+                'channel' => $created,
+            ]);
+        }
     }
 
     /**

@@ -37,15 +37,22 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
             Route::get('articles/{id}/get-chat-messages', 'ArticleChatController@index');
             Route::post('articles/{id}/post-chat-message', 'ArticleChatController@store');
 
+            // Profile
             Route::get('profiles/me', 'UserController@profile');
             Route::post('profiles/update-my-avator', 'UserController@updateMyAvator');
             Route::post('profiles/update-me', 'UserController@updateMe');
             Route::post('profiles/update-my-password', 'UserController@updateMyPassword');
 
+            // Channel
             Route::get('channels', 'ChannelController@index');
             Route::get('channels/{channel_id}/articles', 'ChannelController@articles');
             Route::put('channels/{channel_id}/description', 'ChannelController@updateDescription');
 
+            Route::group(['middleware' => ['checkAdmin']], function() {
+                 Route::post('channels/add', 'ChannelController@add');
+            });
+
+            // Manage Members
             Route::get('team-members', 'TeamMemberController@index');
 
             Route::group(['middleware' => ['checkAdmin']], function() {

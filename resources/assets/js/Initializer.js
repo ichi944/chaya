@@ -16,6 +16,7 @@ import SignupContainer from './signup/SignupContainer';
 import SignupCompleteContainer from './signup/SignupCompleteContainer';
 import VerifyUserContainer from './signup/VerifyUserContainer';
 import HomeContainer from './home/HomeContainer';
+import ChannelAddContainer from './channel/ChannelAddContainer';
 import ArticleIndexContainer from './articles/ArticleIndexContainer';
 import ArticleChannelContainer from './articles/ArticleChannelContainer';
 import ArticleDetailContainer from './articles/ArticleDetailContainer';
@@ -23,6 +24,7 @@ import ArticleAddContainer from './articles/ArticleAddContainer';
 import ArticleEditContainer from './articles/ArticleEditContainer';
 import TeamMembersContainer from './manage_team_members/TeamMembersContainer';
 import Notifier from './notifier/Notifier';
+import ChannelNotifier from './notifier/ChannelNotifier';
 
 const NotFound = () => <div>404 not found</div>;
 
@@ -85,6 +87,7 @@ class Initializer extends Component {
               <Switch>
                 <Route exact path="/app/login" component={LoginContainer} />
                 <Route exact path="/app/home" component={HomeContainer} />
+                <Route exact path="/app/channels/add" component={ChannelAddContainer} />
                 <Route exact path="/app/articles" component={ArticleIndexContainer} />
                 <Route
                   exact
@@ -100,6 +103,7 @@ class Initializer extends Component {
               </Switch>
             </div>
             <Notifier />
+            <ChannelNotifier />
           </div>
         </ConnectedRouter>
       </div>

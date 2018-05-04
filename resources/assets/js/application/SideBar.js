@@ -8,6 +8,7 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
+import AddCircleOutlineIcon from 'material-ui-icons/AddCircleOutline';
 import Divider from 'material-ui/Divider';
 
 import { withStyles } from 'material-ui/styles';
@@ -39,6 +40,7 @@ class SideBar extends Component {
     this.handleManageAppSettingTouchTap = this.handleManageAppSettingTouchTap.bind(this);
     this.handleManageTeamMembersTouchTap = this.handleManageTeamMembersTouchTap.bind(this);
     this.handleClickChannelListItem = this.handleClickChannelListItem.bind(this);
+    this.handleClickAddChannel = this.handleClickAddChannel.bind(this);
     this.state = {
       open: false,
       anchorEl: null,
@@ -80,6 +82,11 @@ class SideBar extends Component {
   handleClickChannelListItem(channelId) {
     const { push } = this.props.history;
     push(`/app/articles/channel/${channelId}`);
+  }
+  handleClickAddChannel() {
+    console.log('@handleClickAddChannel');
+    const { push } = this.props.history;
+    push('/app/channels/add');
   }
   render() {
     const {
@@ -134,7 +141,12 @@ class SideBar extends Component {
         <Subheader>{profile.name}</Subheader>
         <p className="sidebar_link-profile"><Link to="/app/profile">プロフィールを編集する...</Link></p>
         <Divider />
-        <Subheader>Channel</Subheader>
+        {profile.isAdmin
+          ? <Subheader rightIcon={<AddCircleOutlineIcon onClick={this.handleClickAddChannel} />}>
+              Channel
+            </Subheader>
+          : <Subheader>Channel</Subheader>}
+
         <ChannelList
           channels={channels}
           articleChannel={articleChannel}
