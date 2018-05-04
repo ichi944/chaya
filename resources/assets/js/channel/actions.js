@@ -12,8 +12,11 @@ export function fetchChannelIsSucceeded(channels) {
 export function fetchChannel() {
   return (dispatch) => {
     Api.client.get('/channels').then((res) => {
-      console.log('@fetch channel', res);
-      dispatch(fetchChannelIsSucceeded(res.data));
+      if (res.data._code !== 0) {
+        console.log('failed to load channel');
+        return;
+      }
+      dispatch(fetchChannelIsSucceeded(res.data.channels));
     });
   };
 }

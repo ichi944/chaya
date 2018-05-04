@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\ChatMessage;
 use App\Events\ArticleChatPosted;
 use Log;
+use App\Constants\ResponseCode;
 
 class ArticleChatController extends Controller
 {
@@ -38,7 +39,7 @@ class ArticleChatController extends Controller
         }
         if ($max_id === 0) {
             return response()->json([
-                '_code' => 1,
+                '_code' => ResponseCode::ERROR,
                 'message' => 'massage does not exists',
             ]);
         }
@@ -54,7 +55,7 @@ class ArticleChatController extends Controller
             ->reverse()
             ->values();
         return response()->json([
-            '_code' => 0,
+            '_code' => ResponseCode::SUCCESS,
             'content' => $chat_messages,
         ]);
     }
@@ -76,6 +77,6 @@ class ArticleChatController extends Controller
             ->with('user')
             ->first();
         event(new ArticleChatPosted(['chat_message' => $new_message]));
-        return response()->json(['_code' => 0]);
+        return response()->json(['_code' => ResponseCode::SUCCESS]);
     }
 }

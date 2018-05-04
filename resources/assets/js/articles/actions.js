@@ -163,11 +163,12 @@ export function successDeleteArticle() {
 }
 
 export function deleteArticleById(id: number) {
-  return function (dispatch: Function) {
+  return function (dispatch: Function, getState: Function) {
     console.log('deleting', id);
+    const currentChannelId = getState().articleChannel.channel.id;
     Api.client.delete(`/articles/${id}`).then(() => {
       dispatch(successDeleteArticle());
-      dispatch(push('/app/articles/'));
+      dispatch(push(`/app/articles/channel/${currentChannelId}`));
     });
   };
 }
@@ -195,6 +196,10 @@ export function fetchArticlesByChannel(channel_id: number, options: Object) {
         params: options,
       })
       .then((res) => {
+        if (res.data._code !== 0) {
+          console.log('failed fetching articles');
+          return;
+        }
         dispatch({
           type: types.END_FETCH_ARTICLES_BY_CHANNEL,
           data: res.data,

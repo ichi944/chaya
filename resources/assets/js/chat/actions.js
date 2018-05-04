@@ -13,9 +13,11 @@ export function fetchLatestMessagesSucceeded(messages) {
 export function requestLatestMessages(article_id) {
   return (dispatch) => {
     Api.client.get(`/articles/${article_id}/get-chat-messages`).then((res) => {
-      if (res.data._code === 0) {
-        dispatch(fetchLatestMessagesSucceeded(res.data.content));
+      if (res.data._code !== 0) {
+        console.log('failed to get chat messages');
+        return;
       }
+      dispatch(fetchLatestMessagesSucceeded(res.data.content));
     });
   };
 }
@@ -44,11 +46,10 @@ export function requestMessages(article_id, max_id) {
         },
       })
       .then((res) => {
-        if (res.data._code === 0) {
-          dispatch(fetchMessagesSucceeded(res.data.content));
-        } else {
+        if (res.data._code !== 0) {
           dispatch(noMessagesInfoShown());
         }
+        dispatch(fetchMessagesSucceeded(res.data.content));
       });
   };
 }
@@ -80,6 +81,10 @@ export function requestPostChatMessage(chat_message, article_id) {
         chat_message,
       })
       .then((res) => {
+        if (res.data._code !== 0) {
+          console.log('failed to post a chat message');
+          return;
+        }
         dispatch(successPostChatMessage());
       }); // Api
   };

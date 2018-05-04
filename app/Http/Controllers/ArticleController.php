@@ -133,6 +133,13 @@ class ArticleController extends Controller
         if($pinned) {
             $pinned->delete();
         }
+
+        // delete the chat messages too.
+        $chat_messages = $target->chat_messages();
+        if ($chat_messages) {
+            $chat_messages->delete();
+        }
+
         $deleted = $target->delete();
 
         if($deleted) {

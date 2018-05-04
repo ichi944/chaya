@@ -50,7 +50,10 @@ class SideBar extends Component {
     const { router } = this.props;
     const currentChannelId = this.props.articleChannel.channel.id;
     // NOTE: If you do not clear the active channel, add that url to regex.
-    if (!/(channel)|(articles\/add)/.test(router.location.pathname) && currentChannelId) {
+    if (
+      !/(articles\/channel)|(articles\/add)|(articles\/[0-9]+)/.test(router.location.pathname) &&
+      currentChannelId
+    ) {
       this.props.clearActiveChannel();
     }
   }
