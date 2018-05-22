@@ -6,7 +6,8 @@ import { FormGroup, FormControlLabel } from 'material-ui/Form';
 import LabelIcon from 'material-ui-icons/Label';
 import ModeEditIcon from 'material-ui-icons/ModeEdit';
 import AddIcon from 'material-ui-icons/Add';
-
+import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+import AttachmentIcon from 'material-ui-icons/Attachment';
 import { grey400 } from 'material-ui/colors';
 
 import { withStyles } from 'material-ui/styles';
@@ -14,6 +15,7 @@ import { withStyles } from 'material-ui/styles';
 import parseToMarkdown from '../services/parseToMarkdown';
 import ArticleChatContainer from '../chat/ArticleChatContainer';
 import { ConfirmDeleteArticleDialog } from './organisms/Dialogs';
+import CurrentAttachmentList from './molecules/CurrentAttachmentList';
 
 const styles = {
   button: {
@@ -64,6 +66,7 @@ class ArticleDetail extends Component {
       id,
       heading,
       body,
+      current_attachments,
       user,
       created_at,
       pinned,
@@ -71,7 +74,12 @@ class ArticleDetail extends Component {
     } = this.props.article;
     const { classes } = this.props;
     const { authorizationToken } = this.props.auth;
-    const { handleConfirmDeleteArticle, handleCancelDelete, handleDelete } = this.props;
+    const {
+      handleConfirmDeleteArticle,
+      handleCancelDelete,
+      handleDelete,
+      handleDownloadAttachment,
+    } = this.props;
     if (!id) {
       return <div />;
     }
@@ -105,6 +113,13 @@ class ArticleDetail extends Component {
             className="markdown-body article-body"
             dangerouslySetInnerHTML={{ __html: parseToMarkdown(body) }}
           />
+
+          <CurrentAttachmentList
+            attachments={current_attachments}
+            handleDownloadAttachment={handleDownloadAttachment}
+          />
+
+          <Divider />
           <div className="article-actions">
             <Button onClick={handleConfirmDeleteArticle}>削除</Button>
           </div>

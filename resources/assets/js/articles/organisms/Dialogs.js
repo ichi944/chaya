@@ -37,6 +37,32 @@ export const ArticleIsUpdatedDialog = ({ open, handleClose }: ArticleIsUpdatedDi
   );
 };
 
+type ConfirmDeleteCurrentAttachmentDialogProps = {
+  open: boolean,
+  handleCancel: Function,
+  handleSubmit: Function,
+};
+export const ConfirmDeleteCurrentAttachmentDialog = ({
+  open,
+  handleCancel,
+  handleSubmit,
+}: ConfirmDeleteCurrentAttachmentDialogProps) => {
+  return (
+    <Dialog open={open} onClose={handleCancel}>
+      <DialogContent>
+        <DialogContentText>
+          本当に削除しますか?<br />
+          添付ファイルはすぐに削除され、この操作は取り消せません。
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCancel}>やめておく</Button>
+        <Button color="primary" onClick={handleSubmit}>削除する</Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
 type ConfirmDeleteArticleDialogProps = {
   open: boolean,
   handleCancel: Function,

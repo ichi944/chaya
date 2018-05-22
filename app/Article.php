@@ -35,4 +35,9 @@ class Article extends Eloquent
         return $this->hasMany('App\ChatMessage');
     }
 
+    public function article_attachments()
+    {
+        return $this->hasMany('App\ArticleAttachment');
+    }
+
 }

@@ -9,6 +9,11 @@ import {
   clearArticleEdit,
   requestUpdateArticle,
   confirmedSuccessUpdating,
+  attachmentAddedArticleEditForm,
+  deleteAttachementOnArticleEditForm,
+  showDialogDeleteCurrentAtttachment,
+  closeDialogDeleteCurrentAttachment,
+  requestDeleteCurrentAttachment,
 } from './actions';
 
 const mapStateToProps = ({ articleEdit }) => {
@@ -24,6 +29,21 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     handleChange(e) {
       dispatch(updateArticleEditForm(e.target.name, e.target.value));
+    },
+    handleDrop(attachment) {
+      dispatch(attachmentAddedArticleEditForm(attachment));
+    },
+    handleDeleteAttachment(index) {
+      dispatch(deleteAttachementOnArticleEditForm(index));
+    },
+    handleShowDialogDeleteCurrentAttachment(attachment) {
+      dispatch(showDialogDeleteCurrentAtttachment(attachment));
+    },
+    handleCloseDialogDeleteCurrentAttachment() {
+      dispatch(closeDialogDeleteCurrentAttachment());
+    },
+    handleDeleteCurrentAttachment() {
+      dispatch(requestDeleteCurrentAttachment());
     },
     handleTogglePreview() {
       dispatch(togglePreviewModeOnEditForm());
