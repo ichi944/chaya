@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { configure, shallow, mount, render } from 'enzyme';
 import { assert, expect } from 'chai';
-import { FlatButton } from 'material-ui';
+import { FlatButton } from '@material-ui/core';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Adapter from 'enzyme-adapter-react-16';
 import { PageNavigation } from './PageNavigation';

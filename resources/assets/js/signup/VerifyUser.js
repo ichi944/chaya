@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 
 class VerifyUser extends Component {
   componentDidMount() {

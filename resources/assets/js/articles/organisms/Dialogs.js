@@ -1,7 +1,10 @@
 // @flow
 import React from 'react';
-import { Button, TextField } from 'material-ui';
-import Dialog, { DialogActions, DialogContent, DialogContentText } from 'material-ui/Dialog';
+import { Button, TextField } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContentText from '@material-ui/core/DialogContentText';
 
 type ArticleIsPublishedDialogProps = {
   open: boolean,

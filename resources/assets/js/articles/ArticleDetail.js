@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Paper, Divider, Checkbox, Button, Avatar } from 'material-ui';
-import { FormGroup, FormControlLabel } from 'material-ui/Form';
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import LabelIcon from '@material-ui/icons/Label';
+import ModeEditIcon from '@material-ui/icons/ModeEdit';
+import AddIcon from '@material-ui/icons/Add';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import AttachmentIcon from '@material-ui/icons/Attachment';
 
-import LabelIcon from 'material-ui-icons/Label';
-import ModeEditIcon from 'material-ui-icons/ModeEdit';
-import AddIcon from 'material-ui-icons/Add';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import AttachmentIcon from 'material-ui-icons/Attachment';
-import { grey400 } from 'material-ui/colors';
-
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import parseToMarkdown from '../services/parseToMarkdown';
 import ArticleChatContainer from '../chat/ArticleChatContainer';

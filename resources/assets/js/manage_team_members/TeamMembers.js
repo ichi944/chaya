@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Paper, Button, Avatar, Divider } from 'material-ui';
-import { FormControlLabel } from 'material-ui/Form';
-import Switch from 'material-ui/Switch';
-import Card, { CardActions, CardContent, CardHeader, CardText } from 'material-ui/Card';
-import { grey } from 'material-ui/colors';
+import { Paper, Button, Avatar, Divider } from '@material-ui/core';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import grey from '@material-ui/core/colors/grey';
 import Subheader from '../application/atoms/Subheader';
 
 const styles = {

@@ -1,14 +1,14 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Paper, TextField, Button } from 'material-ui';
-import { FormControlLabel } from 'material-ui/Form';
-import Grid from 'material-ui/Grid';
-import Switch from 'material-ui/Switch';
-import Divider from 'material-ui/Divider';
-import Typography from 'material-ui/Typography';
-import grey from 'material-ui/colors/grey';
-import { withStyles } from 'material-ui/styles';
+import { Paper, TextField, Button } from '@material-ui/core';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
+import Switch from '@material-ui/core/Switch';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+import grey from '@material-ui/core/colors/grey';
+import { withStyles } from '@material-ui/core/styles';
 import parseToMarkdown from '../../services/parseToMarkdown';
 import EditorHeader from '../molecules/EditorHeader';
 import DropAttachment from './DropAttachment';

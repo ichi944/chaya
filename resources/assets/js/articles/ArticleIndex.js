@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Paper, Divider, Subheader } from 'material-ui';
+import { Paper, Divider, Subheader } from '@material-ui/core';
 
 import SearcherContainer from './SearcherContainer';
 import { ArticleListItem } from './organisms/ArticleListItem';

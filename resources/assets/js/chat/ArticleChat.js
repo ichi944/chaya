@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
-import Grid from 'material-ui/Grid';
-import ButtonBase from 'material-ui/ButtonBase';
-import Typography from 'material-ui/Typography';
-import { Paper, Divider, TextField, Button, Avatar } from 'material-ui';
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import { FormControlLabel } from 'material-ui/Form';
-import Fade from 'material-ui/transitions/Fade';
-import grey from 'material-ui/colors/grey';
-import { withStyles } from 'material-ui/styles';
+import Grid from '@material-ui/core/Grid';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Fade from '@material-ui/core/Fade';
+import grey from '@material-ui/core/colors/grey';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   wrapper: {

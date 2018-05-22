@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Paper, Button, TextField, Snackbar } from 'material-ui';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import { AvatorEditor } from './organisms/AvatorEditor';
 import Subheader from './atoms/Subheader';

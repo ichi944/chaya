@@ -1,9 +1,9 @@
 // @flow
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import grey from 'material-ui/colors/grey';
+import grey from '@material-ui/core/colors/grey';
 
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   wrapper: {
