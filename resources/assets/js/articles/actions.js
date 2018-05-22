@@ -357,6 +357,10 @@ export function downloadAttachment(id: number, filename: string) {
       responseType: 'blob',
     };
     Api.client.post(`article-attachments/${id}`, {}, options).then((res) => {
+      if (res.status !== 200) {
+        alert('can not download the attachment. something went wrong.');
+        return;
+      }
       const url = window.URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement('a');
       link.href = url;

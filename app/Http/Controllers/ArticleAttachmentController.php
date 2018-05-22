@@ -26,21 +26,13 @@ class ArticleAttachmentController extends Controller
         $attachment = $this->article_attachment->find($id);
         // TODO: check permission
         $path = storage_path('app/article_attachment/'.$attachment->article_id.'/'.$attachment->backend_filename);
-        Log::Info('path of download file is: ');
-        Log::Info($path);
-        // if (!File::exists($path)) {
-        //     abort(404);
-        // }
+
+        Log::Info('path of download file is: '.$path);
+
+        if (!File::exists($path)) {
+            abort(404);
+        }
         return response()->download($path);
-
-        // $file = File::get($path);
-        // $type = File::mimeType($path);
-
-        // $response = Response::make($file, 200);
-        // $response->header("Content-Type", $type);
-
-        // return $response;
-
     }
 
     public function delete(Request $request, $id)
