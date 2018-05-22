@@ -5,6 +5,7 @@ type ArticleState = {
   +id: ?number,
   +heading: string,
   +body: string,
+  +current_attachments: Array,
   +created_at: string,
   +user: {
     +name: string,
@@ -17,6 +18,7 @@ const initialState = {
   id: null,
   heading: '',
   body: '',
+  current_attachments: [],
   created_at: '',
   user: {
     name: '',

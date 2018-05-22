@@ -9,6 +9,7 @@ import {
   closeConfirmDeleteArticleDialog,
   requestPinArticle,
   requestUnpinArticle,
+  downloadAttachment,
 } from './actions';
 
 const mapStateToProps = ({ article, auth }) => {
@@ -40,6 +41,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleUnpinArticle(id) {
       dispatch(requestUnpinArticle(id));
+    },
+    handleDownloadAttachment(id, filename) {
+      dispatch(downloadAttachment(id, filename));
     },
   };
 };

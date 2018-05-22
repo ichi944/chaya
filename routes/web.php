@@ -37,6 +37,10 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
             Route::get('articles/{id}/get-chat-messages', 'ArticleChatController@index');
             Route::post('articles/{id}/post-chat-message', 'ArticleChatController@store');
 
+            // attachment on article.
+            Route::post('article-attachments/{id}', 'ArticleAttachmentController@download');
+            Route::delete('article-attachments/{id}', 'ArticleAttachmentController@delete');
+
             // Profile
             Route::get('profiles/me', 'UserController@profile');
             Route::post('profiles/update-my-avator', 'UserController@updateMyAvator');

@@ -7,9 +7,20 @@ import { ArticleIsPublishedDialog } from './organisms/Dialogs';
 class ArticleAdd extends Component {
   constructor(props) {
     super(props);
+    this.handleDrop = this.handleDrop.bind(this);
+    this.handleDeleteAttachment = this.handleDeleteAttachment.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
+  }
+  handleDrop(acceptedFiles) {
+    acceptedFiles.forEach((file) => {
+      this.props.handleDrop(file);
+    });
+  }
+  handleDeleteAttachment(index) {
+    console.log('@handleDeleteAttachment', index);
+    this.props.handleDeleteAttachment(index);
   }
   handleCancel() {
     const { history, clearEditorContent } = this.props;
@@ -17,10 +28,13 @@ class ArticleAdd extends Component {
     history.goBack();
   }
   handleSubmit() {
-    const { heading, body, currentChannelId } = this.props;
+    const {
+      heading, body, attachments, currentChannelId,
+    } = this.props;
     this.props.handleSubmit({
       heading,
       body,
+      attachments,
       channelId: currentChannelId,
     });
   }
@@ -39,7 +53,7 @@ class ArticleAdd extends Component {
       );
     }
     const {
-      heading, body, onPreview, mode, confirmSuccessDialogOpen,
+      heading, body, attachments, onPreview, mode, confirmSuccessDialogOpen,
     } = this.props;
     const { handleChange, handleTogglePreview } = this.props;
 
@@ -50,9 +64,12 @@ class ArticleAdd extends Component {
           editorHeaderText={`${this.props.currentChannelName} チャンネルに新しく書く...`}
           heading={heading}
           body={body}
+          attachments={attachments}
           onPreview={onPreview}
           mode={mode}
           handleChange={handleChange}
+          handleDrop={this.handleDrop}
+          handleDeleteAttachment={this.handleDeleteAttachment}
           handleSubmit={this.handleSubmit}
           handleSubmitText="公開する"
           handleCancel={this.handleCancel}

@@ -30,7 +30,7 @@ export function fetchArticleById(id: number) {
       type: types.START_FETCH_ARTICLE,
     });
 
-    Api.client.get(`/articles/${id}`).then((res) => {
+    Api.client.get(`/articles/${id}?timestamp=${new Date().getTime()}`).then((res) => {
       console.log('got article');
       dispatch({
         type: types.END_FETCH_ARTICLE,
@@ -54,6 +54,19 @@ export function updateArticleAddForm(name: string, value: any) {
   };
 }
 
+export function fileAddedArticleAddForm(attachment: any) {
+  return {
+    type: types.FILE_ADDED_ARTICLE_ADD_FORM,
+    attachment,
+  };
+}
+
+export function deleteAttachementByIndex(index: number) {
+  return {
+    type: types.DELETE_ATTACHMENT_BY_INDEX,
+    index,
+  };
+}
 export function togglePreviewMode() {
   return {
     type: types.TOGGLE_PREVIEW_MODE,
@@ -73,7 +86,17 @@ export function successCreateArticle() {
 }
 export function createNewArticle(data: Object) {
   return function (dispatch: Function) {
-    Api.client.post('/articles/', data).then((res: Object) => {
+    const {
+      heading, body, attachments, channelId,
+    } = data;
+    const formData = new FormData();
+    attachments.forEach((f) => {
+      formData.append('attachments[]', f);
+    });
+    formData.append('heading', heading);
+    formData.append('body', body);
+    formData.append('channelId', channelId);
+    Api.client.post('/articles/', formData).then((res: Object) => {
       console.log(res.data);
 
       dispatch(successCreateArticle());
@@ -117,15 +140,76 @@ export function clearArticleEdit() {
   };
 }
 
+export function attachmentAddedArticleEditForm(attachment: any) {
+  return {
+    type: types.ATTACHMENT_ADDED_ARTICLE_EDIT_FORM,
+    attachment,
+  };
+}
+
+export function deleteAttachementOnArticleEditForm(index: number) {
+  return {
+    type: types.DELETE_ATTACHMENT_ARTICLE_EDIT_FORM,
+    index,
+  };
+}
+
+export function showDialogDeleteCurrentAtttachment(attachment) {
+  const id = attachment.id;
+  const name = attachment.name;
+  return {
+    type: types.SHOW_DIALOG_DELETE_CURRENT_ATTACHMENT,
+    id,
+    name,
+  };
+}
+
+export function closeDialogDeleteCurrentAttachment() {
+  return {
+    type: types.CLOSE_DIALOG_DELETE_CURRENT_ATTACHMENT,
+  };
+}
+export function deleteCurrentAttachmentSucceeded(current_attachments) {
+  return {
+    type: types.DELETE_CURRENT_ATTACHMENT_SUCCEEDED,
+    current_attachments,
+  };
+}
+export function requestDeleteCurrentAttachment() {
+  return (dispatch: Function, getState: Function) => {
+    const id = getState().articleEdit.deletingAttachmentId;
+    Api.client.delete(`article-attachments/${id}`).then((res) => {
+      if (res.data._code !== 0) {
+        console.log('error: failed to delete an article attachment');
+        return;
+      }
+      const current_attachments = res.data.current_attachments;
+      dispatch(deleteCurrentAttachmentSucceeded(current_attachments));
+      dispatch(closeDialogDeleteCurrentAttachment());
+    });
+  };
+}
+
 export function successUpdateArticle() {
   return {
     type: types.SUCCESS_UPDATE_ARTICLE,
   };
 }
 export function requestUpdateArticle(data: Object) {
-  return function (dispatch: Function) {
+  return function (dispatch: Function, getState: Function) {
     const id: number = data.id;
-    Api.client.put(`/articles/${id}`, data).then(() => {
+    const attachments = getState().articleEdit.attachments;
+    const formData = new FormData();
+    attachments.forEach((f) => {
+      formData.append('attachments[]', f);
+    });
+    formData.append('heading', data.heading);
+    formData.append('body', data.body);
+    // axios.put() doesn't work. this is workaround.
+    // https://github.com/laravel/framework/issues/13457
+    formData.append('_method', 'PUT');
+
+    Api.client.post(`/articles/${id}`, formData).then(() => {
       dispatch(successUpdateArticle());
     });
   };
@@ -263,6 +347,25 @@ export function requestUnpinArticle(article_id: number) {
       if (res.data._code === 0) {
         dispatch(successUnpinArticle(article_id));
       }
+    });
+  };
+}
+
+export function downloadAttachment(id: number, filename: string) {
+  return (dispatch: Function) => {
+    const options = {
+      responseType: 'blob',
+    };
+    Api.client.post(`article-attachments/${id}`, {}, options).then((res) => {
+      if (res.status !== 200) {
+        alert('can not download the attachment. something went wrong.');
+        return;
+      }
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', filename);
+      link.click();
     });
   };
 }

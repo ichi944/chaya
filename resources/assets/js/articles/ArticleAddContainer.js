@@ -4,6 +4,8 @@ import ArticleAdd from './ArticleAdd';
 
 import {
   updateArticleAddForm,
+  fileAddedArticleAddForm,
+  deleteAttachementByIndex,
   togglePreviewMode,
   clearArticleAdd,
   createNewArticle,
@@ -22,6 +24,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleChange(e) {
       dispatch(updateArticleAddForm(e.target.name, e.target.value));
+    },
+    handleDrop(attachment) {
+      dispatch(fileAddedArticleAddForm(attachment));
+    },
+    handleDeleteAttachment(index) {
+      dispatch(deleteAttachementByIndex(index));
     },
     clearEditorContent() {
       dispatch(clearArticleAdd());

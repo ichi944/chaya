@@ -6,6 +6,7 @@ type ArticleAddState = {
   +channelName: ?string,
   +heading: string,
   +body: string,
+  +attachments: Array<any>,
   +onPreview: boolean,
   +mode: string,
   +confirmSuccessDialogOpen: boolean,
@@ -21,6 +22,7 @@ const initialState = {
   channelName: '',
   heading: '',
   body: '',
+  attachments: [],
   onPreview: false,
   mode: 'new',
   confirmSuccessDialogOpen: false,
@@ -35,6 +37,22 @@ export default function articleAddReducer(
       return {
         ...state,
         [action.name]: action.value,
+      };
+    }
+    case types.FILE_ADDED_ARTICLE_ADD_FORM: {
+      return {
+        ...state,
+        attachments: [...state.attachments, action.attachment],
+      };
+    }
+    case types.DELETE_ATTACHMENT_BY_INDEX: {
+      // 'splice' doesn't return updated array.
+      // we need to copy an array first and run splice.
+      const work = [...state.attachments];
+      work.splice(action.index, 1);
+      return {
+        ...state,
+        attachments: work,
       };
     }
     case types.TOGGLE_PREVIEW_MODE: {

@@ -5,19 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JWTAuth;
 use App\Article;
+use App\ArticleAttachment;
 use App\PinnedArticle;
 use App\Constants\Articles;
 
+use Storage;
 use Log;
 
 class ArticleController extends Controller
 {
     private $article;
 
-    public function __construct(Article $article, PinnedArticle $pinned_article)
+    public function __construct(
+        Article $article,
+        PinnedArticle $pinned_article,
+        ArticleAttachment $article_attachment
+    )
     {
         $this->article = $article;
         $this->pinned_article = $pinned_article;
+        $this->article_attachment = $article_attachment;
     }
     /**
      * Display a listing of the resource.
@@ -65,7 +72,21 @@ class ArticleController extends Controller
         $this->article->heading = $request->heading;
         $this->article->body = $request->body;
         $this->article->channel_id = $request->channelId;
+
         $created = $this->article->save();
+
+        if ($request->hasFile('attachments')) {
+            foreach($request->attachments as $attachment) {
+                $path = $attachment->store('article_attachment/'.$this->article->id);
+                $this->article_attachment->create([
+                    'user_id' => $current_user->id,
+                    'article_id' => $this->article->id,
+                    'client_filename' => $attachment->getClientOriginalName(),
+                    'backend_filename' => basename($path),
+                ]);
+            }
+        }
+
         if($created) {
             Log::Info('a new article is created.');
             return response()->json($this->article);
@@ -82,8 +103,22 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $data = $this->article->with('user')->with('pinned')->find($id);
-        return response()->json($data);
+        $data = $this->article
+            ->with('user')
+            ->with('pinned')
+            ->find($id);
+
+        $attachments = $this->article_attachment
+            ->with('user')
+            ->where('article_id', $id)
+            ->select('id', 'client_filename as name', 'user_id', 'created_at')
+            ->get()
+            ->toArray();
+
+        $merged = collect($data->toArray())
+            ->merge(['current_attachments' => $attachments]);
+
+        return response()->json($merged);
     }/** @noinspection PhpInconsistentReturnPointsInspection */
 
     /**
@@ -106,10 +141,23 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $current_user = JWTAuth::parseToken()->authenticate();
         $target = $this->article->find($id);
         $target->heading = $request->heading;
         $target->body = $request->body;
         $updated = $target->update();
+
+        if ($request->hasFile('attachments')) {
+            foreach($request->attachments as $attachment) {
+                $path = $attachment->store('article_attachment/'.$target->id);
+                $this->article_attachment->create([
+                    'user_id' => $current_user->id,
+                    'article_id' => $target->id,
+                    'client_filename' => $attachment->getClientOriginalName(),
+                    'backend_filename' => basename($path),
+                ]);
+            }
+        }
         if($updated) {
             Log::Info('the article is updated successfully.');
             return response()->json($target);
@@ -138,6 +186,16 @@ class ArticleController extends Controller
         $chat_messages = $target->chat_messages();
         if ($chat_messages) {
             $chat_messages->delete();
+        }
+
+        // delete attachments
+        $article_attachments = $target->article_attachments();
+        if ($article_attachments) {
+            $directory = 'article_attachment/'.$target->id;
+            $article_attachments->delete();
+
+            // Delete all real files too.
+            Storage::deleteDirectory($directory);
         }
 
         $deleted = $target->delete();
