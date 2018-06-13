@@ -1,9 +1,10 @@
 // @flow
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Avatar, Paper } from 'material-ui';
-import Badge from 'material-ui/Badge';
-import { pink200 } from 'material-ui/colors';
+import Avatar from '@material-ui/core/Avatar';
+import Paper from '@material-ui/core/Paper';
+import Badge from '@material-ui/core/Badge';
+import pink from '@material-ui/core/colors/pink';
 
 type Props = {
   article: Object,
@@ -16,7 +17,7 @@ export const ArticleListItem = (props: Props) => {
     badge: {
       top: '-17px',
       right: '-17px',
-      color: pink200,
+      color: pink[200],
     },
     badgeRoot: {
       padding: 0,

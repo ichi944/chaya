@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
-import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 class Siginup extends Component {
   render() {

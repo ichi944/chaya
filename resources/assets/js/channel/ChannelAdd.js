@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Paper from 'material-ui/Paper';
-import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
-import red from 'material-ui/colors/red';
-import { withStyles } from 'material-ui/styles';
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import red from '@material-ui/core/colors/red';
+import { withStyles } from '@material-ui/core/styles';
 import Subheader from '../application/atoms/Subheader';
 
 const styles = {

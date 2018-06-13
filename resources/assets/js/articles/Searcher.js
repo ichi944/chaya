@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Paper, FlatButton, TextField } from 'material-ui';
+import { Paper, FlatButton, TextField } from '@material-ui/core';
 
 class Searcher extends Component {
   render() {

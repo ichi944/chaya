@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import { Paper } from 'material-ui';
-import Card, { CardHeader, CardActions, CardContent } from 'material-ui/Card';
-import Typography from 'material-ui/Typography';
-import ContentAdd from 'material-ui-icons/Add';
-import { pink200 } from 'material-ui/colors';
-import IconButton from 'material-ui/IconButton';
-import SettingsIcon from 'material-ui-icons/Settings';
-import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
-import AddIcon from 'material-ui-icons/Add';
+import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import ContentAdd from '@material-ui/icons/Add';
+import pink from '@material-ui/core/colors/pink';
+import IconButton from '@material-ui/core/IconButton';
+import SettingsIcon from '@material-ui/icons/Settings';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import { ArticleListItem } from './organisms/ArticleListItem';
 import { PageNavigation } from './organisms/PageNavigation';
@@ -114,7 +117,7 @@ class ArticleChannel extends Component {
             <CardHeader title={`${name} Channel`} subheader={`${from}件目〜${to}件目 (全${total}件)`} />
             <div className={classes.channelAction}>
               <IconButton onClick={this.handleToggleDescriptionEditor}>
-                <SettingsIcon color={pink200} />
+                <SettingsIcon color="inherit" />
               </IconButton>
             </div>
             <Divider />
