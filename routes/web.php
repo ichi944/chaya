@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/app/');
 });
 
 Route::get('/app/{param1?}/{param2?}/{param3?}', 'AppController@root');
