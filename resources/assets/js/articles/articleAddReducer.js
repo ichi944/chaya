@@ -76,6 +76,14 @@ export default function articleAddReducer(
         confirmSuccessDialogOpen: false,
       };
     }
+    case types.INSERT_EMBEDDED_IMAGE_URL_TO_BODY: {
+      const body = `${state.body}
+${action.img_tag}`;
+      return {
+        ...state,
+        body,
+      };
+    }
     default: {
       return state;
     }

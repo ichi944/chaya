@@ -370,16 +370,26 @@ export function downloadAttachment(id: number, filename: string) {
   };
 }
 
+export function insertEmbeddedImageURLtoBody(img_tag) {
+  return {
+    type: types.INSERT_EMBEDDED_IMAGE_URL_TO_BODY,
+    img_tag,
+  };
+}
+
 export function requestStoreEmbeddedImage(image) {
   return (dispatch, getState) => {
     const data = new FormData();
     const user_id = getState().profile.id;
-    console.log('@requestStoreEmbeddedImage', user_id, image);
     data.append('user_id', user_id);
-    data.append('image', image);
-    console.log(image);
+    data.append('image', image[0]);
     Api.client.post('/embedded-images/', data).then((res) => {
-      console.log(res);
+      if (res.data._code !== 0) {
+        console.log('error occured');
+        return;
+      }
+      const img_tag = `![${image[0].name}](${res.data.url})`;
+      dispatch(insertEmbeddedImageURLtoBody(img_tag));
     });
   };
 }
