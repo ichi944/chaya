@@ -55,7 +55,7 @@ class ArticleAdd extends Component {
     const {
       heading, body, attachments, onPreview, mode, confirmSuccessDialogOpen,
     } = this.props;
-    const { handleChange, handleTogglePreview } = this.props;
+    const { handleChange, handleTogglePreview, handleDropEmbeddedImage } = this.props;
 
     return (
       <div style={{ position: 'relative' }}>
@@ -75,6 +75,7 @@ class ArticleAdd extends Component {
           handleCancel={this.handleCancel}
           handleCancelText="やめる"
           handleTogglePreview={handleTogglePreview}
+          handleDropEmbeddedImage={handleDropEmbeddedImage}
         />
 
         <ArticleIsPublishedDialog open={confirmSuccessDialogOpen} handleClose={this.handleClose} />

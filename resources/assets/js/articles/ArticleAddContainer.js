@@ -10,6 +10,7 @@ import {
   clearArticleAdd,
   createNewArticle,
   confirmedSuccessCreating,
+  requestStoreEmbeddedImage,
 } from './actions';
 
 const mapStateToProps = ({ articleAdd, articleChannel }) => {
@@ -42,6 +43,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleClose() {
       dispatch(confirmedSuccessCreating());
+    },
+    handleDropEmbeddedImage(image) {
+      dispatch(requestStoreEmbeddedImage(image));
     },
   };
 };

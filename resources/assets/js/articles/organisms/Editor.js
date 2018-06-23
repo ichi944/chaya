@@ -9,6 +9,9 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import grey from '@material-ui/core/colors/grey';
 import { withStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import Dropzone from 'react-dropzone';
+
 import parseToMarkdown from '../../services/parseToMarkdown';
 import EditorHeader from '../molecules/EditorHeader';
 import DropAttachment from './DropAttachment';
@@ -21,6 +24,13 @@ const styles = {
   },
   attachments_list_title: {
     color: grey[500],
+  },
+  dropzone: {
+    border: 'none 0 #000',
+    borderRadius: '20px',
+  },
+  dropzoneActive: {
+    backgroundColor: grey[100],
   },
 };
 
@@ -62,6 +72,7 @@ class Editor extends Component<void, Props, void> {
       handleSubmit,
       handleSubmitText,
       handleTogglePreview,
+      handleDropEmbeddedImage,
       classes,
     } = this.props;
     const styles = {
@@ -95,17 +106,24 @@ class Editor extends Component<void, Props, void> {
                   margin="normal"
                 />
                 <br />
-
-                <TextField
-                  label="本文"
-                  name="body"
-                  value={body}
-                  multiline
-                  rows={12}
-                  fullWidth
-                  onChange={handleChange}
-                  margin="normal"
-                />
+                <Dropzone
+                  onDrop={handleDropEmbeddedImage}
+                  disableClick
+                  accept=".jpeg,.png"
+                  className={classes.dropzone}
+                  activeClassName={classes.dropzoneActive}
+                >
+                  <TextField
+                    label="本文"
+                    name="body"
+                    value={body}
+                    multiline
+                    rows={12}
+                    fullWidth
+                    onChange={handleChange}
+                    margin="normal"
+                  />
+                </Dropzone>
                 <br />
                 </div>}
 

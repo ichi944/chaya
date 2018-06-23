@@ -369,3 +369,17 @@ export function downloadAttachment(id: number, filename: string) {
     });
   };
 }
+
+export function requestStoreEmbeddedImage(image) {
+  return (dispatch, getState) => {
+    const data = new FormData();
+    const user_id = getState().profile.id;
+    console.log('@requestStoreEmbeddedImage', user_id, image);
+    data.append('user_id', user_id);
+    data.append('image', image);
+    console.log(image);
+    Api.client.post('/embedded-images/', data).then((res) => {
+      console.log(res);
+    });
+  };
+}
