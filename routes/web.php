@@ -41,6 +41,9 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
             Route::post('article-attachments/{id}', 'ArticleAttachmentController@download');
             Route::delete('article-attachments/{id}', 'ArticleAttachmentController@delete');
 
+            // embedded images
+            Route::post('embedded-images', 'EmbeddedImageController@store');
+
             // Profile
             Route::get('profiles/me', 'UserController@profile');
             Route::post('profiles/update-my-avator', 'UserController@updateMyAvator');
@@ -70,4 +73,8 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
 
 Route::group(['middleware' => ['auth:api']], function() {
     Route::get('private-img/{user_id}/avator/{filename}', 'ImageController@privateImage');
+
 });
+
+Route::get('resources/images/{channel_id}/{filename}', 'EmbeddedImageController@image');
+

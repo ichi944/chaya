@@ -10,12 +10,15 @@ type ArticleAddState = {
   +onPreview: boolean,
   +mode: string,
   +confirmSuccessDialogOpen: boolean,
+  +cursor_position: ?number,
 };
 
 type ArticleAddAction = {
   type: string,
   +name: string,
   +value: string,
+  +cursor_position: number,
+  +img_tag: string,
 };
 const initialState = {
   channelId: null,
@@ -26,6 +29,7 @@ const initialState = {
   onPreview: false,
   mode: 'new',
   confirmSuccessDialogOpen: false,
+  cursor_position: 0,
 };
 
 export default function articleAddReducer(
@@ -74,6 +78,24 @@ export default function articleAddReducer(
       return {
         ...state,
         confirmSuccessDialogOpen: false,
+      };
+    }
+    case types.UPDATE_CURSOR_POSITION: {
+      return {
+        ...state,
+        cursor_position: action.cursor_position,
+      };
+    }
+    case types.INSERT_EMBEDDED_IMAGE_URL_TO_BODY: {
+      const { cursor_position } = action;
+      const first_half = state.body.substring(0, cursor_position);
+      const second_half = state.body.substring(cursor_position);
+      const body = `${first_half}
+${action.img_tag}
+${second_half}`;
+      return {
+        ...state,
+        body,
       };
     }
     default: {

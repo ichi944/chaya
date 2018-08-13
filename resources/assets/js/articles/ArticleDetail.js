@@ -86,6 +86,10 @@ class ArticleDetail extends Component {
       handleDelete,
       handleDownloadAttachment,
     } = this.props;
+    const body_with_token = body.replace(
+      /(\!\[.*\])(\(.*\.png|.*\.jpg)/,
+      `$1$2?token=${authorizationToken}`,
+    );
     if (!id) {
       return <div />;
     }
@@ -117,7 +121,7 @@ class ArticleDetail extends Component {
           </div>
           <div
             className="markdown-body article-body"
-            dangerouslySetInnerHTML={{ __html: parseToMarkdown(body) }}
+            dangerouslySetInnerHTML={{ __html: parseToMarkdown(body_with_token) }}
           />
 
           <CurrentAttachmentList
