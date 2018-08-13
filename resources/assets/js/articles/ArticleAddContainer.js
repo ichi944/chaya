@@ -11,6 +11,7 @@ import {
   createNewArticle,
   confirmedSuccessCreating,
   requestStoreEmbeddedImage,
+  updateCursorPosition,
 } from './actions';
 
 const mapStateToProps = ({ articleAdd, articleChannel }) => {
@@ -23,6 +24,10 @@ const mapStateToProps = ({ articleAdd, articleChannel }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    handleUpdateCursorPosition(e) {
+      const cursor_position = e.target.selectionEnd;
+      dispatch(updateCursorPosition(cursor_position));
+    },
     handleChange(e) {
       dispatch(updateArticleAddForm(e.target.name, e.target.value));
     },

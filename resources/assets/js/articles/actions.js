@@ -370,10 +370,18 @@ export function downloadAttachment(id: number, filename: string) {
   };
 }
 
-export function insertEmbeddedImageURLtoBody(img_tag: any) {
+export function updateCursorPosition(cursor_position: Number) {
+  return {
+    type: types.UPDATE_CURSOR_POSITION,
+    cursor_position,
+  };
+}
+
+export function insertEmbeddedImageURLtoBody(img_tag: any, cursor_position: number) {
   return {
     type: types.INSERT_EMBEDDED_IMAGE_URL_TO_BODY,
     img_tag,
+    cursor_position,
   };
 }
 
@@ -391,7 +399,8 @@ export function requestStoreEmbeddedImage(image: Array<Object>) {
         return;
       }
       const img_tag = `![${image[0].name}](${res.data.url})`;
-      dispatch(insertEmbeddedImageURLtoBody(img_tag));
+      const { cursor_position } = getState().articleAdd;
+      dispatch(insertEmbeddedImageURLtoBody(img_tag, cursor_position));
     });
   };
 }

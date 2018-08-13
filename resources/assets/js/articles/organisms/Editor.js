@@ -41,6 +41,7 @@ type Props = {
   current_attachments: ?Array,
   attachments: Array,
   onPreview: boolean,
+  handleUpdateCursorPosition: Function,
   handleChange: Function,
   handleCancel: Function,
   handleCancelText: string,
@@ -62,6 +63,7 @@ class Editor extends Component<void, Props, void> {
       current_attachments = null,
       attachments,
       onPreview,
+      handleUpdateCursorPosition,
       handleChange,
       handleCancel,
       handleCancelText,
@@ -120,6 +122,9 @@ class Editor extends Component<void, Props, void> {
                     multiline
                     rows={12}
                     fullWidth
+                    onKeyUp={handleUpdateCursorPosition}
+                    onClick={handleUpdateCursorPosition}
+                    onFocus={handleUpdateCursorPosition}
                     onChange={handleChange}
                     margin="normal"
                   />

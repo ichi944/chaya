@@ -55,7 +55,12 @@ class ArticleAdd extends Component {
     const {
       heading, body, attachments, onPreview, mode, confirmSuccessDialogOpen,
     } = this.props;
-    const { handleChange, handleTogglePreview, handleDropEmbeddedImage } = this.props;
+    const {
+      handleChange,
+      handleTogglePreview,
+      handleDropEmbeddedImage,
+      handleUpdateCursorPosition,
+    } = this.props;
 
     return (
       <div style={{ position: 'relative' }}>
@@ -67,6 +72,7 @@ class ArticleAdd extends Component {
           attachments={attachments}
           onPreview={onPreview}
           mode={mode}
+          handleUpdateCursorPosition={handleUpdateCursorPosition}
           handleChange={handleChange}
           handleDrop={this.handleDrop}
           handleDeleteAttachment={this.handleDeleteAttachment}
