@@ -370,18 +370,20 @@ export function downloadAttachment(id: number, filename: string) {
   };
 }
 
-export function insertEmbeddedImageURLtoBody(img_tag) {
+export function insertEmbeddedImageURLtoBody(img_tag: any) {
   return {
     type: types.INSERT_EMBEDDED_IMAGE_URL_TO_BODY,
     img_tag,
   };
 }
 
-export function requestStoreEmbeddedImage(image) {
-  return (dispatch, getState) => {
+export function requestStoreEmbeddedImage(image: Array<Object>) {
+  return (dispatch: Function, getState: Function) => {
+    const channel_id = getState().articleChannel.channel.id;
     const data = new FormData();
     const user_id = getState().profile.id;
     data.append('user_id', user_id);
+    data.append('channel_id', channel_id);
     data.append('image', image[0]);
     Api.client.post('/embedded-images/', data).then((res) => {
       if (res.data._code !== 0) {

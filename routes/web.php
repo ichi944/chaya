@@ -76,5 +76,5 @@ Route::group(['middleware' => ['auth:api']], function() {
 
 });
 
-Route::get('resources/images/{filename}', 'EmbeddedImageController@image');
+Route::get('resources/images/{channel_id}/{filename}', 'EmbeddedImageController@image');
 

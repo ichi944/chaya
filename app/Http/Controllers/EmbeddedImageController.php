@@ -12,9 +12,13 @@ class EmbeddedImageController extends Controller
     public function store(Request $request)
     {
 
-        $path = $request->file('image')->store('embedded_images/');
+        $channel_id = $request->channel_id;
+        // url for storing phisicaly
+        $path = $request->file('image')->store('embedded_images/'.$channel_id.'/');
+
+        // url for frontend(api)
         $embedded_image_base_url = '/resources/images';
-        $url = $embedded_image_base_url.'/'.basename($path);
+        $url = $embedded_image_base_url.'/'.$channel_id.'/'.basename($path);
 
         return response()->json([
             '_code' => ResponseCode::SUCCESS,
@@ -22,9 +26,9 @@ class EmbeddedImageController extends Controller
         ]);
     }
 
-    public function image($filename)
+    public function image($channel_id, $filename)
     {
-        $path = storage_path('app/embedded_images/'.$filename);
+        $path = storage_path('app/embedded_images/'.$channel_id.'/'.$filename);
         if (!File::exists($path)) {
             abort(404);
         }
