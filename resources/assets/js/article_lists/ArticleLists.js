@@ -15,8 +15,8 @@ import AddIcon from '@material-ui/icons/Add';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import { ArticleListItem } from '../articles/organisms/ArticleListItem';
-import { PageNavigation } from '../articles/organisms/PageNavigation';
+import { ArticleListItem } from '../article_lists/organisms/ArticleListItem';
+import { PageNavigation } from '../article_lists/organisms/PageNavigation';
 import { EditDescriptionDialog } from '../articles/organisms/Dialogs';
 
 const styles = {

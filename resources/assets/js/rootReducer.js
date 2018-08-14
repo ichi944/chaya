@@ -10,7 +10,6 @@ import socketReducer from './application/socketReducer';
 import editProfileReducer from './application/editProfileReducer';
 import channelsReducer from './channel/channelsReducer';
 import channelAddReducer from './channel/channelAddReducer';
-import articlesReducer from './articles/articlesReducer';
 import articleListsReducer from './article_lists/articleListsReducer';
 import articleReducer from './articles/articleReducer';
 import articleAddReducer from './articles/articleAddReducer';
@@ -31,7 +30,6 @@ const rootReducer = combineReducers({
   channels: channelsReducer,
   channelAdd: channelAddReducer,
   editProfile: editProfileReducer,
-  articles: articlesReducer,
   articleLists: articleListsReducer,
   article: articleReducer,
   articleAdd: articleAddReducer,

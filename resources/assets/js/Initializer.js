@@ -17,7 +17,6 @@ import SignupCompleteContainer from './signup/SignupCompleteContainer';
 import VerifyUserContainer from './signup/VerifyUserContainer';
 import HomeContainer from './home/HomeContainer';
 import ChannelAddContainer from './channel/ChannelAddContainer';
-import ArticleIndexContainer from './articles/ArticleIndexContainer';
 import ArticleListsContainer from './article_lists/ArticleListsContainer';
 import ArticleDetailContainer from './articles/ArticleDetailContainer';
 import ArticleAddContainer from './articles/ArticleAddContainer';
@@ -88,7 +87,6 @@ class Initializer extends Component {
                 <Route exact path="/app/login" component={LoginContainer} />
                 <Route exact path="/app/home" component={HomeContainer} />
                 <Route exact path="/app/channels/add" component={ChannelAddContainer} />
-                <Route exact path="/app/articles" component={ArticleIndexContainer} />
                 <Route
                   exact
                   path="/app/channels/:channel_id/articles"
