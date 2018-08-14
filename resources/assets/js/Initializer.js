@@ -91,7 +91,7 @@ class Initializer extends Component {
                 <Route exact path="/app/articles" component={ArticleIndexContainer} />
                 <Route
                   exact
-                  path="/app/articles/channel/:channel_id"
+                  path="/app/channels/:channel_id/articles"
                   component={ArticleChannelContainer}
                 />
                 <Route exact path="/app/articles/add" component={ArticleAddContainer} />
