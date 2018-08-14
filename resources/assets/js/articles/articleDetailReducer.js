@@ -1,7 +1,7 @@
 // @flow
 import * as types from './actionTypes';
 
-type ArticleState = {
+type ArticleDetailState = {
   +id: ?number,
   +heading: string,
   +body: string,
@@ -27,7 +27,10 @@ const initialState = {
   confirmDeleteDialogOpen: false,
 };
 
-export default function articleReducer(state: ArticleState = initialState, action: any) {
+export default function articleDetailReducer(
+  state: ArticleDetailState = initialState,
+  action: any,
+) {
   switch (action.type) {
     case types.END_FETCH_ARTICLE: {
       const data = action.data;

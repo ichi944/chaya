@@ -11,7 +11,7 @@ import editProfileReducer from './application/editProfileReducer';
 import channelsReducer from './channel/channelsReducer';
 import channelAddReducer from './channel/channelAddReducer';
 import articleListsReducer from './article_lists/articleListsReducer';
-import articleReducer from './articles/articleReducer';
+import articleDetailReducer from './articles/articleDetailReducer';
 import articleAddReducer from './articles/articleAddReducer';
 import articleEditReducer from './articles/articleEditReducer';
 import chatReducer from './chat/chatReducer';
