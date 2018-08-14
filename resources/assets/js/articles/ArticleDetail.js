@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import LabelIcon from '@material-ui/icons/Label';
 import ModeEditIcon from '@material-ui/icons/ModeEdit';
-import AddIcon from '@material-ui/icons/Add';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import AttachmentIcon from '@material-ui/icons/Attachment';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -25,9 +16,9 @@ import CurrentAttachmentList from './molecules/CurrentAttachmentList';
 
 const styles = {
   button: {
-    position: 'fixed',
+    position: 'absolute',
     right: '2rem',
-    bottom: '2.7rem',
+    bottom: '-1.8rem',
   },
   backButton: {
     margin: '1rem 0 0 1rem',
@@ -46,6 +37,7 @@ class ArticleDetail extends Component {
     super(props);
     this.goBack = this.goBack.bind(this);
     this.onCheckPin = this.onCheckPin.bind(this);
+    this.handleEditArticle = this.handleEditArticle.bind(this);
   }
   componentWillMount() {
     const { clearContent } = this.props;
@@ -63,6 +55,11 @@ class ArticleDetail extends Component {
     } else {
       this.props.handleUnpinArticle(id);
     }
+  }
+  handleEditArticle() {
+    const { push } = this.props.history;
+    const { id } = this.props.article;
+    push(`/app/articles/${id}/edit`);
   }
   goBack() {
     this.props.history.goBack();
@@ -106,6 +103,15 @@ class ArticleDetail extends Component {
                 label="pin"
               />
             </div>
+            <Button
+              variant="fab"
+              onClick={this.handleEditArticle}
+              color="primary"
+              aria-label="edit"
+              className={classes.button}
+            >
+              <ModeEditIcon />
+            </Button>
           </div>
           <Divider />
           <div className="article-meta">
@@ -136,16 +142,6 @@ class ArticleDetail extends Component {
         </Paper>
 
         <ArticleChatContainer />
-
-        <Button
-          variant="fab"
-          href={`/app/articles/${id}/edit`}
-          color="primary"
-          aria-label="edit"
-          className={classes.button}
-        >
-          <ModeEditIcon />
-        </Button>
 
         <ConfirmDeleteArticleDialog
           open={confirmDeleteDialogOpen}

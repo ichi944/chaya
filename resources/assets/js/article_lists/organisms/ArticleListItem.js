@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import Badge from '@material-ui/core/Badge';
-import pink from '@material-ui/core/colors/pink';
 
 type Props = {
   article: Object,
@@ -13,16 +12,6 @@ type Props = {
 
 export const ArticleListItem = (props: Props) => {
   const { article, authorizationToken } = props;
-  const styles = {
-    badge: {
-      top: '-17px',
-      right: '-17px',
-      color: pink[200],
-    },
-    badgeRoot: {
-      padding: 0,
-    },
-  };
   return (
     <Paper>
       <div className="article_index-wrapper">

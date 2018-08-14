@@ -53,7 +53,7 @@ const initialState = {
 export default function articleListsReducer(state: ArticleListsState = initialState, action: any) {
   switch (action.type) {
     case types.END_FETCH_ARTICLES_BY_CHANNEL: {
-      const data = action.data;
+      const { data } = action;
       return {
         ...state,
         ...data,

@@ -5,7 +5,7 @@ type ArticleDetailState = {
   +id: ?number,
   +heading: string,
   +body: string,
-  +current_attachments: Array,
+  +current_attachments: Array<Object>,
   +created_at: string,
   +user: {
     +name: string,
@@ -33,7 +33,7 @@ export default function articleDetailReducer(
 ) {
   switch (action.type) {
     case types.END_FETCH_ARTICLE: {
-      const data = action.data;
+      const { data } = action;
       const pinned = data.pinned !== null;
       return {
         ...state,

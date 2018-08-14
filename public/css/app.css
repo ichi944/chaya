@@ -135,6 +135,9 @@ li {
   margin :1rem;
   padding: 1rem;
 }
+.article-header {
+  position: relative;
+}
 .article-edit_button {
   position: absolute;
   right: 2rem;

@@ -6,7 +6,7 @@ import Api from '../services/Api';
 import { ARTICLE_API_URL } from './constants';
 
 export function fetchArticles(options: Object = {}) {
-  return function (dispatch: Function) {
+  return (dispatch: Function) => {
     dispatch({
       type: types.START_FETCH_ARTICLES,
     });
@@ -25,7 +25,7 @@ export function fetchArticles(options: Object = {}) {
 }
 
 export function fetchArticleById(id: number) {
-  return function (dispatch: Function) {
+  return (dispatch: Function) => {
     dispatch({
       type: types.START_FETCH_ARTICLE,
     });
@@ -85,7 +85,7 @@ export function successCreateArticle() {
   };
 }
 export function createNewArticle(data: Object) {
-  return function (dispatch: Function) {
+  return (dispatch: Function) => {
     const {
       heading, body, attachments, channelId,
     } = data;
@@ -111,7 +111,7 @@ export function closeConfirmSuccessDialog() {
 }
 
 export function confirmedSuccessCreating() {
-  return function (dispatch: Function, getState: Function) {
+  return (dispatch: Function, getState: Function) => {
     dispatch(clearArticleAdd());
     dispatch(closeConfirmSuccessDialog());
 
@@ -154,9 +154,9 @@ export function deleteAttachementOnArticleEditForm(index: number) {
   };
 }
 
-export function showDialogDeleteCurrentAtttachment(attachment) {
-  const id = attachment.id;
-  const name = attachment.name;
+export function showDialogDeleteCurrentAtttachment(attachment: Object) {
+  const { id } = attachment;
+  const { name } = attachment;
   return {
     type: types.SHOW_DIALOG_DELETE_CURRENT_ATTACHMENT,
     id,
@@ -169,7 +169,7 @@ export function closeDialogDeleteCurrentAttachment() {
     type: types.CLOSE_DIALOG_DELETE_CURRENT_ATTACHMENT,
   };
 }
-export function deleteCurrentAttachmentSucceeded(current_attachments) {
+export function deleteCurrentAttachmentSucceeded(current_attachments: Array<Object>) {
   return {
     type: types.DELETE_CURRENT_ATTACHMENT_SUCCEEDED,
     current_attachments,
@@ -183,7 +183,7 @@ export function requestDeleteCurrentAttachment() {
         console.log('error: failed to delete an article attachment');
         return;
       }
-      const current_attachments = res.data.current_attachments;
+      const { current_attachments } = res.data;
       dispatch(deleteCurrentAttachmentSucceeded(current_attachments));
       dispatch(closeDialogDeleteCurrentAttachment());
     });
@@ -196,9 +196,9 @@ export function successUpdateArticle() {
   };
 }
 export function requestUpdateArticle(data: Object) {
-  return function (dispatch: Function, getState: Function) {
-    const id: number = data.id;
-    const attachments = getState().articleEdit.attachments;
+  return (dispatch: Function, getState: Function) => {
+    const { id } = data;
+    const { attachments } = getState().articleEdit;
     const formData = new FormData();
     attachments.forEach((f) => {
       formData.append('attachments[]', f);
@@ -221,7 +221,7 @@ export function closeConfirmSuccessUpdatingDialog() {
   };
 }
 export function confirmedSuccessUpdating(id: number) {
-  return function (dispatch: Function) {
+  return (dispatch: Function) => {
     dispatch(clearArticleEdit());
     dispatch(closeConfirmSuccessUpdatingDialog());
     dispatch(push(`/app/articles/${id}`));
@@ -247,7 +247,7 @@ export function successDeleteArticle() {
 }
 
 export function deleteArticleById(id: number) {
-  return function (dispatch: Function, getState: Function) {
+  return (dispatch: Function, getState: Function) => {
     console.log('deleting', id);
     const currentChannelId = getState().articleLists.channel.id;
     Api.client.delete(`/articles/${id}`).then(() => {
@@ -308,7 +308,7 @@ export function requestUnpinArticle(article_id: number) {
 }
 
 export function downloadAttachment(id: number, filename: string) {
-  return (dispatch: Function) => {
+  return () => {
     const options = {
       responseType: 'blob',
     };

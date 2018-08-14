@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import ContentAdd from '@material-ui/icons/Add';
-import pink from '@material-ui/core/colors/pink';
 import IconButton from '@material-ui/core/IconButton';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Divider from '@material-ui/core/Divider';
@@ -92,7 +89,7 @@ class ArticleLists extends Component {
     const { descriptionEditorIsOpen, descriptionEditorContent } = this.props.articleLists;
     const { handleNavigatePage } = this.props;
     const { authorizationToken } = this.props.auth;
-    const classes = this.props.classes;
+    const { classes } = this.props;
     const article_total_text = total === 0 ? `(全${total}件)` : `${from}件目〜${to}件目 (全${total}件)`;
 
     const pageNavigationProps = {
