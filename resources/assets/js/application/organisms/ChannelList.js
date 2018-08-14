@@ -26,7 +26,7 @@ class ChannelList extends Component {
     return (
       <List defaultValue={1}>
         {channels.map((channel) => {
-          const active = channel.id === this.props.articleChannel.channel.id;
+          const active = channel.id === this.props.articleLists.channel.id;
           return (
             <ListItem
               button

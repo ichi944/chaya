@@ -11,7 +11,7 @@ import editProfileReducer from './application/editProfileReducer';
 import channelsReducer from './channel/channelsReducer';
 import channelAddReducer from './channel/channelAddReducer';
 import articlesReducer from './articles/articlesReducer';
-import articleChannelReducer from './articles/articleChannelReducer';
+import articleListsReducer from './article_lists/articleListsReducer';
 import articleReducer from './articles/articleReducer';
 import articleAddReducer from './articles/articleAddReducer';
 import articleEditReducer from './articles/articleEditReducer';
@@ -32,7 +32,7 @@ const rootReducer = combineReducers({
   channelAdd: channelAddReducer,
   editProfile: editProfileReducer,
   articles: articlesReducer,
-  articleChannel: articleChannelReducer,
+  articleLists: articleListsReducer,
   article: articleReducer,
   articleAdd: articleAddReducer,
   articleEdit: articleEditReducer,

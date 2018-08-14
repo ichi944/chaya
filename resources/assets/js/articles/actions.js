@@ -115,7 +115,7 @@ export function confirmedSuccessCreating() {
     dispatch(clearArticleAdd());
     dispatch(closeConfirmSuccessDialog());
 
-    const currentChannelId = getState().articleChannel.channel.id;
+    const currentChannelId = getState().articleLists.channel.id;
     dispatch(push(`/app/articles/channel/${currentChannelId}`));
   };
 }
@@ -249,7 +249,7 @@ export function successDeleteArticle() {
 export function deleteArticleById(id: number) {
   return function (dispatch: Function, getState: Function) {
     console.log('deleting', id);
-    const currentChannelId = getState().articleChannel.channel.id;
+    const currentChannelId = getState().articleLists.channel.id;
     Api.client.delete(`/articles/${id}`).then(() => {
       dispatch(successDeleteArticle());
       dispatch(push(`/app/articles/channel/${currentChannelId}`));
@@ -270,50 +270,6 @@ export function requestSearch(query: string = '') {
       query,
     };
     dispatch(fetchArticles(options));
-  };
-}
-
-export function fetchArticlesByChannel(channel_id: number, options: Object) {
-  return (dispatch: Function) => {
-    Api.client
-      .get(`channels/${channel_id}/articles`, {
-        params: options,
-      })
-      .then((res) => {
-        if (res.data._code !== 0) {
-          console.log('failed fetching articles');
-          return;
-        }
-        dispatch({
-          type: types.END_FETCH_ARTICLES_BY_CHANNEL,
-          data: res.data,
-        });
-      }); // Api
-  };
-}
-
-export function openDescriptionEditor() {
-  return {
-    type: types.OPEN_DESCRIPTION_EDITOR,
-  };
-}
-
-export function closeDescriptionEditor() {
-  return {
-    type: types.CLOSE_DESCRIPTION_EDITOR,
-  };
-}
-
-export function changeDescriptionEditorContent(value: string) {
-  return {
-    type: types.CHANGE_DESCRIPTION_EDITOR_CONTENT,
-    content: value,
-  };
-}
-
-export function requestClearActiveChannel() {
-  return {
-    type: types.CLEAR_ACTIVE_CHANNEL,
   };
 }
 
@@ -387,7 +343,7 @@ export function insertEmbeddedImageURLtoBody(img_tag: any, cursor_position: numb
 
 export function requestStoreEmbeddedImage(image: Array<Object>) {
   return (dispatch: Function, getState: Function) => {
-    const channel_id = getState().articleChannel.channel.id;
+    const channel_id = getState().articleLists.channel.id;
     const data = new FormData();
     const user_id = getState().profile.id;
     data.append('user_id', user_id);

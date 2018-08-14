@@ -14,11 +14,11 @@ import {
   updateCursorPosition,
 } from './actions';
 
-const mapStateToProps = ({ articleAdd, articleChannel }) => {
+const mapStateToProps = ({ articleAdd, articleLists }) => {
   return {
     ...articleAdd,
-    currentChannelId: articleChannel.channel.id,
-    currentChannelName: articleChannel.channel.name,
+    currentChannelId: articleLists.channel.id,
+    currentChannelName: articleLists.channel.name,
   };
 };
 

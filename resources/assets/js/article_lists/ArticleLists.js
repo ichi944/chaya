@@ -15,9 +15,9 @@ import AddIcon from '@material-ui/icons/Add';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import { ArticleListItem } from './organisms/ArticleListItem';
-import { PageNavigation } from './organisms/PageNavigation';
-import { EditDescriptionDialog } from './organisms/Dialogs';
+import { ArticleListItem } from '../articles/organisms/ArticleListItem';
+import { PageNavigation } from '../articles/organisms/PageNavigation';
+import { EditDescriptionDialog } from '../articles/organisms/Dialogs';
 
 const styles = {
   button: {
@@ -34,7 +34,7 @@ const styles = {
   },
 };
 
-class ArticleChannel extends Component {
+class ArticleLists extends Component {
   constructor(props) {
     super(props);
     this.handleCreateNewArticle = this.handleCreateNewArticle.bind(this);
@@ -45,7 +45,7 @@ class ArticleChannel extends Component {
   }
   componentDidMount() {
     const { initialize } = this.props;
-    const { current_page = null } = this.props.articleChannel.articles;
+    const { current_page = null } = this.props.articleLists.articles;
     const { channel_id } = this.props.match.params;
 
     initialize(channel_id, current_page);
@@ -67,7 +67,7 @@ class ArticleChannel extends Component {
     this.props.handleUpdateChannelDescription(channel_id, description);
   }
   handleToggleDescriptionEditor() {
-    if (this.props.articleChannel.descriptionEditorIsOpen) {
+    if (this.props.articleLists.descriptionEditorIsOpen) {
       this.props.handleCloseDescriptionEditor();
     } else {
       this.props.handleOpenDescriptionEditor();
@@ -87,9 +87,9 @@ class ArticleChannel extends Component {
       to,
       prev_page_url,
       next_page_url,
-    } = this.props.articleChannel.articles;
-    const { name, description } = this.props.articleChannel.channel;
-    const { descriptionEditorIsOpen, descriptionEditorContent } = this.props.articleChannel;
+    } = this.props.articleLists.articles;
+    const { name, description } = this.props.articleLists.channel;
+    const { descriptionEditorIsOpen, descriptionEditorContent } = this.props.articleLists;
     const { handleNavigatePage } = this.props;
     const { authorizationToken } = this.props.auth;
     const classes = this.props.classes;
@@ -160,4 +160,4 @@ class ArticleChannel extends Component {
   }
 }
 
-export default withStyles(styles)(ArticleChannel);
+export default withStyles(styles)(ArticleLists);

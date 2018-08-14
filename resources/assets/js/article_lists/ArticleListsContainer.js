@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import url from 'url';
 
-import ArticleChannel from './ArticleChannel';
+import ArticleLists from './ArticleLists';
 import {
   fetchArticlesByChannel,
   openDescriptionEditor,
@@ -10,9 +10,9 @@ import {
 } from './actions';
 import { updateDescription, requestUpdateChannelDescription } from '../channel/actions';
 
-const mapStateToProps = ({ articleChannel, searcher, auth }) => {
+const mapStateToProps = ({ articleLists, searcher, auth }) => {
   return {
-    articleChannel,
+    articleLists,
     searcher,
     auth,
   };
@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     initialize(channel_id = null, current_page = null) {
       if (!channel_id) {
-        console.log('@ArticleChannelContainer channel_id is not provided');
+        console.log('@ArticleListsContainer channel_id is not provided');
         return;
       }
       let options = {};
@@ -57,4 +57,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleChannel);
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleLists);

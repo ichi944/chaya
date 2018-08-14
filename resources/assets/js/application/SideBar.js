@@ -49,7 +49,7 @@ class SideBar extends Component {
   }
   componentDidUpdate() {
     const { router } = this.props;
-    const currentChannelId = this.props.articleChannel.channel.id;
+    const currentChannelId = this.props.articleLists.channel.id;
     // NOTE: If you don't want to clear the active channel, add that url to regex below.
     if (
       !/(channels\/[0-9]+\/articles)|(articles\/add)|(articles\/[0-9]+)/.test(router.location.pathname) &&
@@ -94,7 +94,7 @@ class SideBar extends Component {
   }
   render() {
     const {
-      profile, channels, articleChannel, classes,
+      profile, channels, articleLists, classes,
     } = this.props;
     return (
       <Drawer
@@ -153,7 +153,7 @@ class SideBar extends Component {
 
         <ChannelList
           channels={channels}
-          articleChannel={articleChannel}
+          articleLists={articleLists}
           handleClickChannelListItem={this.handleClickChannelListItem}
         />
 
