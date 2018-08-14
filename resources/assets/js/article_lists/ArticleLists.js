@@ -93,6 +93,7 @@ class ArticleLists extends Component {
     const { handleNavigatePage } = this.props;
     const { authorizationToken } = this.props.auth;
     const classes = this.props.classes;
+    const article_total_text = total === 0 ? `(全${total}件)` : `${from}件目〜${to}件目 (全${total}件)`;
 
     const pageNavigationProps = {
       prev_page_url,
@@ -114,7 +115,7 @@ class ArticleLists extends Component {
           </Button>
 
           <Card className={classes.channelHeader}>
-            <CardHeader title={`${name} Channel`} subheader={`${from}件目〜${to}件目 (全${total}件)`} />
+            <CardHeader title={`${name} Channel`} subheader={article_total_text} />
             <div className={classes.channelAction}>
               <IconButton onClick={this.handleToggleDescriptionEditor}>
                 <SettingsIcon color="inherit" />
