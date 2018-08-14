@@ -19,7 +19,7 @@ class Searcher extends Component {
           />
         </div>
         <div className="searcher-submit_button">
-          <FlatButton label="検索する" primary onTouchTap={() => handleSubmit(query)} />
+          <FlatButton label="検索する" primary onClick={() => handleSubmit(query)} />
         </div>
       </Paper>
     );

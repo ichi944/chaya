@@ -49,10 +49,10 @@ class SideBar extends Component {
   }
   componentDidUpdate() {
     const { router } = this.props;
-    const currentChannelId = this.props.articleChannel.channel.id;
-    // NOTE: If you do not clear the active channel, add that url to regex.
+    const currentChannelId = this.props.articleLists.channel.id;
+    // NOTE: If you don't want to clear the active channel, add that url to regex below.
     if (
-      !/(articles\/channel)|(articles\/add)|(articles\/[0-9]+)/.test(router.location.pathname) &&
+      !/(channels\/[0-9]+\/articles)|(articles\/add)|(articles\/[0-9]+)/.test(router.location.pathname) &&
       currentChannelId
     ) {
       this.props.clearActiveChannel();
@@ -85,7 +85,7 @@ class SideBar extends Component {
   }
   handleClickChannelListItem(channelId) {
     const { push } = this.props.history;
-    push(`/app/articles/channel/${channelId}`);
+    push(`/app/channels/${channelId}/articles`);
   }
   handleClickAddChannel() {
     console.log('@handleClickAddChannel');
@@ -94,7 +94,7 @@ class SideBar extends Component {
   }
   render() {
     const {
-      profile, channels, articleChannel, classes,
+      profile, channels, articleLists, classes,
     } = this.props;
     return (
       <Drawer
@@ -153,7 +153,7 @@ class SideBar extends Component {
 
         <ChannelList
           channels={channels}
-          articleChannel={articleChannel}
+          articleLists={articleLists}
           handleClickChannelListItem={this.handleClickChannelListItem}
         />
 

@@ -1,11 +1,11 @@
 // @flow
 import * as types from './actionTypes';
 
-type ArticleState = {
+type ArticleDetailState = {
   +id: ?number,
   +heading: string,
   +body: string,
-  +current_attachments: Array,
+  +current_attachments: Array<Object>,
   +created_at: string,
   +user: {
     +name: string,
@@ -27,10 +27,13 @@ const initialState = {
   confirmDeleteDialogOpen: false,
 };
 
-export default function articleReducer(state: ArticleState = initialState, action: any) {
+export default function articleDetailReducer(
+  state: ArticleDetailState = initialState,
+  action: any,
+) {
   switch (action.type) {
     case types.END_FETCH_ARTICLE: {
-      const data = action.data;
+      const { data } = action;
       const pinned = data.pinned !== null;
       return {
         ...state,

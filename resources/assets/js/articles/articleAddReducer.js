@@ -17,6 +17,8 @@ type ArticleAddAction = {
   type: string,
   +name: string,
   +value: string,
+  +attachment: Object,
+  +index: number,
   +cursor_position: number,
   +img_tag: string,
 };

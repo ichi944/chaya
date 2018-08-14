@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import ContentAdd from '@material-ui/icons/Add';
-import pink from '@material-ui/core/colors/pink';
 import IconButton from '@material-ui/core/IconButton';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Divider from '@material-ui/core/Divider';
@@ -34,7 +31,7 @@ const styles = {
   },
 };
 
-class ArticleChannel extends Component {
+class ArticleLists extends Component {
   constructor(props) {
     super(props);
     this.handleCreateNewArticle = this.handleCreateNewArticle.bind(this);
@@ -45,7 +42,7 @@ class ArticleChannel extends Component {
   }
   componentDidMount() {
     const { initialize } = this.props;
-    const { current_page = null } = this.props.articleChannel.articles;
+    const { current_page = null } = this.props.articleLists.articles;
     const { channel_id } = this.props.match.params;
 
     initialize(channel_id, current_page);
@@ -67,7 +64,7 @@ class ArticleChannel extends Component {
     this.props.handleUpdateChannelDescription(channel_id, description);
   }
   handleToggleDescriptionEditor() {
-    if (this.props.articleChannel.descriptionEditorIsOpen) {
+    if (this.props.articleLists.descriptionEditorIsOpen) {
       this.props.handleCloseDescriptionEditor();
     } else {
       this.props.handleOpenDescriptionEditor();
@@ -87,12 +84,13 @@ class ArticleChannel extends Component {
       to,
       prev_page_url,
       next_page_url,
-    } = this.props.articleChannel.articles;
-    const { name, description } = this.props.articleChannel.channel;
-    const { descriptionEditorIsOpen, descriptionEditorContent } = this.props.articleChannel;
+    } = this.props.articleLists.articles;
+    const { name, description } = this.props.articleLists.channel;
+    const { descriptionEditorIsOpen, descriptionEditorContent } = this.props.articleLists;
     const { handleNavigatePage } = this.props;
     const { authorizationToken } = this.props.auth;
-    const classes = this.props.classes;
+    const { classes } = this.props;
+    const article_total_text = total === 0 ? `(全${total}件)` : `${from}件目〜${to}件目 (全${total}件)`;
 
     const pageNavigationProps = {
       prev_page_url,
@@ -114,7 +112,7 @@ class ArticleChannel extends Component {
           </Button>
 
           <Card className={classes.channelHeader}>
-            <CardHeader title={`${name} Channel`} subheader={`${from}件目〜${to}件目 (全${total}件)`} />
+            <CardHeader title={`${name} Channel`} subheader={article_total_text} />
             <div className={classes.channelAction}>
               <IconButton onClick={this.handleToggleDescriptionEditor}>
                 <SettingsIcon color="inherit" />
@@ -160,4 +158,4 @@ class ArticleChannel extends Component {
   }
 }
 
-export default withStyles(styles)(ArticleChannel);
+export default withStyles(styles)(ArticleLists);

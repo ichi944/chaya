@@ -2,7 +2,7 @@
 import * as types from './actionTypes';
 import * as channelActionTypes from '../channel/actionTypes';
 
-type ArticleChannelState = {
+type ArticleListsState = {
   articles: {
     +isFetching: boolean,
     +current_page: ?number,
@@ -50,13 +50,10 @@ const initialState = {
   descriptionEditorContent: '',
 };
 
-export default function articleChannelReducer(
-  state: ArticleChannelState = initialState,
-  action: any,
-) {
+export default function articleListsReducer(state: ArticleListsState = initialState, action: any) {
   switch (action.type) {
     case types.END_FETCH_ARTICLES_BY_CHANNEL: {
-      const data = action.data;
+      const { data } = action;
       return {
         ...state,
         ...data,

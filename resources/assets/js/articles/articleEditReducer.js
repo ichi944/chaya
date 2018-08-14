@@ -4,19 +4,23 @@ import * as types from './actionTypes';
 type ArticleEditState = {
   +heading: string,
   +body: string,
-  +current_attachments: Array,
-  +attachments: Array,
+  +current_attachments: Array<Object>,
+  +attachments: Array<Object>,
   onPreview: boolean,
   confirmSuccessDialogOpen: boolean,
   confirmDeleteCurrentAttachmentDialogOpen: boolean,
-  deletingAttachmentId: number,
-  deletingAttachmentName: string,
+  deletingAttachmentId: ?number,
+  deletingAttachmentName: ?string,
 };
 
 type ArticleEditAction = {
   type: string,
+  +id: number,
+  +index: number,
   +name: string,
   +value: string,
+  +attachment: Object,
+  +current_attachments: Array<Object>,
   +data: Object,
 };
 
@@ -38,7 +42,7 @@ export default function articleEditReducer(
 ) {
   switch (action.type) {
     case types.END_FETCH_ARTICLE: {
-      const data = action.data;
+      const { data } = action;
       return {
         ...state,
         ...data,

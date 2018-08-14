@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import SideBar from './SideBar';
-import { requestClearActiveChannel } from '../articles/actions';
+import { requestClearActiveChannel } from '../article_lists/actions';
 
 const mapStateToProps = ({
-  router, profile, channels, articleChannel,
+  router, profile, channels, articleLists,
 }) => {
   return {
     router,
     profile,
     channels,
-    articleChannel,
+    articleLists,
   };
 };
 

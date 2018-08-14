@@ -10,9 +10,8 @@ import socketReducer from './application/socketReducer';
 import editProfileReducer from './application/editProfileReducer';
 import channelsReducer from './channel/channelsReducer';
 import channelAddReducer from './channel/channelAddReducer';
-import articlesReducer from './articles/articlesReducer';
-import articleChannelReducer from './articles/articleChannelReducer';
-import articleReducer from './articles/articleReducer';
+import articleListsReducer from './article_lists/articleListsReducer';
+import articleDetailReducer from './articles/articleDetailReducer';
 import articleAddReducer from './articles/articleAddReducer';
 import articleEditReducer from './articles/articleEditReducer';
 import chatReducer from './chat/chatReducer';
@@ -31,9 +30,8 @@ const rootReducer = combineReducers({
   channels: channelsReducer,
   channelAdd: channelAddReducer,
   editProfile: editProfileReducer,
-  articles: articlesReducer,
-  articleChannel: articleChannelReducer,
-  article: articleReducer,
+  articleLists: articleListsReducer,
+  article: articleDetailReducer,
   articleAdd: articleAddReducer,
   articleEdit: articleEditReducer,
   chat: chatReducer,

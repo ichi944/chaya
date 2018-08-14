@@ -8,6 +8,8 @@
 Homestead.json
 Homestead.yaml
 .env
+.DS_Store
+
 
 /echo/laravel-echo-server.json
 yarn-error.log

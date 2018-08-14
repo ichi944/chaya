@@ -1,6 +1,6 @@
 import Api from '../services/Api';
 import * as types from './actionTypes';
-import { closeDescriptionEditor } from '../articles/actions';
+import { closeDescriptionEditor } from '../article_lists/actions';
 
 export function fetchChannelIsSucceeded(channels) {
   return {
@@ -30,8 +30,8 @@ export function updateDescriptionIsSucceeded(updated_channel) {
 
 export function requestUpdateChannelDescription() {
   return (dispatch, getState) => {
-    const channel_id = getState().articleChannel.channel.id;
-    const description = getState().articleChannel.descriptionEditorContent;
+    const channel_id = getState().articleLists.channel.id;
+    const description = getState().articleLists.descriptionEditorContent;
     Api.client.put(`/channels/${channel_id}/description`, { description }).then((res) => {
       const updated_channel = res.data.channel;
       dispatch(updateDescriptionIsSucceeded(updated_channel));

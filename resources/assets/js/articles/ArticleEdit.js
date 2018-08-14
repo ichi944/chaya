@@ -15,6 +15,10 @@ class ArticleEdit extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
+  componentDidMount() {
+    const { initialize, match } = this.props;
+    initialize(match.params.id);
+  }
   handleDrop(acceptedFiles) {
     acceptedFiles.forEach((file) => {
       this.props.handleDrop(file);
@@ -31,10 +35,6 @@ class ArticleEdit extends Component {
   }
   handleDeleteCurrentAttachment() {
     this.props.handleDeleteCurrentAttachment();
-  }
-  componentDidMount() {
-    const { initialize, match } = this.props;
-    initialize(match.params.id);
   }
   handleCancel() {
     const { history, clearEditorContent } = this.props;
