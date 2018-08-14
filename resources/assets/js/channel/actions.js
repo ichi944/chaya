@@ -1,6 +1,6 @@
 import Api from '../services/Api';
 import * as types from './actionTypes';
-import { closeDescriptionEditor } from '../articles/actions';
+import { closeDescriptionEditor } from '../article_lists/actions';
 
 export function fetchChannelIsSucceeded(channels) {
   return {

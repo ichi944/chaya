@@ -31,7 +31,7 @@ const rootReducer = combineReducers({
   channelAdd: channelAddReducer,
   editProfile: editProfileReducer,
   articleLists: articleListsReducer,
-  article: articleReducer,
+  article: articleDetailReducer,
   articleAdd: articleAddReducer,
   articleEdit: articleEditReducer,
   chat: chatReducer,
