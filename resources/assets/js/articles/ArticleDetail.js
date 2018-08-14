@@ -96,7 +96,7 @@ class ArticleDetail extends Component {
     console.log('@article detail', pinned);
     return (
       <div>
-        <Button className={classes.backButton} onTouchTap={this.goBack}>Back</Button>
+        <Button className={classes.backButton} onClick={this.goBack}>Back</Button>
         <Paper className="article-wrapper">
           <div className="article-header">
             <h2>{heading}</h2>

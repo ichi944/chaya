@@ -48,7 +48,7 @@ class ChannelAdd extends Component {
     const { handleChange, handleSubmit } = this.props;
     return (
       <div>
-        <Button className={classes.backButton} onTouchTap={this.goBack}>Back</Button>
+        <Button className={classes.backButton} onClick={this.goBack}>Back</Button>
 
         <Paper className={classes.wrapper}>
           <div className={classes.header}>
