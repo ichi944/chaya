@@ -18,6 +18,9 @@ class Notifier extends Component {
         name: e.name,
         text: e.text,
       });
+      if (Notification.permission === 'granted') {
+        const notification = new Notification(`${e.name}: ${e.text}`);
+      }
     });
   }
   handleRequestClose() {
