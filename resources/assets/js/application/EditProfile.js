@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
 
 import { AvatorEditor } from './organisms/AvatorEditor';
+import NotificationSettingContainer from '../notification_setting/NotificationSettingContainer';
 import Subheader from './atoms/Subheader';
 
 class EditProfile extends Component {
@@ -117,6 +118,9 @@ class EditProfile extends Component {
             </Button>
           </div>
         </Paper>
+
+        <NotificationSettingContainer />
+
         <Snackbar open={snackbarIsOpen} message={snackbarMessage} />
       </div>
     );

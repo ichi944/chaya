@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ChatMessage;
 use App\Events\ArticleChatPosted;
+use App\Events\ChatNotification;
 use Log;
 use App\Constants\ResponseCode;
 
@@ -75,8 +76,10 @@ class ArticleChatController extends Controller
         $new_message = $this->chatMessage
             ->where('id', $created->id)
             ->with('user')
+            ->with('article')
             ->first();
         event(new ArticleChatPosted(['chat_message' => $new_message]));
+        event(new ChatNotification(['chat_message' => $new_message]));
         return response()->json(['_code' => ResponseCode::SUCCESS]);
     }
 }
