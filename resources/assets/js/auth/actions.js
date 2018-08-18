@@ -151,6 +151,8 @@ export function successSignOut() {
 export function requestSignOut() {
   return (dispatch) => {
     Api.client.get('/auth/signout').then(() => {
+      Api.clearSocketId();
+      Api.clearAuthorizationToken();
       dispatch(successSignOut());
     });
   };
