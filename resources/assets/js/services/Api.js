@@ -17,9 +17,15 @@ class Api {
   setSocketId(socketId) {
     this.client.defaults.headers.common['X-Socket-Id'] = socketId;
   }
+  clearSocketId() {
+    delete this.client.defaults.headers.common['X-Socket-Id'];
+  }
   setAuthorizationToken(token) {
     const value = `Bearer ${token}`;
     this.client.defaults.headers.common['Authorization'] = value; // eslint-disable-line dot-notation
+  }
+  clearAuthorizationToken() {
+    delete this.client.defaults.headers.common.Authorization;
   }
 }
 

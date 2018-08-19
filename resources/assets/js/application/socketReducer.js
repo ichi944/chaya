@@ -12,6 +12,12 @@ export default function socketReducer(state = initialState, action) {
         hasSocketId: true,
       };
     }
+    case types.CLEAR_SOCKET_ID: {
+      return {
+        ...state,
+        hasSocketId: false,
+      };
+    }
     default: {
       return state;
     }

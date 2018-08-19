@@ -21,6 +21,9 @@ class ChatNotification extends Component {
       }
     });
   }
+  componentWillUnmount() {
+    window.Echo.leave('shared');
+  }
   render() {
     return <div />;
   }

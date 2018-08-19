@@ -1,13 +1,13 @@
+// @flow
 import _ from 'lodash';
 import Echo from 'laravel-echo';
 
 import * as types from './actionTypes';
+import { clearSocketId } from '../application/actions';
 
 import Api from '../services/Api';
 
-import { notifyHello } from '../notifier/actions';
-
-export function storeAuthorizationTokenToState(token) {
+export function storeAuthorizationTokenToState(token: string) {
   return {
     type: types.STORE_AUTHORIZTION_TOKEN_TO_STATE,
     token,
@@ -19,14 +19,14 @@ export function initializeSocketIOSucceeded() {
     type: types.INITIALIZE_SOCKET_IO_SUCCEEDED,
   };
 }
-export function requestInitializeSocketIO(token) {
-  return function (dispatch) {
+export function requestInitializeSocketIO(token: string) {
+  return (dispatch: Dispatch) => {
     window.Echo = new Echo({
       broadcaster: 'socket.io',
       host: `${window.location.hostname}:6001`,
       auth: {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token.toString()}`,
         },
       },
     });
@@ -35,7 +35,7 @@ export function requestInitializeSocketIO(token) {
 }
 
 export function handleCheckAuthStatus() {
-  return function (dispatch) {
+  return (dispatch: Dispatch) => {
     console.log('start check auth status');
     dispatch({
       type: types.START_CHECK_AUTH_STATUS,
@@ -67,7 +67,7 @@ export function handleCheckAuthStatus() {
       },
     );
     console.log('check if the token exists in localStorage');
-    const token = localStorage.getItem('authToken');
+    const token: ?string = localStorage.getItem('authToken');
     if (token) {
       console.log('token exists: ', token);
       dispatch(storeAuthorizationTokenToState(token));
@@ -98,8 +98,8 @@ export function handleCheckAuthStatus() {
   };
 }
 
-export function authenticate(email, password) {
-  return function (dispatch) {
+export function authenticate(email: string, password: string) {
+  return (dispatch: Dispatch) => {
     console.log('start authentication', email);
 
     dispatch({
@@ -149,8 +149,11 @@ export function successSignOut() {
   };
 }
 export function requestSignOut() {
-  return (dispatch) => {
+  return (dispatch: Dispatch) => {
     Api.client.get('/auth/signout').then(() => {
+      Api.clearSocketId();
+      Api.clearAuthorizationToken();
+      dispatch(clearSocketId());
       dispatch(successSignOut());
     });
   };
