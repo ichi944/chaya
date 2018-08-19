@@ -151,3 +151,9 @@ export function configureSocketId() {
     type: types.DONE_SET_SOCKET_ID,
   };
 }
+
+export function clearSocketId() {
+  return {
+    type: types.CLEAR_SOCKET_ID,
+  };
+}
