@@ -116,7 +116,7 @@ export function confirmedSuccessCreating() {
     dispatch(closeConfirmSuccessDialog());
 
     const currentChannelId = getState().articleLists.channel.id;
-    dispatch(push(`/app/articles/channel/${currentChannelId}`));
+    dispatch(push(`/app/channels/${currentChannelId}/articles`));
   };
 }
 
@@ -252,7 +252,7 @@ export function deleteArticleById(id: number) {
     const currentChannelId = getState().articleLists.channel.id;
     Api.client.delete(`/articles/${id}`).then(() => {
       dispatch(successDeleteArticle());
-      dispatch(push(`/app/articles/channel/${currentChannelId}`));
+      dispatch(push(`/app/channels/${currentChannelId}/articles`));
     });
   };
 }

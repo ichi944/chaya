@@ -80,6 +80,12 @@ li {
 }
 
 /* $article_index */
+.article_index-link {
+  color: rgba(0, 0, 0, 0.87);
+}
+.article_index-link:active {
+  color: rgba(0, 0, 0, 0.87);
+}
 .article_index-container {
   position: relative;
   margin: 1rem;
@@ -91,6 +97,10 @@ li {
   display: flex;
   padding: .8rem 20px;
   line-height: 1rem;
+  transition: all 300ms ease;
+}
+.article_index-wrapper:hover {
+  background-color: #EEEEEE;
 }
 .article_index-wrapper-pinned {
   border-color: red;
