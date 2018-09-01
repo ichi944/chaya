@@ -378,7 +378,7 @@ export function insertEmbeddedImageURLtoBodyOnEdit(img_tag: any, cursor_position
 
 export function requestStoreEmbeddedImageOnEdit(image: Array<Object>) {
   return (dispatch: Function, getState: Function) => {
-    const channel_id = getState().articleLists.channel.id;
+    const channel_id = getState().article.channel_id;
     const data = new FormData();
     const user_id = getState().profile.id;
     data.append('user_id', user_id);
