@@ -360,3 +360,38 @@ export function requestStoreEmbeddedImage(image: Array<Object>) {
     });
   };
 }
+
+export function updateCursorPositionOnEdit(cursor_position: Number) {
+  return {
+    type: types.UPDATE_CURSOR_POSITION_ON_EDIT,
+    cursor_position,
+  };
+}
+
+export function insertEmbeddedImageURLtoBodyOnEdit(img_tag: any, cursor_position: number) {
+  return {
+    type: types.INSERT_EMBEDDED_IMAGE_URL_TO_BODY_ON_EDIT,
+    img_tag,
+    cursor_position,
+  };
+}
+
+export function requestStoreEmbeddedImageOnEdit(image: Array<Object>) {
+  return (dispatch: Function, getState: Function) => {
+    const channel_id = getState().articleLists.channel.id;
+    const data = new FormData();
+    const user_id = getState().profile.id;
+    data.append('user_id', user_id);
+    data.append('channel_id', channel_id);
+    data.append('image', image[0]);
+    Api.client.post('/embedded-images/', data).then((res) => {
+      if (res.data._code !== 0) {
+        console.log('error occured');
+        return;
+      }
+      const img_tag = `![${image[0].name}](${res.data.url})`;
+      const { cursor_position } = getState().articleEdit;
+      dispatch(insertEmbeddedImageURLtoBodyOnEdit(img_tag, cursor_position));
+    });
+  };
+}

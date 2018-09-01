@@ -11,6 +11,7 @@ type ArticleEditState = {
   confirmDeleteCurrentAttachmentDialogOpen: boolean,
   deletingAttachmentId: ?number,
   deletingAttachmentName: ?string,
+  cursor_position: ?number,
 };
 
 type ArticleEditAction = {
@@ -22,6 +23,8 @@ type ArticleEditAction = {
   +attachment: Object,
   +current_attachments: Array<Object>,
   +data: Object,
+  +cursor_position: number,
+  +img_tag: string,
 };
 
 const initialState = {
@@ -34,6 +37,7 @@ const initialState = {
   confirmDeleteCurrentAttachmentDialogOpen: false,
   deletingAttachmentId: null,
   deletingAttachmentName: null,
+  cursor_position: 0,
 };
 
 export default function articleEditReducer(
@@ -119,6 +123,25 @@ export default function articleEditReducer(
         confirmSuccessDialogOpen: false,
       };
     }
+    case types.UPDATE_CURSOR_POSITION_ON_EDIT: {
+      return {
+        ...state,
+        cursor_position: action.cursor_position,
+      };
+    }
+    case types.INSERT_EMBEDDED_IMAGE_URL_TO_BODY_ON_EDIT: {
+      const { cursor_position } = action;
+      const first_half = state.body.substring(0, cursor_position);
+      const second_half = state.body.substring(cursor_position);
+      const body = `${first_half}
+${action.img_tag}
+${second_half}`;
+      return {
+        ...state,
+        body,
+      };
+    }
+
     default: {
       return state;
     }
