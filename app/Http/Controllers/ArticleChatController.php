@@ -52,9 +52,9 @@ class ArticleChatController extends Controller
             ->orderBy('id', 'desc')
             ->with('user')
             ->take($number)
-            ->get()
-            ->reverse()
-            ->values();
+            ->get();
+            // ->reverse()
+            // ->values();
         return response()->json([
             '_code' => ResponseCode::SUCCESS,
             'content' => $chat_messages,

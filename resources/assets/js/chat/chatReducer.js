@@ -30,13 +30,13 @@ export default function chatReducer(state = initialState, action) {
     case types.ADD_NEW_ARTICLE_CHAT_MESSAGE: {
       return {
         ...state,
-        messages: [...state.messages, action.chat_message],
+        messages: [action.chat_message, ...state.messages],
       };
     }
     case types.FETCH_MESSAGES_SUCCEEDED: {
       return {
         ...state,
-        messages: [...action.chat_messages, ...state.messages],
+        messages: [...state.messages, ...action.chat_messages],
         show_no_messages_info: action.show_no_messages_info,
       };
     }

@@ -64,25 +64,23 @@ class ArticleChat extends Component {
     const { classes } = this.props;
     let max_id = null;
     if (messages.length > 0) {
-      max_id = messages[0].id - 1;
+      max_id = messages[messages.length - 1].id - 1;
     }
     return (
       <Paper className={classes.wrapper}>
-        <Grid container spacing={24}>
-          <Grid item xs={12}>
-            <div className={classes.loadOldMessageLink}>
-              {show_no_messages_info
-                ? <Typography className={classes.noMessageLabel}>no previous message</Typography>
-                : <ButtonBase
-                  focusRipple
-                  className={classes.loadOldMessageLinkButton}
-                  onClick={() => handleLoadOldMessage(id, max_id)}
-                >
-                  <Typography>Read old messages.</Typography>
-                  </ButtonBase>}
-            </div>
-          </Grid>
-        </Grid>
+        <TextField
+          label="Add Message"
+          helperText="A message is sent when you press Enter. Please press Shift + Enter if you want to add a new line."
+          name="message"
+          value={chatInput}
+          onChange={handleChange}
+          onKeyPress={(e) => {
+            handlePressEnter(e, chatInput, id);
+          }}
+          multiline
+          fullWidth
+          margin="normal"
+        />
         <List dense>
           {messages.map(message => (
             <Fade in key={message.id} timeout={1000}>
@@ -105,19 +103,21 @@ class ArticleChat extends Component {
             </Fade>
           ))}
         </List>
-        <TextField
-          label="Add Message"
-          helperText="A message is sent when you press Enter. Please press Shift + Enter if you want to add a new line."
-          name="message"
-          value={chatInput}
-          onChange={handleChange}
-          onKeyPress={(e) => {
-            handlePressEnter(e, chatInput, id);
-          }}
-          multiline
-          fullWidth
-          margin="normal"
-        />
+        <Grid container spacing={24}>
+          <Grid item xs={12}>
+            <div className={classes.loadOldMessageLink}>
+              {show_no_messages_info
+                ? <Typography className={classes.noMessageLabel}>no previous message</Typography>
+                : <ButtonBase
+                  focusRipple
+                  className={classes.loadOldMessageLinkButton}
+                  onClick={() => handleLoadOldMessage(id, max_id)}
+                >
+                  <Typography>Read old messages.</Typography>
+                  </ButtonBase>}
+            </div>
+          </Grid>
+        </Grid>
       </Paper>
     );
   }
