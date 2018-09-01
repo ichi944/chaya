@@ -12,12 +12,12 @@ type ArticleIsPublishedDialogProps = {
 };
 export const ArticleIsPublishedDialog = ({ open, handleClose }: ArticleIsPublishedDialogProps) => {
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={handleClose}>
       <DialogContent>
         <DialogContentText>記事が公開されました</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button color="primary" onClick={handleClose}>OK</Button>
+        <Button color="primary" onClick={handleClose} autoFocus>OK</Button>
       </DialogActions>
     </Dialog>
   );
@@ -29,12 +29,12 @@ type ArticleIsUpdatedDialogProps = {
 };
 export const ArticleIsUpdatedDialog = ({ open, handleClose }: ArticleIsUpdatedDialogProps) => {
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={handleClose}>
       <DialogContent>
         <DialogContentText>記事が更新されました</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button color="primary" onClick={handleClose}>OK</Button>
+        <Button color="primary" onClick={handleClose} autoFocus>OK</Button>
       </DialogActions>
     </Dialog>
   );
