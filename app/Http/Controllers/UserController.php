@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function updateMyAvatar(Request $request) {
         $user = JWTAuth::parseToken()->authenticate();
-        $filename = $request->file('image_data')->store($user->id.'/avatar');
+        $filename = $request->file('image_data')->store('users/'.$user->id.'/avatar');
         $user->avatar_img_url = $filename;
         if($user->save()) {
             return response()->json([

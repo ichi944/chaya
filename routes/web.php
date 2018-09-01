@@ -72,7 +72,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
 });
 
 Route::group(['middleware' => ['auth:api']], function() {
-    Route::get('private-img/{user_id}/avatar/{filename}', 'ImageController@privateImage');
+    Route::get('private-img/users/{user_id}/avatar/{filename}', 'ImageController@privateImage');
 
 });
 
