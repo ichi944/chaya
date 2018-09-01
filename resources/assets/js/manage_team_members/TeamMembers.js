@@ -95,7 +95,7 @@ class TeamMembers extends Component {
                 <div className="article_index-wrapper">
                   <div className="article_index-avatar">
                     <Avatar
-                      src={`/private-img/${member.avator_img_url}?token=${authorizationToken}`}
+                      src={`/private-img/${member.avatar_img_url}?token=${authorizationToken}`}
                     />
                   </div>
                   <div className="article_index-header">

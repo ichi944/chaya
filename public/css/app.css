@@ -8,7 +8,7 @@
   - article
   - editor
   - searcher
-  - avator_preview
+  - avatar_preview
  */
 
 /* $general */
@@ -227,16 +227,16 @@ li {
   margin: .4rem 0 0 1rem;
 }
 
-/* $avator_preview */
+/* $avatar_preview */
 
-.avator-preview_wrapper {
+.avatar-preview_wrapper {
   display: -webkit-flex; /* Safari */
   display: flex;
 }
-.avator-preview_new-image {
+.avatar-preview_new-image {
   margin-left: 1rem;
 }
-.avator-preview_dropzone {
+.avatar-preview_dropzone {
   margin-left: 1rem;
 }
 

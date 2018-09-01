@@ -5,7 +5,7 @@ const initialState = {
   id: null,
   name: '',
   email: '',
-  avator_img_url: '',
+  avatar_img_url: '',
   isAdmin: null,
   created_at: '',
 };
@@ -17,7 +17,7 @@ export default function profileReducer(state = initialState, action) {
     }
     case types.LORDED_PROFILE: {
       const {
-        id, name, email, avator_img_url, is_admin, created_at,
+        id, name, email, avatar_img_url, is_admin, created_at,
       } = action.profile;
       return {
         ...state,
@@ -25,7 +25,7 @@ export default function profileReducer(state = initialState, action) {
         id,
         name,
         email,
-        avator_img_url,
+        avatar_img_url,
         isAdmin: is_admin,
         created_at,
       };

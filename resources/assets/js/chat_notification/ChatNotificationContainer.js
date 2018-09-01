@@ -12,7 +12,7 @@ class ChatNotification extends Component {
       if (current_user_id !== user.id && Notification.permission === 'granted') {
         const options = {
           body: article.heading,
-          icon: `/private-img/${user.avator_img_url}?token=${authorizationToken}`,
+          icon: `/private-img/${user.avatar_img_url}?token=${authorizationToken}`,
         };
         const notification = new Notification(`${user.name}: ${body}`, options);
         notification.onclick = () => {

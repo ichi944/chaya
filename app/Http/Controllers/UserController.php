@@ -14,15 +14,15 @@ class UserController extends Controller
         return response()->json(compact('user'));
     }
 
-    public function updateMyAvator(Request $request) {
+    public function updateMyAvatar(Request $request) {
         $user = JWTAuth::parseToken()->authenticate();
-        $filename = $request->file('image_data')->store($user->id.'/avator');
-        $user->avator_img_url = $filename;
+        $filename = $request->file('image_data')->store($user->id.'/avatar');
+        $user->avatar_img_url = $filename;
         if($user->save()) {
             return response()->json([
                 'status' => 'ok',
                 '_code' => 0,
-                'filename' => $user->avator_img_url,
+                'filename' => $user->avatar_img_url,
             ]);
         }
         return response()->json([

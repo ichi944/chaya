@@ -50,7 +50,7 @@ const ArticleListItem = (props: Props) => {
           <Grid item className={classes.avatar_grid}>
             <Avatar
               className={classes.avatar}
-              src={`/private-img/${article.user.avator_img_url}?token=${authorizationToken}`}
+              src={`/private-img/${article.user.avatar_img_url}?token=${authorizationToken}`}
             />
           </Grid>
           <Grid item>

@@ -5,7 +5,7 @@ import {
   clearProfileForm,
   updateProfileForm,
   requestCurrentProfile,
-  requestUpdateAvator,
+  requestUpdateAvatar,
   requestUpdateProfile,
   updatePasswordForm,
   requestUpdatePassword,
@@ -36,8 +36,8 @@ const mapDispatchToProps = (dispatch) => {
     handleUpdateNewImagePreview(reader_result) {
       dispatch(updateProfileForm({ newImageUrl: reader_result }));
     },
-    handleUpdateAvator(imageData) {
-      dispatch(requestUpdateAvator(imageData));
+    handleUpdateAvatar(imageData) {
+      dispatch(requestUpdateAvatar(imageData));
     },
     handleUpdateProfile() {
       dispatch(requestUpdateProfile());

@@ -1,7 +1,7 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 
-export const AvatorPreview = ({ imageUrl, label }) => {
+export const AvatarPreview = ({ imageUrl, label }) => {
   const styles = {
     wrapper: {
       width: '160px',
@@ -21,7 +21,7 @@ export const AvatorPreview = ({ imageUrl, label }) => {
   return (
     <Paper style={styles.wrapper}>
       <span style={styles.label}>{label}</span>
-      {imageUrl ? <img src={imageUrl} style={styles.image} alt="avator" /> : null}
+      {imageUrl ? <img src={imageUrl} style={styles.image} alt="avatar" /> : null}
     </Paper>
   );
 };

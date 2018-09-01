@@ -117,7 +117,7 @@ class ArticleDetail extends Component {
           <div className="article-meta">
             <div className="article-author_profile">
               <div className="article-author_profile_col">
-                <Avatar src={`/private-img/${user.avator_img_url}?token=${authorizationToken}`} />
+                <Avatar src={`/private-img/${user.avatar_img_url}?token=${authorizationToken}`} />
               </div>
               <div className="article-author_profile_col">
                 <p>{user.name}</p>
