@@ -46,7 +46,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
 
             // Profile
             Route::get('profiles/me', 'UserController@profile');
-            Route::post('profiles/update-my-avator', 'UserController@updateMyAvator');
+            Route::post('profiles/update-my-avatar', 'UserController@updateMyAvatar');
             Route::post('profiles/update-me', 'UserController@updateMe');
             Route::post('profiles/update-my-password', 'UserController@updateMyPassword');
 
@@ -72,7 +72,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'api'], function () {
 });
 
 Route::group(['middleware' => ['auth:api']], function() {
-    Route::get('private-img/{user_id}/avator/{filename}', 'ImageController@privateImage');
+    Route::get('private-img/users/{user_id}/avatar/{filename}', 'ImageController@privateImage');
 
 });
 

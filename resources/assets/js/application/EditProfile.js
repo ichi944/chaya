@@ -4,14 +4,14 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
 
-import { AvatorEditor } from './organisms/AvatorEditor';
+import { AvatarEditor } from './organisms/AvatarEditor';
 import NotificationSettingContainer from '../notification_setting/NotificationSettingContainer';
 import Subheader from './atoms/Subheader';
 
 class EditProfile extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmitAvator = this.handleSubmitAvator.bind(this);
+    this.handleSubmitAvatar = this.handleSubmitAvatar.bind(this);
     this.handleSubmitProfile = this.handleSubmitProfile.bind(this);
     this.handleSubmitPassword = this.handleSubmitPassword.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
@@ -24,10 +24,10 @@ class EditProfile extends Component {
   componentWillMount() {
     this.props.initializeProfileForm();
   }
-  handleSubmitAvator() {
-    console.log('@submit avatoa', this.state);
+  handleSubmitAvatar() {
+    console.log('@submit avatar', this.state);
     const imageData = this.state.file;
-    this.props.handleUpdateAvator(imageData);
+    this.props.handleUpdateAvatar(imageData);
   }
   handleSubmitProfile() {
     this.props.handleUpdateProfile();
@@ -52,10 +52,10 @@ class EditProfile extends Component {
     const {
       name, password, newImageUrl, snackbarIsOpen, snackbarMessage,
     } = this.props.editProfile;
-    const { avator_img_url } = this.props.profile;
+    const { avatar_img_url } = this.props.profile;
     const { authorizationToken } = this.props.auth;
     const { handleChangeProfile, handleChangePassword } = this.props;
-    const currentImageUrl = avator_img_url;
+    const currentImageUrl = avatar_img_url;
     const currentImageUrlWithToken = `/private-img/${currentImageUrl}?token=${authorizationToken}`;
 
     const styles = {
@@ -76,13 +76,13 @@ class EditProfile extends Component {
           </div>
 
           <div className="editor-forms_inputs">
-            <AvatorEditor
+            <AvatarEditor
               currentImageUrl={currentImageUrlWithToken}
               newImageUrl={newImageUrl}
               onDrop={this.handleDrop}
             />
             <br />
-            <Button variant="raised" color="primary" onClick={this.handleSubmitAvator}>
+            <Button variant="raised" color="primary" onClick={this.handleSubmitAvatar}>
               Submit
             </Button>
           </div>

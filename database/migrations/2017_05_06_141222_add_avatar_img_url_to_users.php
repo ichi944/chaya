@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAvatorImgUrlToUsers extends Migration
+class AddAvatarImgUrlToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddAvatorImgUrlToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('avator_img_url')->nullable();
+            $table->string('avatar_img_url')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddAvatorImgUrlToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('avator_img_url');
+            $table->dropColumn('avatar_img_url');
         });
     }
 }

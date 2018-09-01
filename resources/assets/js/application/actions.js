@@ -86,13 +86,13 @@ export function closeNotification() {
   };
 }
 
-export function requestUpdateAvator(imageData) {
+export function requestUpdateAvatar(imageData) {
   return (dispatch) => {
     const data = new FormData();
     data.append('image_data', imageData);
-    Api.client.post('/profiles/update-my-avator', data).then((res) => {
+    Api.client.post('/profiles/update-my-avatar', data).then((res) => {
       console.log(res);
-      dispatch(updateProfileIsSucceeded({ avator_img_url: res.data.filename }));
+      dispatch(updateProfileIsSucceeded({ avatar_img_url: res.data.filename }));
       dispatch(clearNewImagePreview());
       dispatch(showSuccessNotification());
     });

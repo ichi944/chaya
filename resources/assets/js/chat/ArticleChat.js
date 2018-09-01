@@ -87,7 +87,7 @@ class ArticleChat extends Component {
               <ListItem key={message.id} divider>
                 <Avatar
                   alt={message.user.name}
-                  src={`/private-img/${message.user.avator_img_url}?token=${authorizationToken}`}
+                  src={`/private-img/${message.user.avatar_img_url}?token=${authorizationToken}`}
                 />
                 <ListItemText
                   classes={{

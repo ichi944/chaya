@@ -1,9 +1,9 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 
-import { AvatorPreview } from '../molecules/AvatorPreview';
+import { AvatarPreview } from '../molecules/AvatarPreview';
 
-export const AvatorEditor = ({ currentImageUrl, newImageUrl, onDrop }) => {
+export const AvatarEditor = ({ currentImageUrl, newImageUrl, onDrop }) => {
   const styles = {
     dropzone: {
       width: '200px',
@@ -14,14 +14,14 @@ export const AvatorEditor = ({ currentImageUrl, newImageUrl, onDrop }) => {
     },
   };
   return (
-    <div className="avator-preview_wrapper">
+    <div className="avatar-preview_wrapper">
       <div>
-        <AvatorPreview label="current" imageUrl={currentImageUrl} />
+        <AvatarPreview label="current" imageUrl={currentImageUrl} />
       </div>
-      <div className="avator-preview_new-image">
-        <AvatorPreview label="new" imageUrl={newImageUrl} />
+      <div className="avatar-preview_new-image">
+        <AvatarPreview label="new" imageUrl={newImageUrl} />
       </div>
-      <div className="avator-preview_dropzone">
+      <div className="avatar-preview_dropzone">
         <Dropzone style={styles.dropzone} onDrop={onDrop}>
           <p>Drop the iamge you choose.</p>
         </Dropzone>
