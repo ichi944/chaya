@@ -14,6 +14,8 @@ import {
   showDialogDeleteCurrentAtttachment,
   closeDialogDeleteCurrentAttachment,
   requestDeleteCurrentAttachment,
+  requestStoreEmbeddedImageOnEdit,
+  updateCursorPositionOnEdit,
 } from './actions';
 
 const mapStateToProps = ({ articleEdit }) => {
@@ -26,6 +28,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     initialize(articleId) {
       dispatch(fetchArticleById(articleId));
+    },
+    handleUpdateCursorPosition(e) {
+      const cursor_position = e.target.selectionEnd;
+      dispatch(updateCursorPositionOnEdit(cursor_position));
     },
     handleChange(e) {
       dispatch(updateArticleEditForm(e.target.name, e.target.value));
@@ -57,6 +63,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     handleClose() {
       const { id } = ownProps.match.params;
       dispatch(confirmedSuccessUpdating(id));
+    },
+    handleDropEmbeddedImage(image) {
+      dispatch(requestStoreEmbeddedImageOnEdit(image));
     },
   };
 };

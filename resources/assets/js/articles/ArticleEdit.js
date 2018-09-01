@@ -64,7 +64,12 @@ class ArticleEdit extends Component {
       confirmDeleteCurrentAttachmentDialogOpen,
       confirmSuccessDialogOpen,
     } = this.props;
-    const { handleChange, handleTogglePreview } = this.props;
+    const {
+      handleChange,
+      handleTogglePreview,
+      handleUpdateCursorPosition,
+      handleDropEmbeddedImage,
+    } = this.props;
 
     return (
       <div style={{ position: 'relative' }}>
@@ -77,6 +82,7 @@ class ArticleEdit extends Component {
           attachments={attachments}
           onPreview={onPreview}
           mode={mode}
+          handleUpdateCursorPosition={handleUpdateCursorPosition}
           handleDrop={this.handleDrop}
           handleDeleteAttachment={this.handleDeleteAttachment}
           handleShowDialogDeleteCurrentAttachment={this.handleShowDialogDeleteCurrentAttachment}
@@ -87,6 +93,7 @@ class ArticleEdit extends Component {
           handleCancel={this.handleCancel}
           handleCancelText="やめる"
           handleTogglePreview={handleTogglePreview}
+          handleDropEmbeddedImage={handleDropEmbeddedImage}
         />
 
         <ConfirmDeleteCurrentAttachmentDialog
