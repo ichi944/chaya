@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
+import withValidator from '../services/withValidator';
 import Editor from './organisms/Editor';
 import { ArticleIsPublishedDialog } from './organisms/Dialogs';
 
 class ArticleAdd extends Component {
   constructor(props) {
     super(props);
+
     this.handleDrop = this.handleDrop.bind(this);
     this.handleDeleteAttachment = this.handleDeleteAttachment.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
+
   handleDrop(acceptedFiles) {
     acceptedFiles.forEach((file) => {
       this.props.handleDrop(file);
@@ -31,6 +34,13 @@ class ArticleAdd extends Component {
     const {
       heading, body, attachments, currentChannelId,
     } = this.props;
+    this.props.makeAllDirty();
+    const validation = this.props.makeValidator();
+
+    if (validation.fails()) {
+      return;
+    }
+
     this.props.handleSubmit({
       heading,
       body,
@@ -56,6 +66,8 @@ class ArticleAdd extends Component {
       heading, body, attachments, onPreview, mode, confirmSuccessDialogOpen,
     } = this.props;
     const {
+      dirty,
+      errors,
       handleChange,
       handleTogglePreview,
       handleDropEmbeddedImage,
@@ -67,6 +79,8 @@ class ArticleAdd extends Component {
 
         <Editor
           editorHeaderText={`${this.props.currentChannelName} チャンネルに新しく書く...`}
+          dirty={dirty}
+          errors={errors}
           heading={heading}
           body={body}
           attachments={attachments}
@@ -90,4 +104,16 @@ class ArticleAdd extends Component {
   }
 }
 
-export default ArticleAdd;
+export default withValidator({
+  rules: {
+    heading: 'required',
+    body: 'required',
+  },
+  setData(props) {
+    const { heading, body } = props;
+    return {
+      heading,
+      body,
+    };
+  },
+})(ArticleAdd);

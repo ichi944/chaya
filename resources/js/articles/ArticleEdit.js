@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import withValidator from '../services/withValidator';
 import Editor from './organisms/Editor';
 import { ArticleIsUpdatedDialog, ConfirmDeleteCurrentAttachmentDialog } from './organisms/Dialogs';
 
@@ -42,6 +43,12 @@ class ArticleEdit extends Component {
     history.goBack();
   }
   handleSubmit() {
+    this.props.makeAllDirty();
+    const validation = this.props.makeValidator();
+    if (validation.fails()) {
+      return;
+    }
+
     const { id } = this.props.match.params;
     const { heading, body } = this.props;
     this.props.handleSubmit({
@@ -57,6 +64,8 @@ class ArticleEdit extends Component {
     const {
       heading,
       body,
+      dirty,
+      errors,
       current_attachments,
       attachments,
       onPreview,
@@ -76,6 +85,8 @@ class ArticleEdit extends Component {
 
         <Editor
           editorHeaderText="変更する..."
+          dirty={dirty}
+          errors={errors}
           heading={heading}
           body={body}
           current_attachments={current_attachments}
@@ -107,4 +118,16 @@ class ArticleEdit extends Component {
   }
 }
 
-export default ArticleEdit;
+export default withValidator({
+  rules: {
+    heading: 'required',
+    body: 'required',
+  },
+  setData: (props) => {
+    const { heading, body } = props;
+    return {
+      heading,
+      body,
+    };
+  },
+})(ArticleEdit);

@@ -15,9 +15,11 @@ const withValidator = (options) => {
         Object.keys(this.setData(props)).forEach((key) => {
           dirty[key] = false;
         });
+        const validation = this.makeValidator();
+        validation.check();
         this.state = {
           dirty,
-          errors: {},
+          errors: validation.errors,
         };
       }
       componentDidUpdate(prevProps) {
@@ -25,22 +27,24 @@ const withValidator = (options) => {
         const prevData = this.setData(prevProps);
         const data = this.setData(this.props);
 
-        let notEquanlNum = 0;
+        let differentNum = 0;
         Object.keys(data).forEach((key) => {
           if (prevData[key] !== data[key]) {
-            notEquanlNum += 1;
+            differentNum += 1;
           }
         });
-        if (notEquanlNum === 0) {
+        if (differentNum === 0) {
           return;
         }
         Object.keys(data).forEach((key) => {
           dirty[key] = dirty[key] || prevData[key] !== data[key];
         });
-        this.setState({ dirty });
         const validation = new Validator(data, this.rules);
-        validation.fails();
-        this.setState({ errors: validation.errors });
+        validation.check();
+        this.setState({
+          dirty,
+          errors: validation.errors,
+        });
       }
       makeValidator() {
         return new Validator(this.setData(this.props), this.rules);
