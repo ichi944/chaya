@@ -48,10 +48,12 @@ const ArticleListItem = (props: Props) => {
       <Link to={`/app/articles/${article.id}`} className="article_index-link">
         <Grid container justify="flex-start" className={classes.wrapper}>
           <Grid item className={classes.avatar_grid}>
-            <Avatar
-              className={classes.avatar}
-              src={`/private-img/${article.user.avatar_img_url}?token=${authorizationToken}`}
-            />
+            {article.user.avatar_img_url === null
+              ? <Avatar className={classes.avatar} src="/img/no-image.png" />
+              : <Avatar
+                className={classes.avatar}
+                src={`/private-img/${article.user.avatar_img_url}?token=${authorizationToken}`}
+              />}
           </Grid>
           <Grid item>
             <p className="article_index-name">{article.user.name}</p>
