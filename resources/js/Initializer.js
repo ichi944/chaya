@@ -37,6 +37,15 @@ const RedirectToLogin = props => (
   />
 );
 
+const RedirectToHome = props => (
+  <Redirect
+    to={{
+      pathname: '/app/home',
+      state: { from: props.location },
+    }}
+  />
+);
+
 class Initializer extends Component {
   componentWillUpdate() {
     const { auth } = this.props;
@@ -98,6 +107,7 @@ class Initializer extends Component {
                 <Route path="/app/articles/:id" component={ArticleDetailContainer} />
                 <Route exact path="/app/profile" component={EditProfileContainer} />
                 <Route exact path="/app/manage-team-members" component={TeamMembersContainer} />
+                <Route exact path="/app/" component={RedirectToHome} />
                 <Route component={NotFound} />
               </Switch>
             </div>
