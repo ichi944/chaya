@@ -10,11 +10,7 @@ class ImageController extends Controller
 {
     public function privateImage($user_id, $filename)
     {
-        Log::Info($filename);
-
         $path = storage_path('app/users/'.$user_id.'/avatar/'.$filename);
-        Log::Info('path is: ');
-        Log::Info($path);
         if (!File::exists($path)) {
             abort(404);
         }
