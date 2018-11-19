@@ -9,14 +9,10 @@ import { logger } from 'redux-logger';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
 import rootReducer from './rootReducer';
 import appHistory from './services/appHistory';
 
 import InitializerContainer from './InitializerContainer';
-
-injectTapEventPlugin();
 
 const store = createStore(
   rootReducer,
