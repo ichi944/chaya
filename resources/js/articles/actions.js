@@ -1,5 +1,5 @@
 // @flow
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import * as types from './actionTypes';
 import Api from '../services/Api';

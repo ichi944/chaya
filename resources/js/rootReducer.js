@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { connectRouter } from 'connected-react-router';
 
 import authReducer from './auth/authReducer';
 import loginReducer from './auth/loginReducer';
@@ -20,26 +20,25 @@ import teamMembersReducer from './manage_team_members/teamMembersReducer';
 import notifierReducer from './notifier/notifierReducer';
 import notificationSettingReducer from './notification_setting/notificationSettingReducer';
 
-const rootReducer = combineReducers({
-  router: routerReducer,
-  auth: authReducer,
-  login: loginReducer,
-  signup: signupReducer,
-  verifyUser: verifyUserReducer,
-  profile: profileReducer,
-  socket: socketReducer,
-  channels: channelsReducer,
-  channelAdd: channelAddReducer,
-  editProfile: editProfileReducer,
-  articleLists: articleListsReducer,
-  article: articleDetailReducer,
-  articleAdd: articleAddReducer,
-  articleEdit: articleEditReducer,
-  chat: chatReducer,
-  searcher: searcherReducer,
-  teamMembers: teamMembersReducer,
-  notifier: notifierReducer,
-  notificationSetting: notificationSettingReducer,
-});
-
-export default rootReducer;
+export default history =>
+  combineReducers({
+    router: connectRouter(history),
+    auth: authReducer,
+    login: loginReducer,
+    signup: signupReducer,
+    verifyUser: verifyUserReducer,
+    profile: profileReducer,
+    socket: socketReducer,
+    channels: channelsReducer,
+    channelAdd: channelAddReducer,
+    editProfile: editProfileReducer,
+    articleLists: articleListsReducer,
+    article: articleDetailReducer,
+    articleAdd: articleAddReducer,
+    articleEdit: articleEditReducer,
+    chat: chatReducer,
+    searcher: searcherReducer,
+    teamMembers: teamMembersReducer,
+    notifier: notifierReducer,
+    notificationSetting: notificationSettingReducer,
+  });
