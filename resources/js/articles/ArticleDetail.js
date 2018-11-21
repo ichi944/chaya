@@ -5,7 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import ModeEditIcon from '@material-ui/icons/ModeEdit';
+import EditIcon from '@material-ui/icons/Edit';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -110,7 +110,7 @@ class ArticleDetail extends Component {
               aria-label="edit"
               className={classes.button}
             >
-              <ModeEditIcon />
+              <EditIcon />
             </Button>
           </div>
           <Divider />
