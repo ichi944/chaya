@@ -1,9 +1,13 @@
-// @flow
+import { Dispatch } from 'redux';
 import * as types from './actionTypes';
 import Api from '../services/Api';
 
-export function fetchArticlesByChannel(channel_id: number, options: Object) {
-  return (dispatch: Function) => {
+export function fetchArticlesByChannel(
+  channel_id: number,
+  options: {
+    page: string,
+  }) {
+  return (dispatch: Dispatch) => {
     Api.client
       .get(`channels/${channel_id}/articles`, {
         params: options,

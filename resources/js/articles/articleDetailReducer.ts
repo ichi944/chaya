@@ -1,16 +1,15 @@
-// @flow
 import * as types from './actionTypes';
 
-type ArticleDetailState = {
-  +id: ?number,
-  +heading: string,
-  +body: string,
-  +current_attachments: Array<Object>,
-  +created_at: string,
-  +user: {
-    +name: string,
+interface ArticleDetailState {
+  id: number | null,
+  heading: string,
+  body: string,
+  current_attachments: Array<Object>,
+  created_at: string,
+  user: {
+    name: string,
   },
-  +pinned: boolean,
+  pinned: boolean,
   confirmDeleteDialogOpen: boolean,
 };
 

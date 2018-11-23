@@ -1,10 +1,9 @@
-// @flow
 import * as types from './actionTypes';
 
-type AuthState = {
-  +isDoneCheckingStatusAtInitialize: boolean,
-  +isAuthenticated: boolean,
-  +authorizationToken: ?string,
+interface AuthState {
+  isDoneCheckingStatusAtInitialize: boolean;
+  isAuthenticated: boolean;
+  authorizationToken: string | null;
 };
 
 const initialState = {

@@ -1,11 +1,10 @@
-// @flow
 import * as React from 'react';
 
 import Subheader from '../../application/atoms/Subheader';
 
-type Props = {
+interface Props {
   title: string,
-};
+}
 
 const EditerHeader = ({ title }: Props) => {
   return (

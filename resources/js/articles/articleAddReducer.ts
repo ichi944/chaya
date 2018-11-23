@@ -1,26 +1,25 @@
-// @flow
 import * as types from './actionTypes';
 
-type ArticleAddState = {
-  +channelId: ?number,
-  +channelName: ?string,
-  +heading: string,
-  +body: string,
-  +attachments: Array<any>,
-  +onPreview: boolean,
-  +mode: string,
-  +confirmSuccessDialogOpen: boolean,
-  +cursor_position: ?number,
+interface ArticleAddState {
+  channelId: number | null,
+  channelName: string | null,
+  heading: string,
+  body: string,
+  attachments: Array<any>,
+  onPreview: boolean,
+  mode: string,
+  confirmSuccessDialogOpen: boolean,
+  cursor_position: number | null,
 };
 
-type ArticleAddAction = {
+interface ArticleAddAction {
   type: string,
-  +name: string,
-  +value: string,
-  +attachment: Object,
-  +index: number,
-  +cursor_position: number,
-  +img_tag: string,
+  name: string,
+  value: string,
+  attachment: Object,
+  index: number,
+  cursor_position: number,
+  img_tag: string,
 };
 const initialState = {
   channelId: null,

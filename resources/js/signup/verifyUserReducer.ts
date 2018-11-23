@@ -1,9 +1,8 @@
-// @flow
 import * as types from './actionTypes';
 
-type VerifyUserState = {
-  isRequesting: boolean,
-  isVerified: boolean,
+interface VerifyUserState {
+  isRequesting: boolean;
+  isVerified: boolean;
 };
 
 const initialState = {

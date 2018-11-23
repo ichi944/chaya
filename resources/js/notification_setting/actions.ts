@@ -1,4 +1,3 @@
-// @flow
 import * as types from './actionTypes';
 
 export const updateSwitch = (new_state: boolean) => {

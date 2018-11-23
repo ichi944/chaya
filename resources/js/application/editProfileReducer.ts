@@ -1,13 +1,12 @@
-// @flow
 import * as types from './actionTypes';
 
-type EditProfileState = {
-  name: string,
-  password: string,
-  newImageUrl: ?string,
-  snackbarIsOpen: boolean,
-  snackbarMessage: string,
-};
+interface EditProfileState {
+  name: string;
+  password: string;
+  newImageUrl: string | null;
+  snackbarIsOpen: boolean;
+  snackbarMessage: string;
+}
 
 const initialState = {
   name: '',

@@ -8,7 +8,8 @@
     "strictNullChecks": true,
     "allowJs": true,
     "jsx": "react",
-    "preserveConstEnums": true
+    "preserveConstEnums": true,
+    "lib": ["es2015", "dom", "dom.iterable"]
   },
   "include": [
       "resources/js/**/*"

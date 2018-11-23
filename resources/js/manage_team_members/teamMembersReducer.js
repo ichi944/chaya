@@ -1,23 +1,22 @@
-// @flow
 import _ from 'lodash';
 import * as types from './actionTypes';
 
-type TeamMember = {
-  id: number,
-  namae: string,
-  email: string,
-};
-type TeamMembersState = {
-  members: Array<TeamMember>,
-  showMembersWhoIsNotVerifiedWithEmail: boolean,
-};
+// type TeamMember = {
+//   id: number,
+//   namae: string,
+//   email: string,
+// };
+// type TeamMembersState = {
+//   members: Array<TeamMember>,
+//   showMembersWhoIsNotVerifiedWithEmail: boolean,
+// };
 
 const initialState = {
   members: [],
   show_members_who_is_not_verified_with_email: false,
 };
 
-export default function teamMembersReducer(state: TeamMembersState = initialState, action: any) {
+export default function teamMembersReducer(state = initialState, action) {
   switch (action.type) {
     case types.FETCH_TEAM_MEMBERS_IS_SUCCEEDED: {
       const { data } = action;

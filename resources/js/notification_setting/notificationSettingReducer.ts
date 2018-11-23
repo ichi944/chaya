@@ -1,13 +1,12 @@
-// @flow
 import * as types from './actionTypes';
 
-type NotificationSettingState = {
-  enabled: boolean,
+interface NotificationSettingState {
+  enabled: boolean;
 };
 
-type NotificationSettingAction = {
-  type: String,
-  new_state: boolean,
+interface NotificationSettingAction {
+  type: String;
+  new_state: boolean;
 };
 
 const initialState = {

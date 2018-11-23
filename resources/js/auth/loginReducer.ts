@@ -1,11 +1,10 @@
-// @flow
 import * as types from './actionTypes';
 
-type LoginState = {
-  +email: string,
-  +password: string,
-  +showErrorMessage: boolean,
-  +errorMessage: string,
+interface LoginState {
+  email: string;
+  password: string;
+  showErrorMessage: boolean;
+  errorMessage: string;
 };
 
 const initialState = {

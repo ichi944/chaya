@@ -1,4 +1,3 @@
-// @flow
 import { connect } from 'react-redux';
 
 import {
@@ -17,7 +16,7 @@ const mapStateToProps = ({ teamMembers, auth }) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Function) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     initialize() {
       dispatch(fetchTeamMembers());

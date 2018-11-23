@@ -1,30 +1,29 @@
-// @flow
 import * as types from './actionTypes';
 import * as channelActionTypes from '../channel/actionTypes';
 
-type ArticleListsState = {
+interface ArticleListsState {
   articles: {
-    +isFetching: boolean,
-    +current_page: ?number,
-    +data: Array<Object>,
-    +from: ?number,
-    +last_page: ?number,
-    +next_page_url: ?string,
-    +per_page: ?number,
-    +prev_page_url: ?string,
-    +to: ?number,
-    +total: ?number,
-  },
+    isFetching: boolean;
+    current_page: number | null;
+    data: Array<Object>;
+    from: number | null;
+    last_page: number | null;
+    next_page_url: string | null;
+    per_page: number | null;
+    prev_page_url: string | null;
+    to: number | null;
+    total: number | null;
+  };
   channel: {
-    +id: ?number,
-    +name: ?string,
-    // +description: ?string,
-    +updated_at: ?string,
-    +created_at: ?string,
-  },
-  descriptionEditorIsOpen: boolean,
-  descriptionEditorContent: ?string,
-};
+    id: number | null;
+    name: string | null;
+    description: string | null;
+    updated_at: string | null;
+    created_at: string | null;
+  };
+  descriptionEditorIsOpen: boolean;
+  descriptionEditorContent: string | null;
+}
 
 const initialState = {
   articles: {

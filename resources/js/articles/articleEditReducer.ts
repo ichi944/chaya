@@ -1,30 +1,29 @@
-// @flow
 import * as types from './actionTypes';
 
-type ArticleEditState = {
-  +heading: string,
-  +body: string,
-  +current_attachments: Array<Object>,
-  +attachments: Array<Object>,
+interface ArticleEditState {
+  heading: string,
+  body: string,
+  current_attachments: Array<Object>,
+  attachments: Array<Object>,
   onPreview: boolean,
   confirmSuccessDialogOpen: boolean,
   confirmDeleteCurrentAttachmentDialogOpen: boolean,
-  deletingAttachmentId: ?number,
-  deletingAttachmentName: ?string,
-  cursor_position: ?number,
+  deletingAttachmentId: number | null,
+  deletingAttachmentName: string | null,
+  cursor_position: number | null,
 };
 
 type ArticleEditAction = {
   type: string,
-  +id: number,
-  +index: number,
-  +name: string,
-  +value: string,
-  +attachment: Object,
-  +current_attachments: Array<Object>,
-  +data: Object,
-  +cursor_position: number,
-  +img_tag: string,
+  id: number,
+  index: number,
+  name: string,
+  value: string,
+  attachment: Object,
+  current_attachments: Array<Object>,
+  data: Object,
+  cursor_position: number,
+  img_tag: string,
 };
 
 const initialState = {

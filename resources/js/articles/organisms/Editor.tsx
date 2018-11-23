@@ -1,4 +1,3 @@
-// @flow
 import * as React from 'react';
 
 import { Paper, TextField, Button } from '@material-ui/core';
@@ -8,7 +7,7 @@ import Switch from '@material-ui/core/Switch';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import grey from '@material-ui/core/colors/grey';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 import Dropzone from 'react-dropzone';
 
 import parseToMarkdown from '../../services/parseToMarkdown';
@@ -17,12 +16,15 @@ import DropAttachment from './DropAttachment';
 import AttachmentList from '../molecules/AttachmentList';
 import CurrentAttachmentList from '../molecules/CurrentAttachmentList';
 
-const styles2 = {
+import AttachmentProps from '../interfaces/Attachment';
+import CurrentAttachmentProps from '../interfaces/CurrentAttachment';
+
+const styles2 = createStyles({
   paper: {
     backgroundColor: '#FAFAFA',
   },
-};
-const styles = {
+});
+const styles = createStyles({
   paper: {
     backgroundColor: '#FAFAFA',
   },
@@ -39,31 +41,44 @@ const styles = {
   dropzoneActive: {
     backgroundColor: grey[100],
   },
-};
+});
 
-type Props = {
-  editorHeaderText: string,
-  dirty: Object,
-  errors: Object,
-  heading: string,
-  body: string,
-  current_attachments: Object[] | null,
-  attachments: Object[],
-  onPreview: boolean,
-  handleUpdateCursorPosition: Function,
-  handleChange: Function,
-  handleCancel: Function,
-  handleCancelText: string,
-  handleDrop: Function,
-  handleShowDialogDeleteCurrentAttachment: ?Function,
-  handleDeleteCurrentAttachment: ?Function,
-  handleDeleteAttachment: Function,
-  handleSubmit: Function,
-  handleSubmitText: string,
-  handleTogglePreview: Function,
-  handleDropEmbeddedImage: Function,
-  classes: Object,
-};
+interface Props {
+  editorHeaderText: string;
+  dirty: {
+    heading: boolean;
+    body: boolean;
+  };
+  errors: {
+    has: (key: string) => boolean;
+    first: (key: string) => boolean;
+    heading: boolean;
+    body: boolean;
+  };
+  heading: string;
+  body: string;
+  current_attachments?: CurrentAttachmentProps[];
+  attachments: AttachmentProps[];
+  onPreview: boolean;
+  handleUpdateCursorPosition: (event: React.FormEvent) => void;
+  handleChange: (event: React.FormEvent) => void;
+  handleCancel: (event: React.FormEvent) => void;
+  handleCancelText: string;
+  handleDrop: (accepted: File[], rejected: File[], event: any) => void;
+  handleShowDialogDeleteCurrentAttachment?: (attachment: CurrentAttachmentProps) => void;
+  handleDeleteAttachment: (index: number) => void;
+  handleSubmit: (event: React.FormEvent) => void;
+  handleSubmitText: string;
+  handleTogglePreview: (event: React.FormEvent) => void;
+  handleDropEmbeddedImage: (accepted: File[], rejected: File[], event: any) => void;
+  classes: {
+    paper: string;
+    attachments_list: string;
+    attachments_list_title: string;
+    dropzone: string;
+    dropzoneActive: string;
+  };
+}
 
 const Editor = ({
   editorHeaderText,
@@ -71,7 +86,7 @@ const Editor = ({
   errors,
   heading,
   body,
-  current_attachments = null,
+  current_attachments,
   attachments,
   onPreview,
   handleUpdateCursorPosition,
@@ -80,8 +95,7 @@ const Editor = ({
   handleCancelText,
   handleDrop,
   handleDeleteAttachment,
-  handleShowDialogDeleteCurrentAttachment = null,
-  handleDeleteCurrentAttachment = null,
+  handleShowDialogDeleteCurrentAttachment,
   handleSubmit,
   handleSubmitText,
   handleTogglePreview,
@@ -151,13 +165,13 @@ const Editor = ({
                 <Typography className={classes.attachments_list_title} variant="subheading">
                     current attachments
                 </Typography>
+                {!handleShowDialogDeleteCurrentAttachment ? null :
                 <CurrentAttachmentList
                   attachments={current_attachments}
                   handleShowDialogDeleteCurrentAttachment={
                       handleShowDialogDeleteCurrentAttachment
                     }
-                  handleDeleteCurrentAttachment={handleDeleteCurrentAttachment}
-                />
+                />}
               </Grid>
               </Grid>}
 

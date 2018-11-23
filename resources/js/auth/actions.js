@@ -1,4 +1,3 @@
-// @flow
 import _ from 'lodash';
 import Echo from 'laravel-echo';
 
@@ -7,7 +6,10 @@ import { clearSocketId } from '../application/actions';
 
 import Api from '../services/Api';
 
-export function storeAuthorizationTokenToState(token: string) {
+// interface Window { Echo: any, location: any }
+// declare var window: Window;
+
+export function storeAuthorizationTokenToState(token) {
   return {
     type: types.STORE_AUTHORIZTION_TOKEN_TO_STATE,
     token,
@@ -19,8 +21,8 @@ export function initializeSocketIOSucceeded() {
     type: types.INITIALIZE_SOCKET_IO_SUCCEEDED,
   };
 }
-export function requestInitializeSocketIO(token: string) {
-  return (dispatch: Dispatch) => {
+export function requestInitializeSocketIO(token) {
+  return (dispatch) => {
     window.Echo = new Echo({
       broadcaster: 'socket.io',
       host: `${window.location.hostname}:6001`,
@@ -30,12 +32,12 @@ export function requestInitializeSocketIO(token: string) {
         },
       },
     });
-    dispatch(initializeSocketIOSucceeded);
+    dispatch(initializeSocketIOSucceeded());
   };
 }
 
 export function handleCheckAuthStatus() {
-  return (dispatch: Dispatch) => {
+  return (dispatch) => {
     console.log('start check auth status');
     dispatch({
       type: types.START_CHECK_AUTH_STATUS,
@@ -67,7 +69,7 @@ export function handleCheckAuthStatus() {
       },
     );
     console.log('check if the token exists in localStorage');
-    const token: ?string = localStorage.getItem('authToken');
+    const token = localStorage.getItem('authToken');
     if (token) {
       console.log('token exists: ', token);
       dispatch(storeAuthorizationTokenToState(token));
@@ -75,7 +77,7 @@ export function handleCheckAuthStatus() {
       Api.setAuthorizationToken(token);
       Api.client.get('/auth/hello').then((res) => {
         console.log('response of hello: ', res.data);
-        if (_.has(res.data, 'status') && res.data.status === true) {
+        if (res.data.status && res.data.status === true) {
           console.log('already authenticated');
 
           dispatch(requestInitializeSocketIO(token));
@@ -98,8 +100,8 @@ export function handleCheckAuthStatus() {
   };
 }
 
-export function authenticate(email: string, password: string) {
-  return (dispatch: Dispatch) => {
+export function authenticate(email, password) {
+  return (dispatch) => {
     console.log('start authentication', email);
 
     dispatch({
@@ -113,7 +115,7 @@ export function authenticate(email: string, password: string) {
       })
       .then((res) => {
         console.log(res.data);
-        if (_.has(res.data, 'error')) {
+        if (res.data.error) {
           console.log('error');
           dispatch({
             type: types.FAILED_AUTHENTICATION,
@@ -124,7 +126,7 @@ export function authenticate(email: string, password: string) {
           });
           return;
         } // endif: when error
-        if (_.has(res.data, 'token')) {
+        if (res.data.token) {
           console.log('authenticated');
           const { token } = res.data;
 
@@ -149,7 +151,7 @@ export function successSignOut() {
   };
 }
 export function requestSignOut() {
-  return (dispatch: Dispatch) => {
+  return (dispatch) => {
     Api.client.get('/auth/signout').then(() => {
       Api.clearSocketId();
       Api.clearAuthorizationToken();

@@ -1,12 +1,16 @@
-// @flow
+import { Dispatch } from 'redux';
 import { push } from 'connected-react-router';
 
 import * as types from './actionTypes';
 import Api from '../services/Api';
 import { ARTICLE_API_URL } from './constants';
 
-export function fetchArticles(options: Object = {}) {
-  return (dispatch: Function) => {
+import UpdateRequestProps from './interfaces/UpdateRequest';
+import CurrentAttachmentProps from './interfaces/CurrentAttachment';
+import AttachmentProps from './interfaces/Attachment';
+
+export function fetchArticles(options: Object = {}): any {
+  return (dispatch: Dispatch) => {
     dispatch({
       type: types.START_FETCH_ARTICLES,
     });
@@ -25,7 +29,7 @@ export function fetchArticles(options: Object = {}) {
 }
 
 export function fetchArticleById(id: number) {
-  return (dispatch: Function) => {
+  return (dispatch: Dispatch) => {
     dispatch({
       type: types.START_FETCH_ARTICLE,
     });
@@ -84,8 +88,13 @@ export function successCreateArticle() {
     type: types.SUCCESS_CREATE_ARTICLE,
   };
 }
-export function createNewArticle(data: Object) {
-  return (dispatch: Function) => {
+export function createNewArticle(data: {
+  heading: string;
+  body: string;
+  attachments: AttachmentProps[];
+  channelId: number;
+}) {
+  return (dispatch: Dispatch) => {
     const {
       heading, body, attachments, channelId,
     } = data;
@@ -95,8 +104,8 @@ export function createNewArticle(data: Object) {
     });
     formData.append('heading', heading);
     formData.append('body', body);
-    formData.append('channelId', channelId);
-    Api.client.post('/articles/', formData).then((res: Object) => {
+    formData.append('channelId', channelId.toString());
+    Api.client.post('/articles/', formData).then((res: { data: object}) => {
       console.log(res.data);
 
       dispatch(successCreateArticle());
@@ -111,7 +120,7 @@ export function closeConfirmSuccessDialog() {
 }
 
 export function confirmedSuccessCreating() {
-  return (dispatch: Function, getState: Function) => {
+  return (dispatch: Dispatch, getState: Function) => {
     dispatch(clearArticleAdd());
     dispatch(closeConfirmSuccessDialog());
 
@@ -154,7 +163,7 @@ export function deleteAttachementOnArticleEditForm(index: number) {
   };
 }
 
-export function showDialogDeleteCurrentAtttachment(attachment: Object) {
+export function showDialogDeleteCurrentAtttachment(attachment: CurrentAttachmentProps) {
   const { id } = attachment;
   const { name } = attachment;
   return {
@@ -176,7 +185,7 @@ export function deleteCurrentAttachmentSucceeded(current_attachments: Array<Obje
   };
 }
 export function requestDeleteCurrentAttachment() {
-  return (dispatch: Function, getState: Function) => {
+  return (dispatch: Dispatch, getState: Function) => {
     const id = getState().articleEdit.deletingAttachmentId;
     Api.client.delete(`article-attachments/${id}`).then((res) => {
       if (res.data._code !== 0) {
@@ -195,8 +204,8 @@ export function successUpdateArticle() {
     type: types.SUCCESS_UPDATE_ARTICLE,
   };
 }
-export function requestUpdateArticle(data: Object) {
-  return (dispatch: Function, getState: Function) => {
+export function requestUpdateArticle(data: UpdateRequestProps) {
+  return (dispatch: Dispatch, getState: Function) => {
     const { id } = data;
     const { attachments } = getState().articleEdit;
     const formData = new FormData();
@@ -221,7 +230,7 @@ export function closeConfirmSuccessUpdatingDialog() {
   };
 }
 export function confirmedSuccessUpdating(id: number) {
-  return (dispatch: Function) => {
+  return (dispatch: Dispatch) => {
     dispatch(clearArticleEdit());
     dispatch(closeConfirmSuccessUpdatingDialog());
     dispatch(push(`/app/articles/${id}`));
@@ -247,7 +256,7 @@ export function successDeleteArticle() {
 }
 
 export function deleteArticleById(id: number) {
-  return (dispatch: Function, getState: Function) => {
+  return (dispatch: Dispatch, getState: Function) => {
     console.log('deleting', id);
     const currentChannelId = getState().articleLists.channel.id;
     Api.client.delete(`/articles/${id}`).then(() => {
@@ -265,7 +274,7 @@ export function updateSearchQuery(query: string = '') {
 }
 
 export function requestSearch(query: string = '') {
-  return (dispatch: Function) => {
+  return (dispatch: Dispatch) => {
     const options = {
       query,
     };
@@ -288,7 +297,7 @@ export function successUnpinArticle(article_id: number) {
 }
 
 export function requestPinArticle(article_id: number) {
-  return (dispatch: Function) => {
+  return (dispatch: Dispatch) => {
     Api.client.put(`articles/${article_id}/pinned`).then((res) => {
       if (res.data._code === 0) {
         dispatch(successPinArticle(article_id));
@@ -298,7 +307,7 @@ export function requestPinArticle(article_id: number) {
 }
 
 export function requestUnpinArticle(article_id: number) {
-  return (dispatch: Function) => {
+  return (dispatch: Dispatch) => {
     Api.client.put(`articles/${article_id}/unpinned`).then((res) => {
       if (res.data._code === 0) {
         dispatch(successUnpinArticle(article_id));
@@ -341,8 +350,8 @@ export function insertEmbeddedImageURLtoBody(img_tag: any, cursor_position: numb
   };
 }
 
-export function requestStoreEmbeddedImage(image: Array<Object>) {
-  return (dispatch: Function, getState: Function) => {
+export function requestStoreEmbeddedImage(image: any[]) {
+  return (dispatch: Dispatch, getState: Function) => {
     const channel_id = getState().articleLists.channel.id;
     const data = new FormData();
     const user_id = getState().profile.id;
@@ -376,8 +385,8 @@ export function insertEmbeddedImageURLtoBodyOnEdit(img_tag: any, cursor_position
   };
 }
 
-export function requestStoreEmbeddedImageOnEdit(image: Array<Object>) {
-  return (dispatch: Function, getState: Function) => {
+export function requestStoreEmbeddedImageOnEdit(image: any[]) {
+  return (dispatch: Dispatch, getState: () => any) => {
     const channel_id = getState().article.channel_id;
     const data = new FormData();
     const user_id = getState().profile.id;

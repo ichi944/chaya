@@ -1,15 +1,14 @@
-// @flow
 import * as React from 'react';
-import { Button, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
-type ArticleIsPublishedDialogProps = {
-  open: boolean,
-  handleClose: Function,
-};
+interface ArticleIsPublishedDialogProps {
+  open: boolean;
+  handleClose: (event: React.SyntheticEvent<EventTarget>) => void;
+}
 export const ArticleIsPublishedDialog = ({ open, handleClose }: ArticleIsPublishedDialogProps) => {
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -23,10 +22,10 @@ export const ArticleIsPublishedDialog = ({ open, handleClose }: ArticleIsPublish
   );
 };
 
-type ArticleIsUpdatedDialogProps = {
-  open: boolean,
-  handleClose: Function,
-};
+interface ArticleIsUpdatedDialogProps {
+  open: boolean;
+  handleClose: (event: React.SyntheticEvent<EventTarget>) => void;
+}
 export const ArticleIsUpdatedDialog = ({ open, handleClose }: ArticleIsUpdatedDialogProps) => {
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -40,11 +39,11 @@ export const ArticleIsUpdatedDialog = ({ open, handleClose }: ArticleIsUpdatedDi
   );
 };
 
-type ConfirmDeleteCurrentAttachmentDialogProps = {
-  open: boolean,
-  handleCancel: Function,
-  handleSubmit: Function,
-};
+interface ConfirmDeleteCurrentAttachmentDialogProps {
+  open: boolean;
+  handleCancel: (event: React.SyntheticEvent<EventTarget>) => void;
+  handleSubmit: (event: React.SyntheticEvent<EventTarget>) => void;
+}
 export const ConfirmDeleteCurrentAttachmentDialog = ({
   open,
   handleCancel,
@@ -66,11 +65,11 @@ export const ConfirmDeleteCurrentAttachmentDialog = ({
   );
 };
 
-type ConfirmDeleteArticleDialogProps = {
+interface ConfirmDeleteArticleDialogProps {
   open: boolean,
-  handleCancel: Function,
-  handleSubmit: Function,
-};
+  handleCancel: (event: React.SyntheticEvent<EventTarget>) => void;
+  handleSubmit: (event: React.SyntheticEvent<EventTarget>) => void;
+}
 export const ConfirmDeleteArticleDialog = ({
   open,
   handleCancel,

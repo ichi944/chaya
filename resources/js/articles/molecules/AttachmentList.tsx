@@ -1,6 +1,5 @@
-// @flow
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -12,7 +11,9 @@ import AttachmentIcon from '@material-ui/icons/Attachment';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const styles = {
+import AttachmentProps from '../interfaces/Attachment';
+
+const styles = createStyles({
   attachmentItem: {
     padding: '0.6rem 1rem',
   },
@@ -23,25 +24,33 @@ const styles = {
     padding: '0.6rem 1rem',
     color: grey[300],
   },
-};
-type Props = {
-  attachments: Array,
-  handleDeleteAttachment: ?Function,
-  classes: Object,
-};
+});
+
+interface Props {
+  attachments: AttachmentProps[];
+  handleDeleteAttachment?: (index: number) => void;
+  classes: {
+    wrapper: string;
+    attachmentItem :string;
+    noItemText: string;
+    itemText: string;
+  };
+}
+/**
+ * List of attachments which have been not uploaded yet on ArticleAdd/Edit screen
+ */
 const AttachmentsList = ({
   attachments,
-  handleDeleteAttachment = null,
+  handleDeleteAttachment,
   classes,
-  attachments: Props,
-}) => {
-  if (attachments.length == 0) {
+}: Props) => {
+  if (attachments.length === 0) {
     return <Typography className={classes.noItemText}>無し</Typography>;
   }
   return (
     <List dense className={classes.wrapper}>
       {attachments.map((f, index) => (
-        <ListItem className={classes.attachmentItem} key={f.preview}>
+        <ListItem className={classes.attachmentItem} key={index}>
           <ListItemIcon>
             <AttachmentIcon />
           </ListItemIcon>

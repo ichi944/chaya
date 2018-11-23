@@ -1,11 +1,10 @@
-// @flow
 import * as React from 'react';
 import Dropzone from 'react-dropzone';
 import grey from '@material-ui/core/colors/grey';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = createStyles({
   wrapper: {
     margin: '1rem',
   },
@@ -18,11 +17,14 @@ const styles = {
     alignItems: 'center',
     border: '1px dashed #E0E0E0',
   },
-};
-type Props = {
-  handleDrop: Function,
-  classes: Object,
-};
+});
+interface Props {
+  handleDrop: (accepted: File[], rejected: File[], event: any) => void;
+  classes: {
+    wrapper: string;
+    dropzone: string;
+  },
+}
 const DropAttachment = ({ handleDrop, classes }: Props) => {
   return (
     <div className={classes.wrapper}>

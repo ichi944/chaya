@@ -1,19 +1,36 @@
-// @flow
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import Badge from '@material-ui/core/Badge';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, WithStyles, createStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 
-type Props = {
-  article: Object,
-  authorizationToken: string,
-  classes: Object,
-};
+interface UserProps {
+  avatar_img_url: string | null;
+  name: string;
+}
+interface ArticleProps {
+  id: number;
+  user: UserProps;
+  heading: string;
+  pinned: boolean;
+  created_at: string;
+}
 
-const styles = {
+interface Props {
+  article: ArticleProps;
+  authorizationToken: string;
+  classes: {
+    wrapper: string;
+    meta: string;
+    avatar_grid: string;
+    avatar: string;
+    body: string;
+  }
+}
+
+const styles = createStyles({
   wrapper: {
     padding: '.7rem',
     '&:hover': {
@@ -39,7 +56,7 @@ const styles = {
       marginTop: '.7rem',
     },
   },
-};
+});
 
 const ArticleListItem = (props: Props) => {
   const { article, authorizationToken, classes } = props;

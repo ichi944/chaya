@@ -1,24 +1,23 @@
-// @flow
 import * as React from 'react';
 
 import Button from '@material-ui/core/Button';
 
-type Props = {
-  handleNavigatePage: Function,
-  prev_page_url: string,
-  next_page_url: string,
-  query: ?string,
-};
+interface Props {
+  handleNavigatePage: (page_url, query) => void,
+  prev_page_url: string;
+  next_page_url: string;
+  query: string | null;
+}
 export const PageNavigation = ({
   handleNavigatePage,
   prev_page_url,
   next_page_url,
   query = null,
 }: Props) => {
-  const handleGoPrevPage: Function = prev_page_url
+  const handleGoPrevPage = prev_page_url
     ? () => handleNavigatePage(prev_page_url, query)
     : () => {};
-  const handleGoNextPage: Function = next_page_url
+  const handleGoNextPage = next_page_url
     ? () => handleNavigatePage(next_page_url, query)
     : () => {};
   return (

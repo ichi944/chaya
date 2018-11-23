@@ -1,6 +1,5 @@
-// @flow
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -10,7 +9,9 @@ import AttachmentIcon from '@material-ui/icons/Attachment';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const styles = {
+import CurrentAttachmentProps from '../interfaces/CurrentAttachment';
+
+const styles = createStyles({
   wrapper: {
     maxWidth: '20rem',
   },
@@ -20,23 +21,28 @@ const styles = {
   itemText: {
     paddingLeft: 0,
   },
-};
-type Props = {
-  attachments: Array,
-  handleDownloadAttachment: ?Function,
-  handleDeleteAttachment: ?Function,
-  handleShowDialogDeleteCurrentAttachment: ?Function,
-  handleDeleteCurrentAttachment: ?Function,
-  classes: Object,
-};
+});
+
+interface Props {
+  attachments: CurrentAttachmentProps[];
+  handleDownloadAttachment?: (id: number, name: string) => void;
+  handleShowDialogDeleteCurrentAttachment?: (attachment: CurrentAttachmentProps) => void;
+  classes: {
+    wrapper: string;
+    attachmentItem: string;
+    itemText: string;
+  };
+}
+/**
+ * List of attachments which have already been uploaded on Article Detail/Edit screen.
+ */
 const CurrentAttachmentsList = ({
   attachments,
-  handleDownloadAttachment = null,
-  handleDeleteAttachment = null,
-  handleShowDialogDeleteCurrentAttachment = null,
-  handleDeleteCurrentAttachment = null,
+  handleDownloadAttachment,
+  handleShowDialogDeleteCurrentAttachment,
   classes,
-}) => {
+}: Props) => {
+  // For Article Detail Screen
   if (handleDownloadAttachment) {
     return (
       <List dense className={classes.wrapper}>
@@ -56,6 +62,7 @@ const CurrentAttachmentsList = ({
       </List>
     );
   }
+  // For Article Edit Screen
   return (
     <List dense className={classes.wrapper}>
       {attachments.map(f => (
@@ -64,7 +71,7 @@ const CurrentAttachmentsList = ({
             <AttachmentIcon />
           </ListItemIcon>
           <ListItemText className={classes.itemText} primary={f.name} />
-          {!handleDeleteCurrentAttachment
+          {!handleShowDialogDeleteCurrentAttachment
             ? null
             : <ListItemSecondaryAction>
               <IconButton
