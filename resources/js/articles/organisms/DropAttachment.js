@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import Dropzone from 'react-dropzone';
 import grey from '@material-ui/core/colors/grey';
 

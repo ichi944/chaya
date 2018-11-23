@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 
-class SignupComplete extends Component {
+class SignupComplete extends React.Component {
   render() {
     return (
       <div>

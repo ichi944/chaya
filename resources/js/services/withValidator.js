@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import Validator from 'validatorjs';
 
 const withValidator = (options) => {
   return (WrappedComponent) => {
-    return class ValidatorForm extends Component {
+    return class ValidatorForm extends React.Component {
       constructor(props) {
         super(props);
         this.rules = options.rules;

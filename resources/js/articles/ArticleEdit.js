@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 
 import withValidator from '../services/withValidator';
 import Editor from './organisms/Editor';
 import { ArticleIsUpdatedDialog, ConfirmDeleteCurrentAttachmentDialog } from './organisms/Dialogs';
 
-class ArticleEdit extends Component {
+class ArticleEdit extends React.Component {
   constructor(props) {
     super(props);
     this.handleDrop = this.handleDrop.bind(this);

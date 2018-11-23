@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
@@ -42,7 +42,7 @@ const styles = {
   },
 };
 
-class ArticleChat extends Component {
+class ArticleChat extends React.Component {
   componentDidMount() {
     const { id } = this.props.article;
     this.props.fetchLatestMessages(id);

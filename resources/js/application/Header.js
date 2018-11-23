@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,7 +10,7 @@ const styles = {
   },
 };
 
-class Header extends Component {
+class Header extends React.Component {
   render() {
     const { isAuthenticated, handleSignOut } = this.props;
 

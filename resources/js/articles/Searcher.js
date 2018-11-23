@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Paper, FlatButton, TextField } from '@material-ui/core';
 
-class Searcher extends Component {
+class Searcher extends React.Component {
   render() {
     const { query } = this.props;
     const { handleChange, handleSubmit, handlePressEnter } = this.props;

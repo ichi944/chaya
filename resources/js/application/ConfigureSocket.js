@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { configureSocketId } from './actions';
 
-class ConfigureSocket extends Component {
+class ConfigureSocket extends React.Component {
   componentDidMount() {
     console.log('@ConfigreSocket');
     this.props.configureSocket();

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import Paper from '@material-ui/core/Paper';
 
-class VerifyUser extends Component {
+class VerifyUser extends React.Component {
   componentDidMount() {
     const { token } = this.props.match.params;
     console.log('@VerifyUser', token);

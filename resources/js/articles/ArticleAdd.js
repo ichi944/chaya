@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import withValidator from '../services/withValidator';
 import Editor from './organisms/Editor';
 import { ArticleIsPublishedDialog } from './organisms/Dialogs';
 
-class ArticleAdd extends Component {
+class ArticleAdd extends React.Component {
   constructor(props) {
     super(props);
 

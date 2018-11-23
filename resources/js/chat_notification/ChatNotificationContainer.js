@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 
-class ChatNotification extends Component {
+class ChatNotification extends React.Component {
   componentDidMount() {
     const { push } = this.props.history;
     const { authorizationToken } = this.props.auth;

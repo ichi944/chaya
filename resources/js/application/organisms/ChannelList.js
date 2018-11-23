@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-class ChannelList extends Component {
+class ChannelList extends React.Component {
   handleClickChannelList(channelId) {
     this.props.handleClickChannelListItem(channelId);
   }

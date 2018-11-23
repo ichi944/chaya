@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +8,7 @@ import { AvatarEditor } from './organisms/AvatarEditor';
 import NotificationSettingContainer from '../notification_setting/NotificationSettingContainer';
 import Subheader from './atoms/Subheader';
 
-class EditProfile extends Component {
+class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmitAvatar = this.handleSubmitAvatar.bind(this);

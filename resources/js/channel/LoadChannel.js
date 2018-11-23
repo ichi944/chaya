@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { fetchChannel } from './actions';
 
-class LoadChannel extends Component {
+class LoadChannel extends React.Component {
   componentDidMount() {
     const { loadChannel } = this.props;
     console.log('in LoadChannel, start to fetch channel');

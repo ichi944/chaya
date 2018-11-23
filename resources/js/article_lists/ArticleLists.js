@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -31,7 +31,7 @@ const styles = {
   },
 };
 
-class ArticleLists extends Component {
+class ArticleLists extends React.Component {
   constructor(props) {
     super(props);
     this.handleCreateNewArticle = this.handleCreateNewArticle.bind(this);

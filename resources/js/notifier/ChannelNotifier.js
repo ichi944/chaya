@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { channelListUpdated } from './actions';
 
-class ChannelNotifier extends Component {
+class ChannelNotifier extends React.Component {
   componentDidMount() {
     window.Echo.private('channel').listen('ChannelListUpdated', (e) => {
       this.props.onChannelListUpdated(e.channels);

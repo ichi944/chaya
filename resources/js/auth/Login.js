@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-class Login extends Component {
+class Login extends React.Component {
   render() {
     const {
       email, password, showErrorMessage, errorMessage, isAuthenticated,

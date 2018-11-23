@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { handleCheckAuthStatus } from './actions';
 
-class InitialCheckStatus extends Component {
+class InitialCheckStatus extends React.Component {
   componentDidMount() {
     const { checkAuthStatus } = this.props;
     console.log('in InitialCheckStatus: start initial auth check');

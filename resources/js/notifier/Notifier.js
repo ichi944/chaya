@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 
 import Snackbar from '@material-ui/core/Snackbar';
@@ -7,7 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import { closeNotifier, notifyHello } from './actions';
 
-class Notifier extends Component {
+class Notifier extends React.Component {
   constructor(props) {
     super(props);
     this.handleRequestClose = this.handleRequestClose.bind(this);

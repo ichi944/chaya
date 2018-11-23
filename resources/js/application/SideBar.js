@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import Drawer from '@material-ui/core/Drawer';
@@ -32,7 +32,7 @@ const styles = {
   },
 };
 
-class SideBar extends Component {
+class SideBar extends React.Component {
   constructor(props) {
     super(props);
     this.handleClickLogo = this.handleClickLogo.bind(this);

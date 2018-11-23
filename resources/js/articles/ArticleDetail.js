@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -32,7 +32,7 @@ const styles = {
   },
 };
 
-class ArticleDetail extends Component {
+class ArticleDetail extends React.Component {
   constructor(props) {
     super(props);
     this.goBack = this.goBack.bind(this);

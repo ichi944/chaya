@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 
 import { Paper, TextField, Button } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

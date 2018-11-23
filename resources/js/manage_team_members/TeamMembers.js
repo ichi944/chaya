@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Paper, Button, Avatar, Divider } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -33,7 +33,7 @@ const styles = {
   },
 };
 
-class TeamMembers extends Component {
+class TeamMembers extends React.Component {
   constructor(props) {
     super(props);
     this.handleTouchTapVerifyByAdmin = this.handleTouchTapVerifyByAdmin.bind(this);
