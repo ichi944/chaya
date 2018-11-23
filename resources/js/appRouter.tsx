@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
+import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 
@@ -26,6 +28,8 @@ import Notifier from './notifier/Notifier';
 import ChannelNotifier from './notifier/ChannelNotifier';
 import ChatNotificationContainer from './chat_notification/ChatNotificationContainer';
 
+import { clearProfile } from './application/actions';
+
 const NotFound = () => <div>404 not found</div>;
 
 const RedirectToLogin = props => (
@@ -46,7 +50,17 @@ const RedirectToHome = props => (
   />
 );
 
-class Initializer extends Component {
+export interface AppRouterProps {
+  auth: {
+    isAuthenticated: boolean,
+    isDoneCheckingStatusAtInitialize: boolean,
+  };
+  profile: any;
+  channels: any;
+  socket: any;
+  requestClearProfile(): void;
+}
+class AppRouter extends Component<AppRouterProps> {
   componentWillUpdate() {
     const { auth } = this.props;
     if (!auth.isAuthenticated) {
@@ -121,4 +135,23 @@ class Initializer extends Component {
   }
 }
 
-export default Initializer;
+const mapStateToProps = ({
+  auth, profile, channels, socket,
+}) => {
+  return {
+    auth,
+    profile,
+    channels,
+    socket,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    requestClearProfile() {
+      dispatch(clearProfile());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppRouter);
