@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { push } from 'connected-react-router';
-
+import { AxiosResponse } from 'axios';
 import * as types from './actionTypes';
 import Api from '../services/Api';
 import { ARTICLE_API_URL } from './constants';
@@ -19,7 +19,7 @@ export function fetchArticles(options: Object = {}): any {
       .get(ARTICLE_API_URL, {
         params: options,
       })
-      .then((res) => {
+      .then((res: AxiosResponse) => {
         dispatch({
           type: types.END_FETCH_ARTICLES,
           data: res.data,
@@ -34,7 +34,7 @@ export function fetchArticleById(id: number) {
       type: types.START_FETCH_ARTICLE,
     });
 
-    Api.client.get(`/articles/${id}?timestamp=${new Date().getTime()}`).then((res) => {
+    Api.client.get(`/articles/${id}?timestamp=${new Date().getTime()}`).then((res: AxiosResponse) => {
       console.log('got article');
       dispatch({
         type: types.END_FETCH_ARTICLE,
@@ -187,7 +187,7 @@ export function deleteCurrentAttachmentSucceeded(current_attachments: Array<Obje
 export function requestDeleteCurrentAttachment() {
   return (dispatch: Dispatch, getState: Function) => {
     const id = getState().articleEdit.deletingAttachmentId;
-    Api.client.delete(`article-attachments/${id}`).then((res) => {
+    Api.client.delete(`article-attachments/${id}`).then((res: AxiosResponse) => {
       if (res.data._code !== 0) {
         console.log('error: failed to delete an article attachment');
         return;
@@ -209,7 +209,7 @@ export function requestUpdateArticle(data: UpdateRequestProps) {
     const { id } = data;
     const { attachments } = getState().articleEdit;
     const formData = new FormData();
-    attachments.forEach((f) => {
+    attachments.forEach((f: AttachmentProps) => {
       formData.append('attachments[]', f);
     });
     formData.append('heading', data.heading);
@@ -298,7 +298,7 @@ export function successUnpinArticle(article_id: number) {
 
 export function requestPinArticle(article_id: number) {
   return (dispatch: Dispatch) => {
-    Api.client.put(`articles/${article_id}/pinned`).then((res) => {
+    Api.client.put(`articles/${article_id}/pinned`).then((res: AxiosResponse) => {
       if (res.data._code === 0) {
         dispatch(successPinArticle(article_id));
       }
@@ -308,7 +308,7 @@ export function requestPinArticle(article_id: number) {
 
 export function requestUnpinArticle(article_id: number) {
   return (dispatch: Dispatch) => {
-    Api.client.put(`articles/${article_id}/unpinned`).then((res) => {
+    Api.client.put(`articles/${article_id}/unpinned`).then((res: AxiosResponse) => {
       if (res.data._code === 0) {
         dispatch(successUnpinArticle(article_id));
       }
@@ -321,7 +321,7 @@ export function downloadAttachment(id: number, filename: string) {
     const options = {
       responseType: 'blob',
     };
-    Api.client.post(`article-attachments/${id}`, {}, options).then((res) => {
+    Api.client.post(`article-attachments/${id}`, {}, options).then((res: AxiosResponse) => {
       if (res.status !== 200) {
         alert('can not download the attachment. something went wrong.');
         return;
@@ -358,7 +358,7 @@ export function requestStoreEmbeddedImage(image: any[]) {
     data.append('user_id', user_id);
     data.append('channel_id', channel_id);
     data.append('image', image[0]);
-    Api.client.post('/embedded-images/', data).then((res) => {
+    Api.client.post('/embedded-images/', data).then((res: AxiosResponse) => {
       if (res.data._code !== 0) {
         console.log('error occured');
         return;
@@ -393,7 +393,7 @@ export function requestStoreEmbeddedImageOnEdit(image: any[]) {
     data.append('user_id', user_id);
     data.append('channel_id', channel_id);
     data.append('image', image[0]);
-    Api.client.post('/embedded-images/', data).then((res) => {
+    Api.client.post('/embedded-images/', data).then((res: AxiosResponse) => {
       if (res.data._code !== 0) {
         console.log('error occured');
         return;

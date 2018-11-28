@@ -6,10 +6,12 @@
     "noImplicitAny": false,
     "sourceMap": false,
     "strictNullChecks": true,
+    "esModuleInterop": true,
     "allowJs": true,
     "jsx": "react",
+    "outDir": "./public/js",
     "preserveConstEnums": true,
-    "lib": ["es2015", "dom", "dom.iterable"]
+    "lib": ["es2015", "es5", "dom", "scripthost", "dom.iterable"]
   },
   "include": [
       "resources/js/**/*"
