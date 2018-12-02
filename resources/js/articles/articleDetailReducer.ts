@@ -1,17 +1,17 @@
 import * as types from './actionTypes';
 
 interface ArticleDetailState {
-  id: number | null,
-  heading: string,
-  body: string,
-  current_attachments: Array<Object>,
-  created_at: string,
+  id: number | null;
+  heading: string;
+  body: string;
+  current_attachments: object[];
+  created_at: string;
   user: {
-    name: string,
-  },
-  pinned: boolean,
-  confirmDeleteDialogOpen: boolean,
-};
+    name: string;
+  };
+  pinned: boolean;
+  confirmDeleteDialogOpen: boolean;
+}
 
 const initialState = {
   id: null,

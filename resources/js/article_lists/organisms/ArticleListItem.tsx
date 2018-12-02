@@ -27,7 +27,7 @@ interface Props {
     avatar_grid: string;
     avatar: string;
     body: string;
-  }
+  };
 }
 
 const styles = createStyles({

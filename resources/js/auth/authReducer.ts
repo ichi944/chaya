@@ -4,7 +4,7 @@ interface AuthState {
   isDoneCheckingStatusAtInitialize: boolean;
   isAuthenticated: boolean;
   authorizationToken: string | null;
-};
+}
 
 const initialState = {
   isDoneCheckingStatusAtInitialize: false,

@@ -5,7 +5,7 @@ interface ArticleListsState {
   articles: {
     isFetching: boolean;
     current_page: number | null;
-    data: Array<Object>;
+    data: object[];
     from: number | null;
     last_page: number | null;
     next_page_url: string | null;

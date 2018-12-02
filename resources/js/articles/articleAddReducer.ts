@@ -1,26 +1,27 @@
 import * as types from './actionTypes';
 
 interface ArticleAddState {
-  channelId: number | null,
-  channelName: string | null,
-  heading: string,
-  body: string,
-  attachments: Array<any>,
-  onPreview: boolean,
-  mode: string,
-  confirmSuccessDialogOpen: boolean,
-  cursor_position: number | null,
-};
+  channelId: number | null;
+  channelName: string | null;
+  heading: string;
+  body: string;
+  attachments: any[];
+  onPreview: boolean;
+  mode: string;
+  confirmSuccessDialogOpen: boolean;
+  cursor_position: number | null;
+}
 
 interface ArticleAddAction {
-  type: string,
-  name: string,
-  value: string,
-  attachment: Object,
-  index: number,
-  cursor_position: number,
-  img_tag: string,
-};
+  type: string;
+  name: string;
+  value: string;
+  attachment: Object;
+  index: number;
+  cursor_position: number;
+  img_tag: string;
+}
+
 const initialState = {
   channelId: null,
   channelName: '',

@@ -1,30 +1,30 @@
 import * as types from './actionTypes';
 
 interface ArticleEditState {
-  heading: string,
-  body: string,
-  current_attachments: Array<Object>,
-  attachments: Array<Object>,
-  onPreview: boolean,
-  confirmSuccessDialogOpen: boolean,
-  confirmDeleteCurrentAttachmentDialogOpen: boolean,
-  deletingAttachmentId: number | null,
-  deletingAttachmentName: string | null,
-  cursor_position: number | null,
-};
+  heading: string;
+  body: string;
+  current_attachments: object[];
+  attachments: object[];
+  onPreview: boolean;
+  confirmSuccessDialogOpen: boolean;
+  confirmDeleteCurrentAttachmentDialogOpen: boolean;
+  deletingAttachmentId: number | null;
+  deletingAttachmentName: string | null;
+  cursor_position: number | null;
+}
 
-type ArticleEditAction = {
-  type: string,
-  id: number,
-  index: number,
-  name: string,
-  value: string,
-  attachment: Object,
-  current_attachments: Array<Object>,
-  data: Object,
-  cursor_position: number,
-  img_tag: string,
-};
+interface ArticleEditAction {
+  type: string;
+  id: number;
+  index: number;
+  name: string;
+  value: string;
+  attachment: Object;
+  current_attachments: object[];
+  data: Object;
+  cursor_position: number;
+  img_tag: string;
+}
 
 const initialState = {
   heading: '',

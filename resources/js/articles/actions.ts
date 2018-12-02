@@ -178,7 +178,7 @@ export function closeDialogDeleteCurrentAttachment() {
     type: types.CLOSE_DIALOG_DELETE_CURRENT_ATTACHMENT,
   };
 }
-export function deleteCurrentAttachmentSucceeded(current_attachments: Array<Object>) {
+export function deleteCurrentAttachmentSucceeded(current_attachments: CurrentAttachmentProps[]) {
   return {
     type: types.DELETE_CURRENT_ATTACHMENT_SUCCEEDED,
     current_attachments,

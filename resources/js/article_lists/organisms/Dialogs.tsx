@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
 interface EditDescriptionDialogProps {
-  open: boolean,
+  open: boolean;
   handleChange: () => void;
   handleCancel: () => void;
   handleSubmit: () => void;
