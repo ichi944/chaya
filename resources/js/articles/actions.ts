@@ -34,13 +34,15 @@ export function fetchArticleById(id: number) {
       type: types.START_FETCH_ARTICLE,
     });
 
-    Api.client.get(`/articles/${id}?timestamp=${new Date().getTime()}`).then((res: AxiosResponse) => {
-      console.log('got article');
-      dispatch({
-        type: types.END_FETCH_ARTICLE,
-        data: res.data,
-      });
-    }); // Api
+    Api.client
+      .get(`/articles/${id}?timestamp=${new Date().getTime()}`)
+      .then((res: AxiosResponse) => {
+        console.log('got article');
+        dispatch({
+          type: types.END_FETCH_ARTICLE,
+          data: res.data,
+        });
+      }); // Api
   };
 }
 
@@ -95,17 +97,15 @@ export function createNewArticle(data: {
   channelId: number;
 }) {
   return (dispatch: Dispatch) => {
-    const {
-      heading, body, attachments, channelId,
-    } = data;
+    const { heading, body, attachments, channelId } = data;
     const formData = new FormData();
-    attachments.forEach((f) => {
+    attachments.forEach(f => {
       formData.append('attachments[]', f);
     });
     formData.append('heading', heading);
     formData.append('body', body);
     formData.append('channelId', channelId.toString());
-    Api.client.post('/articles/', formData).then((res: { data: object}) => {
+    Api.client.post('/articles/', formData).then((res: { data: object }) => {
       console.log(res.data);
 
       dispatch(successCreateArticle());

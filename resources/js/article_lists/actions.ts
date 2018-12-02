@@ -5,14 +5,15 @@ import Api from '../services/Api';
 export function fetchArticlesByChannel(
   channel_id: number,
   options: {
-    page: string,
-  }) {
+    page: string;
+  },
+) {
   return (dispatch: Dispatch) => {
     Api.client
       .get(`channels/${channel_id}/articles`, {
         params: options,
       })
-      .then((res) => {
+      .then(res => {
         if (res.data._code !== 0) {
           console.log('failed fetching articles');
           return;

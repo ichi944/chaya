@@ -6,7 +6,7 @@ interface LoginState {
   password: string;
   showErrorMessage: boolean;
   errorMessage: string;
-};
+}
 
 const initialState = {
   email: '',
@@ -18,7 +18,7 @@ const initialState = {
 export default function loginReducer(
   state: LoginState = initialState,
   action: AnyAction,
-  ): LoginState {
+): LoginState {
   switch (action.type) {
     case types.LOGIN_CHANGE: {
       return {

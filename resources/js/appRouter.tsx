@@ -109,7 +109,11 @@ class AppRouter extends Component<AppRouterProps> {
                 <Route exact path="/app/login" component={LoginContainer} />
                 <Route exact path="/app/home" component={HomeContainer} />
                 <Route exact path="/app/channels/add" component={ChannelAddContainer} />
-                <Route exact path="/app/channels/:channel_id/articles" component={ArticleListsContainer} />
+                <Route
+                  exact
+                  path="/app/channels/:channel_id/articles"
+                  component={ArticleListsContainer}
+                />
                 <Route exact path="/app/articles/add" component={ArticleAddContainer} />
                 <Route exact path="/app/articles/:id/edit" component={ArticleEditContainer} />
                 <Route path="/app/articles/:id" component={ArticleDetailContainer} />

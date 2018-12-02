@@ -18,10 +18,7 @@ let middlewares = [thunkMiddleware, routerMiddleware(appHistory)];
 if (process.env.NODE_ENV === 'development') {
   middlewares = [...middlewares, logger];
 }
-const store = createStore(
-  createRootReducer(appHistory),
-  applyMiddleware(...middlewares),
-);
+const store = createStore(createRootReducer(appHistory), applyMiddleware(...middlewares));
 
 const theme = createMuiTheme({
   palette: {

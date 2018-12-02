@@ -5,7 +5,10 @@ import { clearSocketId } from '../application/actions';
 
 import Api from '../services/Api';
 
-interface Window { Echo: any, location: any }
+interface Window {
+  Echo: any;
+  location: any;
+}
 declare var window: Window;
 
 export function storeAuthorizationTokenToState(token) {
@@ -21,7 +24,7 @@ export function initializeSocketIOSucceeded() {
   };
 }
 export function requestInitializeSocketIO(token) {
-  return (dispatch) => {
+  return dispatch => {
     window.Echo = new Echo({
       broadcaster: 'socket.io',
       host: `${window.location.hostname}:6001`,
@@ -36,14 +39,14 @@ export function requestInitializeSocketIO(token) {
 }
 
 export function handleCheckAuthStatus() {
-  return (dispatch) => {
+  return dispatch => {
     console.log('start check auth status');
     dispatch({
       type: types.START_CHECK_AUTH_STATUS,
     });
     // configure the handler when token expired.
     Api.setInterceptors(
-      (response) => {
+      response => {
         console.log('@interceptor', response);
         if (response.status === 401) {
           console.log('@interceptor: token expired');
@@ -61,7 +64,7 @@ export function handleCheckAuthStatus() {
         }
         return response;
       },
-      (error) => {
+      error => {
         console.log('@interceptor: api gets error.');
         console.log(error);
         return Promise.reject(error);
@@ -74,7 +77,7 @@ export function handleCheckAuthStatus() {
       dispatch(storeAuthorizationTokenToState(token));
 
       Api.setAuthorizationToken(token);
-      Api.client.get('/auth/hello').then((res) => {
+      Api.client.get('/auth/hello').then(res => {
         console.log('response of hello: ', res.data);
         if (res.data.hasOwnProperty('status') && res.data.status === true) {
           console.log('already authenticated');
@@ -100,7 +103,7 @@ export function handleCheckAuthStatus() {
 }
 
 export function authenticate(email, password) {
-  return (dispatch) => {
+  return dispatch => {
     console.log('start authentication', email);
 
     dispatch({
@@ -112,7 +115,7 @@ export function authenticate(email, password) {
         email,
         password,
       })
-      .then((res) => {
+      .then(res => {
         console.log(res.data);
         if (res.data.error) {
           console.log('error');
@@ -150,7 +153,7 @@ export function successSignOut() {
   };
 }
 export function requestSignOut() {
-  return (dispatch) => {
+  return dispatch => {
     Api.client.get('/auth/signout').then(() => {
       Api.clearSocketId();
       Api.clearAuthorizationToken();

@@ -5,12 +5,16 @@
     "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "test": "mocha resources/assets/js/**/*.spec.js -r test/.setup.js --compilers js:babel-register",
-    "precommit": "lint-staged"
+    "test": "mocha resources/assets/js/**/*.spec.js -r test/.setup.js --compilers js:babel-register"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
-    "*.js": [
-      "prettier-eslint --write",
+    "*.{ts,tsx}": [
+      "prettier --write",
       "git add"
     ]
   },
@@ -67,6 +71,8 @@
     "redux-devtools": "^3.4.1",
     "ts-loader": "^3.5.0",
     "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-plugin-prettier": "^2.0.1",
     "tslint-react": "^3.6.0",
     "typescript": "^3.1.6"
   }
