@@ -52,8 +52,8 @@ const RedirectToHome = props => (
 
 export interface AppRouterProps {
   auth: {
-    isAuthenticated: boolean,
-    isDoneCheckingStatusAtInitialize: boolean,
+    isAuthenticated: boolean;
+    isDoneCheckingStatusAtInitialize: boolean;
   };
   profile: any;
   channels: any;
@@ -68,9 +68,7 @@ class AppRouter extends Component<AppRouterProps> {
     }
   }
   render() {
-    const {
-      auth, profile, channels, socket,
-    } = this.props;
+    const { auth, profile, channels, socket } = this.props;
     // check the user status when user comes into the app at first.
     // try to login with the token in localstorage if it's exists.
     if (!auth.isDoneCheckingStatusAtInitialize) {
@@ -111,11 +109,7 @@ class AppRouter extends Component<AppRouterProps> {
                 <Route exact path="/app/login" component={LoginContainer} />
                 <Route exact path="/app/home" component={HomeContainer} />
                 <Route exact path="/app/channels/add" component={ChannelAddContainer} />
-                <Route
-                  exact
-                  path="/app/channels/:channel_id/articles"
-                  component={ArticleListsContainer}
-                />
+                <Route exact path="/app/channels/:channel_id/articles" component={ArticleListsContainer} />
                 <Route exact path="/app/articles/add" component={ArticleAddContainer} />
                 <Route exact path="/app/articles/:id/edit" component={ArticleEditContainer} />
                 <Route path="/app/articles/:id" component={ArticleDetailContainer} />
@@ -135,9 +129,7 @@ class AppRouter extends Component<AppRouterProps> {
   }
 }
 
-const mapStateToProps = ({
-  auth, profile, channels, socket,
-}) => {
+const mapStateToProps = ({ auth, profile, channels, socket }) => {
   return {
     auth,
     profile,
@@ -146,7 +138,7 @@ const mapStateToProps = ({
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     requestClearProfile() {
       dispatch(clearProfile());
@@ -154,4 +146,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppRouter);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AppRouter);
