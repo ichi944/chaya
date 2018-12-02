@@ -1,9 +1,8 @@
-import _ from 'lodash';
-import * as types from './actionTypes';
+import * as types from "./actionTypes";
 
 const initialState = {
   isLoaded: false,
-  channels: [],
+  channels: []
 };
 
 export default function channelsReducer(state = initialState, action) {
@@ -12,11 +11,12 @@ export default function channelsReducer(state = initialState, action) {
       return {
         ...state,
         channels: action.channels,
-        isLoaded: true,
+        isLoaded: true
       };
     }
     case types.UPDATE_DESCRIPTION_IS_SUCCEEDED: {
-      const updated = _.map(state.channels, (channel) => {
+      const channels = state.channels;
+      const updated = channels.map(channel => {
         if (channel.id === action.updated_channel.id) {
           return action.updated_channel;
         }
@@ -24,13 +24,13 @@ export default function channelsReducer(state = initialState, action) {
       });
       return {
         ...state,
-        channels: updated,
+        channels: updated
       };
     }
     case types.UPDATE_CHANNEL_LIST: {
       return {
         ...state,
-        channels: action.channels,
+        channels: action.channels
       };
     }
     default: {

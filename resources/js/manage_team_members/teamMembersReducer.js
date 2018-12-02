@@ -1,5 +1,4 @@
-import _ from 'lodash';
-import * as types from './actionTypes';
+import * as types from "./actionTypes";
 
 // type TeamMember = {
 //   id: number,
@@ -13,7 +12,7 @@ import * as types from './actionTypes';
 
 const initialState = {
   members: [],
-  show_members_who_is_not_verified_with_email: false,
+  show_members_who_is_not_verified_with_email: false
 };
 
 export default function teamMembersReducer(state = initialState, action) {
@@ -22,43 +21,43 @@ export default function teamMembersReducer(state = initialState, action) {
       const { data } = action;
       return {
         ...state,
-        members: data,
+        members: data
       };
     }
     case types.VERIFY_BY_ADMIN_IS_SUCCEEDED: {
       const { memberId } = action;
-      const updated = _.map(state.members, (member) => {
+      const updated = state.members.map(member => {
         if (member.id === memberId) {
           return {
             ...member,
-            is_verified_by_admin: true,
+            is_verified_by_admin: true
           };
         }
         return member;
       });
       return {
         state,
-        members: updated,
+        members: updated
       };
     }
     case types.VERIFY_BY_ADMIN_IS_FAILED: {
-      console.log('failed to verivy by admin');
+      console.log("failed to verivy by admin");
       return state;
     }
     case types.LOCK_MEMBER_IS_SUCCEEDED: {
       const { memberId } = action;
-      const updated = _.map(state.members, (member) => {
+      const updated = state.members.map(member => {
         if (member.id === memberId) {
           return {
             ...member,
-            is_locked: true,
+            is_locked: true
           };
         }
         return member;
       });
       return {
         state,
-        members: updated,
+        members: updated
       };
     }
     case types.LOCK_MEMBER_IS_FAILED: {
@@ -66,18 +65,18 @@ export default function teamMembersReducer(state = initialState, action) {
     }
     case types.UNLOCK_MEMBER_IS_SUCCEEDED: {
       const { memberId } = action;
-      const updated = _.map(state.members, (member) => {
+      const updated = state.members.map(member => {
         if (member.id === memberId) {
           return {
             ...member,
-            is_locked: false,
+            is_locked: false
           };
         }
         return member;
       });
       return {
         state,
-        members: updated,
+        members: updated
       };
     }
     case types.UNLOCK_MEMBER_IS_FAILED: {
@@ -87,7 +86,7 @@ export default function teamMembersReducer(state = initialState, action) {
       const { isInputChecked } = action;
       return {
         ...state,
-        showMembersWhoIsNotVerifiedWithEmail: isInputChecked,
+        showMembersWhoIsNotVerifiedWithEmail: isInputChecked
       };
     }
     default: {

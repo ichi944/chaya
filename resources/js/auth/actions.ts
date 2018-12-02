@@ -1,4 +1,3 @@
-import { has } from 'lodash';
 import Echo from 'laravel-echo';
 
 import * as types from './actionTypes';
@@ -77,7 +76,7 @@ export function handleCheckAuthStatus() {
       Api.setAuthorizationToken(token);
       Api.client.get('/auth/hello').then((res) => {
         console.log('response of hello: ', res.data);
-        if (has(res.data, 'status') && res.data.status === true) {
+        if (res.data.hasOwnProperty('status') && res.data.status === true) {
           console.log('already authenticated');
 
           dispatch(requestInitializeSocketIO(token));
