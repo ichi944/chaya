@@ -1,3 +1,4 @@
+import { AnyAction } from 'redux';
 import * as types from './actionTypes';
 
 interface LoginState {
@@ -14,10 +15,12 @@ const initialState = {
   errorMessage: '',
 };
 
-export default function loginReducer(state: LoginState = initialState, action: any) {
+export default function loginReducer(
+  state: LoginState = initialState,
+  action: AnyAction,
+  ): LoginState {
   switch (action.type) {
     case types.LOGIN_CHANGE: {
-      console.log('LOGIN_CHANGE', action);
       return {
         ...state,
         [action.name]: action.value,
@@ -26,7 +29,6 @@ export default function loginReducer(state: LoginState = initialState, action: a
       };
     }
     case types.LOGIN_START: {
-      console.log('try to login: ', state.email);
       return state;
     }
     case types.LOGIN_SUCCESS: {
