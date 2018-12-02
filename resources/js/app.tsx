@@ -14,9 +14,13 @@ import appHistory from './services/appHistory';
 
 import AppRouter from './appRouter';
 
+let middlewares = [thunkMiddleware, routerMiddleware(appHistory)];
+if (process.env.NODE_ENV === 'development') {
+  middlewares = [...middlewares, logger];
+}
 const store = createStore(
   createRootReducer(appHistory),
-  applyMiddleware(thunkMiddleware, routerMiddleware(appHistory), logger),
+  applyMiddleware(...middlewares),
 );
 
 const theme = createMuiTheme({
