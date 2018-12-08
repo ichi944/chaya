@@ -6,4 +6,12 @@ export interface ClearSocketIdAction extends Action {
   type: typeof types.CLEAR_SOCKET_ID;
 }
 
-export type SocketActions = ClearSocketIdAction;
+export interface DoneSetSocketIDAction extends Action {
+  type: typeof types.DONE_SET_SOCKET_ID;
+}
+
+export type SocketActions = ClearSocketIdAction | DoneSetSocketIDAction;
+
+export interface SocketState {
+  hasSocketId: boolean;
+}

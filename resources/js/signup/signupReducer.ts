@@ -1,29 +1,23 @@
 import * as types from './actionTypes';
 
-interface SignupState {
-  name: string;
-  email: string;
-  password: string;
-  showErrorMessage: boolean;
-  errorMessage: string;
-};
+import { SignupState, SignupActions } from './interfaces/signup';
 
 const initialState = {
   name: '',
   email: '',
   password: '',
   showErrorMessage: false,
-  errorMessage: '',
+  errorMessage: null,
 };
 
-export default function signupReducer(state: SignupState = initialState, action: any) {
+export default (state: SignupState = initialState, action: SignupActions) => {
   switch (action.type) {
     case types.SIGNUP_CHANGE: {
       return {
         ...state,
         [action.name]: action.value,
         showErrorMessage: false,
-        errorMessage: '',
+        errorMessage: null,
       };
     }
     case types.START_SIGNUP: {
@@ -37,11 +31,11 @@ export default function signupReducer(state: SignupState = initialState, action:
         email: '',
         password: '',
         showErrorMessage: false,
-        errorMessage: false,
+        errorMessage: null,
       };
     }
     default: {
       return state;
     }
   }
-}
+};

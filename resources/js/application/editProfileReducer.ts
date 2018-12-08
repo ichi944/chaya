@@ -1,12 +1,5 @@
 import * as types from './actionTypes';
-
-interface EditProfileState {
-  name: string;
-  password: string;
-  newImageUrl: string | null;
-  snackbarIsOpen: boolean;
-  snackbarMessage: string;
-}
+import { ProfileActions, EditProfileState } from './interfaces/profile';
 
 const initialState = {
   name: '',
@@ -16,7 +9,7 @@ const initialState = {
   snackbarMessage: '',
 };
 
-export default function editProfileReducer(state: EditProfileState = initialState, action: any) {
+export default (state: EditProfileState = initialState, action: ProfileActions) => {
   switch (action.type) {
     case types.CLEAR_PROFILE_FORM: {
       return {
@@ -73,4 +66,4 @@ export default function editProfileReducer(state: EditProfileState = initialStat
       return state;
     }
   }
-}
+};

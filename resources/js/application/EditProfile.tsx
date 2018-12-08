@@ -7,18 +7,36 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { AvatarEditor } from './organisms/AvatarEditor';
 import NotificationSettingContainer from '../notification_setting/NotificationSettingContainer';
 import Subheader from './atoms/Subheader';
+import { ProfileState, EditProfileState } from './interfaces/profile';
+import { AuthState } from '../auth/interfaces/auth';
 
-class EditProfile extends React.Component {
+interface Props {
+  profile: ProfileState;
+  auth: AuthState;
+  editProfile: EditProfileState;
+  handleUpdateAvatar: (imageData: any) => void;
+  initializeProfileForm: () => void;
+  handleUpdateProfile: () => void;
+  handleUpdatePassword: () => void;
+  handleChangeProfile: (e: React.FormEvent) => void;
+  handleChangePassword: (e: React.FormEvent) => void;
+  handleUpdateNewImagePreview: (result: string | ArrayBuffer | null) => void;
+}
+interface State {
+  file: Blob | null;
+  reader: FileReader;
+}
+class EditProfile extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.handleSubmitAvatar = this.handleSubmitAvatar.bind(this);
     this.handleSubmitProfile = this.handleSubmitProfile.bind(this);
     this.handleSubmitPassword = this.handleSubmitPassword.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
-    this.reader = new FileReader();
 
     this.state = {
       file: null,
+      reader: new FileReader(),
     };
   }
   componentWillMount() {
@@ -38,20 +56,18 @@ class EditProfile extends React.Component {
     this.props.handleUpdatePassword();
   }
   handleDrop(files) {
-    this.reader.onloadend = () => {
+    this.state.reader.onloadend = () => {
       this.setState({
         file: files[0],
       });
-      this.props.handleUpdateNewImagePreview(this.reader.result);
+      this.props.handleUpdateNewImagePreview(this.state.reader.result);
     };
-    this.reader.readAsDataURL(files[0]);
+    this.state.reader.readAsDataURL(files[0]);
 
     console.log(files);
   }
   render() {
-    const {
-      name, password, newImageUrl, snackbarIsOpen, snackbarMessage,
-    } = this.props.editProfile;
+    const { name, password, newImageUrl, snackbarIsOpen, snackbarMessage } = this.props.editProfile;
     const { avatar_img_url } = this.props.profile;
     const { authorizationToken } = this.props.auth;
     const { handleChangeProfile, handleChangePassword } = this.props;
@@ -69,10 +85,12 @@ class EditProfile extends React.Component {
     console.log('@render', this.state);
     return (
       <div>
-        <Button href="/app/home" style={styles.backButton}>back</Button>
+        <Button href="/app/home" style={styles.backButton}>
+          back
+        </Button>
         <Paper className="editor-wrapper" style={styles.paper}>
           <div>
-            <Subheader>アバターを変更する...</Subheader>
+            <Subheader title="アバターを変更する..." />
           </div>
 
           <div className="editor-forms_inputs">
@@ -90,7 +108,7 @@ class EditProfile extends React.Component {
 
         <Paper className="editor-wrapper" style={styles.paper}>
           <div>
-            <Subheader>プロフィールを変更する...</Subheader>
+            <Subheader title="プロフィールを変更する..." />
           </div>
           <div className="editor-forms_inputs">
             <TextField label="名前" name="name" value={name} onChange={handleChangeProfile} />
@@ -103,12 +121,13 @@ class EditProfile extends React.Component {
 
         <Paper className="editor-wrapper" style={styles.paper}>
           <div>
-            <Subheader>パスワードを変更する...</Subheader>
+            <Subheader title="パスワードを変更する..." />
           </div>
           <div className="editor-forms_inputs">
             <TextField
               label="新しいパスワード"
               name="password"
+              type="password"
               value={password}
               onChange={handleChangePassword}
             />

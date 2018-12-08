@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { push } from 'connected-react-router';
 
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,13 +13,14 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Divider from '@material-ui/core/Divider';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 
 import Subheader from './atoms/Subheader';
 
 import ChannelList from './organisms/ChannelList';
+import { ProfileState } from './interfaces/profile';
 
-const styles = {
+const styles = createStyles({
   logo: {
     cursor: 'pointer',
   },
@@ -30,9 +32,26 @@ const styles = {
     height: '1rem',
     lineHeight: '1rem',
   },
-};
+});
 
-class SideBar extends React.Component {
+interface Props {
+  router: any;
+  articleLists: any;
+  profile: ProfileState;
+  channels: any;
+  clearActiveChannel: () => void;
+  dispatch: any;
+  classes: {
+    logo: string;
+    paper: string;
+    menuItemRoot: string;
+  };
+}
+interface State {
+  open: boolean;
+  anchorEl: any;
+}
+class SideBar extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.handleClickLogo = this.handleClickLogo.bind(this);
@@ -52,15 +71,16 @@ class SideBar extends React.Component {
     const currentChannelId = this.props.articleLists.channel.id;
     // NOTE: If you don't want to clear the active channel, add that url to regex below.
     if (
-      !/(channels\/[0-9]+\/articles)|(articles\/add)|(articles\/[0-9]+)/.test(router.location.pathname) &&
+      !/(channels\/[0-9]+\/articles)|(articles\/add)|(articles\/[0-9]+)/.test(
+        router.location.pathname,
+      ) &&
       currentChannelId
     ) {
       this.props.clearActiveChannel();
     }
   }
   handleClickLogo() {
-    const { push } = this.props.history;
-    push('/app/home');
+    this.props.dispatch(push('/app/home'));
   }
   handleClickMenu(e) {
     this.setState({
@@ -75,27 +95,21 @@ class SideBar extends React.Component {
     });
   }
   handleManageAppSettingTouchTap() {
-    const { push } = this.props.history;
-    push('/app/admin-preferences');
+    this.props.dispatch(push('/app/admin-preferences'));
   }
   handleManageTeamMembersTouchTap() {
-    const { push } = this.props.history;
     this.handleRequestClose();
-    push('/app/manage-team-members');
+    this.props.dispatch(push('/app/manage-team-members'));
   }
   handleClickChannelListItem(channelId) {
-    const { push } = this.props.history;
-    push(`/app/channels/${channelId}/articles`);
+    this.props.dispatch(push(`/app/channels/${channelId}/articles`));
   }
   handleClickAddChannel() {
     console.log('@handleClickAddChannel');
-    const { push } = this.props.history;
-    push('/app/channels/add');
+    this.props.dispatch(push('/app/channels/add'));
   }
   render() {
-    const {
-      profile, channels, articleLists, classes,
-    } = this.props;
+    const { profile, channels, articleLists, classes } = this.props;
     return (
       <Drawer
         variant="permanent"
@@ -142,21 +156,25 @@ class SideBar extends React.Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Subheader>{profile.name}</Subheader>
-        <p className="sidebar_link-profile"><Link to="/app/profile">プロフィールを編集する...</Link></p>
+        <Subheader title={profile.name} />
+        <p className="sidebar_link-profile">
+          <Link to="/app/profile">プロフィールを編集する...</Link>
+        </p>
         <Divider />
-        {profile.isAdmin
-          ? <Subheader rightIcon={<AddCircleOutlineIcon onClick={this.handleClickAddChannel} />}>
-              Channel
-            </Subheader>
-          : <Subheader>Channel</Subheader>}
+        {profile.is_admin ? (
+          <Subheader
+            title="Channel"
+            rightIcon={<AddCircleOutlineIcon onClick={this.handleClickAddChannel} />}
+          />
+        ) : (
+          <Subheader title="Channel" />
+        )}
 
         <ChannelList
           channels={channels}
           articleLists={articleLists}
           handleClickChannelListItem={this.handleClickChannelListItem}
         />
-
       </Drawer>
     );
   }

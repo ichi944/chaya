@@ -5,11 +5,20 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-class Siginup extends React.Component {
+interface Props {
+  name: string;
+  email: string;
+  password: string;
+  showErrorMessage: boolean;
+  errorMessage: string;
+  isAuthenticated: boolean;
+  handleChange: (e: React.FormEvent) => void;
+  handleSubmit: (name: string, email: string, password: string) => void;
+  handlePressEnter: (e: React.FormEvent, name: string, email: string, password: string) => void;
+}
+class Siginup extends React.Component<Props> {
   render() {
-    const {
-      name, email, password, showErrorMessage, errorMessage, isAuthenticated,
-    } = this.props;
+    const { name, email, password, showErrorMessage, errorMessage, isAuthenticated } = this.props;
     const { handleChange, handleSubmit, handlePressEnter } = this.props;
 
     if (isAuthenticated) {
@@ -55,7 +64,7 @@ class Siginup extends React.Component {
             <br />
             <div className="login-buttons">
               <Button
-                variant="raised"
+                variant="contained"
                 color="primary"
                 onClick={() => handleSubmit(name, email, password)}
               >

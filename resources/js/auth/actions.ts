@@ -3,9 +3,10 @@ import Echo from 'laravel-echo';
 import { ThunkAction } from 'redux-thunk';
 
 import * as types from './actionTypes';
-import { LoginActions, LoginState } from './interfaces/login';
+import { LoginActions } from './interfaces/login';
 
-import { AuthActions, AuthState } from './interfaces/auth';
+import { AuthActions } from './interfaces/auth';
+import { RootState } from '../interfaces/rootState';
 
 import { clearSocketId } from '../application/actions';
 import { SocketActions } from '../application/interfaces/socket';
@@ -41,7 +42,7 @@ export const initializeSocketIOSucceeded = (): AuthActions => {
 
 export const requestInitializeSocketIO = (
   token: string,
-): ThunkAction<void, AuthState, undefined, AuthActions> => {
+): ThunkAction<void, RootState, undefined, AuthActions> => {
   return dispatch => {
     window.Echo = new Echo({
       broadcaster: 'socket.io',
@@ -62,7 +63,7 @@ export const endInitialCheckStatus = (): AuthActions => ({ type: types.END_INITI
 export const authenticated = (): AuthActions => ({ type: types.AUTHENTICATED });
 export const endCheckAuthStatus = (): AuthActions => ({ type: types.END_CHECK_AUTH_STATUS });
 
-export const handleCheckAuthStatus = (): ThunkAction<void, AuthState, undefined, AuthActions> => {
+export const handleCheckAuthStatus = (): ThunkAction<void, RootState, undefined, AuthActions> => {
   return async dispatch => {
     console.log('start check auth status');
     dispatch(startCheckAuthStatus());
@@ -117,40 +118,45 @@ export const loginFailed = (error: string): LoginActions => ({
   errorMessage: error,
 });
 export const loginSuccess = (): LoginActions => ({ type: types.LOGIN_SUCCESS });
+
+interface LoginResponse {
+  data: {
+    error: string;
+    token: string;
+  };
+}
 export const authenticate = (
-  email,
-  password,
-): ThunkAction<void, AuthState | LoginState, undefined, AuthActions | LoginActions> => {
-  return dispatch => {
+  email: string,
+  password: string,
+): ThunkAction<void, RootState, undefined, AuthActions | LoginActions> => {
+  return async dispatch => {
     console.log('start authentication', email);
 
     dispatch(loginStart());
 
-    Api.client
-      .post('/auth/login', {
-        email,
-        password,
-      })
-      .then(res => {
-        console.log(res.data);
-        if (res.data.error) {
-          console.log('error');
-          dispatch(failedAuthentication());
-          dispatch(loginFailed(res.data.error));
-          return;
-        } // endif: when error
-        if (res.data.token) {
-          console.log('authenticated');
-          const { token } = res.data;
+    const res: LoginResponse = await Api.client.post('/auth/login', {
+      email,
+      password,
+    });
+    console.log(res.data);
+    if (res.data.error) {
+      console.log('error');
+      dispatch(failedAuthentication());
+      dispatch(loginFailed(res.data.error));
+      return;
+    } // endif: when error
 
-          dispatch(requestInitializeSocketIO(token));
-          dispatch(storeAuthorizationTokenToState(token));
-          Api.setAuthorizationToken(token);
-          localStorage.setItem('authToken', token);
-          dispatch(loginSuccess());
-          dispatch(authenticated());
-        }
-      });
+    if (res.data.token) {
+      console.log('authenticated');
+      const { token } = res.data;
+
+      dispatch(requestInitializeSocketIO(token));
+      dispatch(storeAuthorizationTokenToState(token));
+      Api.setAuthorizationToken(token);
+      localStorage.setItem('authToken', token);
+      dispatch(loginSuccess());
+      dispatch(authenticated());
+    }
   };
 };
 
@@ -158,7 +164,7 @@ export const successSignOut = (): AuthActions => ({ type: types.SIGN_OUT });
 
 export const requestSignOut = (): ThunkAction<
   void,
-  AuthState,
+  RootState,
   undefined,
   AuthActions | SocketActions
 > => {

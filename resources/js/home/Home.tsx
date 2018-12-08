@@ -2,8 +2,16 @@ import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { ProfileState } from '../application/interfaces/profile';
 
-class Home extends React.Component {
+interface Props {
+  handleHello: (text) => void;
+  profile: ProfileState;
+}
+interface State {
+  helloText: string;
+}
+class Home extends React.Component<Props, State> {
   state = {
     helloText: '',
   };
@@ -27,7 +35,8 @@ class Home extends React.Component {
     return (
       <Paper className="home-welcome_message_box">
         <h3>Welcome! {name}.</h3>
-        Here is Home Screen.<br />
+        Here is Home Screen.
+        <br />
         <br />
         <TextField
           className="home-hello_text_input"

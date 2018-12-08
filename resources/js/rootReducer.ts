@@ -20,8 +20,10 @@ import teamMembersReducer from './manage_team_members/teamMembersReducer';
 import notifierReducer from './notifier/notifierReducer';
 import notificationSettingReducer from './notification_setting/notificationSettingReducer';
 
+import { RootState } from './interfaces/rootState';
+
 export default history =>
-  combineReducers({
+  combineReducers<RootState>({
     router: connectRouter(history),
     auth: authReducer,
     login: loginReducer,

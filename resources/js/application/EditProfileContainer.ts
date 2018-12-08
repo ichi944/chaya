@@ -11,8 +11,9 @@ import {
   requestUpdatePassword,
   closeNotification,
 } from './actions';
+import { RootState } from '../interfaces/rootState';
 
-const mapStateToProps = ({ profile, editProfile, auth }) => {
+const mapStateToProps = ({ profile, editProfile, auth }: RootState) => {
   console.log('in EditProfile container');
   return {
     profile,
@@ -21,16 +22,18 @@ const mapStateToProps = ({ profile, editProfile, auth }) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     initializeProfileForm() {
       dispatch(clearProfileForm());
       dispatch(requestCurrentProfile());
     },
     handleChangeProfile(e) {
-      dispatch(updateProfileForm({
-        [e.target.name]: e.target.value,
-      }));
+      dispatch(
+        updateProfileForm({
+          [e.target.name]: e.target.value,
+        }),
+      );
       dispatch(closeNotification());
     },
     handleUpdateNewImagePreview(reader_result) {
@@ -52,4 +55,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EditProfile);

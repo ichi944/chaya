@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 
 import { configureSocketId } from './actions';
 
-class ConfigureSocket extends React.Component {
+interface Props {
+  configureSocket: () => void;
+}
+class ConfigureSocket extends React.Component<Props> {
   componentDidMount() {
     console.log('@ConfigreSocket');
     this.props.configureSocket();
@@ -13,11 +16,9 @@ class ConfigureSocket extends React.Component {
   }
 }
 
-const mapStateToProps = () => {
-  return {};
-};
+const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     configureSocket() {
       dispatch(configureSocketId());
@@ -25,4 +26,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConfigureSocket);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ConfigureSocket);

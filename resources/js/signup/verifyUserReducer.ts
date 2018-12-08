@@ -1,19 +1,15 @@
 import * as types from './actionTypes';
 
-interface VerifyUserState {
-  isRequesting: boolean;
-  isVerified: boolean;
-};
+import { VerifyUserState, VerifyUserActions } from './interfaces/verifyUser';
 
 const initialState = {
   isRequesting: true,
   isVerified: false,
 };
 
-export default function verifyUserReducer(state: VerifyUserState = initialState, action: any) {
+export default (state: VerifyUserState = initialState, action: VerifyUserActions) => {
   switch (action.type) {
     case types.VERIFICATION_SUCCEEDED: {
-      console.log('VERIFICATION_SUCCEEDED');
       return {
         ...state,
         isRequesting: false,
@@ -21,7 +17,6 @@ export default function verifyUserReducer(state: VerifyUserState = initialState,
       };
     }
     case types.VERIFICATION_FAILED: {
-      console.log('VERIFICATION_FAILED');
       return {
         ...state,
         isRequesting: false,
@@ -32,4 +27,4 @@ export default function verifyUserReducer(state: VerifyUserState = initialState,
       return state;
     }
   }
-}
+};

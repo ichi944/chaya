@@ -1,7 +1,5 @@
 import { connect } from 'react-redux';
 
-import * as types from './actionTypes';
-
 import VerifyUser from './VerifyUser';
 import { requestVerifyUser } from './actions';
 
@@ -12,7 +10,7 @@ const mapStateToProps = ({ verifyUser }) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     handleVerifyUser(token) {
       dispatch(requestVerifyUser(token));
@@ -20,4 +18,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(VerifyUser);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(VerifyUser);

@@ -1,4 +1,5 @@
 import * as types from './actionTypes';
+import { ProfileState, ProfileActions } from './interfaces/profile';
 
 const initialState = {
   isLoaded: false,
@@ -6,19 +7,17 @@ const initialState = {
   name: '',
   email: '',
   avatar_img_url: '',
-  isAdmin: null,
+  is_admin: 0,
   created_at: '',
 };
 
-export default function profileReducer(state = initialState, action) {
+export default (state: ProfileState = initialState, action: ProfileActions): ProfileState => {
   switch (action.type) {
     case types.REQUEST_PROFILE: {
       return state;
     }
     case types.LORDED_PROFILE: {
-      const {
-        id, name, email, avatar_img_url, is_admin, created_at,
-      } = action.profile;
+      const { id, name, email, avatar_img_url, is_admin, created_at } = action.profile;
       return {
         ...state,
         isLoaded: true,
@@ -26,7 +25,7 @@ export default function profileReducer(state = initialState, action) {
         name,
         email,
         avatar_img_url,
-        isAdmin: is_admin,
+        is_admin,
         created_at,
       };
     }
@@ -44,4 +43,4 @@ export default function profileReducer(state = initialState, action) {
       return state;
     }
   }
-}
+};

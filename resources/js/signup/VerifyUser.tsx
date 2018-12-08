@@ -2,8 +2,14 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import Paper from '@material-ui/core/Paper';
+import { VerifyUserState } from './interfaces/verifyUser';
 
-class VerifyUser extends React.Component {
+interface Props {
+  match: any;
+  verifyUser: VerifyUserState;
+  handleVerifyUser: (token: string) => void;
+}
+class VerifyUser extends React.Component<Props> {
   componentDidMount() {
     const { token } = this.props.match.params;
     console.log('@VerifyUser', token);
@@ -27,9 +33,7 @@ class VerifyUser extends React.Component {
         <div>
           <Paper className="login-form" elevation={1}>
             <div className="login-inner">
-              <h1 className="login-title">
-                Mail Verification is done.
-              </h1>
+              <h1 className="login-title">Mail Verification is done.</h1>
               <p>Please wait the administrator verify you.</p>
               <div className="login-links">
                 <Link to="/app/login">go to Login</Link>

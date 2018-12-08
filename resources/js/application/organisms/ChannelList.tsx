@@ -31,7 +31,6 @@ interface Props {
 }
 class ChannelList extends React.Component<Props> {
   render() {
-    const foo = 1;
     const { channels } = this.props.channels;
     const { handleClickChannelListItem } = this.props;
     const { classes } = this.props;

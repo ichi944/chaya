@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 
 import { fetchProfile } from './actions';
 
-class LoadProfile extends React.Component {
+interface Props {
+  loadProfile: () => void;
+}
+class LoadProfile extends React.Component<Props> {
   componentDidMount() {
     const { loadProfile } = this.props;
     console.log('in LoadProfile, start to fetch user profile.');
@@ -14,11 +17,9 @@ class LoadProfile extends React.Component {
   }
 }
 
-const mapStateToProps = () => {
-  return {};
-};
+const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     loadProfile() {
       dispatch(fetchProfile());
@@ -26,4 +27,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoadProfile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(LoadProfile);

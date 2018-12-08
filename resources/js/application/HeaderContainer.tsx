@@ -2,16 +2,15 @@ import { connect } from 'react-redux';
 import { requestSignOut } from '../auth/actions';
 
 import Header from './Header';
+import { AuthState } from '../auth/interfaces/auth';
 
-const mapStateToProps = ({ auth }) => {
-  console.log('in header container');
-  console.log(auth);
+const mapStateToProps = ({ auth }: { auth: AuthState }) => {
   return {
     isAuthenticated: auth.isAuthenticated,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     handleSignOut() {
       localStorage.removeItem('authToken');
@@ -20,4 +19,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Header);

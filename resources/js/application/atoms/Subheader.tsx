@@ -27,7 +27,7 @@ const styles = createStyles({
 
 interface Props {
   title: string;
-  rightIcon: any | null;
+  rightIcon?: any;
   classes: {
     h3: string;
     rightIcon: string;

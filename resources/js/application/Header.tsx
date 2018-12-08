@@ -10,7 +10,11 @@ const styles = {
   },
 };
 
-class Header extends React.Component {
+interface Props {
+  isAuthenticated: boolean;
+  handleSignOut: (e: React.FormEvent) => void;
+}
+class Header extends React.Component<Props> {
   render() {
     const { isAuthenticated, handleSignOut } = this.props;
 
@@ -19,9 +23,11 @@ class Header extends React.Component {
         <AppBar position="static">
           <Toolbar>
             <Typography color="inherit" style={styles.typography} />
-            {isAuthenticated
-              ? <Button color="inherit" onClick={handleSignOut}>Logout</Button>
-              : null}
+            {isAuthenticated ? (
+              <Button color="inherit" onClick={handleSignOut}>
+                Logout
+              </Button>
+            ) : null}
           </Toolbar>
         </AppBar>
       </div>

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { handleCheckAuthStatus } from './actions';
-import { AuthState } from './interfaces/auth';
 
 interface Props {
   checkAuthStatus: () => void;
@@ -18,7 +17,7 @@ class InitialCheckStatus extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (auth: AuthState) => ({ auth });
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => {
   return {

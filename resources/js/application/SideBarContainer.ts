@@ -1,12 +1,19 @@
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 
 import SideBar from './SideBar';
 import { requestClearActiveChannel } from '../article_lists/actions';
+import { ProfileState } from './interfaces/profile';
 
 const mapStateToProps = ({
-  router, profile, channels, articleLists,
+  router,
+  profile,
+  channels,
+  articleLists,
+}: {
+  router: any;
+  profile: ProfileState;
+  channels: any;
+  articleLists: any;
 }) => {
   return {
     router,
@@ -16,12 +23,16 @@ const mapStateToProps = ({
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     clearActiveChannel() {
       dispatch(requestClearActiveChannel());
     },
+    dispatch,
   };
 };
 
-export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(SideBar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SideBar);

@@ -1,6 +1,14 @@
+import { ThunkAction } from 'redux-thunk';
 import Api from '../services/Api';
 import * as types from './actionTypes';
-import { SocketActions } from './interfaces/socket';
+import { SocketActions, SocketState } from './interfaces/socket';
+import {
+  ProfileModel,
+  ProfileState,
+  ProfileActions,
+  UpdateProfileRequest,
+} from './interfaces/profile';
+import { RootState } from '../interfaces/rootState';
 
 interface Window {
   Echo: any;
@@ -8,144 +16,158 @@ interface Window {
 }
 declare var window: Window;
 
-export const clearProfileForm = () => ({ type: types.CLEAR_PROFILE_FORM });
-export const requestProfile = () => ({ type: types.REQUEST_PROFILE });
-export const receiveProfile = profile => ({
+export const clearProfileForm = (): ProfileActions => ({ type: types.CLEAR_PROFILE_FORM });
+export const requestProfile = (): ProfileActions => ({ type: types.REQUEST_PROFILE });
+export const receiveProfile = (profile: ProfileModel): ProfileActions => ({
   type: types.LORDED_PROFILE,
   profile,
 });
-/**
- * async action
- * @return {function}
- */
-export function fetchProfile() {
-  return dispatch => {
-    dispatch(requestProfile());
 
-    return Api.client.get('/profiles/me').then(res => {
-      console.log('in fetchProfile');
-      console.log(res);
-      dispatch(receiveProfile(res.data.user));
-    });
+interface MeResponse {
+  data: {
+    user: ProfileModel;
   };
 }
+export const fetchProfile = (): ThunkAction<
+  void,
+  ProfileState,
+  undefined,
+  ProfileActions
+> => async dispatch => {
+  dispatch(requestProfile());
 
-export function clearProfile() {
-  return {
-    type: types.CLEAR_PROFILE,
-  };
-}
+  const res: MeResponse = await Api.client.get('/profiles/me');
+  console.log('in fetchProfile');
+  console.log(res);
+  dispatch(receiveProfile(res.data.user));
+};
 
-export function updateProfileForm(data) {
+export const clearProfile = (): ProfileActions => ({ type: types.CLEAR_PROFILE });
+
+export const updateProfileForm = (data): ProfileActions => {
   return {
     type: types.UPDATE_PROFILE_FORM,
     data,
   };
-}
+};
 
-export function requestCurrentProfile() {
-  return (dispatch, getState) => {
-    const currentData = getState().profile;
-    dispatch(updateProfileForm(currentData));
-  };
-}
+export const requestCurrentProfile = (): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  ProfileActions
+> => (dispatch, getState) => {
+  const currentData = getState().profile;
+  dispatch(updateProfileForm(currentData));
+};
 
-export function updateProfileIsSucceeded(data) {
+export const updateProfileIsSucceeded = (data: UpdateProfileRequest): ProfileActions => {
   return {
     type: types.UPDATE_PROFILE,
     data,
   };
-}
+};
 
-export function clearNewImagePreview() {
-  return {
-    type: types.CLEAR_NEW_IMAGE_PREVIEW,
-  };
-}
+export const clearNewImagePreview = (): ProfileActions => ({ type: types.CLEAR_NEW_IMAGE_PREVIEW });
+export const showSuccessNotification = (): ProfileActions => ({
+  type: types.SHOW_SUCCESS_NOTIFICATION,
+});
 
-export function showSuccessNotification() {
-  return {
-    type: types.SHOW_SUCCESS_NOTIFICATION,
-  };
-}
-
-export function showFailedNotification(errorMessage = null) {
+export const showFailedNotification = (errorMessage = null): ProfileActions => {
   return {
     type: types.SHOW_FAILED_NOTIFICATION,
     errorMessage,
   };
-}
+};
 
-export function closeNotification() {
-  return {
-    type: types.CLOSE_NOTIFICATION,
+export const closeNotification = (): ProfileActions => ({ type: types.CLOSE_NOTIFICATION });
+
+interface UpdateAvatarResponse {
+  data: {
+    filename: string;
   };
 }
+export const requestUpdateAvatar = (
+  imageData,
+): ThunkAction<void, RootState, undefined, ProfileActions> => async dispatch => {
+  const data = new FormData();
+  data.append('image_data', imageData);
+  const res: UpdateAvatarResponse = Api.client.post('/profiles/update-my-avatar', data);
+  console.log(res);
+  dispatch(updateProfileIsSucceeded({ avatar_img_url: res.data.filename }));
+  dispatch(clearNewImagePreview());
+  dispatch(showSuccessNotification());
+};
 
-export function requestUpdateAvatar(imageData) {
-  return dispatch => {
-    const data = new FormData();
-    data.append('image_data', imageData);
-    Api.client.post('/profiles/update-my-avatar', data).then(res => {
-      console.log(res);
-      dispatch(updateProfileIsSucceeded({ avatar_img_url: res.data.filename }));
-      dispatch(clearNewImagePreview());
-      dispatch(showSuccessNotification());
-    });
+interface UpdateProfileResponse {
+  data: {
+    _code: number;
   };
 }
+export const requestUpdateProfile = (): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  ProfileActions
+> => async (dispatch, getState) => {
+  const { name } = getState().editProfile;
+  const data = new FormData();
+  data.append('name', name);
+  const res: UpdateProfileResponse = await Api.client.post('/profiles/update-me', data);
+  console.log(res);
+  if (res.data._code === 0) {
+    dispatch(updateProfileIsSucceeded({ name }));
+    dispatch(showSuccessNotification());
+  } else {
+    dispatch(showFailedNotification());
+  }
+};
 
-export function requestUpdateProfile() {
-  return (dispatch, getState) => {
-    const { name } = getState().editProfile;
-    const data = new FormData();
-    data.append('name', name);
-    Api.client.post('/profiles/update-me', data).then(res => {
-      console.log(res);
-      if (res.data._code === 0) {
-        dispatch(updateProfileIsSucceeded({ name }));
-        dispatch(showSuccessNotification());
-      } else {
-        dispatch(showFailedNotification());
-      }
-    });
+export const updatePasswordForm = (password: string): ProfileActions => ({
+  type: types.UPDATE_PASSWORD_FORM,
+  password,
+});
+
+export const clearPasswordForm = (): ProfileActions => ({
+  type: types.CLEAR_PASSWORD_FORM,
+});
+
+interface UpdataPasswordResponse {
+  data: {
+    _code: number;
   };
 }
-
-export function updatePasswordForm(password) {
-  return {
-    type: types.UPDATE_PASSWORD_FORM,
+export const requestUpdatePassword = (): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  ProfileActions
+> => async (dispatch, getState) => {
+  const { password } = getState().editProfile;
+  const res: UpdateProfileResponse = await Api.client.post('/profiles/update-my-password', {
     password,
-  };
-}
+  });
+  console.log(res);
+  if (res.data._code === 0) {
+    dispatch(clearPasswordForm());
+    dispatch(showSuccessNotification());
+  } else {
+    dispatch(showFailedNotification());
+  }
+};
 
-export function clearPasswordForm() {
-  return {
-    type: types.CLEAR_PASSWORD_FORM,
-  };
-}
-export function requestUpdatePassword() {
-  return (dispatch, getState) => {
-    const { password } = getState().editProfile;
-    Api.client.post('/profiles/update-my-password', { password }).then(res => {
-      console.log(res);
-      if (res.data._code === 0) {
-        dispatch(clearPasswordForm());
-        dispatch(showSuccessNotification());
-      } else {
-        dispatch(showFailedNotification());
-      }
-    });
-  };
-}
+export const doneSetSocketId = (): SocketActions => ({ type: types.DONE_SET_SOCKET_ID });
 
-export function configureSocketId() {
+export const configureSocketId = (): ThunkAction<
+  void,
+  SocketState,
+  undefined,
+  SocketActions
+> => dispatch => {
   const socketId = window.Echo.socketId();
   console.log('@getting socketId: ', socketId);
   Api.setSocketId(socketId);
-  return {
-    type: types.DONE_SET_SOCKET_ID,
-  };
-}
+  dispatch(doneSetSocketId());
+};
 
 export const clearSocketId = (): SocketActions => ({ type: types.CLEAR_SOCKET_ID });
