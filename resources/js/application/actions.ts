@@ -1,32 +1,28 @@
 import Api from '../services/Api';
 import * as types from './actionTypes';
+import { SocketActions } from './interfaces/socket';
 
-export function clearProfileForm() {
-  return {
-    type: types.CLEAR_PROFILE_FORM,
-  };
+interface Window {
+  Echo: any;
+  location: any;
 }
-export function requestProfile() {
-  return {
-    type: types.REQUEST_PROFILE,
-  };
-}
+declare var window: Window;
 
-export function receiveProfile(profile) {
-  return {
-    type: types.LORDED_PROFILE,
-    profile,
-  };
-}
+export const clearProfileForm = () => ({ type: types.CLEAR_PROFILE_FORM });
+export const requestProfile = () => ({ type: types.REQUEST_PROFILE });
+export const receiveProfile = profile => ({
+  type: types.LORDED_PROFILE,
+  profile,
+});
 /**
  * async action
  * @return {function}
  */
 export function fetchProfile() {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(requestProfile());
 
-    return Api.client.get('/profiles/me').then((res) => {
+    return Api.client.get('/profiles/me').then(res => {
       console.log('in fetchProfile');
       console.log(res);
       dispatch(receiveProfile(res.data.user));
@@ -87,10 +83,10 @@ export function closeNotification() {
 }
 
 export function requestUpdateAvatar(imageData) {
-  return (dispatch) => {
+  return dispatch => {
     const data = new FormData();
     data.append('image_data', imageData);
-    Api.client.post('/profiles/update-my-avatar', data).then((res) => {
+    Api.client.post('/profiles/update-my-avatar', data).then(res => {
       console.log(res);
       dispatch(updateProfileIsSucceeded({ avatar_img_url: res.data.filename }));
       dispatch(clearNewImagePreview());
@@ -104,7 +100,7 @@ export function requestUpdateProfile() {
     const { name } = getState().editProfile;
     const data = new FormData();
     data.append('name', name);
-    Api.client.post('/profiles/update-me', data).then((res) => {
+    Api.client.post('/profiles/update-me', data).then(res => {
       console.log(res);
       if (res.data._code === 0) {
         dispatch(updateProfileIsSucceeded({ name }));
@@ -131,7 +127,7 @@ export function clearPasswordForm() {
 export function requestUpdatePassword() {
   return (dispatch, getState) => {
     const { password } = getState().editProfile;
-    Api.client.post('/profiles/update-my-password', { password }).then((res) => {
+    Api.client.post('/profiles/update-my-password', { password }).then(res => {
       console.log(res);
       if (res.data._code === 0) {
         dispatch(clearPasswordForm());
@@ -152,8 +148,4 @@ export function configureSocketId() {
   };
 }
 
-export function clearSocketId() {
-  return {
-    type: types.CLEAR_SOCKET_ID,
-  };
-}
+export const clearSocketId = (): SocketActions => ({ type: types.CLEAR_SOCKET_ID });

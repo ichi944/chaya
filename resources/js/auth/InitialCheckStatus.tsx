@@ -2,8 +2,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { handleCheckAuthStatus } from './actions';
+import { AuthState } from './interfaces/auth';
 
-class InitialCheckStatus extends React.Component {
+interface Props {
+  checkAuthStatus: () => void;
+}
+class InitialCheckStatus extends React.Component<Props> {
   componentDidMount() {
     const { checkAuthStatus } = this.props;
     console.log('in InitialCheckStatus: start initial auth check');
@@ -14,13 +18,9 @@ class InitialCheckStatus extends React.Component {
   }
 }
 
-const mapStateToProps = (auth) => {
-  return {
-    auth,
-  };
-};
+const mapStateToProps = (auth: AuthState) => ({ auth });
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     checkAuthStatus() {
       dispatch(handleCheckAuthStatus());
@@ -28,4 +28,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InitialCheckStatus);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(InitialCheckStatus);

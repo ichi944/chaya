@@ -2,12 +2,11 @@ import * as React from 'react';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import pink from '@material-ui/core/colors/pink';
-import { Link } from 'react-router-dom';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = createStyles({
   channelListItem: {
     paddingLeft: '1rem',
   },
@@ -15,17 +14,30 @@ const styles = {
     paddingLeft: '1rem',
     backgroundColor: pink[200],
   },
-};
+});
 
-class ChannelList extends React.Component {
-  handleClickChannelList(channelId) {
-    this.props.handleClickChannelListItem(channelId);
-  }
+interface Channel {
+  id: number;
+  name: string;
+}
+interface Props {
+  handleClickChannelListItem: (channelId: number) => void;
+  channels: { channels: Channel[] };
+  articleLists: { channel: { id: number } };
+  classes: {
+    channelListItem: string;
+    channelListItemActive: string;
+  };
+}
+class ChannelList extends React.Component<Props> {
   render() {
+    const foo = 1;
     const { channels } = this.props.channels;
+    const { handleClickChannelListItem } = this.props;
+    const { classes } = this.props;
     return (
-      <List defaultValue={1}>
-        {channels.map((channel) => {
+      <List defaultValue="1">
+        {channels.map(channel => {
           const active = channel.id === this.props.articleLists.channel.id;
           return (
             <ListItem
@@ -33,9 +45,9 @@ class ChannelList extends React.Component {
               dense
               key={channel.id}
               onClick={() => {
-                this.handleClickChannelList(channel.id);
+                handleClickChannelListItem(channel.id);
               }}
-              style={active ? styles.channelListItemActive : styles.channelListItem}
+              className={active ? classes.channelListItemActive : classes.channelListItem}
             >
               <ListItemText primary={channel.name} />
             </ListItem>
@@ -46,4 +58,4 @@ class ChannelList extends React.Component {
   }
 }
 
-export default ChannelList;
+export default withStyles(styles)(ChannelList);

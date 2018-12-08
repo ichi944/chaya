@@ -1,10 +1,6 @@
 import * as types from './actionTypes';
 
-interface AuthState {
-  isDoneCheckingStatusAtInitialize: boolean;
-  isAuthenticated: boolean;
-  authorizationToken: string | null;
-}
+import { AuthState, AuthActions } from './interfaces/auth';
 
 const initialState = {
   isDoneCheckingStatusAtInitialize: false,
@@ -12,7 +8,7 @@ const initialState = {
   authorizationToken: null,
 };
 
-export default function authReducer(state: AuthState = initialState, action: any) {
+export default (state: AuthState = initialState, action: AuthActions): AuthState => {
   switch (action.type) {
     case types.END_INITIAL_CHECK_STATUS: {
       return {
@@ -27,14 +23,12 @@ export default function authReducer(state: AuthState = initialState, action: any
       };
     }
     case types.AUTHENTICATED: {
-      console.log('in reduser authenticated');
       return {
         ...state,
         isAuthenticated: true,
       };
     }
     case types.SIGN_OUT: {
-      console.log('in reducer: sign out');
       return {
         ...state,
         isAuthenticated: false,
@@ -53,11 +47,10 @@ export default function authReducer(state: AuthState = initialState, action: any
       return state;
     }
     case types.END_CHECK_AUTH_STATUS: {
-      console.log('in END_CHECK_AUTH_STATUS');
       return state;
     }
     default: {
       return state;
     }
   }
-}
+};

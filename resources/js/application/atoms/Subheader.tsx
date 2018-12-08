@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = createStyles({
   h3: {
     boxSizing: 'border-box',
     color: 'rgba(0, 0, 0, 0.54)',
@@ -23,18 +23,31 @@ const styles = {
       opacity: 0.6,
     },
   },
-};
+});
 
-const Subheader = (props) => {
-  const { children, rightIcon, classes } = props;
+interface Props {
+  title: string;
+  rightIcon: any | null;
+  classes: {
+    h3: string;
+    rightIcon: string;
+  };
+}
+const Subheader = (props: Props) => {
+  const { title, rightIcon, classes } = props;
   if (rightIcon) {
     return (
       <h3 className={classes.h3}>
-        <span>{children}</span><span className={classes.rightIcon}>{rightIcon}</span>
+        <span>{title}</span>
+        <span className={classes.rightIcon}>{rightIcon}</span>
       </h3>
     );
   }
-  return <h3 className={classes.h3}><span>{children}</span></h3>;
+  return (
+    <h3 className={classes.h3}>
+      <span>{title}</span>
+    </h3>
+  );
 };
 
 export default withStyles(styles)(Subheader);

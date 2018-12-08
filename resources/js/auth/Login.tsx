@@ -1,22 +1,16 @@
-import * as React from "react";
-import { Link, Redirect } from "react-router-dom";
+import * as React from 'react';
+import { Link, Redirect } from 'react-router-dom';
 
-import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
-const Login = props => {
-  const {
-    email,
-    password,
-    showErrorMessage,
-    errorMessage,
-    isAuthenticated
-  } = props;
+const Login: React.SFC<any> = props => {
+  const { email, password, showErrorMessage, errorMessage, isAuthenticated } = props;
   const { handleChange, handleAuthenticate, handlePressEnter } = props;
 
   if (isAuthenticated) {
-    console.log("you are alredy authenticated, redirect to home.");
+    console.log('you are alredy authenticated, redirect to home.');
     return <Redirect to="/app/home" />;
   }
   return (

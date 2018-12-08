@@ -1,8 +1,13 @@
 import * as React from 'react';
 import Dropzone from 'react-dropzone';
 
-import { AvatarPreview } from '../molecules/AvatarPreview';
+import AvatarPreview from '../molecules/AvatarPreview';
 
+interface Props {
+  currentImageUrl: string | null;
+  newImageUrl: string | null;
+  onDrop: (event: React.FormEvent) => void;
+}
 export const AvatarEditor = ({ currentImageUrl, newImageUrl, onDrop }) => {
   const styles = {
     dropzone: {

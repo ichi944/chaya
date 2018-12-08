@@ -1,12 +1,7 @@
 import { AnyAction } from 'redux';
 import * as types from './actionTypes';
 
-interface LoginState {
-  email: string;
-  password: string;
-  showErrorMessage: boolean;
-  errorMessage: string;
-}
+import { LoginState, LoginActions } from './interfaces/login';
 
 const initialState = {
   email: '',
@@ -17,7 +12,7 @@ const initialState = {
 
 export default function loginReducer(
   state: LoginState = initialState,
-  action: AnyAction,
+  action: LoginActions,
 ): LoginState {
   switch (action.type) {
     case types.LOGIN_CHANGE: {

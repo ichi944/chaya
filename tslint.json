@@ -15,6 +15,8 @@
     "jsx-no-multiline-js": [false],
     "arrow-parens": [false],
     "member-access": [false],
+    "jsx-no-lambda": [false],
+    "no-unused-variable": [true],
     "max-line-length": [true, 100]
   }
 }
