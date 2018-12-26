@@ -4,8 +4,9 @@ import { Link, Redirect } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { Props } from './interfaces/login';
 
-const Login: React.SFC<any> = props => {
+const Login: React.SFC<Props> = props => {
   const { email, password, showErrorMessage, errorMessage, isAuthenticated } = props;
   const { handleChange, handleAuthenticate, handlePressEnter } = props;
 

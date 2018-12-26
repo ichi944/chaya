@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Paper, TextField, Button } from '@material-ui/core';
+import { Paper, TextField, Button, WithStyles } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
@@ -43,7 +43,7 @@ const styles = createStyles({
   },
 });
 
-interface Props {
+export interface EditorProps extends WithStyles<typeof styles> {
   editorHeaderText: string;
   dirty: {
     heading: boolean;
@@ -60,6 +60,7 @@ interface Props {
   current_attachments?: CurrentAttachmentProps[];
   attachments: AttachmentProps[];
   onPreview: boolean;
+  mode: string;
   handleUpdateCursorPosition: (event: React.FormEvent) => void;
   handleChange: (event: React.FormEvent) => void;
   handleCancel: (event: React.FormEvent) => void;
@@ -71,13 +72,6 @@ interface Props {
   handleSubmitText: string;
   handleTogglePreview: (event: React.FormEvent) => void;
   handleDropEmbeddedImage: (accepted: File[], rejected: File[], event: any) => void;
-  classes: {
-    paper: string;
-    attachments_list: string;
-    attachments_list_title: string;
-    dropzone: string;
-    dropzoneActive: string;
-  };
 }
 
 const Editor = ({
@@ -101,31 +95,30 @@ const Editor = ({
   handleTogglePreview,
   handleDropEmbeddedImage,
   classes,
-}: Props) => {
+}: EditorProps) => {
   return (
     <Paper className="editor-wrapper" style={styles2.paper}>
       <EditorHeader title={editorHeaderText} />
 
       <div className="editor-main">
         <div className="editor-forms">
-          {onPreview
-            ? <div className="editor-previewer_wrapper">
+          {onPreview ? (
+            <div className="editor-previewer_wrapper">
               <h2 className="editor-previewer_heading">{heading}</h2>
               <Divider />
               <div
                 className="markdown-body editor-previewer_body"
                 dangerouslySetInnerHTML={{ __html: parseToMarkdown(body) }}
               />
-              </div>
-            : <div className="editor-forms_inputs">
+            </div>
+          ) : (
+            <div className="editor-forms_inputs">
               <TextField
                 label="見出し"
                 name="heading"
                 value={heading}
                 error={dirty.heading && errors.has('heading')}
-                helperText={
-                    dirty.heading && errors.has('heading') ? errors.first('heading') : null
-                  }
+                helperText={dirty.heading && errors.has('heading') ? errors.first('heading') : null}
                 fullWidth
                 autoFocus
                 onChange={handleChange}
@@ -156,24 +149,26 @@ const Editor = ({
                 />
               </Dropzone>
               <br />
-              </div>}
+            </div>
+          )}
 
-          {!current_attachments
-            ? null
-            : <Grid container className={classes.attachments_list}>
+          {!current_attachments ? null : (
+            <Grid container className={classes.attachments_list}>
               <Grid item xs>
                 <Typography className={classes.attachments_list_title} variant="subheading">
-                    current attachments
+                  current attachments
                 </Typography>
-                {!handleShowDialogDeleteCurrentAttachment ? null :
-                <CurrentAttachmentList
-                  attachments={current_attachments}
-                  handleShowDialogDeleteCurrentAttachment={
+                {!handleShowDialogDeleteCurrentAttachment ? null : (
+                  <CurrentAttachmentList
+                    attachments={current_attachments}
+                    handleShowDialogDeleteCurrentAttachment={
                       handleShowDialogDeleteCurrentAttachment
                     }
-                />}
+                  />
+                )}
               </Grid>
-              </Grid>}
+            </Grid>
+          )}
 
           <Divider />
 
@@ -187,7 +182,6 @@ const Editor = ({
                 handleDeleteAttachment={handleDeleteAttachment}
               />
               <DropAttachment handleDrop={handleDrop} />
-
             </Grid>
           </Grid>
 
@@ -195,7 +189,9 @@ const Editor = ({
 
           <div className="editor-actions">
             <Button onClick={handleCancel}>{handleCancelText}</Button>
-            <Button color="primary" onClick={handleSubmit}>{handleSubmitText}</Button>
+            <Button color="primary" onClick={handleSubmit}>
+              {handleSubmitText}
+            </Button>
           </div>
         </div>
 
@@ -204,11 +200,8 @@ const Editor = ({
             control={<Switch checked={onPreview} onChange={handleTogglePreview} />}
             label="プレビュー"
           />
-
         </div>
-
       </div>
-
     </Paper>
   );
 };

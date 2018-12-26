@@ -55,7 +55,7 @@ class EditProfile extends React.Component<Props, State> {
     console.log(this.props);
     this.props.handleUpdatePassword();
   }
-  handleDrop(files) {
+  handleDrop(files: File[]) {
     this.state.reader.onloadend = () => {
       this.setState({
         file: files[0],

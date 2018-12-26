@@ -1,4 +1,3 @@
-import { AnyAction } from 'redux';
 import * as types from './actionTypes';
 
 import { LoginState, LoginActions } from './interfaces/login';

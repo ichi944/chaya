@@ -15,7 +15,7 @@ class Home extends React.Component<Props, State> {
   state = {
     helloText: '',
   };
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.handleHello = this.handleHello.bind(this);
     this.handleChange = this.handleChange.bind(this);

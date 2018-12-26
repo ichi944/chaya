@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import SideBar from './SideBar';
 import { requestClearActiveChannel } from '../article_lists/actions';
 import { ProfileState } from './interfaces/profile';
+import { ChannelsState } from '../channel/interfaces/channel';
 
 const mapStateToProps = ({
   router,
@@ -12,7 +13,7 @@ const mapStateToProps = ({
 }: {
   router: any;
   profile: ProfileState;
-  channels: any;
+  channels: ChannelsState;
   articleLists: any;
 }) => {
   return {

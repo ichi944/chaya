@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import pink from '@material-ui/core/colors/pink';
 import { withStyles, createStyles } from '@material-ui/core/styles';
+import { ArticleListsState } from '../../article_lists/interfaces/ArticleList';
 
 const styles = createStyles({
   channelListItem: {
@@ -23,7 +24,7 @@ interface Channel {
 interface Props {
   handleClickChannelListItem: (channelId: number) => void;
   channels: { channels: Channel[] };
-  articleLists: { channel: { id: number } };
+  articleLists: ArticleListsState;
   classes: {
     channelListItem: string;
     channelListItemActive: string;
@@ -37,7 +38,10 @@ class ChannelList extends React.Component<Props> {
     return (
       <List defaultValue="1">
         {channels.map(channel => {
-          const active = channel.id === this.props.articleLists.channel.id;
+          let active: boolean = false;
+          if (this.props.articleLists.channel) {
+            active = channel.id === this.props.articleLists.channel.id;
+          }
           return (
             <ListItem
               button

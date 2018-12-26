@@ -1,13 +1,8 @@
 import * as types from './actionTypes';
-
-interface NotificationSettingState {
-  enabled: boolean;
-};
-
-interface NotificationSettingAction {
-  type: String;
-  new_state: boolean;
-};
+import {
+  NotificationSettingActions,
+  NotificationSettingState,
+} from './interfaces/notification_settings';
 
 const initialState = {
   enabled: false,
@@ -15,8 +10,8 @@ const initialState = {
 
 export default function notificationSettingReducer(
   state: NotificationSettingState = initialState,
-  action: NotificationSettingAction,
-) {
+  action: NotificationSettingActions,
+): NotificationSettingState {
   switch (action.type) {
     case types.UPDATE_SWITCH: {
       return {

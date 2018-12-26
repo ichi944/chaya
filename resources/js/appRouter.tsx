@@ -29,6 +29,10 @@ import ChannelNotifier from './notifier/ChannelNotifier';
 import ChatNotificationContainer from './chat_notification/ChatNotificationContainer';
 
 import { clearProfile } from './application/actions';
+import { AuthState } from './auth/interfaces/auth';
+import { ProfileState } from './application/interfaces/profile';
+import { SocketState } from './application/interfaces/socket';
+import { ChannelsState } from './channel/interfaces/channel';
 
 const NotFound = () => <div>404 not found</div>;
 
@@ -51,14 +55,11 @@ const RedirectToHome = props => (
 );
 
 export interface AppRouterProps {
-  auth: {
-    isAuthenticated: boolean;
-    isDoneCheckingStatusAtInitialize: boolean;
-  };
-  profile: any;
-  channels: any;
-  socket: any;
-  requestClearProfile(): void;
+  auth: AuthState;
+  profile: ProfileState;
+  channels: ChannelsState;
+  socket: SocketState;
+  requestClearProfile: () => void;
 }
 class AppRouter extends Component<AppRouterProps> {
   componentWillUpdate() {

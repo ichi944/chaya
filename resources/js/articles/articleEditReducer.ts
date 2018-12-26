@@ -1,30 +1,5 @@
 import * as types from './actionTypes';
-
-interface ArticleEditState {
-  heading: string;
-  body: string;
-  current_attachments: object[];
-  attachments: object[];
-  onPreview: boolean;
-  confirmSuccessDialogOpen: boolean;
-  confirmDeleteCurrentAttachmentDialogOpen: boolean;
-  deletingAttachmentId: number | null;
-  deletingAttachmentName: string | null;
-  cursor_position: number | null;
-}
-
-interface ArticleEditAction {
-  type: string;
-  id: number;
-  index: number;
-  name: string;
-  value: string;
-  attachment: Object;
-  current_attachments: object[];
-  data: Object;
-  cursor_position: number;
-  img_tag: string;
-}
+import { ArticleActions, ArticleEditState } from './interfaces/Article';
 
 const initialState = {
   heading: '',
@@ -41,7 +16,7 @@ const initialState = {
 
 export default function articleEditReducer(
   state: ArticleEditState = initialState,
-  action: ArticleEditAction,
+  action: ArticleActions,
 ) {
   switch (action.type) {
     case types.END_FETCH_ARTICLE: {
@@ -83,8 +58,8 @@ export default function articleEditReducer(
       return {
         ...state,
         confirmDeleteCurrentAttachmentDialogOpen: true,
-        deletingAttachmentId: action.id,
-        deletingAttachmentName: action.name,
+        deletingAttachmentId: action.attachment.id,
+        deletingAttachmentName: action.attachment.name,
       };
     }
     case types.CLOSE_DIALOG_DELETE_CURRENT_ATTACHMENT: {

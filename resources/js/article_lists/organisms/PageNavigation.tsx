@@ -4,9 +4,9 @@ import Button from '@material-ui/core/Button';
 
 interface Props {
   handleNavigatePage: (page_url, query) => void;
-  prev_page_url: string;
-  next_page_url: string;
-  query: string | null;
+  prev_page_url: string | null;
+  next_page_url: string | null;
+  query?: string | null;
 }
 export const PageNavigation = ({
   handleNavigatePage,
@@ -22,8 +22,12 @@ export const PageNavigation = ({
     : () => null;
   return (
     <div className="article_index-page_navi">
-      <Button onClick={handleGoPrevPage} disabled={prev_page_url === null}>prev</Button>
-      <Button onClick={handleGoNextPage} disabled={next_page_url === null}>next</Button>
+      <Button onClick={handleGoPrevPage} disabled={prev_page_url === null}>
+        prev
+      </Button>
+      <Button onClick={handleGoNextPage} disabled={next_page_url === null}>
+        next
+      </Button>
     </div>
   );
 };

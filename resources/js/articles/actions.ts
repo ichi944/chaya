@@ -1,262 +1,218 @@
 import { Dispatch } from 'redux';
-import { push } from 'connected-react-router';
+import { push, RouterAction } from 'connected-react-router';
 import { AxiosResponse } from 'axios';
 import * as types from './actionTypes';
 import Api from '../services/Api';
-import { ARTICLE_API_URL } from './constants';
-
+import { ArticleActions } from './interfaces/Article';
 import UpdateRequestProps from './interfaces/UpdateRequest';
 import CurrentAttachmentProps from './interfaces/CurrentAttachment';
 import AttachmentProps from './interfaces/Attachment';
+import { ThunkAction } from 'redux-thunk';
+import { RootState } from '../interfaces/rootState';
 
-export function fetchArticles(options: Object = {}): any {
-  return (dispatch: Dispatch) => {
-    dispatch({
-      type: types.START_FETCH_ARTICLES,
-    });
-    console.log('options in action: ', options);
-    Api.client
-      .get(ARTICLE_API_URL, {
-        params: options,
-      })
-      .then((res: AxiosResponse) => {
-        dispatch({
-          type: types.END_FETCH_ARTICLES,
-          data: res.data,
-        });
-      }); // Api
-  };
-}
+export const startFetchArticle = (): ArticleActions => ({
+  type: types.START_FETCH_ARTICLE,
+});
 
-export function fetchArticleById(id: number) {
-  return (dispatch: Dispatch) => {
-    dispatch({
-      type: types.START_FETCH_ARTICLE,
-    });
+export const endFetchArticle = (data): ArticleActions => ({
+  type: types.END_FETCH_ARTICLE,
+  data,
+});
 
-    Api.client
-      .get(`/articles/${id}?timestamp=${new Date().getTime()}`)
-      .then((res: AxiosResponse) => {
-        console.log('got article');
-        dispatch({
-          type: types.END_FETCH_ARTICLE,
-          data: res.data,
-        });
-      }); // Api
-  };
-}
+export const fetchArticleById = (
+  id: number,
+): ThunkAction<void, RootState, undefined, ArticleActions> => async (dispatch: Dispatch) => {
+  dispatch(startFetchArticle());
 
-export function clearArticle() {
-  return {
-    type: types.CLEAR_ARTICLE,
-  };
-}
+  const res: AxiosResponse = await Api.client.get(
+    `/articles/${id}?timestamp=${new Date().getTime()}`,
+  );
 
-export function updateArticleAddForm(name: string, value: any) {
-  return {
-    type: types.UPDATE_ARTICLE_ADD_FORM,
-    name,
-    value,
-  };
-}
+  dispatch(endFetchArticle(res.data));
+};
 
-export function fileAddedArticleAddForm(attachment: any) {
-  return {
-    type: types.FILE_ADDED_ARTICLE_ADD_FORM,
-    attachment,
-  };
-}
+export const clearArticle = (): ArticleActions => ({
+  type: types.CLEAR_ARTICLE,
+});
 
-export function deleteAttachementByIndex(index: number) {
-  return {
-    type: types.DELETE_ATTACHMENT_BY_INDEX,
-    index,
-  };
-}
-export function togglePreviewMode() {
-  return {
-    type: types.TOGGLE_PREVIEW_MODE,
-  };
-}
+export const updateArticleAddForm = (name: string, value: any): ArticleActions => ({
+  type: types.UPDATE_ARTICLE_ADD_FORM,
+  name,
+  value,
+});
 
-export function clearArticleAdd() {
-  return {
-    type: types.CLEAR_ARTICLE_ADD,
-  };
-}
+export const fileAddedArticleAddForm = (attachment: any): ArticleActions => ({
+  type: types.FILE_ADDED_ARTICLE_ADD_FORM,
+  attachment,
+});
 
-export function successCreateArticle() {
-  return {
-    type: types.SUCCESS_CREATE_ARTICLE,
-  };
-}
-export function createNewArticle(data: {
+export const deleteAttachementByIndex = (index: number): ArticleActions => ({
+  type: types.DELETE_ATTACHMENT_BY_INDEX,
+  index,
+});
+export const togglePreviewMode = (): ArticleActions => ({
+  type: types.TOGGLE_PREVIEW_MODE,
+});
+
+export const clearArticleAdd = (): ArticleActions => ({
+  type: types.CLEAR_ARTICLE_ADD,
+});
+
+export const successCreateArticle = (): ArticleActions => ({
+  type: types.SUCCESS_CREATE_ARTICLE,
+});
+export const createNewArticle = (data: {
   heading: string;
   body: string;
   attachments: AttachmentProps[];
   channelId: number;
-}) {
-  return (dispatch: Dispatch) => {
-    const { heading, body, attachments, channelId } = data;
-    const formData = new FormData();
-    attachments.forEach(f => {
-      formData.append('attachments[]', f);
-    });
-    formData.append('heading', heading);
-    formData.append('body', body);
-    formData.append('channelId', channelId.toString());
-    Api.client.post('/articles/', formData).then((res: { data: object }) => {
-      console.log(res.data);
+}): ThunkAction<void, RootState, undefined, ArticleActions> => async dispatch => {
+  const { heading, body, attachments, channelId } = data;
+  const formData = new FormData();
+  attachments.forEach(f => {
+    formData.append('attachments[]', f);
+  });
+  formData.append('heading', heading);
+  formData.append('body', body);
+  formData.append('channelId', channelId.toString());
+  const res: AxiosResponse = await Api.client.post('/articles/', formData);
+  console.log(res.data);
+  dispatch(successCreateArticle());
+};
 
-      dispatch(successCreateArticle());
-    });
-  };
-}
+export const closeConfirmSuccessDialog = (): ArticleActions => ({
+  type: types.CLOSE_CONFIRM_SUCCESS_DIALOG,
+});
 
-export function closeConfirmSuccessDialog() {
-  return {
-    type: types.CLOSE_CONFIRM_SUCCESS_DIALOG,
-  };
-}
+export const confirmedSuccessCreating = (): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  ArticleActions | RouterAction
+> => async (dispatch, getState) => {
+  dispatch(clearArticleAdd());
+  dispatch(closeConfirmSuccessDialog());
 
-export function confirmedSuccessCreating() {
-  return (dispatch: Dispatch, getState: Function) => {
-    dispatch(clearArticleAdd());
-    dispatch(closeConfirmSuccessDialog());
+  const channel = getState().articleLists.channel;
+  if (!channel) {
+    return;
+  }
+  dispatch(push(`/app/channels/${channel.id}/articles`));
+};
 
-    const currentChannelId = getState().articleLists.channel.id;
-    dispatch(push(`/app/channels/${currentChannelId}/articles`));
-  };
-}
+export const updateArticleEditForm = (name: string, value: string): ArticleActions => ({
+  type: types.UPDATE_ARTICLE_EDIT_FORM,
+  name,
+  value,
+});
 
-export function updateArticleEditForm(name: string, value: any) {
-  return {
-    type: types.UPDATE_ARTICLE_EDIT_FORM,
-    name,
-    value,
-  };
-}
+export const togglePreviewModeOnEditForm = (): ArticleActions => ({
+  type: types.TOGGLE_PREVIEW_MODE_ON_EDIT_FORM,
+});
 
-export function togglePreviewModeOnEditForm() {
-  return {
-    type: types.TOGGLE_PREVIEW_MODE_ON_EDIT_FORM,
-  };
-}
+export const clearArticleEdit = (): ArticleActions => ({
+  type: types.CLEAR_ARTICLE_EDIT,
+});
 
-export function clearArticleEdit() {
-  return {
-    type: types.CLEAR_ARTICLE_EDIT,
-  };
-}
+export const attachmentAddedArticleEditForm = (attachment: any): ArticleActions => ({
+  type: types.ATTACHMENT_ADDED_ARTICLE_EDIT_FORM,
+  attachment,
+});
 
-export function attachmentAddedArticleEditForm(attachment: any) {
-  return {
-    type: types.ATTACHMENT_ADDED_ARTICLE_EDIT_FORM,
-    attachment,
-  };
-}
+export const deleteAttachementOnArticleEditForm = (index: number): ArticleActions => ({
+  type: types.DELETE_ATTACHMENT_ARTICLE_EDIT_FORM,
+  index,
+});
 
-export function deleteAttachementOnArticleEditForm(index: number) {
-  return {
-    type: types.DELETE_ATTACHMENT_ARTICLE_EDIT_FORM,
-    index,
-  };
-}
+export const showDialogDeleteCurrentAtttachment = (
+  attachment: CurrentAttachmentProps,
+): ArticleActions => ({
+  type: types.SHOW_DIALOG_DELETE_CURRENT_ATTACHMENT,
+  attachment,
+});
 
-export function showDialogDeleteCurrentAtttachment(attachment: CurrentAttachmentProps) {
-  const { id } = attachment;
-  const { name } = attachment;
-  return {
-    type: types.SHOW_DIALOG_DELETE_CURRENT_ATTACHMENT,
-    id,
-    name,
-  };
-}
+export const closeDialogDeleteCurrentAttachment = (): ArticleActions => ({
+  type: types.CLOSE_DIALOG_DELETE_CURRENT_ATTACHMENT,
+});
 
-export function closeDialogDeleteCurrentAttachment() {
-  return {
-    type: types.CLOSE_DIALOG_DELETE_CURRENT_ATTACHMENT,
-  };
-}
-export function deleteCurrentAttachmentSucceeded(current_attachments: CurrentAttachmentProps[]) {
-  return {
-    type: types.DELETE_CURRENT_ATTACHMENT_SUCCEEDED,
-    current_attachments,
-  };
-}
-export function requestDeleteCurrentAttachment() {
-  return (dispatch: Dispatch, getState: Function) => {
-    const id = getState().articleEdit.deletingAttachmentId;
-    Api.client.delete(`article-attachments/${id}`).then((res: AxiosResponse) => {
-      if (res.data._code !== 0) {
-        console.log('error: failed to delete an article attachment');
-        return;
-      }
-      const { current_attachments } = res.data;
-      dispatch(deleteCurrentAttachmentSucceeded(current_attachments));
-      dispatch(closeDialogDeleteCurrentAttachment());
-    });
-  };
-}
+export const deleteCurrentAttachmentSucceeded = (
+  current_attachments: CurrentAttachmentProps[],
+): ArticleActions => ({
+  type: types.DELETE_CURRENT_ATTACHMENT_SUCCEEDED,
+  current_attachments,
+});
 
-export function successUpdateArticle() {
+export const requestDeleteCurrentAttachment = (): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  ArticleActions
+> => async (dispatch, getState) => {
+  const id = getState().articleEdit.deletingAttachmentId;
+  const res: AxiosResponse = await Api.client.delete(`article-attachments/${id}`);
+  if (res.data._code !== 0) {
+    console.log('error: failed to delete an article attachment');
+    return;
+  }
+  const { current_attachments } = res.data;
+  dispatch(deleteCurrentAttachmentSucceeded(current_attachments));
+  dispatch(closeDialogDeleteCurrentAttachment());
+};
+
+export const successUpdateArticle = (): ArticleActions => {
   return {
     type: types.SUCCESS_UPDATE_ARTICLE,
   };
-}
-export function requestUpdateArticle(data: UpdateRequestProps) {
-  return (dispatch: Dispatch, getState: Function) => {
-    const { id } = data;
-    const { attachments } = getState().articleEdit;
-    const formData = new FormData();
-    attachments.forEach((f: AttachmentProps) => {
-      formData.append('attachments[]', f);
-    });
-    formData.append('heading', data.heading);
-    formData.append('body', data.body);
-    // axios.put() doesn't work. this is workaround.
-    // https://github.com/laravel/framework/issues/13457
-    formData.append('_method', 'PUT');
+};
+export const requestUpdateArticle = (
+  data: UpdateRequestProps,
+): ThunkAction<void, RootState, undefined, ArticleActions> => async (dispatch, getState) => {
+  const { id } = data;
+  const { attachments } = getState().articleEdit;
+  const formData = new FormData();
+  attachments.forEach((f: AttachmentProps) => {
+    formData.append('attachments[]', f);
+  });
+  formData.append('heading', data.heading);
+  formData.append('body', data.body);
+  // axios.put() doesn't work. this is workaround.
+  // https://github.com/laravel/framework/issues/13457
+  formData.append('_method', 'PUT');
 
-    Api.client.post(`/articles/${id}`, formData).then(() => {
-      dispatch(successUpdateArticle());
-    });
-  };
-}
+  const res: AxiosResponse = await Api.client.post(`/articles/${id}`, formData);
+  if (res.data._code !== 0) {
+    console.log('error');
+    // TODO: need error handling.
+    return;
+  }
+  dispatch(successUpdateArticle());
+};
 
-export function closeConfirmSuccessUpdatingDialog() {
-  return {
-    type: types.CLOSE_CONFIRM_SUCCESS_UPDATING_DIALOG,
-  };
-}
-export function confirmedSuccessUpdating(id: number) {
+export const closeConfirmSuccessUpdatingDialog = (): ArticleActions => ({
+  type: types.CLOSE_CONFIRM_SUCCESS_UPDATING_DIALOG,
+});
+export const confirmedSuccessUpdating = (id: number) => {
   return (dispatch: Dispatch) => {
     dispatch(clearArticleEdit());
     dispatch(closeConfirmSuccessUpdatingDialog());
     dispatch(push(`/app/articles/${id}`));
   };
-}
+};
 
-export function showConfirmDeleteArticleDialog() {
-  return {
-    type: types.SHOW_CONFIRM_DELETE_ARTICLE_DIALOG,
-  };
-}
+export const showConfirmDeleteArticleDialog = (): ArticleActions => ({
+  type: types.SHOW_CONFIRM_DELETE_ARTICLE_DIALOG,
+});
 
-export function closeConfirmDeleteArticleDialog() {
-  return {
-    type: types.CLOSE_CONFIRM_DELETE_ARTICLE_DIALOG,
-  };
-}
+export const closeConfirmDeleteArticleDialog = (): ArticleActions => ({
+  type: types.CLOSE_CONFIRM_DELETE_ARTICLE_DIALOG,
+});
 
-export function successDeleteArticle() {
-  return {
-    type: types.SUCCESS_DELETE_ARTICLE,
-  };
-}
+export const successDeleteArticle = (): ArticleActions => ({
+  type: types.SUCCESS_DELETE_ARTICLE,
+});
 
-export function deleteArticleById(id: number) {
-  return (dispatch: Dispatch, getState: Function) => {
+export const deleteArticleById = (id: number) => {
+  return (dispatch: Dispatch, getState) => {
     console.log('deleting', id);
     const currentChannelId = getState().articleLists.channel.id;
     Api.client.delete(`/articles/${id}`).then(() => {
@@ -264,143 +220,132 @@ export function deleteArticleById(id: number) {
       dispatch(push(`/app/channels/${currentChannelId}/articles`));
     });
   };
-}
+};
 
-export function updateSearchQuery(query: string = '') {
-  return {
-    type: types.UPDATE_SEARCH_QUERY,
-    query,
-  };
-}
+export const successPinArticle = (article_id: number): ArticleActions => ({
+  type: types.SUCCESS_PIN_ARTICLE,
+  article_id,
+});
 
-export function requestSearch(query: string = '') {
-  return (dispatch: Dispatch) => {
-    const options = {
-      query,
-    };
-    dispatch(fetchArticles(options));
-  };
-}
+export const successUnpinArticle = (article_id: number): ArticleActions => ({
+  type: types.SUCEESS_UNPIN_ARTICLE,
+  article_id,
+});
 
-export function successPinArticle(article_id: number) {
-  return {
-    type: types.SUCCESS_PIN_ARTICLE,
-    article_id,
-  };
-}
+export const requestPinArticle = (
+  article_id: number,
+): ThunkAction<void, RootState, undefined, ArticleActions> => async dispatch => {
+  const res: AxiosResponse = await Api.client.put(`articles/${article_id}/pinned`);
+  if (res.data._code === 0) {
+    dispatch(successPinArticle(article_id));
+  }
+};
 
-export function successUnpinArticle(article_id: number) {
-  return {
-    type: types.SUCEESS_UNPIN_ARTICLE,
-    article_id,
+export const requestUnpinArticle = (
+  article_id: number,
+): ThunkAction<void, RootState, undefined, ArticleActions> => async dispatch => {
+  const res: AxiosResponse = await Api.client.put(`articles/${article_id}/unpinned`);
+  if (res.data._code === 0) {
+    dispatch(successUnpinArticle(article_id));
+  }
+};
+export const downloadAttachment = (
+  id: number,
+  filename: string,
+): ThunkAction<void, RootState, undefined, ArticleActions> => async () => {
+  const options = {
+    responseType: 'blob',
   };
-}
+  const res: AxiosResponse = await Api.client.post(`article-attachments/${id}`, {}, options);
+  if (res.status !== 200) {
+    alert('can not download the attachment. something went wrong.');
+    return;
+  }
+  const url = window.URL.createObjectURL(new Blob([res.data]));
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', filename);
+  link.click();
+};
 
-export function requestPinArticle(article_id: number) {
-  return (dispatch: Dispatch) => {
-    Api.client.put(`articles/${article_id}/pinned`).then((res: AxiosResponse) => {
-      if (res.data._code === 0) {
-        dispatch(successPinArticle(article_id));
-      }
-    });
-  };
-}
+export const updateCursorPosition = (cursor_position: number): ArticleActions => ({
+  type: types.UPDATE_CURSOR_POSITION,
+  cursor_position,
+});
 
-export function requestUnpinArticle(article_id: number) {
-  return (dispatch: Dispatch) => {
-    Api.client.put(`articles/${article_id}/unpinned`).then((res: AxiosResponse) => {
-      if (res.data._code === 0) {
-        dispatch(successUnpinArticle(article_id));
-      }
-    });
-  };
-}
+export const insertEmbeddedImageURLtoBody = (
+  img_tag: string,
+  cursor_position: number,
+): ArticleActions => ({
+  type: types.INSERT_EMBEDDED_IMAGE_URL_TO_BODY,
+  img_tag,
+  cursor_position,
+});
 
-export function downloadAttachment(id: number, filename: string) {
-  return () => {
-    const options = {
-      responseType: 'blob',
-    };
-    Api.client.post(`article-attachments/${id}`, {}, options).then((res: AxiosResponse) => {
-      if (res.status !== 200) {
-        alert('can not download the attachment. something went wrong.');
-        return;
-      }
-      const url = window.URL.createObjectURL(new Blob([res.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', filename);
-      link.click();
-    });
-  };
-}
+export const requestStoreEmbeddedImage = (
+  image: any[],
+): ThunkAction<void, RootState, undefined, ArticleActions> => async (dispatch, getState) => {
+  const channel = getState().articleLists.channel;
+  if (!channel) {
+    // TODO: need error handling.
+    return;
+  }
+  const user_id = getState().profile.id;
+  if (!user_id) {
+    // TODO: need error handling.
+    return;
+  }
+  const data = new FormData();
+  data.append('user_id', user_id.toString());
+  data.append('channel_id', channel.id.toString());
+  data.append('image', image[0]);
 
-export function updateCursorPosition(cursor_position: Number) {
-  return {
-    type: types.UPDATE_CURSOR_POSITION,
-    cursor_position,
-  };
-}
+  const res: AxiosResponse = await Api.client.post('/embedded-images/', data);
+  if (res.data._code !== 0) {
+    console.log('error occured');
+    return;
+  }
+  const img_tag = `![${image[0].name}](${res.data.url})`;
+  const { cursor_position } = getState().articleAdd;
+  dispatch(insertEmbeddedImageURLtoBody(img_tag, cursor_position));
+};
 
-export function insertEmbeddedImageURLtoBody(img_tag: any, cursor_position: number) {
-  return {
-    type: types.INSERT_EMBEDDED_IMAGE_URL_TO_BODY,
-    img_tag,
-    cursor_position,
-  };
-}
+export const updateCursorPositionOnEdit = (cursor_position: number): ArticleActions => ({
+  type: types.UPDATE_CURSOR_POSITION_ON_EDIT,
+  cursor_position,
+});
 
-export function requestStoreEmbeddedImage(image: any[]) {
-  return (dispatch: Dispatch, getState: Function) => {
-    const channel_id = getState().articleLists.channel.id;
-    const data = new FormData();
-    const user_id = getState().profile.id;
-    data.append('user_id', user_id);
-    data.append('channel_id', channel_id);
-    data.append('image', image[0]);
-    Api.client.post('/embedded-images/', data).then((res: AxiosResponse) => {
-      if (res.data._code !== 0) {
-        console.log('error occured');
-        return;
-      }
-      const img_tag = `![${image[0].name}](${res.data.url})`;
-      const { cursor_position } = getState().articleAdd;
-      dispatch(insertEmbeddedImageURLtoBody(img_tag, cursor_position));
-    });
-  };
-}
+export const insertEmbeddedImageURLtoBodyOnEdit = (
+  img_tag: string,
+  cursor_position: number,
+): ArticleActions => ({
+  type: types.INSERT_EMBEDDED_IMAGE_URL_TO_BODY_ON_EDIT,
+  img_tag,
+  cursor_position,
+});
 
-export function updateCursorPositionOnEdit(cursor_position: Number) {
-  return {
-    type: types.UPDATE_CURSOR_POSITION_ON_EDIT,
-    cursor_position,
-  };
-}
-
-export function insertEmbeddedImageURLtoBodyOnEdit(img_tag: any, cursor_position: number) {
-  return {
-    type: types.INSERT_EMBEDDED_IMAGE_URL_TO_BODY_ON_EDIT,
-    img_tag,
-    cursor_position,
-  };
-}
-
-export function requestStoreEmbeddedImageOnEdit(image: any[]) {
-  return (dispatch: Dispatch, getState: () => any) => {
-    const channel_id = getState().article.channel_id;
-    const data = new FormData();
-    const user_id = getState().profile.id;
-    data.append('user_id', user_id);
-    data.append('channel_id', channel_id);
-    data.append('image', image[0]);
-    Api.client.post('/embedded-images/', data).then((res: AxiosResponse) => {
-      if (res.data._code !== 0) {
-        console.log('error occured');
-        return;
-      }
-      const img_tag = `![${image[0].name}](${res.data.url})`;
-      const { cursor_position } = getState().articleEdit;
-      dispatch(insertEmbeddedImageURLtoBodyOnEdit(img_tag, cursor_position));
-    });
-  };
-}
+export const requestStoreEmbeddedImageOnEdit = (
+  image: any[],
+): ThunkAction<void, RootState, undefined, ArticleActions> => async (dispatch, getState) => {
+  const channel = getState().articleLists.channel;
+  if (!channel) {
+    // TODO: need error handling.
+    return;
+  }
+  const user_id = getState().profile.id;
+  if (!user_id) {
+    return;
+  }
+  const data = new FormData();
+  data.append('user_id', user_id.toString());
+  data.append('channel_id', channel.id.toString());
+  data.append('image', image[0]);
+  const res: AxiosResponse = await Api.client.post('/embedded-images/', data);
+  if (res.data._code !== 0) {
+    console.log('error occured');
+    return;
+  }
+  const img_tag = `![${image[0].name}](${res.data.url})`;
+  const { cursor_position } = getState().articleEdit;
+  dispatch(insertEmbeddedImageURLtoBodyOnEdit(img_tag, cursor_position));
+};

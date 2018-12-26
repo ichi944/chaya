@@ -9,7 +9,10 @@ const initialState = {
   snackbarMessage: '',
 };
 
-export default (state: EditProfileState = initialState, action: ProfileActions) => {
+export default (
+  state: EditProfileState = initialState,
+  action: ProfileActions,
+): EditProfileState => {
   switch (action.type) {
     case types.CLEAR_PROFILE_FORM: {
       return {

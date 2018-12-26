@@ -1,17 +1,5 @@
 import * as types from './actionTypes';
-
-interface ArticleDetailState {
-  id: number | null;
-  heading: string;
-  body: string;
-  current_attachments: object[];
-  created_at: string;
-  user: {
-    name: string;
-  };
-  pinned: boolean;
-  confirmDeleteDialogOpen: boolean;
-}
+import { ArticleDetailState } from './interfaces/Article';
 
 const initialState = {
   id: null,
@@ -20,7 +8,12 @@ const initialState = {
   current_attachments: [],
   created_at: '',
   user: {
+    id: null,
     name: '',
+    email: '',
+    avatar_img_url: null,
+    is_admin: 0,
+    created_at: '',
   },
   pinned: false,
   confirmDeleteDialogOpen: false,

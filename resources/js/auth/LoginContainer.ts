@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 
 import { AuthState } from './interfaces/auth';
-import { LoginState } from './interfaces/login';
+import { LoginState, StateProps, DispatchProps } from './interfaces/login';
 import { updateLoginForm, authenticate } from './actions';
 
 import Login from './Login';
 
-const mapStateToProps = ({ login, auth }: { login: LoginState; auth: AuthState }) => {
+const mapStateToProps = ({ login, auth }: { login: LoginState; auth: AuthState }): StateProps => {
   return {
     email: login.email,
     password: login.password,
@@ -16,23 +16,21 @@ const mapStateToProps = ({ login, auth }: { login: LoginState; auth: AuthState }
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    handleChange: e => {
-      dispatch(updateLoginForm(e));
-    },
-    handleAuthenticate(email, password) {
+const mapDispatchToProps = dispatch => ({
+  handleChange: e => {
+    dispatch(updateLoginForm(e));
+  },
+  handleAuthenticate(email, password) {
+    dispatch(authenticate(email, password));
+  },
+  handlePressEnter(e, email, password) {
+    if (e.key === 'Enter') {
       dispatch(authenticate(email, password));
-    },
-    handlePressEnter(e, email, password) {
-      if (e.key === 'Enter') {
-        dispatch(authenticate(email, password));
-      }
-    },
-  };
-};
+    }
+  },
+});
 
-export default connect(
+export default connect<StateProps, DispatchProps, void>(
   mapStateToProps,
   mapDispatchToProps,
 )(Login);

@@ -27,3 +27,15 @@ export interface LoginState {
   showErrorMessage: boolean;
   errorMessage: string;
 }
+
+export interface StateProps extends LoginState {
+  isAuthenticated: boolean;
+}
+
+export interface DispatchProps {
+  handleChange: (e) => void;
+  handleAuthenticate: (email, password) => void;
+  handlePressEnter: (e, email, password) => void;
+}
+
+export type Props = StateProps & DispatchProps;

@@ -15,7 +15,6 @@ import articleDetailReducer from './articles/articleDetailReducer';
 import articleAddReducer from './articles/articleAddReducer';
 import articleEditReducer from './articles/articleEditReducer';
 import chatReducer from './chat/chatReducer';
-import searcherReducer from './articles/searcherReducer';
 import teamMembersReducer from './manage_team_members/teamMembersReducer';
 import notifierReducer from './notifier/notifierReducer';
 import notificationSettingReducer from './notification_setting/notificationSettingReducer';
@@ -39,7 +38,6 @@ export default history =>
     articleAdd: articleAddReducer,
     articleEdit: articleEditReducer,
     chat: chatReducer,
-    searcher: searcherReducer,
     teamMembers: teamMembersReducer,
     notifier: notifierReducer,
     notificationSetting: notificationSettingReducer,

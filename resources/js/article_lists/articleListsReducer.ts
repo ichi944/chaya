@@ -1,33 +1,11 @@
 import * as types from './actionTypes';
 import * as channelActionTypes from '../channel/actionTypes';
-
-interface ArticleListsState {
-  articles: {
-    isFetching: boolean;
-    current_page: number | null;
-    data: object[];
-    from: number | null;
-    last_page: number | null;
-    next_page_url: string | null;
-    per_page: number | null;
-    prev_page_url: string | null;
-    to: number | null;
-    total: number | null;
-  };
-  channel: {
-    id: number | null;
-    name: string | null;
-    description: string | null;
-    updated_at: string | null;
-    created_at: string | null;
-  };
-  descriptionEditorIsOpen: boolean;
-  descriptionEditorContent: string | null;
-}
+import { ArticleListsState, ArticleListActions } from './interfaces/ArticleList';
+import { ChannelActions } from '../channel/interfaces/channel';
 
 const initialState = {
+  isFetching: true,
   articles: {
-    isFetching: false,
     current_page: null,
     data: [],
     from: null,
@@ -38,18 +16,15 @@ const initialState = {
     to: null,
     total: null,
   },
-  channel: {
-    id: null,
-    name: null,
-    description: null,
-    updated_at: null,
-    created_at: null,
-  },
+  channel: null,
   descriptionEditorIsOpen: false,
   descriptionEditorContent: '',
 };
 
-export default function articleListsReducer(state: ArticleListsState = initialState, action: any) {
+export default (
+  state: ArticleListsState = initialState,
+  action: ArticleListActions | ChannelActions,
+): ArticleListsState => {
   switch (action.type) {
     case types.END_FETCH_ARTICLES_BY_CHANNEL: {
       const { data } = action;
@@ -96,4 +71,4 @@ export default function articleListsReducer(state: ArticleListsState = initialSt
       return state;
     }
   }
-}
+};

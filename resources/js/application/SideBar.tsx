@@ -19,6 +19,8 @@ import Subheader from './atoms/Subheader';
 
 import ChannelList from './organisms/ChannelList';
 import { ProfileState } from './interfaces/profile';
+import { ChannelsState } from '../channel/interfaces/channel';
+import { ArticleListsState } from '../article_lists/interfaces/ArticleList';
 
 const styles = createStyles({
   logo: {
@@ -36,9 +38,9 @@ const styles = createStyles({
 
 interface Props {
   router: any;
-  articleLists: any;
+  articleLists: ArticleListsState;
   profile: ProfileState;
-  channels: any;
+  channels: ChannelsState;
   clearActiveChannel: () => void;
   dispatch: any;
   classes: {
@@ -68,7 +70,10 @@ class SideBar extends React.Component<Props, State> {
   }
   componentDidUpdate() {
     const { router } = this.props;
-    const currentChannelId = this.props.articleLists.channel.id;
+    let currentChannelId: number | null = null;
+    if (this.props.articleLists.channel) {
+      currentChannelId = this.props.articleLists.channel.id;
+    }
     // NOTE: If you don't want to clear the active channel, add that url to regex below.
     if (
       !/(channels\/[0-9]+\/articles)|(articles\/add)|(articles\/[0-9]+)/.test(

@@ -5,21 +5,21 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
-interface EditDescriptionDialogProps {
+interface Props {
   open: boolean;
-  handleChange: () => void;
+  handleChange: (e) => void;
   handleCancel: () => void;
   handleSubmit: () => void;
   content: string | null;
 }
 
-export const EditDescriptionDialog = ({
+export const EditDescriptionDialog: React.SFC<Props> = ({
   open,
   handleChange,
   handleCancel,
   handleSubmit,
   content,
-}: EditDescriptionDialogProps) => {
+}) => {
   const uw_content = content === null ? '' : content;
   return (
     <Dialog open={open} onClose={handleCancel}>
@@ -36,7 +36,9 @@ export const EditDescriptionDialog = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCancel}>Cancel</Button>
-        <Button onClick={handleSubmit} color="primary">Submit</Button>
+        <Button onClick={handleSubmit} color="primary">
+          Submit
+        </Button>
       </DialogActions>
     </Dialog>
   );

@@ -1,26 +1,5 @@
 import * as types from './actionTypes';
-
-interface ArticleAddState {
-  channelId: number | null;
-  channelName: string | null;
-  heading: string;
-  body: string;
-  attachments: any[];
-  onPreview: boolean;
-  mode: string;
-  confirmSuccessDialogOpen: boolean;
-  cursor_position: number | null;
-}
-
-interface ArticleAddAction {
-  type: string;
-  name: string;
-  value: string;
-  attachment: Object;
-  index: number;
-  cursor_position: number;
-  img_tag: string;
-}
+import { ArticleAddState, ArticleActions } from './interfaces/Article';
 
 const initialState = {
   channelId: null,
@@ -36,7 +15,7 @@ const initialState = {
 
 export default function articleAddReducer(
   state: ArticleAddState = initialState,
-  action: ArticleAddAction,
+  action: ArticleActions,
 ) {
   switch (action.type) {
     case types.UPDATE_ARTICLE_ADD_FORM: {

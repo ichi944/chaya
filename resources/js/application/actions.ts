@@ -9,6 +9,7 @@ import {
   UpdateProfileRequest,
 } from './interfaces/profile';
 import { RootState } from '../interfaces/rootState';
+import { AxiosResponse } from 'axios';
 
 interface Window {
   Echo: any;
@@ -83,16 +84,17 @@ export const showFailedNotification = (errorMessage = null): ProfileActions => {
 export const closeNotification = (): ProfileActions => ({ type: types.CLOSE_NOTIFICATION });
 
 interface UpdateAvatarResponse {
-  data: {
-    filename: string;
-  };
+  filename: string;
 }
 export const requestUpdateAvatar = (
   imageData,
 ): ThunkAction<void, RootState, undefined, ProfileActions> => async dispatch => {
   const data = new FormData();
   data.append('image_data', imageData);
-  const res: UpdateAvatarResponse = Api.client.post('/profiles/update-my-avatar', data);
+  const res: AxiosResponse<UpdateAvatarResponse> = await Api.client.post(
+    '/profiles/update-my-avatar',
+    data,
+  );
   console.log(res);
   dispatch(updateProfileIsSucceeded({ avatar_img_url: res.data.filename }));
   dispatch(clearNewImagePreview());
