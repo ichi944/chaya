@@ -160,9 +160,16 @@ class ArticleController extends Controller
         }
         if($updated) {
             Log::Info('the article is updated successfully.');
-            return response()->json($target);
+            return response()->json([
+                '_code' => 0,
+                'updated' => $target,
+            ]);
         } else {
             Log::Info('error');
+            return response()->json([
+                '_code' => 1,
+                'message' => 'failed to update',
+            ]);
         }
     }
 

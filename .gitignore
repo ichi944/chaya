@@ -12,5 +12,6 @@ Homestead.yaml
 
 
 /echo/laravel-echo-server.json
+/echo/laravel-echo-server.lock
 yarn-error.log
 
