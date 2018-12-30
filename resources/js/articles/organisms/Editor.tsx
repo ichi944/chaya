@@ -155,7 +155,7 @@ const Editor = ({
           {!current_attachments ? null : (
             <Grid container className={classes.attachments_list}>
               <Grid item xs>
-                <Typography className={classes.attachments_list_title} variant="subheading">
+                <Typography className={classes.attachments_list_title} variant="subtitle1">
                   current attachments
                 </Typography>
                 {!handleShowDialogDeleteCurrentAttachment ? null : (
@@ -174,7 +174,7 @@ const Editor = ({
 
           <Grid container className={classes.attachments_list}>
             <Grid item xs>
-              <Typography className={classes.attachments_list_title} variant="subheading">
+              <Typography className={classes.attachments_list_title} variant="subtitle1">
                 attachments
               </Typography>
               <AttachmentList

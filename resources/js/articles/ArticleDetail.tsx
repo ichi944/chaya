@@ -3,6 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import Avatar from '@material-ui/core/Avatar';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import EditIcon from '@material-ui/icons/Edit';
@@ -127,15 +128,14 @@ class ArticleDetail extends React.Component<Props> {
                 label="pin"
               />
             </div>
-            <Button
-              variant="fab"
+            <Fab
               onClick={this.handleEditArticle}
               color="primary"
               aria-label="edit"
               className={classes.button}
             >
               <EditIcon />
-            </Button>
+            </Fab>
           </div>
           <Divider />
           <div className="article-meta">

@@ -134,14 +134,16 @@ class ArticleChat extends React.Component<any> {
           <Grid item xs={12}>
             <div className={classes.loadOldMessageLink}>
               {show_no_messages_info ? (
-                <Typography className={classes.noMessageLabel}>no previous message</Typography>
+                <Typography className={classes.noMessageLabel} variant="subtitle1">
+                  no previous message
+                </Typography>
               ) : (
                 <ButtonBase
                   focusRipple
                   className={classes.loadOldMessageLinkButton}
                   onClick={() => handleLoadOldMessage(id!, max_id)}
                 >
-                  <Typography>Read old messages.</Typography>
+                  <Typography variant="subtitle1">Read old messages.</Typography>
                 </ButtonBase>
               )}
             </div>

@@ -152,7 +152,7 @@ class SideBar extends React.Component<Props, State> {
             </Menu>
             <Typography
               className={classes.logo}
-              variant="title"
+              variant="h6"
               color="inherit"
               noWrap
               onClick={this.handleClickLogo}

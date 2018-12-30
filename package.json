@@ -19,7 +19,7 @@
     ]
   },
   "dependencies": {
-    "@material-ui/core": "^3.5.1",
+    "@material-ui/core": "^3.7.1",
     "@material-ui/icons": "^3.0.1",
     "@types/showdown": "^1.7.5",
     "axios": "^0.18.0",
