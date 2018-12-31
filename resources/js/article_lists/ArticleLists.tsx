@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 
 import { withStyles, createStyles } from '@material-ui/core/styles';
@@ -17,6 +16,7 @@ import { PageNavigation } from './organisms/PageNavigation';
 import { EditDescriptionDialog } from './organisms/Dialogs';
 import { ArticleListsState } from './interfaces/ArticleList';
 import { AuthState } from '../auth/interfaces/auth';
+import { Fab } from '@material-ui/core';
 
 const styles = createStyles({
   button: {
@@ -123,15 +123,14 @@ class ArticleLists extends React.Component<Props> {
     return (
       <div>
         <Paper className="article_index-container">
-          <Button
-            variant="fab"
+          <Fab
             onClick={this.handleCreateNewArticle}
             color="primary"
             aria-label="add"
             className={classes.button}
           >
             <AddIcon />
-          </Button>
+          </Fab>
 
           <Card className={classes.channelHeader}>
             <CardHeader title={`${name} Channel`} subheader={article_total_text} />
@@ -144,6 +143,7 @@ class ArticleLists extends React.Component<Props> {
             <CardContent>
               <Typography
                 component="p"
+                variant="overline"
                 dangerouslySetInnerHTML={{
                   __html: description ? description.replace(/\r?\n/g, '<br>') : 'no description',
                 }}

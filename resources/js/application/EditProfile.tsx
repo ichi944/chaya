@@ -100,7 +100,7 @@ class EditProfile extends React.Component<Props, State> {
               onDrop={this.handleDrop}
             />
             <br />
-            <Button variant="raised" color="primary" onClick={this.handleSubmitAvatar}>
+            <Button variant="contained" color="primary" onClick={this.handleSubmitAvatar}>
               Submit
             </Button>
           </div>
@@ -113,7 +113,7 @@ class EditProfile extends React.Component<Props, State> {
           <div className="editor-forms_inputs">
             <TextField label="名前" name="name" value={name} onChange={handleChangeProfile} />
             <br />
-            <Button variant="raised" color="primary" onClick={this.handleSubmitProfile}>
+            <Button variant="contained" color="primary" onClick={this.handleSubmitProfile}>
               Submit
             </Button>
           </div>
@@ -132,7 +132,7 @@ class EditProfile extends React.Component<Props, State> {
               onChange={handleChangePassword}
             />
             <br />
-            <Button variant="raised" color="primary" onClick={this.handleSubmitPassword}>
+            <Button variant="contained" color="primary" onClick={this.handleSubmitPassword}>
               Submit
             </Button>
           </div>

@@ -45,7 +45,7 @@ const AttachmentsList = ({
   classes,
 }: Props) => {
   if (attachments.length === 0) {
-    return <Typography className={classes.noItemText}>無し</Typography>;
+    return <Typography variant="caption" className={classes.noItemText}>無し</Typography>;
   }
   return (
     <List dense className={classes.wrapper}>

@@ -22,7 +22,7 @@ class Header extends React.Component<Props> {
       <div>
         <AppBar position="static">
           <Toolbar>
-            <Typography color="inherit" style={styles.typography} />
+            <Typography variant="h2" color="inherit" style={styles.typography} />
             {isAuthenticated ? (
               <Button color="inherit" onClick={handleSignOut}>
                 Logout
