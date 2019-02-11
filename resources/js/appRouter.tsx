@@ -17,7 +17,7 @@ import LoginContainer from './auth/LoginContainer';
 import SignupContainer from './signup/SignupContainer';
 import SignupCompleteContainer from './signup/SignupCompleteContainer';
 import VerifyUserContainer from './signup/VerifyUserContainer';
-import HomeContainer from './home/HomeContainer';
+import Home from './home/Home';
 import ChannelAddContainer from './channel/ChannelAddContainer';
 import ArticleListsContainer from './article_lists/ArticleListsContainer';
 import ArticleDetailContainer from './articles/ArticleDetailContainer';
@@ -108,7 +108,7 @@ class AppRouter extends Component<AppRouterProps> {
             <div style={{ marginLeft: '220px' }}>
               <Switch>
                 <Route exact path="/app/login" component={LoginContainer} />
-                <Route exact path="/app/home" component={HomeContainer} />
+                <Route exact path="/app/home" component={Home} />
                 <Route exact path="/app/channels/add" component={ChannelAddContainer} />
                 <Route
                   exact
