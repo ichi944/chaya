@@ -45,11 +45,7 @@ const Home: FunctionComponent<Props> = props => {
   );
 };
 
-const mapStateToProps = ({ profile }: RootState) => {
-  return {
-    profile,
-  };
-};
+const mapStateToProps = ({ profile }: RootState) => ({ profile });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, undefined, HomeActions>) => ({
   handleHello: (text: string) => {
