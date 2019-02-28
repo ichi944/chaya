@@ -1,31 +1,27 @@
-import * as React from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 import { fetchProfile } from './actions';
+import { RootState } from '../interfaces/rootState';
+import { ProfileActions } from './interfaces/profile';
 
 interface Props {
-  loadProfile: () => void;
+  dispatch: ThunkDispatch<RootState, undefined, ProfileActions>;
 }
-class LoadProfile extends React.Component<Props> {
-  componentDidMount() {
-    const { loadProfile } = this.props;
-    console.log('in LoadProfile, start to fetch user profile.');
-    loadProfile();
-  }
-  render() {
-    return <div />;
-  }
-}
+const LoadProfile: FunctionComponent<Props> = props => {
+  useEffect(() => {
+    console.log('@LoadProfile: start to fetch user profile.');
+    props.dispatch(fetchProfile());
+  }, []);
+  return <div />;
+};
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    loadProfile() {
-      dispatch(fetchProfile());
-    },
-  };
-};
+const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, undefined, ProfileActions>) => ({
+  dispatch,
+});
 
 export default connect(
   mapStateToProps,

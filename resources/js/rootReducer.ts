@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
+import { History } from 'history';
 
 import authReducer from './auth/authReducer';
 import loginReducer from './auth/loginReducer';
@@ -21,7 +22,7 @@ import notificationSettingReducer from './notification_setting/notificationSetti
 
 import { RootState } from './interfaces/rootState';
 
-export default history =>
+export default (history: History) =>
   combineReducers<RootState>({
     router: connectRouter(history),
     auth: authReducer,
