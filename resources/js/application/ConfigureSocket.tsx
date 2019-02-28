@@ -1,30 +1,29 @@
-import * as React from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { configureSocketId } from './actions';
+import { ThunkDispatch } from 'redux-thunk';
+import { RootState } from '../interfaces/rootState';
+import { SocketActions } from './interfaces/socket';
 
 interface Props {
   configureSocket: () => void;
 }
-class ConfigureSocket extends React.Component<Props> {
-  componentDidMount() {
+const ConfigureSocket: FunctionComponent<Props> = props => {
+  useEffect(() => {
     console.log('@ConfigreSocket');
     this.props.configureSocket();
-  }
-  render() {
-    return <div />;
-  }
-}
+  }, []);
+  return <div />;
+};
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    configureSocket() {
-      dispatch(configureSocketId());
-    },
-  };
-};
+const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, undefined, SocketActions>) => ({
+  configureSocket() {
+    dispatch(configureSocketId());
+  },
+});
 
 export default connect(
   mapStateToProps,

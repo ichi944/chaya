@@ -43,7 +43,6 @@ export default (state: AuthState = initialState, action: AuthActions): AuthState
       };
     }
     case types.START_CHECK_AUTH_STATUS: {
-      console.log('in START_CHECK_AUTH_STATUS');
       return state;
     }
     case types.END_CHECK_AUTH_STATUS: {

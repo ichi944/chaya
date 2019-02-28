@@ -31,7 +31,7 @@ interface MeResponse {
 }
 export const fetchProfile = (): ThunkAction<
   void,
-  ProfileState,
+  RootState,
   undefined,
   ProfileActions
 > => async dispatch => {
@@ -162,7 +162,7 @@ export const doneSetSocketId = (): SocketActions => ({ type: types.DONE_SET_SOCK
 
 export const configureSocketId = (): ThunkAction<
   void,
-  SocketState,
+  RootState,
   undefined,
   SocketActions
 > => dispatch => {

@@ -29,7 +29,7 @@ const theme = createMuiTheme({
   },
 });
 
-const App = () => {
+const App: React.FunctionComponent = () => {
   return (
     <MuiThemeProvider theme={theme}>
       <Provider store={store}>
