@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
@@ -14,9 +16,18 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Fade from '@material-ui/core/Fade';
 import grey from '@material-ui/core/colors/grey';
 import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
-import { MessageModel, ChatState } from './interfaces/chat';
+import { MessageModel, ChatState, ChatActions } from './interfaces/chat';
 import { AuthState } from '../auth/interfaces/auth';
 import { ArticleDetailState } from '../articles/interfaces/Article';
+import {
+  requestMessages,
+  requestLatestMessages,
+  updateChatInput,
+  requestPostChatMessage,
+  addNewArticleChatMessage,
+} from './actions';
+import { RootState } from '../interfaces/rootState';
+import { ThunkDispatch } from 'redux-thunk';
 
 interface Window {
   Echo: any;
@@ -60,10 +71,8 @@ interface Props extends WithStyles<typeof styles> {
   handlePressEnter: (e, chat_message: string, article_id: number) => void;
   handleLoadOldMessage: (article_id: number, max_id: number | null) => void;
 }
-// Can't provide a type argument to the component.
-// So I use 'any' instead of 'Props'.
-// Probably it related to StyledComponent behavior but I don't know why.
-class ArticleChat extends React.Component<any> {
+
+class ArticleChat extends React.Component<Props> {
   componentDidMount() {
     const { id } = this.props.article;
     this.props.fetchLatestMessages(id!);
@@ -154,4 +163,54 @@ class ArticleChat extends React.Component<any> {
   }
 }
 
-export default withStyles(styles)(ArticleChat);
+const mapStateToProps = ({ auth, article, chat }: RootState) => {
+  return {
+    auth,
+    article,
+    chat,
+  };
+};
+
+const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, undefined, ChatActions>) => {
+  return {
+    fetchLatestMessages(article_id: number) {
+      dispatch(requestLatestMessages(article_id));
+    },
+    handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+      dispatch(updateChatInput(e.currentTarget.value));
+    },
+    handlePressEnter(e, chat_message: string, article_id: number) {
+      if (e.shiftKey && e.key === 'Enter') {
+        // add line-break, do nothing. continue
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        dispatch(requestPostChatMessage(chat_message, article_id));
+      }
+    },
+    newArticleChatPosted(message: MessageModel) {
+      dispatch(addNewArticleChatMessage(message));
+    },
+    handleLoadOldMessage(article_id: number, max_id: number | null = null) {
+      if (max_id === null) {
+        alert("max id doesn't exist");
+        return;
+      }
+      dispatch(requestMessages(article_id, max_id));
+    },
+  };
+};
+
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+  withStyles(styles),
+)(ArticleChat);
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// )(ArticleChat);
+
+// export default withStyles(styles)(ArticleChat);

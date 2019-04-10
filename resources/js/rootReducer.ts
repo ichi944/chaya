@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
+import { History } from 'history';
 
 import authReducer from './auth/authReducer';
 import loginReducer from './auth/loginReducer';
 import signupReducer from './signup/signupReducer';
 import verifyUserReducer from './signup/verifyUserReducer';
 import profileReducer from './application/profileReducer';
-import socketReducer from './application/socketReducer';
+import socketReducer from './initialization/socketReducer';
 import editProfileReducer from './application/editProfileReducer';
 import channelsReducer from './channel/channelsReducer';
 import channelAddReducer from './channel/channelAddReducer';
@@ -21,7 +22,7 @@ import notificationSettingReducer from './notification_setting/notificationSetti
 
 import { RootState } from './interfaces/rootState';
 
-export default history =>
+export default (history: History) =>
   combineReducers<RootState>({
     router: connectRouter(history),
     auth: authReducer,

@@ -31,7 +31,7 @@ interface Props {
   handleDeleteAttachment?: (index: number) => void;
   classes: {
     wrapper: string;
-    attachmentItem :string;
+    attachmentItem: string;
     noItemText: string;
     itemText: string;
   };
@@ -39,13 +39,13 @@ interface Props {
 /**
  * List of attachments which have been not uploaded yet on ArticleAdd/Edit screen
  */
-const AttachmentsList = ({
-  attachments,
-  handleDeleteAttachment,
-  classes,
-}: Props) => {
+const AttachmentsList = ({ attachments, handleDeleteAttachment, classes }: Props) => {
   if (attachments.length === 0) {
-    return <Typography variant="caption" className={classes.noItemText}>無し</Typography>;
+    return (
+      <Typography variant="caption" className={classes.noItemText}>
+        無し
+      </Typography>
+    );
   }
   return (
     <List dense className={classes.wrapper}>
@@ -55,13 +55,13 @@ const AttachmentsList = ({
             <AttachmentIcon />
           </ListItemIcon>
           <ListItemText className={classes.itemText} primary={f.name} />
-          {!handleDeleteAttachment
-            ? null
-            : <ListItemSecondaryAction>
+          {!handleDeleteAttachment ? null : (
+            <ListItemSecondaryAction>
               <IconButton aria-label="Delete" onClick={() => handleDeleteAttachment(index)}>
                 <DeleteIcon />
               </IconButton>
-              </ListItemSecondaryAction>}
+            </ListItemSecondaryAction>
+          )}
         </ListItem>
       ))}
     </List>

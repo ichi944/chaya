@@ -1,32 +1,26 @@
-import * as React from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchChannel } from './actions';
+import { ChannelActions } from './interfaces/channel';
+import { ThunkDispatch } from 'redux-thunk';
+import { RootState } from '../interfaces/rootState';
 
 interface Props {
-  loadChannel: () => void;
+  dispatch: ThunkDispatch<RootState, undefined, ChannelActions>;
 }
-class LoadChannel extends React.Component<Props> {
-  componentDidMount() {
-    const { loadChannel } = this.props;
-    loadChannel();
-  }
-  render() {
-    return <div />;
-  }
-}
-
-const mapStateToProps = () => {
-  return {};
+const LoadChannel: FunctionComponent<Props> = props => {
+  useEffect(() => {
+    props.dispatch(fetchChannel());
+  }, []);
+  return <div />;
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    loadChannel() {
-      dispatch(fetchChannel());
-    },
-  };
-};
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, undefined, ChannelActions>) => ({
+  dispatch,
+});
 
 export default connect(
   mapStateToProps,
