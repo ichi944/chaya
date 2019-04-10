@@ -7,7 +7,7 @@ import loginReducer from './auth/loginReducer';
 import signupReducer from './signup/signupReducer';
 import verifyUserReducer from './signup/verifyUserReducer';
 import profileReducer from './application/profileReducer';
-import socketReducer from './application/socketReducer';
+import socketReducer from './initialization/socketReducer';
 import editProfileReducer from './application/editProfileReducer';
 import channelsReducer from './channel/channelsReducer';
 import channelAddReducer from './channel/channelAddReducer';

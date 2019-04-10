@@ -8,8 +8,8 @@ import { LoginActions } from './interfaces/login';
 import { AuthActions } from './interfaces/auth';
 import { RootState } from '../interfaces/rootState';
 
-import { clearSocketId } from '../application/actions';
-import { SocketActions } from '../application/interfaces/socket';
+import { clearSocketId } from '../initialization/actions';
+import { SocketActions } from '../initialization/interfaces/socket';
 
 import Api from '../services/Api';
 import { AxiosResponse, AxiosError } from 'axios';

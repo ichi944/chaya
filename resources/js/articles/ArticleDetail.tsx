@@ -11,7 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 
 import parseToMarkdown from '../services/parseToMarkdown';
-import ArticleChatContainer from '../chat/ArticleChatContainer';
+import ArticleChat from '../chat/ArticleChat';
 import { ConfirmDeleteArticleDialog } from './organisms/Dialogs';
 import CurrentAttachmentList from './molecules/CurrentAttachmentList';
 import { ArticleDetailState } from './interfaces/Article';
@@ -165,7 +165,7 @@ class ArticleDetail extends React.Component<Props> {
           </div>
         </Paper>
 
-        <ArticleChatContainer />
+        <ArticleChat />
 
         <ConfirmDeleteArticleDialog
           open={confirmDeleteDialogOpen}

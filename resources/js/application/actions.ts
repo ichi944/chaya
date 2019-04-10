@@ -1,13 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
 import Api from '../services/Api';
 import * as types from './actionTypes';
-import { SocketActions, SocketState } from './interfaces/socket';
-import {
-  ProfileModel,
-  ProfileState,
-  ProfileActions,
-  UpdateProfileRequest,
-} from './interfaces/profile';
+import { ProfileModel, ProfileActions, UpdateProfileRequest } from './interfaces/profile';
 import { RootState } from '../interfaces/rootState';
 import { AxiosResponse } from 'axios';
 
@@ -157,19 +151,3 @@ export const requestUpdatePassword = (): ThunkAction<
     dispatch(showFailedNotification());
   }
 };
-
-export const doneSetSocketId = (): SocketActions => ({ type: types.DONE_SET_SOCKET_ID });
-
-export const configureSocketId = (): ThunkAction<
-  void,
-  RootState,
-  undefined,
-  SocketActions
-> => dispatch => {
-  const socketId = window.Echo.socketId();
-  console.log('@getting socketId: ', socketId);
-  Api.setSocketId(socketId);
-  dispatch(doneSetSocketId());
-};
-
-export const clearSocketId = (): SocketActions => ({ type: types.CLEAR_SOCKET_ID });

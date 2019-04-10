@@ -7,7 +7,7 @@ import appHistory from './services/appHistory';
 
 import InitialCheckStatus from './auth/InitialCheckStatus';
 import LoadProfile from './application/LoadProfile';
-import ConfigureSocket from './application/ConfigureSocket';
+import ConfigureSocket from './initialization/ConfigureSocket';
 import LoadChannel from './channel/LoadChannel';
 import Header from './application/Header';
 import SideBarContainer from './application/SideBarContainer';
@@ -30,7 +30,7 @@ import ChatNotificationContainer from './chat_notification/ChatNotificationConta
 import { clearProfile } from './application/actions';
 import { AuthState } from './auth/interfaces/auth';
 import { ProfileState, ProfileActions } from './application/interfaces/profile';
-import { SocketState } from './application/interfaces/socket';
+import { SocketState } from './initialization/interfaces/socket';
 import { ChannelsState } from './channel/interfaces/channel';
 import { RootState } from './interfaces/rootState';
 import { ThunkDispatch } from 'redux-thunk';

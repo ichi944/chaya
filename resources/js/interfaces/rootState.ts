@@ -3,7 +3,7 @@ import { SignupState } from '../signup/interfaces/signup';
 import { LoginState } from '../auth/interfaces/login';
 import { VerifyUserState } from '../signup/interfaces/verifyUser';
 import { ProfileState, EditProfileState } from '../application/interfaces/profile';
-import { SocketState } from '../application/interfaces/socket';
+import { SocketState } from '../initialization/interfaces/socket';
 import { ChannelsState, ChannelAddState } from '../channel/interfaces/channel';
 import { TeamMembersState } from '../manage_team_members/interfaces/teamMembers';
 import { ChatState } from '../chat/interfaces/chat';
