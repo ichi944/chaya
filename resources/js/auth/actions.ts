@@ -20,7 +20,7 @@ interface Window {
 }
 declare var window: Window;
 
-export const updateLoginForm = (e: React.FormEvent<HTMLInputElement>): LoginActions => ({
+export const updateLoginForm = (e: React.ChangeEvent<HTMLInputElement>): LoginActions => ({
   type: types.LOGIN_CHANGE,
   name: e.currentTarget.name,
   value: e.currentTarget.value,

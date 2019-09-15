@@ -1,14 +1,22 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Props } from './interfaces/login';
+import { LoginState } from './interfaces/login';
+import { AuthState } from './interfaces/auth';
+import { updateLoginForm, authenticate } from './actions';
+import { RootState } from '../interfaces/rootState';
 
-const Login: React.SFC<Props> = props => {
-  const { email, password, showErrorMessage, errorMessage, isAuthenticated } = props;
-  const { handleChange, handleAuthenticate, handlePressEnter } = props;
+const Login: React.SFC = () => {
+  const { email, password, showErrorMessage, errorMessage }: LoginState = useSelector<
+    RootState,
+    LoginState
+  >(state => state.login);
+  const { isAuthenticated } = useSelector<RootState, AuthState>(state => state.auth);
+  const dispatch = useDispatch();
 
   if (isAuthenticated) {
     console.log('you are alredy authenticated, redirect to home.');
@@ -27,8 +35,8 @@ const Login: React.SFC<Props> = props => {
             value={email}
             fullWidth
             autoFocus
-            onChange={handleChange}
-            onKeyPress={e => handlePressEnter(e, email, password)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(updateLoginForm(e))}
+            onKeyPress={e => e.key === 'Enter' && dispatch(authenticate(email, password))}
           />
           <br />
           <TextField
@@ -39,15 +47,15 @@ const Login: React.SFC<Props> = props => {
             name="password"
             value={password}
             fullWidth
-            onChange={handleChange}
-            onKeyPress={e => handlePressEnter(e, email, password)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(updateLoginForm(e))}
+            onKeyPress={e => e.key === 'Enter' && dispatch(authenticate(email, password))}
           />
           <br />
           <div className="login-buttons">
             <Button
               variant="contained"
               color="primary"
-              onClick={() => handleAuthenticate(email, password)}
+              onClick={() => authenticate(email, password)}
             >
               Login
             </Button>
