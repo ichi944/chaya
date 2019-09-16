@@ -80,7 +80,7 @@ const AppRouter: FunctionComponent<AppRouterProps> = props => {
     // show login screen if not authenticated.
   } else if (!auth.isAuthenticated) {
     return (
-      <div>
+      <>
         <Header />
         <ConnectedRouter history={appHistory}>
           <div>
@@ -93,7 +93,7 @@ const AppRouter: FunctionComponent<AppRouterProps> = props => {
             </Switch>
           </div>
         </ConnectedRouter>
-      </div>
+      </>
     );
   } else if (auth.isAuthenticated && !profile.isLoaded) {
     return <LoadProfile />;
@@ -103,9 +103,9 @@ const AppRouter: FunctionComponent<AppRouterProps> = props => {
     return <ConfigureSocket />;
   }
   return (
-    <div>
+    <>
       <ConnectedRouter history={appHistory}>
-        <div>
+        <>
           <Header />
           <SideBarContainer />
           <div style={{ marginLeft: '220px' }}>
@@ -130,9 +130,9 @@ const AppRouter: FunctionComponent<AppRouterProps> = props => {
           <Notifier />
           <ChannelNotifier />
           <ChatNotificationContainer history={appHistory} />
-        </div>
+        </>
       </ConnectedRouter>
-    </div>
+    </>
   );
 };
 

@@ -7,9 +7,20 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles, createStyles, WithStyles, Theme } from '@material-ui/core/styles';
 import { LoginState } from './interfaces/login';
-import { AuthState } from './interfaces/auth';
-import { updateLoginForm, authenticate } from './actions';
+import { AuthState, AuthActions } from './interfaces/auth';
+import {
+  updateLoginForm,
+  loginStart,
+  failedAuthentication,
+  loginFailed,
+  requestInitializeSocketIO,
+  storeAuthorizationTokenToState,
+  loginSuccess,
+  authenticated,
+} from './actions';
 import { RootState } from '../interfaces/rootState';
+import { useCallback } from 'react';
+import Api from '../services/Api';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -47,12 +58,50 @@ const styles = (theme: Theme) =>
 
 type Props = WithStyles<typeof styles>;
 
+interface LoginResponse {
+  data: {
+    error: string;
+    token: string;
+  };
+}
+const useAuthenticate = () => {
+  const dispatch = useDispatch();
+  dispatch(loginStart());
+  const authenticate = useCallback(async (email: string, password: string) => {
+    console.log('@useAuthenticate', email, password);
+    const res: LoginResponse = await Api.client.post('/auth/login', { email, password });
+    console.log(res.data);
+    if (res.data.error) {
+      console.log('error');
+      dispatch(failedAuthentication());
+      dispatch(loginFailed(res.data.error));
+      return;
+    } // endif: when error
+
+    if (res.data.token) {
+      console.log('authenticated');
+      const { token } = res.data;
+
+      dispatch(requestInitializeSocketIO(token));
+      dispatch(storeAuthorizationTokenToState(token));
+      Api.setAuthorizationToken(token);
+      localStorage.setItem('authToken', token);
+      dispatch(loginSuccess());
+      dispatch(authenticated());
+    }
+  }, []);
+
+  return [authenticate];
+};
+
 const Login: React.FC<Props> = props => {
   const { email, password, showErrorMessage, errorMessage } = useSelector<RootState, LoginState>(
     state => state.login,
   );
   const { isAuthenticated } = useSelector<RootState, AuthState>(state => state.auth);
   const dispatch = useDispatch();
+  const [authenticate] = useAuthenticate();
+
   const { classes } = props;
 
   if (isAuthenticated) {
@@ -72,7 +121,7 @@ const Login: React.FC<Props> = props => {
           fullWidth
           autoFocus
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(updateLoginForm(e))}
-          onKeyPress={e => e.key === 'Enter' && dispatch(authenticate(email, password))}
+          onKeyPress={e => e.key === 'Enter' && authenticate(email, password)}
         />
         <br />
         <TextField
@@ -84,7 +133,7 @@ const Login: React.FC<Props> = props => {
           value={password}
           fullWidth
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(updateLoginForm(e))}
-          onKeyPress={e => e.key === 'Enter' && dispatch(authenticate(email, password))}
+          onKeyPress={e => e.key === 'Enter' && authenticate(email, password)}
         />
         <br />
         <div className={classes.buttons}>
