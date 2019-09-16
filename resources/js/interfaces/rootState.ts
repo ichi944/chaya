@@ -15,9 +15,10 @@ import {
   ArticleAddState,
   ArticleDetailState,
 } from '../articles/interfaces/Article';
+import { RouterState } from 'connected-react-router';
 
 export interface RootState {
-  router: any;
+  router: RouterState;
   auth: AuthState;
   login: LoginState;
   signup: SignupState;

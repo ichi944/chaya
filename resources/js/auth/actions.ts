@@ -20,7 +20,7 @@ interface Window {
 }
 declare var window: Window;
 
-export const updateLoginForm = (e: React.FormEvent<HTMLInputElement>): LoginActions => ({
+export const updateLoginForm = (e: React.ChangeEvent<HTMLInputElement>): LoginActions => ({
   type: types.LOGIN_CHANGE,
   name: e.currentTarget.name,
   value: e.currentTarget.value,
@@ -114,45 +114,6 @@ export const loginFailed = (error: string): LoginActions => ({
   errorMessage: error,
 });
 export const loginSuccess = (): LoginActions => ({ type: types.LOGIN_SUCCESS });
-
-interface LoginResponse {
-  data: {
-    error: string;
-    token: string;
-  };
-}
-export const authenticate = (
-  email: string,
-  password: string,
-): ThunkAction<void, RootState, undefined, AuthActions | LoginActions> => async dispatch => {
-  console.log('start authentication', email);
-
-  dispatch(loginStart());
-
-  const res: LoginResponse = await Api.client.post('/auth/login', {
-    email,
-    password,
-  });
-  console.log(res.data);
-  if (res.data.error) {
-    console.log('error');
-    dispatch(failedAuthentication());
-    dispatch(loginFailed(res.data.error));
-    return;
-  } // endif: when error
-
-  if (res.data.token) {
-    console.log('authenticated');
-    const { token } = res.data;
-
-    dispatch(requestInitializeSocketIO(token));
-    dispatch(storeAuthorizationTokenToState(token));
-    Api.setAuthorizationToken(token);
-    localStorage.setItem('authToken', token);
-    dispatch(loginSuccess());
-    dispatch(authenticated());
-  }
-};
 
 export const successSignOut = (): AuthActions => ({ type: types.SIGN_OUT });
 

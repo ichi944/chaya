@@ -12,7 +12,7 @@ import LoadChannel from './channel/LoadChannel';
 import Header from './application/Header';
 import SideBarContainer from './application/SideBarContainer';
 import EditProfileContainer from './application/EditProfileContainer';
-import LoginContainer from './auth/LoginContainer';
+import Login from './auth/Login';
 import SignupContainer from './signup/SignupContainer';
 import SignupCompleteContainer from './signup/SignupCompleteContainer';
 import VerifyUserContainer from './signup/VerifyUserContainer';
@@ -80,12 +80,12 @@ const AppRouter: FunctionComponent<AppRouterProps> = props => {
     // show login screen if not authenticated.
   } else if (!auth.isAuthenticated) {
     return (
-      <div>
+      <>
         <Header />
         <ConnectedRouter history={appHistory}>
           <div>
             <Switch>
-              <Route exact path="/app/login" component={LoginContainer} />
+              <Route exact path="/app/login" component={Login} />
               <Route exact path="/app/verify-user/:token" component={VerifyUserContainer} />
               <Route exact path="/app/signup-complete" component={SignupCompleteContainer} />
               <Route exact path="/app/signup" component={SignupContainer} />
@@ -93,7 +93,7 @@ const AppRouter: FunctionComponent<AppRouterProps> = props => {
             </Switch>
           </div>
         </ConnectedRouter>
-      </div>
+      </>
     );
   } else if (auth.isAuthenticated && !profile.isLoaded) {
     return <LoadProfile />;
@@ -103,14 +103,14 @@ const AppRouter: FunctionComponent<AppRouterProps> = props => {
     return <ConfigureSocket />;
   }
   return (
-    <div>
+    <>
       <ConnectedRouter history={appHistory}>
-        <div>
+        <>
           <Header />
           <SideBarContainer />
           <div style={{ marginLeft: '220px' }}>
             <Switch>
-              <Route exact path="/app/login" component={LoginContainer} />
+              <Route exact path="/app/login" component={Login} />
               <Route exact path="/app/home" component={Home} />
               <Route exact path="/app/channels/add" component={ChannelAddContainer} />
               <Route
@@ -130,9 +130,9 @@ const AppRouter: FunctionComponent<AppRouterProps> = props => {
           <Notifier />
           <ChannelNotifier />
           <ChatNotificationContainer history={appHistory} />
-        </div>
+        </>
       </ConnectedRouter>
-    </div>
+    </>
   );
 };
 

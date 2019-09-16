@@ -1,14 +1,10 @@
 import React, { FunctionComponent, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { handleCheckAuthStatus } from './actions';
-import { ThunkDispatch } from 'redux-thunk';
 import { withStyles, createStyles, WithStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { RootState } from '../interfaces/rootState';
-import { AuthActions } from './interfaces/auth';
-import { compose } from 'redux';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -18,14 +14,13 @@ const styles = (theme: Theme) =>
       paddingTop: 'calc(50vh - 20px)',
     },
   });
-interface Props extends WithStyles<typeof styles> {
-  checkAuthStatus: () => void;
-}
+type Props = WithStyles<typeof styles>;
+
 const InitialCheckStatus: FunctionComponent<Props> = props => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    const { checkAuthStatus } = props;
     console.log('@InitialCheckStatus: start initial auth check');
-    checkAuthStatus();
+    dispatch(handleCheckAuthStatus());
   }, []);
   const { classes } = props;
   return (
@@ -37,18 +32,4 @@ const InitialCheckStatus: FunctionComponent<Props> = props => {
   );
 };
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, undefined, AuthActions>) => ({
-  checkAuthStatus() {
-    dispatch(handleCheckAuthStatus());
-  },
-});
-
-export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ),
-  withStyles(styles),
-)(InitialCheckStatus);
+export default withStyles(styles)(InitialCheckStatus);
